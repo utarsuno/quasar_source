@@ -11,6 +11,8 @@ DayInstance.prototype = {
         this.week_number = week_number;
         this.day_of_the_week = day_of_the_week;
         this.month_instance = month_instance_parent;
+
+        return this;
     },
 
     to_full_string: function() {

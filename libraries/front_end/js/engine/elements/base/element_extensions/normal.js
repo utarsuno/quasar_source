@@ -22,13 +22,9 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         this._cache_calculation_normals = undefined;
     },
 
-    is_relative_normal: function() {
-        return this._cache_calculation_normals == null;
-    },
-
     // For relative and absolute normal.
     get_normal: function() {
-        if (this.is_relative_normal()) {
+        if (this.is_relative()) {
             return this.attachment_parent.get_normal();
         }
         // To get relative forward:

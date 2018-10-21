@@ -9,7 +9,7 @@ $_QE.prototype.BooleanFlagsStatic = function(size, initialize_all_to_one=false){
 };
 
 Object.assign($_QE.prototype.BooleanFlagsStatic.prototype, {
-    constructor: $_QE.prototype.BooleanFlagsStatic,
+    //constructor: $_QE.prototype.BooleanFlagsStatic,
 
     enable_all: function() {
         let i;

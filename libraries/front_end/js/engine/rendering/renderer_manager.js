@@ -12,9 +12,11 @@ $_QE.prototype.RendererManager = function(engine) {
     this.client._fetch_window_dimensions();
 
     this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
-    this.renderer_dom = new $_QE.prototype.DomElement(this.renderer.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_CANVAS);
+    this.renderer_dom = new $_QE.prototype.DomElement().set_from_canvas(this.renderer.domElement);
+    //
     this.renderer_dom.set_id(GLOBAL_ID_CANVAS_MAIN);
     this.renderer_dom.append_to_document_body();
+    //
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
     this.renderer.setClearColor(0x252525);

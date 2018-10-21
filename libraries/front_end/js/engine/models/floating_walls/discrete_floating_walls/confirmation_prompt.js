@@ -17,6 +17,8 @@ ConfirmationPrompt.prototype = {
         this._get_confirmation_prompt = null;
         this._action_yes              = null;
         this._action_no               = null;
+
+        return this;
     },
 
     set_button: function(b) {

@@ -12,6 +12,7 @@ $_QE.prototype.get_heap_manager = function() {
         __init__: function(cache_type) {
             this._cache_type = cache_type;
             this._objects = [];
+            return this;
         },
         get_cached_object: function(args) {
             let c;
@@ -41,6 +42,7 @@ $_QE.prototype.get_heap_manager = function() {
 
             this._height = args[1];
             this._cache = new THREE.PlaneGeometry(this._width, this._height);
+            return this;
         },
         is_match: function(args) {
             return this._width === args[0] && this._height === args[1];
@@ -63,6 +65,7 @@ $_QE.prototype.get_heap_manager = function() {
                 this._cache.faceVertexUvs[0][1][2].x = this._ratio;
                 this._cache.uvsNeedUpdate = true;
             }
+            return this;
         },
         is_match: function(args) {
             return this._width === args[0] && this._height === args[1] && this._ratio === args[2];
@@ -70,6 +73,7 @@ $_QE.prototype.get_heap_manager = function() {
     };
 
     // ---------------------------------------- Texture2DCanvasCache ----------------------------------------
+    /*
     function Texture2DCanvasCache(args) {
         this.__init__(args);
     }
@@ -99,7 +103,7 @@ $_QE.prototype.get_heap_manager = function() {
             return this._width === args[0] && this._height === args[1] && this._text === args[2];
         }
     };
-
+    */
     // ---------------------------------------- SpritesheetShaderMaterialCache ----------------------------------------
     function SpritesheetShaderMaterialCache(args) {
         this.__init__(args);
@@ -111,6 +115,7 @@ $_QE.prototype.get_heap_manager = function() {
             this._material = QE.manager_icons.get_icon_material(this._icon);
             this._material.uniforms['color'].value = this._color;
             this._material.needsUpdate = true;
+            return this;
         },
         is_match: function(args) {
             return this._icon === args[0] && this._color === args[1];
@@ -127,6 +132,7 @@ $_QE.prototype.get_heap_manager = function() {
             this._material = new THREE.MeshToonMaterial({color: this._color});
             this._material.side = THREE.FrontSide;
             this._material.needsUpdate = true;
+            return this;
         },
         is_match: function(args) {
             return this._color === args[0];
@@ -144,9 +150,10 @@ $_QE.prototype.get_heap_manager = function() {
         __init__: function() {
             this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
             this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
-            this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
+            //this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
             this.cached_spritesheet_shader_materails = new CachedObjects(SpritesheetShaderMaterialCache);
             this.cached_text_3D_material = new CachedObjects(Text3DMaterialCache);
+            return this;
         },
 
         get_text_3D_material: function(color) {

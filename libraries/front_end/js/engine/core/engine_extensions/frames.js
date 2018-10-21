@@ -30,7 +30,7 @@ Object.assign($_QE.prototype, {
      |___ | \| \__> | | \| |___    \__/ |    |__/ /~~\  |  |___    |___ \__/ \__/ |    */
     _engine_loop: function() {
         requestAnimationFrame(this.engine_main_loop);
-        if (this.player.current_state !== PLAYER_STATE_PAUSED) {
+        if (this.player.current_state != PLAYER_STATE_PAUSED) {
             this._delta = this._delta_clock.getDelta();
             this._engine_elapsed_time_second  += this._delta;
             this._engine_elapsed_time_physics += this._delta;

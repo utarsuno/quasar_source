@@ -1,11 +1,11 @@
 'use strict';
 
 Object.assign($_QE.prototype.HUDManager.prototype, {
-    pause_background: new $_QE.prototype.DomElement(GLOBAL_ID_PAUSED_BACKGROUND_FILTER, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV),
-    pause_menu      : new $_QE.prototype.DomElement(GLOBAL_ID_PAUSE_DISPLAY, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV),
+    pause_background: new $_QE.prototype.DomElement().create_div_from_existing(GLOBAL_ID_PAUSED_BACKGROUND_FILTER),
+    pause_menu      : new $_QE.prototype.DomElement().create_div_from_existing(GLOBAL_ID_PAUSE_DISPLAY),
     //pause_menu.set_display_style('table'),
-    pause_title     : new $_QE.prototype.DomElementText(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H1),
-    pause_sub_title : new $_QE.prototype.DomElementText(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H5),
+    pause_title     : new $_QE.prototype.DomElementText().create_h1_from_existing(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE),
+    pause_sub_title : new $_QE.prototype.DomElementText().create_h5_from_existing(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE),
 
     show_error: function(title, sub_title) {
         this.set_pause_menu_title_and_sub_title(title, sub_title);

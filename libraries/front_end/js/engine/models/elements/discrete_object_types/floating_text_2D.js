@@ -19,6 +19,8 @@ FloatingText2D.prototype = {
         this.set_foreground_color(QE.COLOR_BLUE);
 
         this.initialize();
+
+        return this;
     }
 
 };

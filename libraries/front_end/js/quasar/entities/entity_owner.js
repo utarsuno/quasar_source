@@ -14,6 +14,8 @@ EntityOwner.prototype = {
         this.username     = username;
         this.password     = password;
         this.owner_entity = null;
+
+        return this;
     },
 
     logout: function() {

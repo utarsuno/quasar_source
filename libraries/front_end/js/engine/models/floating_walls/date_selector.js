@@ -67,6 +67,8 @@ DateSelector.prototype = {
         this.wall_date_selector.add_row(null).add_button([0, 1, false], 16, 'set to no value', this.date_selected.bind(this, NO_DATE_SELECTED), QE.COLOR_RED);
 
         this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
+
+        return this;
     },
 
     refresh_dates: function() {

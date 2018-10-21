@@ -8,12 +8,10 @@ function $_NL() {
 }
 
 $_NL.prototype = {
-    __init__: function() {
-        this.first_world_class = $_NL.prototype.WorldDevTools;
-        this.world_environment = $_NL.prototype.WorldEnvironment;
 
-        //
+    __init__: function() {
         this.websocket_message_parser = new $_NL.prototype.WebsocketMessageHandler();
+        return this;
     },
 
     parse_user_input_from_hud: function(user_input) {
@@ -36,5 +34,5 @@ $_NL.prototype = {
 };
 
 window.onload = function() {
-    QE = new $_QE(NL, $_NL);
+    QE = new $_QE(NL, $_NL, $_NL.prototype.WorldDevTools, $_NL.prototype.WorldEnvironment);
 };

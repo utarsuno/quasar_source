@@ -214,6 +214,126 @@ class JavascriptManager(object):
 
 		return loaded_javascript_file
 
+	def _add_js_file(self, path):
+		"""Adds a required JS file."""
+		if not path.endswith('.js'):
+			path += '.js'
+		self.js_files_needed.append(path)
+
+	def _add_display_caches(self, paths):
+		"""Utility function."""
+		for p in paths:
+			if p != '':
+				self._add_js_file('data_structures/display_cache/display_cache_' + p)
+			else:
+				self._add_js_file('data_structures/display_cache/display_cache.js')
+
+	def _add_boolean_flags(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('data_structures/boolean_flags/boolean_flags_' + p)
+
+	def _add_linked_lists(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('data_structures/linked_lists/' + p + '/linked_list_' + p)
+			self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p)
+
+	def _add_core(self, path):
+		"""Utility function."""
+		self._add_js_file('core/' + path)
+
+	def _add_core_extensions(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('core/engine_extensions/' + p)
+
+	def _add_client(self, path):
+		"""Utility function."""
+		self._add_js_file('client/' + path)
+
+	def _add_feature(self, path):
+		"""Utility function."""
+		self._add_js_file('inheritable_features/' + path)
+
+	def _add_static_feature(self, path):
+		"""Utility function."""
+		self._add_js_file('inheritable_features/static/' + path)
+
+	def _add_dynamic_feature(self, path):
+		"""Utility function."""
+		self._add_js_file('inheritable_features/dynamic/' + path)
+
+	def _add_dom_element(self, path):
+		"""Utility function."""
+		self._add_js_file('dom_elements/' + path)
+
+	def _add_hud(self, path):
+		"""Utility function."""
+		self._add_js_file('hud/' + path)
+
+	def _add_client(self, path):
+		"""Utility function."""
+		self._add_js_file('client/' + path)
+
+	def _add_client_extensions(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('client/extensions/' + p)
+
+	def _add_client_functionalities(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('client/functionality/' + p)
+
+	def _add_renderings(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('rendering/' + p)
+
+	def _add_players(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('player/' + p)
+
+	def _add_controls(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('controls/' + p)
+
+	def _add_worlds(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('worlds/' + p)
+
+	def _add_world_extensions(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('worlds/world/extensions/' + p)
+
+	def _add_elements(self, path):
+		"""Utility function."""
+		self._add_js_file('elements/' + path)
+
+	def _add_element_base(self, path):
+		"""Utility function."""
+		self._add_js_file('elements/base/' + path)
+
+	def _add_element_base_extensions(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('elements/base/element_extensions/' + p)
+
+	def _add_shaders(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('asset_management/shaders/' + p)
+
+	def _add_asset_managements(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('asset_management/' + p)
+
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
 		self.js = CodeDirectory('/quasar/libraries/front_end/js/engine', base_directory=True)
@@ -221,158 +341,96 @@ class JavascriptManager(object):
 		self.js.add_extension_to_match('.js')
 
 		# Main engine.
-		self.js_files_needed.append('core/engine.js')
+		self._add_js_file('core/engine')
 
-		# TODO: Fully test but believe these files should be next due to prototype adjustments.
 		# Data structures.
-		self.js_files_needed.append('data_structures/boolean_flags/boolean_flags.js')
-		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node.js')
-		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_interactive.js')
-		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row_element.js')
-		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_base.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_interactive.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_row_elements.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_rows.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache_engine.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache_fps.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache_memory.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache_normal.js')
-		self.js_files_needed.append('data_structures/display_cache/display_cache_position.js')
+		self._add_boolean_flags(['dynamic', 'static'])
+		self._add_display_caches(['', 'engine', 'fps', 'memory', 'normal', 'position'])
+		self._add_linked_lists(['base', 'interactive', 'row', 'row_element'])
 
 		# Engine extensions.
-		self.js_files_needed.append('core/engine_extensions/colors.js')
-		self.js_files_needed.append('core/engine_extensions/math.js')
-		self.js_files_needed.append('core/engine_extensions/cache.js')
-		self.js_files_needed.append('core/engine_extensions/fonts.js')
-		self.js_files_needed.append('core/engine_extensions/frames.js')
-		self.js_files_needed.append('core/engine_extensions/settings.js')
-		self.js_files_needed.append('core/engine_extensions/errors.js')
-		self.js_files_needed.append('core/heap_manager.js')
+		self._add_core_extensions(['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'settings'])
+		self._add_core('heap_manager')
 
+		# Font. (TODO: Move).
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
-		# Common features.
-		self.js_files_needed.append('common_inheritable_features/text/feature_text.js')
-		self.js_files_needed.append('common_inheritable_features/text/feature_typing.js')
-		self.js_files_needed.append('common_inheritable_features/text/lines/feature_line.js')
-		self.js_files_needed.append('common_inheritable_features/text/lines/feature_lines.js')
+		# Features/extensions.
+		self._add_static_feature('text/feature_text')
+		self._add_static_feature('text/feature_typing')
+		self._add_static_feature('text/lines/feature_line')
+		self._add_static_feature('three_js_abstractions/feature_geometry')
+		self._add_static_feature('three_js_abstractions/feature_material')
+		self._add_static_feature('three_js_abstractions/feature_mesh')
+		self._add_static_feature('feature_color')
+		self._add_static_feature('feature_size')
 
-		# HTML_GUI.
-		self.js_files_needed.append('dom_elements/dom_element.js')
-		self.js_files_needed.append('dom_elements/dom_element_canvas.js')
-		self.js_files_needed.append('dom_elements/dom_element_text.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/canvas_texture.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/canvas_gui_2d.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering_icon.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering_text_line.js')
-		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering_text_lines.js')
+		self._add_dynamic_feature('attachments/feature_row')
+		self._add_dynamic_feature('attachments/feature_title_bar')
+		self._add_dynamic_feature('interactions/feature_button')
+		self._add_dynamic_feature('interactions/feature_interactive')
+		self._add_dynamic_feature('mouse_actions/feature_mouse_move')
+		self._add_dynamic_feature('mouse_actions/feature_mouse_scale')
+
+		# ----------------------------------------------------------------------------------------------------------------
+		self._add_element_base('element')
+		self._add_element_base_extensions(['meta_data'])
+		self._add_element_base('floating_element')
+		self._add_element_base_extensions(['attachment', 'normal', 'position', 'visibility'])
+		self._add_element_base('wall/wall_abstraction')
+		self._add_element_base('wall/floating_wall')
+		self._add_elements('discrete/confirmation_prompt')
+		self._add_elements('discrete/icon')
+		self._add_elements('discrete/text_3d')
+		self._add_elements('environment/hexagon_grid')
+		self._add_elements('environment/light_ambient')
+		self._add_elements('environment/light_point')
+		# ----------------------------------------------------------------------------------------------------------------
+
+		# DOM element abstraction.
+		self._add_dom_element('pre_process')
+		self._add_dom_element('base/dom_element')
+		self._add_dom_element('text/dom_element_text')
+		self._add_dom_element('canvas/dom_element_canvas')
+		self._add_dom_element('canvas/rendering/canvas_rendering_text_line')
+		self._add_dom_element('canvas/rendering/canvas_rendering_text_lines')
+		self._add_dom_element('canvas/rendering/line_of_text')
+		self._add_dom_element('canvas/rendering/visible_row')
 
 		# HUD.
-		self.js_files_needed.append('hud/manager/hud_manager.js')
-		self.js_files_needed.append('hud/manager/extensions/pause_menu.js')
-
-		self.js_files_needed.append('hud/debug_information.js')
-		self.js_files_needed.append('hud/message_logs.js')
-		self.js_files_needed.append('hud/player_typing_input.js')
+		self._add_hud('manager/hud_manager')
+		self._add_hud('manager/extensions/pause_menu')
+		self._add_hud('hud_debug')
+		self._add_hud('hud_logs')
+		self._add_hud('hud_user_typing')
 
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
 		self.js_files_needed.append('global/global_pre_process.js')
 
 		# Client class.
-		self.js_files_needed.append('client/client.js')
-		self.js_files_needed.append('client/extensions/features.js')
-		self.js_files_needed.append('client/extensions/cookies.js')
-		self.js_files_needed.append('client/extensions/event_window_resize.js')
-		self.js_files_needed.append('client/functionality/window_focus.js')
-		self.js_files_needed.append('client/functionality/full_screen.js')
-		self.js_files_needed.append('client/functionality/pointer_lock.js')
+		self._add_client('client')
+		self._add_client_extensions(['features', 'cookies', 'event_window_resize'])
+		self._add_client_functionalities(['full_screen', 'pointer_lock'])
 
 		# Loading and assets.
 
 		# Rendering manager.
-		self.js_files_needed.append('rendering/renderer_manager.js')
-		self.js_files_needed.append('rendering/outline_glow.js')
-		self.js_files_needed.append('rendering/film_pass.js')
+		self._add_renderings(['renderer_manager', 'outline_glow', 'film_pass'])
 
 		# Player.
-		self.js_files_needed.append('player/player.js')
-		self.js_files_needed.append('player/player_state.js')
-		self.js_files_needed.append('player/player_cursor.js')
+		self._add_players(['player', 'player_state', 'player_cursor'])
 
 		# Controls.
-		self.js_files_needed.append('controls/fps_controls.js')
-		self.js_files_needed.append('controls/mouse_controls.js')
-		self.js_files_needed.append('controls/input_manager.js')
+		self._add_controls(['fps_controls', 'mouse_controls', 'input_manager'])
 
 		# Worlds.
-		self.js_files_needed.append('worlds/world_abstracts/world_base.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_input.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_state.js')
-
-		self.js_files_needed.append('worlds/world_abstracts/extensions/elements.js')
-		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_interactive.js')
-		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_root.js')
-		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_tab_target.js')
-
-		self.js_files_needed.append('worlds/world_manager/world_manager.js')
-		self.js_files_needed.append('worlds/world_manager/extensions/input.js')
-
-		# ----------------------------------------------------------------------------------------------------------------
-		self.js_files_needed.append('elements/base/element_features.js')
-		self.js_files_needed.append('elements/base/element.js')
-		self.js_files_needed.append('elements/base/floating_element.js')
-
-		self.js_files_needed.append('elements/base/wall/wall_abstraction.js')
-		self.js_files_needed.append('elements/base/wall/floating_wall.js')
-
-		self.js_files_needed.append('elements/inheritable_features/feature_singleton.js')
-		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
-
-		self.js_files_needed.append('elements/inheritable_features/attachments/feature_attachment.js')
-		self.js_files_needed.append('elements/inheritable_features/attachments/feature_row.js')
-		self.js_files_needed.append('elements/inheritable_features/attachments/feature_title_bar.js')
-
-		self.js_files_needed.append('elements/inheritable_features/interactions/feature_button.js')
-		self.js_files_needed.append('elements/inheritable_features/interactions/feature_interactive.js')
-		self.js_files_needed.append('elements/inheritable_features/interactions/feature_tab_target.js')
-
-		self.js_files_needed.append('elements/inheritable_features/visuals/feature_color.js')
-		self.js_files_needed.append('elements/inheritable_features/visuals/feature_visibility.js')
-
-		self.js_files_needed.append('elements/inheritable_features/physics/feature_size.js')
-		self.js_files_needed.append('elements/inheritable_features/physics/feature_position.js')
-		self.js_files_needed.append('elements/inheritable_features/physics/feature_relative_position.js')
-		self.js_files_needed.append('elements/inheritable_features/physics/feature_normal.js')
-		self.js_files_needed.append('elements/inheritable_features/physics/feature_relative_normal.js')
-
-		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_geometry.js')
-		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_material.js')
-		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_mesh.js')
-
-		self.js_files_needed.append('elements/environment/hexagon_grid.js')
-		self.js_files_needed.append('elements/environment/light_ambient.js')
-		self.js_files_needed.append('elements/environment/light_point.js')
-
-		self.js_files_needed.append('elements/discrete/text_3d.js')
-		self.js_files_needed.append('elements/discrete/icon.js')
-		self.js_files_needed.append('elements/discrete/confirmation_prompt.js')
-		# ----------------------------------------------------------------------------------------------------------------
+		self._add_worlds(['world/world_base', 'world_manager/world_manager', 'world_manager/extensions/input', 'world_manager/extensions/singletons'])
+		self._add_world_extensions(['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'input', 'state'])
 
 		# Asset Managers.
-		self.js_files_needed.append('asset_management/shaders/pre_process.js')
-		self.js_files_needed.append('asset_management/shaders/shader_material_abstraction.js')
-		self.js_files_needed.append('asset_management/shaders/shader_material_noise.js')
-		self.js_files_needed.append('asset_management/shaders/shader_material_spritesheet.js')
-		self.js_files_needed.append('asset_management/shaders/shader_material_transition.js')
-
-		self.js_files_needed.append('asset_management/asset_manager.js')
-		self.js_files_needed.append('asset_management/asset_batch.js')
-		self.js_files_needed.append('asset_management/asset_file.js')
-		self.js_files_needed.append('asset_management/icon_manager.js')
+		self._add_shaders(['pre_process', 'shader_material_abstraction', 'shader_material_noise', 'shader_material_spritesheet', 'shader_material_transition'])
+		self._add_asset_managements(['asset_manager', 'asset_batch', 'asset_file', 'icon_manager'])
 
 		# Websockets.
 		self.js_files_needed.append('web_sockets/web_socket_manager.js')

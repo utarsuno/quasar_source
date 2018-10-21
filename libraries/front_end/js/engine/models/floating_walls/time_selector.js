@@ -48,6 +48,8 @@ TimeSelector.prototype = {
 
         this.wall_time_selector.add_row(null).add_button([0, 1, false], 16, 'set to no value', this.time_selected.bind(this, null, null), QE.COLOR_RED);
         this.wall_time_selector.add_row(null).add_button([0, 1, false], 16, 'set time', this.time_selected.bind(this, this.hour, this.minute), QE.COLOR_GREEN);
+
+        return this;
     },
 
     refresh_time_selector: function() {

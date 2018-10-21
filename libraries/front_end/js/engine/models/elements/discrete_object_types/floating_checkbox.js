@@ -34,6 +34,8 @@ FloatingCheckBox.prototype = {
             this.set_checked_state(false);
         }
         this.set_engage_function(this.clicked_on.bind(this));
+
+        return this;
     },
 
     create_base_material: function() {

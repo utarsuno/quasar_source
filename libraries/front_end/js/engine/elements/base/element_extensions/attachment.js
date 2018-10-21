@@ -4,11 +4,8 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     attachments      : [],
     attachment_parent: null,
 
-    get_attachment_element: function() {
-        if (this.group != null) {
-            return this.group;
-        }
-        return this.element;
+    is_relative: function() {
+        return this.attachment_parent != null;
     },
 
     attach_to: function(parent) {
@@ -36,7 +33,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         if (create) {
             attachment.create();
         }
-        this.group.add(attachment.get_attachment_element());
+        this.group.add(attachment.get_object());
     },
 
     /*__   ___ ___ ___  ___  __   __

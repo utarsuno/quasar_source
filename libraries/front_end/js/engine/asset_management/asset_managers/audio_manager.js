@@ -33,6 +33,7 @@ ManagerManager.prototype.set_audio_manager = function() {
             MANAGER_RENDERER.camera.add(this.audio_listener);
 
             this._all_audio = [];
+            return this;
         },
 
         // Important reference : https://imgur.com/gallery/J6WA6eo

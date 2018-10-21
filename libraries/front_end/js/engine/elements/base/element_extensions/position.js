@@ -25,15 +25,11 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         this._cache_previous_position_center_look_at_z = undefined;
     },
 
-    is_relative_position: function() {
-        return this.position_offsets != null;
-    },
-
     // For both relative and absolute positions.
 
 
     get_world_position: function() {
-        if (this.is_relative_position()) {
+        if (this.is_relative()) {
             // TEMP:
             this.mesh.geometry.computeBoundingBox();
             let box = this.mesh.geometry.boundingBox;
@@ -133,9 +129,9 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             this.position_offsets[5] = distance;
         }
         if (this.group != null) {
-            this.group.position.y = this.parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
         } else {
-            this.mesh.position.y  = this.parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            this.mesh.position.y  = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
         }
         this._set_position_needs_update();
     },

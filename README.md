@@ -2,8 +2,8 @@
 
 ##### TODO: Technical documentation + product explination.
 
-#### Development Screenshots:
-
+#### Development Screenshots (Out-dated):
+TODO: add newer screenshots
 ![alt_text](https://i.imgur.com/839NKO1.jpg)
 (mobile support added)
 ---

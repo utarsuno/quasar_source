@@ -11,6 +11,8 @@ MonthInstance.prototype = {
         YearIdentifier.call(this, year_identifier);
 
         this.day_instances = [];
+
+        return this;
     },
 
     /*     __   __       ___  ___  __   __

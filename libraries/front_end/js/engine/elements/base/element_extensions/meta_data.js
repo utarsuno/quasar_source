@@ -11,36 +11,44 @@ const EFLAG_CACHEABLE_GEOMETERY            = 'f5';  // #pre-process_global_const
 const EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK = 'f6';  // #pre-process_global_constant
 const EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT = 'f7';  // #pre-process_global_constant
 
+// Flags.
+const EFLAG_ENGABLE                        = 'f8';  // #pre-process_global_constant
+const EFLAG_CLICKABLE                      = 'f9';  // #pre-process_global_constant
+
+const EFLAG_IS_BASE                        = 'f10'; // #pre-process_global_constant
+const EFLAG_IS_ROOT                        = 'f11'; // #pre-process_global_constant
+const EFLAG_IS_ROW_ELEMENT                 = 'f12'; // #pre-process_global_constant
+const EFLAG_IS_SINGLETON                   = 'f13'; // #pre-process_global_constant
+
+const EFLAG_FORMAT_X_START                 = 'f14'; // #pre-process_global_constant
+const EFLAG_FORMAT_X_CENTER                = 'f15'; // #pre-process_global_constant
+const EFLAG_FORMAT_X_END                   = 'f16'; // #pre-process_global_constant
+
+// Mouse actions.
+const EFLAG_MOUSE_MOVEABLE                 = 'f17'; // #pre-process_global_constant
+const EFLAG_MOUSE_SCALEABLE                = 'f18'; // #pre-process_global_constant
+
 // States.
-const EFLAG_IS_BASE                        = 'f8';  // #pre-process_global_constant
-const EFLAG_IS_ROOT                        = 'f9';  // #pre-process_global_constant
-const EFLAG_IS_ROW_ELEMENT                 = 'f10'; // #pre-process_global_constant
+const EFLAG_ENGAGED                        = 'f19'; // #pre-process_global_constant
+const EFLAG_CREATED                        = 'f20'; // #pre-process_global_constant
+const EFLAG_VISIBLE                        = 'f21'; // #pre-process_global_constant
+
+const EFLAG_UPDATE_POSITION                = 'f22'; // #pre-process_global_constant
+const EFLAG_UPDATE_NORMAL                  = 'f23'; // #pre-process_global_constant
+const EFLAG_UPDATE_CHILD                   = 'f24'; // #pre-process_global_constant
+const EFLAG_UPDATE_COLOR                   = 'f25'; // #pre-process_global_constant
+
+// 'External' states.
+const EFLAG_IN_WORLD                       = 'f26'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_ROOT               = 'f27'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f28'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_SINGLETON          = 'f29'; // #pre-process_global_constant
 
 //
 // flag has children
 // flag has parent
 //
 
-const EFLAG_ENGABLE                        = 'f11'; // #pre-process_global_constant
-const EFLAG_CLICKABLE                      = 'f12'; // #pre-process_global_constant
-const EFLAG_ENGAGED                        = 'f13'; // #pre-process_global_constant
-const EFLAG_UPDATE_POSITION                = 'f14'; // #pre-process_global_constant
-const EFLAG_UPDATE_NORMAL                  = 'f15'; // #pre-process_global_constant
-const EFLAG_UPDATE_CHILD                   = 'f16'; // #pre-process_global_constant
-const EFLAG_UPDATE_COLOR                   = 'f17'; // #pre-process_global_constant
-const EFLAG_FORMAT_X_START                 = 'f18'; // #pre-process_global_constant
-const EFLAG_FORMAT_X_CENTER                = 'f19'; // #pre-process_global_constant
-const EFLAG_FORMAT_X_END                   = 'f20'; // #pre-process_global_constant
-const EFLAG_CREATED                        = 'f21'; // #pre-process_global_constant
-
-// Mouse actions.
-const EFLAG_MOUSE_MOVEABLE                 = 'f22'; // #pre-process_global_constant
-const EFLAG_MOUSE_SCALEABLE                = 'f23'; // #pre-process_global_constant
-
-// 'External' states.
-const EFLAG_IN_WORLD                       = 'f24'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_ROOT               = 'f25'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f26'; // #pre-process_global_constant
 
 // Events.
 const ELEMENT_EVENT_ON_LOOK_AT             = 'e0';  // #pre-process_global_constant
@@ -57,8 +65,8 @@ const ELEMENT_EVENT_ON_NODE_UPDATE         = 'e10'; // #pre-process_global_const
 const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_constant
 
 
-Object.assign($_QE.prototype.FloatingElement.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
-    events: {},
+Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
+    _events: {},
 
     set_event: function(event_key, event_function) {
         if (event_key in this._events) {

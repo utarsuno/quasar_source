@@ -1,10 +1,6 @@
 'use strict';
 
 ///
-const MESSAGE_EVENT_SET_TO_BUTTON = 'e0'; // #pre-process_global_constant
-///
-
-///
 const GLOBAL_ID_PAUSED_BACKGROUND_FILTER     = 'a'; // #pre-process_global_constant
 const GLOBAL_ID_PAUSE_DISPLAY                = 'b'; // #pre-process_global_constant
 const GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE     = 'c'; // #pre-process_global_constant
@@ -13,8 +9,6 @@ const GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE = 'd'; // #pre-process_global_const
 const GLOBAL_ID_CURSOR_DEFAULT               = 'f'; // #pre-process_global_constant
 const GLOBAL_ID_CURSOR_ICON                  = 'g'; // #pre-process_global_constant
 
-const GLOBAL_ID_GUI_CANVAS                   = 'i'; // #pre-process_global_constant
-const GLOBAL_ID_OUTLINE_GREEN                = 'j'; // #pre-process_global_constant
 const GLOBAL_ID_CANVAS_MAIN                  = 'k'; // #pre-process_global_constant
 
 const GLOBAL_ID_HUD_DEBUG                    = 'l'; // #pre-process_global_constant
@@ -35,19 +29,6 @@ const FEATURE_MATERIAL_CANVAS_FANCY = 3; // #pre-process_global_constant
 const FEATURE_MATERIAL_CANVAS_SHINY = 4; // #pre-process_global_constant
 
 const FEATURE_MESH_TYPE_DEFAULT = 0; // #pre-process_global_constant
-
-const DOM_ELEMENT_CANVAS = 'canvas'; // #pre-process_global_constant
-const DOM_ELEMENT_DIV    = 'div';    // #pre-process_global_constant
-const DOM_ELEMENT_H1     = 'h1';     // #pre-process_global_constant
-const DOM_ELEMENT_H2     = 'h2';     // #pre-process_global_constant
-const DOM_ELEMENT_H3     = 'h3';     // #pre-process_global_constant
-const DOM_ELEMENT_H4     = 'h4';     // #pre-process_global_constant
-const DOM_ELEMENT_H5     = 'h5';     // #pre-process_global_constant
-
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS = 0; // #pre-process_global_constant
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE    = 1; // #pre-process_global_constant
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT        = 2; // #pre-process_global_constant
-
 
 
 // Key-down key-codes.
@@ -109,9 +90,6 @@ const CLICK_RIGHT  = 3;                    // #pre-process_global_constant
 const CANVAS_RENDERING_ROWS            = 0;     // #pre-process_global_constant
 const CANVAS_RENDERING_SINGLE          = 1;     // #pre-process_global_constant
 const CANVAS_RENDERING_ICON            = 2;     // #pre-process_global_constant
-
-const CANVAS_GUI_2D_ABSOLUTE_PIXELS    = true;  // #pre-process_global_constant
-const CANVAS_GUI_2D_RELATIVE_TO_SCREEN = false; // #pre-process_global_constant
 
 const CANVAS_MATERIAL_STYLE_BASIC      = 0;     // #pre-process_global_constant
 const CANVAS_MATERIAL_STYLE_FANCY      = 1;     // #pre-process_global_constant

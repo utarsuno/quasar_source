@@ -5,10 +5,12 @@ THREE.Cache.enabled = true;
 // Other Three.js defaults to adjust.
 THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
-function $_QE(application, application_class) {
-    this.engine_main_loop = this._engine_loop.bind(this);
-    this.manager_hud      = new $_QE.prototype.HUDManager(this);
-    this.client           = new $_QE.prototype.Client(this);
+function $_QE(application, application_class, first_world, world_environment) {
+    this.engine_main_loop  = this._engine_loop.bind(this);
+    this.manager_hud       = new $_QE.prototype.HUDManager(this);
+    this.client            = new $_QE.prototype.Client(this);
+    this.first_world_class = first_world;
+    this.world_environment = world_environment;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
     if (this.client.are_required_features_enabled()) {

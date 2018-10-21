@@ -15,6 +15,8 @@ EntityManager.prototype = {
         this.highest_deleted_relative_id = -1;
         // Hold a list of all objects that require entity change notifications.
         EntityChangesListener.call(this);
+
+        return this;
     },
 
     logout: function() {

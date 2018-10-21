@@ -55,8 +55,10 @@ module.exports = {
         "EFLAG_IS_BASE"                       : false,
         "EFLAG_IS_ROOT"                       : false,
         "EFLAG_IS_ROW_ELEMENT"                : false,
+        "EFLAG_IS_SINGLETON"                  : false,
         "EFLAG_CREATED"                       : false,
         "EFLAG_ENGABLE"                       : false,
+        "EFLAG_VISIBLE"                       : false,
         "EFLAG_CLICKABLE"                     : false,
         "EFLAG_ENGAGED"                       : false,
         "EFLAG_UPDATE_POSITION"               : false,
@@ -71,6 +73,7 @@ module.exports = {
         "EFLAG_IN_WORLD"                      : false,
         "EFLAG_IN_ELEMENTS_ROOT"              : false,
         "EFLAG_IN_ELEMENTS_INTERACTIVE"       : false,
+        "EFLAG_IN_ELEMENTS_SINGLETON"         : false,
         "ELEMENT_EVENT_ON_LOOK_AT"            : false,
         "ELEMENT_EVENT_ON_LOOK_AWAY"          : false,
         "ELEMENT_EVENT_ON_ENGAGE"             : false,
@@ -86,10 +89,6 @@ module.exports = {
         //
 
         //
-        "MESSAGE_EVENT_SET_TO_BUTTON": false,
-        //
-
-        //
         "CLICK_LEFT"      : false,
         "CLICK_MIDDLE"    : false,
         "CLICK_RIGHT"     : false,
@@ -99,15 +98,10 @@ module.exports = {
         "GLOBAL_ID_PAUSE_DISPLAY"               : false,
         "GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE"    : false,
         "GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE": false,
-
         "GLOBAL_ID_CURSOR_CENTER"               : false,
         "GLOBAL_ID_CURSOR_DEFAULT"              : false,
         "GLOBAL_ID_CURSOR_ICON"                 : false,
-
-        "GLOBAL_ID_GUI_CANVAS"                  : false,
-        "GLOBAL_ID_OUTLINE_GREEN"               : false,
         "GLOBAL_ID_CANVAS_MAIN"                 : false,
-
         "GLOBAL_ID_HUD_DEBUG"                   : false,
         "GLOBAL_ID_HUD_TYPING"                  : false,
         "GLOBAL_ID_HUD_CHAT"                    : false,
@@ -145,13 +139,9 @@ module.exports = {
         "DOM_ELEMENT_H4"    : false,
         "DOM_ELEMENT_H5"    : false,
 
-        "DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS"     : false,
-        "DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE"        : false,
-        "DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT"            : false,
-        "DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT_ADD_TO_BODY": false,
-
-        "CANVAS_GUI_2D_ABSOLUTE_PIXELS"   : false,
-        "CANVAS_GUI_2D_RELATIVE_TO_SCREEN": false,
+        "DOM_ELEMENT_INSTANCE_EXISTS"     : false,
+        "DOM_ELEMENT_INSTANCE_DNE"        : false,
+        "DOM_ELEMENT_INSTANCE_PROVIDED"   : false,
 
         "THREE": false,
 

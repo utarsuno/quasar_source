@@ -26,6 +26,8 @@ FloatingWall.prototype = {
         this.add_save_field(ENTITY_PROPERTY_NORMAL);
         this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
         this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
+
+        return this;
     },
 
     auto_adjust_height_if_needed: function() {

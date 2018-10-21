@@ -17,6 +17,8 @@ FloatingInput2D.prototype = {
         this.initialize();
 
         this.has_input_state = false;
+
+        return this;
     },
 
     add_input_state: function() {
