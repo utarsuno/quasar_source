@@ -358,7 +358,6 @@ class JavascriptManager(object):
 		# Features/extensions.
 		self._add_static_feature('text/feature_text')
 		self._add_static_feature('text/feature_typing')
-		self._add_static_feature('text/lines/feature_line')
 		self._add_static_feature('three_js_abstractions/feature_geometry')
 		self._add_static_feature('three_js_abstractions/feature_material')
 		self._add_static_feature('three_js_abstractions/feature_mesh')
@@ -392,7 +391,6 @@ class JavascriptManager(object):
 		self._add_dom_element('base/dom_element')
 		self._add_dom_element('text/dom_element_text')
 		self._add_dom_element('canvas/dom_element_canvas')
-		self._add_dom_element('canvas/rendering/canvas_rendering_text_line')
 		self._add_dom_element('canvas/rendering/canvas_rendering_text_lines')
 		self._add_dom_element('canvas/rendering/line_of_text')
 		self._add_dom_element('canvas/rendering/visible_row')
