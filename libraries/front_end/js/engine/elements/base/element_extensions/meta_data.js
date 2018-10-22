@@ -32,17 +32,18 @@ const EFLAG_MOUSE_SCALEABLE                = 'f18'; // #pre-process_global_const
 const EFLAG_ENGAGED                        = 'f19'; // #pre-process_global_constant
 const EFLAG_CREATED                        = 'f20'; // #pre-process_global_constant
 const EFLAG_VISIBLE                        = 'f21'; // #pre-process_global_constant
+const EFLAG_BEING_LOOKED_AT                = 'f22'; // #pre-process_global_constant
 
-const EFLAG_UPDATE_POSITION                = 'f22'; // #pre-process_global_constant
-const EFLAG_UPDATE_NORMAL                  = 'f23'; // #pre-process_global_constant
-const EFLAG_UPDATE_CHILD                   = 'f24'; // #pre-process_global_constant
-const EFLAG_UPDATE_COLOR                   = 'f25'; // #pre-process_global_constant
+const EFLAG_UPDATE_POSITION                = 'f23'; // #pre-process_global_constant
+const EFLAG_UPDATE_NORMAL                  = 'f24'; // #pre-process_global_constant
+const EFLAG_UPDATE_CHILD                   = 'f25'; // #pre-process_global_constant
+const EFLAG_UPDATE_COLOR                   = 'f26'; // #pre-process_global_constant
 
 // 'External' states.
-const EFLAG_IN_WORLD                       = 'f26'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_ROOT               = 'f27'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f28'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_SINGLETON          = 'f29'; // #pre-process_global_constant
+const EFLAG_IN_WORLD                       = 'f27'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_ROOT               = 'f28'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f29'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_SINGLETON          = 'f30'; // #pre-process_global_constant
 
 //
 // flag has children
@@ -66,7 +67,12 @@ const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_const
 
 
 Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
-    _events: {},
+    //_events: {},
+
+    initialize_events_and_flags: function() {
+        this._events = {};
+        this.initialize_flags();
+    },
 
     set_event: function(event_key, event_function) {
         if (event_key in this._events) {

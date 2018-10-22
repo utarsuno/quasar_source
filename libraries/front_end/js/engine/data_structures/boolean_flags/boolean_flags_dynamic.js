@@ -4,7 +4,11 @@ $_QE.prototype.BooleanFlagsDynamic = function() {};
 
 Object.assign($_QE.prototype.BooleanFlagsDynamic.prototype, {
 
-    _flags: {},
+    //_flags: {},
+
+    initialize_flags: function() {
+        this._flags = {};
+    },
 
     set_flag: function(flag, value=true) {
         this._flags[flag] = value;

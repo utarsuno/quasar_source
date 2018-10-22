@@ -16,7 +16,15 @@ Object.assign(
             this.rows[0].set_text('Nexus Local!');
 
             return this;
-        }
+        },
+
+        add_message: function(message) {
+            let r;
+            for (r = this.rows.length - 2; r > -1; r--) {
+                this.rows[r + 1].set_text(this.rows[r].text);
+            }
+            this.rows[0].set_text(message);
+        },
     }
 
 );

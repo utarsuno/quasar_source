@@ -1,8 +1,6 @@
 'use strict';
 
-$_QE.prototype.HUDDebug = function(engine) {
-    //this.__init__(engine);
-};
+$_QE.prototype.HUDDebug = function() {};
 
 Object.assign(
     $_QE.prototype.HUDDebug.prototype,

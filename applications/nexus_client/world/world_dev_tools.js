@@ -1,7 +1,7 @@
 'use strict';
 
 $_NL.prototype.WorldDevTools = function(player) {
-    this.player = player;
+    this.init_world(player);
     this.set_world_enter_default_position(new THREE.Vector3(-34.79899682521624, 557.3571839639006, 1802.99541871182));
     this.set_world_enter_default_normal(new THREE.Vector3(0.005015558927525423, -0.16165647877160208, -0.9868343463012478));
 };

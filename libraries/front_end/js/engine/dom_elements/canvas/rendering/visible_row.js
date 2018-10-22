@@ -5,11 +5,10 @@ $_QE.prototype.VisibleRow = function(row_number, container) {
     this.container  = container;
     this.font       = container.font;
     this.y_start    = container.height - (row_number * this.font.height);
+    this.text       = '';
 };
 
 $_QE.prototype.VisibleRow.prototype = {
-
-    text: '',
 
     // Temporary.
     set_text: function(t) {

@@ -15,15 +15,7 @@ $_NL.prototype = {
     },
 
     parse_user_input_from_hud: function(user_input) {
-        l('TODO: parse user input!');
-        l('user input was {' + user_input + '}');
-        /*
-            if (text.startsWith('>')) {
-                this.websocket_message_parser.send_request_cmd(text.substring(1));
-            } else {
-                this.websocket_message_parser.send_request_chat(text);
-            }
-         */
+        this.websocket_message_parser.parse_user_input_from_hud(user_input);
     },
 
     engine_started: function() {

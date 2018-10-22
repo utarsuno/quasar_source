@@ -2,14 +2,14 @@
 
 $_QE.prototype.World = function(player) {
     this.player = player;
+    this.scene  = new THREE.Scene();
 };
 
 Object.assign($_QE.prototype.World.prototype, {
-    scene: new THREE.Scene(),
 
-    _create_element: function(element) {
-        element.create();
-        element.set_flag(EFLAG_CREATED, true);
+    init_world: function(player) {
+        this.player = player;
+        this.scene  = new THREE.Scene();
     },
 
     _refresh_element: function(element) {
@@ -20,10 +20,6 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     create_and_add_element_to_root: function(element) {
-        l('CREATE AND ADD ELEMENT FOR');
-        l(element);
-
-
         element.world = this;
         this.add_element_root(element);
         //this.check_if_element_needs_interactive(element);
@@ -34,30 +30,28 @@ Object.assign($_QE.prototype.World.prototype, {
         this._refresh_element(element);
     },
 
-    add_element: function(element, create=false) {
-        //this._remove_element_if_needed(element);
-
+    add_element: function(element, create=false, trigger_event=false) {
         if (element.get_flag(EFLAG_IN_WORLD)) {
-            l('ERROR ELEMENT ALREADY IN WORLD?');
-            l(element);
-            l(this);
-            l(element.get_flag(EFLAG_IN_WORLD));
-            l(element.world);
-        } else {
-            l('not yet in world!');
+            QE.log_warning('Element already in world?', element);
         }
 
         element.world = this;
-        //element.set_flag(EFLAG_IN_WORLD, true);
+        element.set_flag(EFLAG_IN_WORLD, true);
         this.check_if_element_needs_interactive(element);
         this.check_if_element_needs_root(element);
         this.scene.add(element.get_object());
-        element.trigger_event(ELEMENT_EVENT_ON_WORLD_ENTER);
+        if (trigger_event) {
+            element.trigger_event(ELEMENT_EVENT_ON_WORLD_ENTER);
+        }
     },
 
-    //add_to_scene: function(object) {
-    //    this.scene.add(object);
-    //},
+    add_object_to_scene: function(object) {
+        this.scene.add(object);
+    },
+
+    remove_object_from_scene: function(object) {
+        this.scene.remove(object);
+    },
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)

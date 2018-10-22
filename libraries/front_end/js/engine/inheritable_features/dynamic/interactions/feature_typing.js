@@ -5,6 +5,10 @@ $_QE.prototype.FeatureTyping = function(on_enter) {
     this.feature_typing    = true;
     this.callback_on_enter = on_enter;
 
+    if (this.set_flag != null) {
+        this.set_flag(EFLAG_TYPING, true);
+    }
+
     // TODO: HANDLE REMOVING THIS!
     //$_QE.prototype.FeatureText.call(this, text, on_value_pre_changed, on_value_post_changed);
 

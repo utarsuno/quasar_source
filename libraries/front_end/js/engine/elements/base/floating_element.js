@@ -67,14 +67,6 @@ Object.assign(
             //}
         },
 
-        _remove_from_scene: function() {
-            if (this.group != null) {
-                this.group.remove(this.mesh);
-            } else {
-                this.world.remove_from_scene(this.mesh);
-            }
-        },
-
         _remove_from_root: function() {
             if (this.get_flag(EFLAG_IN_ELEMENTS_ROOT)) {
                 this.world.remove_from_elements_root(this);
@@ -120,10 +112,52 @@ Object.assign(
         },
 
         refresh: function() {
+            this.get_object().updateMatrix();
+        },
+
+        set_to_looked_at: function() {
+            this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = true;
+            this.set_flag(EFLAG_BEING_LOOKED_AT, true);
+            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
+                QE.manager_renderer.outline_glow.set_hover_object(this.get_object());
+            }
+        },
+
+        set_to_looked_away: function() {
+            this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = false;
+            this.set_flag(EFLAG_BEING_LOOKED_AT, false);
+            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
+                QE.manager_renderer.outline_glow.remove_hover_object(this.get_object());
+            }
+        },
+
+        set_to_engaged: function() {
+            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
+                QE.manager_renderer.outline_glow.set_to_engage_color();
+            }
+            this.set_flag(EFLAG_ENGAGED, true);
+        },
+
+        set_to_disengaged: function() {
+            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
+                QE.manager_renderer.outline_glow.set_to_hover_color();
+            }
+            this.set_flag(EFLAG_ENGAGED, false);
+        },
+
+        _remove_from_scene: function() {
             if (this.group != null) {
-                this.group.updateMatrix();
+                this.group.remove(this.mesh);
             } else {
-                this.mesh.updateMatrix();
+                this.world.remove_object_from_scene(this.mesh);
+            }
+        },
+
+        _add_to_scene: function() {
+            if (this.group != null) {
+                this.group.add(this.mesh);
+            } else {
+                this.world.add_object_to_scene(this.mesh);
             }
         },
     }

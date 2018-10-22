@@ -11,6 +11,19 @@ $_NL.prototype.WebsocketMessageHandler = function() {
     // Gets set by Quasar Engine.
     this._websocket_manager = null;
 
+    this.parse_user_input_from_hud = function(user_input) {
+        l('TODO: parse user input!');
+        l('user input was {' + user_input + '}');
+        QE.manager_hud.hud_chat.add_message(user_input);
+        /*
+            if (text.startsWith('>')) {
+                this.websocket_message_parser.send_request_cmd(text.substring(1));
+            } else {
+                this.websocket_message_parser.send_request_chat(text);
+            }
+         */
+    };
+
     this.send_request_chat = function(m) {
         //QE.manager_hud.hud_chat.add_text_line_to_bottom('you: ' + m, COLOR_CANVAS_TEAL);
         this._websocket_manager.send_request(

@@ -17,8 +17,8 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
         //this.set_flag(EFLAG_CREATED, true);
         //
         //this.set_max_rows(number_of_rows);
-        this.set_bottom_row_as_input(this._on_enter_event.bind(this));
-        $_QE.prototype.CanvasRenderingTextLines.call(this, number_of_rows, true, this._on_enter_event.bind(this));
+        //this.set_bottom_row_as_input(this._on_enter_event.bind(this));
+        //$_QE.prototype.CanvasRenderingTextLines.call(this, number_of_rows, true, this._on_enter_event.bind(this));
 
         this.add_title_bar(title, ASSET_ICON_TERMINAL);
         this.check_if_in_interactive();
@@ -45,11 +45,10 @@ Object.assign(
         __init__: function(width, height) {
             this.set_colors(QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
 
-            //this.create_as_canvas('floating_terminal', CANVAS_GUI_2D_ABSOLUTE_PIXELS);
             this.create_as_canvas('floating_terminal');
             this.set_dimensions(width, height);
 
-            $_QE.prototype.FeatureInteractive.call(this, null, null, null, null, true);
+            $_QE.prototype.FeatureInteractive.call(this, true);
             return this;
         },
     }

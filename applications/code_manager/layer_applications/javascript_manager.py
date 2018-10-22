@@ -356,11 +356,10 @@ class JavascriptManager(object):
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# Features/extensions.
-		self._add_static_feature('text/feature_text')
-		self._add_static_feature('text/feature_typing')
 		self._add_static_feature('three_js_abstractions/feature_geometry')
 		self._add_static_feature('three_js_abstractions/feature_material')
 		self._add_static_feature('three_js_abstractions/feature_mesh')
+		self._add_static_feature('feature_text')
 		self._add_static_feature('feature_color')
 		self._add_static_feature('feature_size')
 
@@ -368,6 +367,7 @@ class JavascriptManager(object):
 		self._add_dynamic_feature('attachments/feature_title_bar')
 		self._add_dynamic_feature('interactions/feature_button')
 		self._add_dynamic_feature('interactions/feature_interactive')
+		self._add_dynamic_feature('interactions/feature_typing')
 		self._add_dynamic_feature('mouse_actions/feature_mouse_move')
 		self._add_dynamic_feature('mouse_actions/feature_mouse_scale')
 

@@ -1,6 +1,8 @@
 'use strict';
 
-$_QE.prototype.LightPoint = function() {};
+$_QE.prototype.LightPoint = function() {
+    this.initialize_events_and_flags();
+};
 
 Object.assign(
     $_QE.prototype.LightPoint.prototype,

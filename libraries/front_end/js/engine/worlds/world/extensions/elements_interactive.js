@@ -12,11 +12,8 @@ Object.assign($_QE.prototype.World.prototype, {
 
     update_elements_interactive: function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
-        if (this.currently_looked_at_object != null) {
-            if (this.currently_looked_at_object.are_both_flags_on(EFLAG_TYPING, EFLAG_ENGAGED)) {
-                l('both flags are on!');
-                return;
-            }
+        if (this.currently_looked_at_object != null && this.currently_looked_at_object.are_both_flags_on(EFLAG_TYPING, EFLAG_ENGAGED)) {
+            return;
         }
 
         // Faster than '.length = 0'
@@ -36,14 +33,10 @@ Object.assign($_QE.prototype.World.prototype, {
         let i;
         for (i = 0; i < this.elements_interactive.length; i++) {
             // The true parameter indicates recursive search.
-            if (this.elements_interactive[i].group != null) {
-                this.raycaster.intersectObject(this.elements_interactive[i].group, true, this._intersections);
-            } else {
-                this.raycaster.intersectObject(this.elements_interactive[i].mesh, true, this._intersections);
-            }
+            this.raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
 
             // Only check the first result returned as they are already sorted by distance.
-            if (this._intersections.length !== 0) {
+            if (this._intersections.length != 0) {
                 if (this._intersections[0].distance < this._nums[0]) {
 
                     if (this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null) {

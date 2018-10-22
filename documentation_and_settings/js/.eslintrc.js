@@ -59,6 +59,7 @@ module.exports = {
         "EFLAG_CREATED"                       : false,
         "EFLAG_ENGABLE"                       : false,
         "EFLAG_VISIBLE"                       : false,
+        "EFLAG_BEING_LOOKED_AT"               : false,
         "EFLAG_CLICKABLE"                     : false,
         "EFLAG_ENGAGED"                       : false,
         "EFLAG_UPDATE_POSITION"               : false,

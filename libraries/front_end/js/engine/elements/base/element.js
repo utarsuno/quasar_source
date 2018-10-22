@@ -16,13 +16,7 @@ Object.assign(
         },
 
         /*
-            this.set_flag(EFLAG_IS_BASE, is_base);
-
-    this.set_to_root_element = function() {
-        if (this.group == null) {
-            this.group = new THREE.Group();
-        }
-    };
+        this.set_flag(EFLAG_IS_BASE, is_base);
          */
 
         /*

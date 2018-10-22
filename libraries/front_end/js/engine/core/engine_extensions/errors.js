@@ -21,7 +21,8 @@ Object.assign($_QE.prototype, {
     log_warning: function(warning_message, data) {
         // TODO: Eventually store all warnings.
         l('-----------Warning-----------');
-        l(warning_message);
+        console.warn(warning_message);
+        //l(warning_message);
         l('\ndata:');
         l(data);
         l('------------------------------');
