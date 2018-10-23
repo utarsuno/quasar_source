@@ -44,7 +44,7 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 					#self.finish()
 					return
 				else:
-					self.domain.set_flag(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, False)
+					self.domain.flag_set(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, False)
 					self.finish_early('ThreeJS is the latest version.')
 
 	def _get_latest_version(self):
@@ -109,5 +109,5 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 	def step_0x2(self):
 		"""The third step."""
 		self.library_entity.update_version(self.latest_version)
-		self.domain.set_flag(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, True)
+		self.domain.flag_set(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, True)
 		self.finish_early('ThreeJS was updated.')

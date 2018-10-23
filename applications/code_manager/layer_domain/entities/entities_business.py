@@ -7,11 +7,11 @@
 #from libraries.universal_code import debugging as dbg
 from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
 from applications.code_manager.layer_domain.entities import entities_db
-from libraries.universal_code import output_coloring as oc
+#from libraries.universal_code import output_coloring as oc
 from libraries.universal_code import useful_file_operations as ufo
 
 # Utility globals.
-KEY_NAME           = entities_db.DBEntity.KEY_NAME
+KEY_NAME                 = entities_db.DBEntity.KEY_NAME
 #
 KEY_VERSION              = entities_db.DBEntityLibrary.KEY_VERSION
 KEY_DIRECTORY_PATH       = entities_db.DBEntityLibrary.KEY_DIRECTORY_PATH
@@ -19,13 +19,13 @@ KEY_IS_THIRD_PARTY       = entities_db.DBEntityLibrary.KEY_IS_THIRD_PARTY
 KEY_GIT_REPO_URL         = entities_db.DBEntityLibrary.KEY_GIT_REPO_URL
 KEY_VERSION_LAST_CHECKED = entities_db.DBEntityLibrary.KEY_VERSION_LAST_CHECKED
 #
-KEY_FILE_TYPE          = entities_db.DBEntityFile.KEY_FILE_TYPE
-KEY_SIZE               = entities_db.DBEntityFile.KEY_SIZE
-KEY_PATH               = entities_db.DBEntityFile.KEY_PATH
-KEY_MD5SUM             = entities_db.DBEntityFile.KEY_MD5SUM
-KEY_CACHED_AT          = entities_db.DBEntityFile.KEY_CACHED_AT
-KEY_PARENT_F_ID        = entities_db.DBEntityFile.KEY_PARENT_F_ID
-KEY_CHILD_F_ID         = entities_db.DBEntityFile.KEY_CHILD_F_ID
+KEY_FILE_TYPE            = entities_db.DBEntityFile.KEY_FILE_TYPE
+KEY_SIZE                 = entities_db.DBEntityFile.KEY_SIZE
+KEY_PATH                 = entities_db.DBEntityFile.KEY_PATH
+KEY_MD5SUM               = entities_db.DBEntityFile.KEY_MD5SUM
+KEY_CACHED_AT            = entities_db.DBEntityFile.KEY_CACHED_AT
+KEY_PARENT_F_ID          = entities_db.DBEntityFile.KEY_PARENT_F_ID
+KEY_CHILD_F_ID           = entities_db.DBEntityFile.KEY_CHILD_F_ID
 #
 
 
@@ -237,6 +237,8 @@ class File(BusinessEntity):
 		"""Utility function."""
 		if self.new_md5sum is None:
 			self.new_md5sum = ufo.file_get_md5_checksum(self.path)
+		#if self.md5sum is None:
+		#	self.md5sum = ufo.file_get_md5_checksum(self.path)
 
 	def _update_size(self):
 		"""Utility function."""

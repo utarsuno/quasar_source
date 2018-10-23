@@ -3,19 +3,19 @@
 # Location of this script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Load utility functions.
-source ${DIR}/../../scripts/utilities/script_utilities.sh
-source ${DIR}/../../scripts/utilities/docker_utilities.sh
+source ${DIR}/../../../scripts/utilities/script_utilities.sh
+source ${DIR}/../../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
-cd ${DIR}/../..;
+cd ${DIR}/../../..;
 
 ###
-SCRIPT_NAME="Quasar Front End Only"
+SCRIPT_NAME="Front End Only"
 DOCKER_COMPOSE_FILE="docker-compose.dev.front_end_only.yml"
 ###
 
 start_script
 
-./scripts/local/build_process.sh;
+./scripts/local/front_end_only/build.sh;
 BUILD_PROCESS_RESULT_CODE=$?
 
 if [ ${BUILD_PROCESS_RESULT_CODE} -eq 199 ]; then

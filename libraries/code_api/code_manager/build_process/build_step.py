@@ -51,6 +51,18 @@ class BuildProcessStep(object):
 			self.output = ''
 		self.output += line + '\n'
 
+	def add_sub_output_line(self, line):
+		"""Adds a line of output starting with a tab."""
+		self.add_output_line('\t' + line)
+
+	def log_file_cached(self, f):
+		"""Utility function."""
+		self.add_output_line('Cached {' + f.file_name_with_extension + '}.')
+
+	def log_sub_file_cached(self, f):
+		"""Utility function."""
+		self.add_output_line('\tCached {' + f + '}.')
+
 	def run(self):
 		"""Runs this build process step."""
 		try:

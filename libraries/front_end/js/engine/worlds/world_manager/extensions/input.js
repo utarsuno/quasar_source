@@ -16,7 +16,10 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         if (this.player.has_input()) {
             this.current_world.left_click(is_double_click);
         } else if (this.player.is_paused() && is_double_click) {
-            if (this.current_world.is_current_object_set_and_engaged()) {
+            // On engine resume.
+            if (!QE.manager_hud.hud_typing.hidden) {
+                this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
+            } else if (this.current_world.is_current_object_set_and_engaged()) {
                 this.player.set_state(PLAYER_STATE_ENGAGED);
             } else {
                 this.player.set_state(PLAYER_STATE_FULL_CONTROL);
@@ -56,7 +59,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         if (this.player.in_hud_typing_state()) {
             QE.manager_hud.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
-            if (event.keyCode === KEY_CODE__ENTER) {
+            if (event.keyCode == KEY_CODE__ENTER) {
                 if (this.current_world.currently_looked_at_object == null) {
                     this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
                 } else {

@@ -15,7 +15,7 @@
  \__> \__/ | */
 .i {
     position: fixed;
-    z-index: 14;
+    z-index: 13;
 }
 
 .j {
@@ -63,7 +63,7 @@
 #a {
     width: 100vw;
     height: 100vh;
-    z-index: 14;
+    z-index: 15;
     position: absolute;
     background: rgba(1, 1, 1, 0.5);
 }
@@ -74,14 +74,12 @@
     font-family: Arial, Helvetica, Sans-serif, serif;
 
     position: absolute;
-    z-index: 15;
+    z-index: 16;
     top: 35%;
     left: 12.5%;
     width: 75%;
     background: rgba(1, 1, 1, 0.55);
-    /*border: 2px solid rgba(255, 255, 255, 0.9);*/
     border: 2px solid rgba(101, 128, 84, 0.77);
-    /*color: rgba(205, 255, 217, 0.45);*/
     color: rgb(205, 255, 217);
     display: table;
 }

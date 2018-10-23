@@ -48,7 +48,7 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 					preserve_first_comment_block=True
 				)
 
-		three_js_base_library_updated = self.domain.get_flag(three_js_library.DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED)
+		three_js_base_library_updated = self.domain.flag_get(three_js_library.DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED)
 
 		if not any_file_cached and not three_js_base_library_updated:
 			self.finish_early('combined ThreeJS already cached')

@@ -15,9 +15,7 @@ Object.assign($_QE.prototype.Player.prototype, {
 
         switch(player_state) {
         case PLAYER_STATE_PAUSED:
-
-            //MANAGER_INPUT.reset_movement_controls();
-            //CURRENT_PLAYER.fps_controls.reset_velocity();
+            this._reset_input_and_movements();
 
             if (this.engine.manager_world.player_cursor.in_mouse_action()) {
                 this.engine.manager_world.player_cursor.finish_mouse_action();
@@ -27,21 +25,19 @@ Object.assign($_QE.prototype.Player.prototype, {
 
             this.engine.on_pause();
 
-            //if (this.current_state === PLAYER_STATE_PAUSED) {
-            //    CURRENT_CLIENT.pause();
-            //} else {
-            //    CURRENT_CLIENT.show_pause_menu();
-            //}
-
             //MANAGER_AUDIO.pause_background_music();
 
             break;
         case PLAYER_STATE_TYPING_IN_HUD:
+            this._resume_if_previous_state_was_paused();
             this.engine.manager_hud.hud_typing.enter_typing_state();
             break;
         case PLAYER_STATE_ENGAGED:
-            this.engine.manager_input.reset();
-            this.engine.player.reset_velocity();
+            this._reset_input_and_movements();
+            this._resume_if_previous_state_was_paused();
+            break;
+        case PLAYER_STATE_FULL_CONTROL:
+            this._resume_if_previous_state_was_paused();
             break;
         default:
             if (this.previous_state === PLAYER_STATE_PAUSED) {
@@ -53,26 +49,39 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     is_engaged: function() {
-        return this.current_state === PLAYER_STATE_ENGAGED;
+        return this.current_state == PLAYER_STATE_ENGAGED;
     },
 
     is_paused: function() {
-        return this.current_state === PLAYER_STATE_PAUSED;
+        return this.current_state == PLAYER_STATE_PAUSED;
     },
 
     has_mouse_movement: function() {
-        return this.current_state === PLAYER_STATE_FULL_CONTROL;
+        return this.current_state == PLAYER_STATE_FULL_CONTROL;
     },
 
     has_movement: function() {
-        return this.current_state === PLAYER_STATE_FULL_CONTROL;
+        return this.current_state == PLAYER_STATE_FULL_CONTROL;
     },
 
     in_hud_typing_state: function() {
-        return this.current_state === PLAYER_STATE_TYPING_IN_HUD;
+        return this.current_state == PLAYER_STATE_TYPING_IN_HUD;
     },
 
     has_input: function() {
-        return this.current_state === PLAYER_STATE_FULL_CONTROL || this.current_state === PLAYER_STATE_ENGAGED || this.current_state === PLAYER_STATE_TYPING_IN_HUD;
+        return this.current_state == PLAYER_STATE_FULL_CONTROL || this.current_state == PLAYER_STATE_ENGAGED || this.current_state == PLAYER_STATE_TYPING_IN_HUD;
+    },
+
+    _reset_input_and_movements: function() {
+        this.engine.manager_input.reset();
+        this.engine.player.reset_velocity();
+
+    },
+
+    _resume_if_previous_state_was_paused: function() {
+        if (this.previous_state == PLAYER_STATE_PAUSED) {
+            // manager_audio.resume_background_music();
+            this.engine.resume();
+        }
     },
 });

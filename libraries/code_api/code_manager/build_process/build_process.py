@@ -16,10 +16,16 @@ class BuildProcess(object):
 		self.build_steps = []
 
 		# Stores verbose logging (created during the build-process).
-		self.logs = {}
+		self.logs        = {}
 
 		# Build flags will determine the needed exit code.
-		self.flags = []
+		# TODO: Is this used?
+		#self.flags       = []
+
+	@property
+	def build_type(self) -> str:
+		"""Returns the build type for this domain."""
+		return self.db_domain.flag_get('BUILD_TYPE')
 
 	def run_setup(self):
 		"""Runs the setup steps needed for this build process. (Called after domain is loaded)."""

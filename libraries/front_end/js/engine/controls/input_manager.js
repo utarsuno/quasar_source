@@ -86,10 +86,7 @@ $_QE.prototype.InputManager = function(engine) {
         event = event || window.event;
         switch (event.which) {
         case CLICK_LEFT:
-            if (this.left_click_timer.getDelta() <= .3) {
-                this.manager_world.left_click_up(true);
-            }
-            this.manager_world.left_click_up(false);
+            this.manager_world.left_click_up(this.left_click_timer.getDelta() <= .3);
             break;
         case CLICK_MIDDLE:
             this.manager_world.middle_click_up();

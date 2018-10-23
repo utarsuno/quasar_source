@@ -67,50 +67,6 @@ Object.assign(
             //}
         },
 
-        _remove_from_root: function() {
-            if (this.get_flag(EFLAG_IN_ELEMENTS_ROOT)) {
-                this.world.remove_from_elements_root(this);
-            }
-        },
-
-        _remove_from_interactive: function() {
-            if (this.get_flag(EFLAG_IN_ELEMENTS_INTERACTIVE)) {
-                this.remove_from_elements_interactive(this);
-            }
-        },
-
-        /*
-        full_remove: function() {
-            this._remove_from_scene();
-            this._remove_from_root();
-            this._remove_from_interactive();
-            this.recycle_material();
-            this.recycle_geometry();
-            this.recycle_mesh();
-        },*/
-
-        /*
-            this.full_remove_self_and_all_children_recursively = function() {
-                let a;
-                for (a = 0; a < this.attachments.length; a++) {
-                    this.attachments[a].full_remove_self_and_all_children_recursively();
-                }
-                this.full_remove();
-            };
-         */
-
-        recycle: function(remove_from_scene, remove_from_root, remove_from_interactive) {
-            if (remove_from_scene) {
-                this._remove_from_scene();
-            }
-            if (remove_from_root) {
-                this._remove_from_root();
-            }
-            if (remove_from_interactive) {
-                this._remove_from_interactive();
-            }
-        },
-
         refresh: function() {
             this.get_object().updateMatrix();
         },

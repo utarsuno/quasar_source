@@ -34,11 +34,13 @@ Object.assign(
     {
         constructor: $_QE.prototype.Text3D,
 
-        _cache_box              : new THREE.Box3(),
-        _cache_text3d_left_right: new THREE.Vector3(),
-        _cache_text3d_up        : new THREE.Vector3(),
-
         _calculate_dimensions: function() {
+            if (this._cache_box == null) {
+                this._cache_box               = new THREE.Box3();
+                this._cache_text3d_left_right = new THREE.Vector3();
+                this._cache_text3d_up         = new THREE.Vector3();
+            }
+
             if (!this.is_relative()) {
                 this.re_cache_normal();
             }
@@ -68,14 +70,10 @@ Object.assign(
                 }
                 this.height = (this._cache_box.max.y - this._cache_box.min.y) / this._cache_text3d_up.y;
             }
-
-            //l(self.parent.get_normal());
         },
 
         _on_text_change: function() {
-            let world = this.world;
-            //this.world.remove_element(this);
-
+            let world   = this.world;
             let look_at = false;
             let engaged = false;
             if (this.get_flag(EFLAG_ENGAGED)) {

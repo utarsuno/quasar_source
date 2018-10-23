@@ -12,7 +12,6 @@ Object.assign(
         __init__: function(application) {
             this.application = application;
             this.set_properties(1, 600, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
-            //this.set_to_typeable(this._on_enter_event.bind(this));
             this.initialize_gui(10, 80);
             this.hide();
 

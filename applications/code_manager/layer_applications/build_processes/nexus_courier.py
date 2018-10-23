@@ -34,6 +34,6 @@ class BuildProcessNexusCourier(BuildProcessStep):
 				self.add_output_line('Cached {' + f.file_name + '}.')
 
 		if self.any_files_updated:
-			self.domain.set_flag('NEXUS_COURIER_UPDATED', True)
+			self.domain.flag_set('NEXUS_COURIER_UPDATED', True)
 		else:
-			self.domain.set_flag('NEXUS_COURIER_UPDATED', False)
+			self.domain.flag_set('NEXUS_COURIER_UPDATED', False)

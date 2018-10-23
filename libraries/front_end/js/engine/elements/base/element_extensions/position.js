@@ -3,8 +3,6 @@
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     set_to_absolute_position: function() {
-        l('SET TO ABSOLUTE POSITION');
-        l(this);
         this.position_offsets = undefined;
 
         this._cache_previous_position_center_x         = null;

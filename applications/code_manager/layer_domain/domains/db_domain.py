@@ -6,12 +6,16 @@ from libraries.database_abstraction.sql.sqlite import sqlite_db
 from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
 from applications.code_manager.layer_domain.entities import entities_db
 from applications.code_manager.layer_domain.entities import entities_business
+from libraries.universal_code.data_structures.flags import Flags
 
 
-class DBDomain(object):
+class DBDomain(Flags):
 	"""Represents a DB connection to code_manager."""
 
-	def __init__(self, db_location, default_generated_content_directory, volume_path, debug_on):
+	def __init__(self, db_location, default_generated_content_directory, volume_path, debug_on, build_type):
+		super().__init__()
+		self.flag_set('BUILD_TYPE', build_type)
+
 		self._db_location      = db_location
 		self._db               = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
@@ -26,27 +30,6 @@ class DBDomain(object):
 		self._libraries        = []
 		self._files            = []
 		self._pre_processes    = []
-
-		self._flags            = {}
-
-	def set_flag(self, key: str, value) -> None:
-		"""Sets a flag for this domain."""
-		self._flags[key] = value
-
-	def does_flag_exist(self, key: str) -> bool:
-		"""Returns a boolean indicating if the provided key exists as a flag."""
-		return key in self._flags
-
-	def add_value_to_flag(self, key: str, value) -> None:
-		"""Adds a value to a flag where the flag holds a list of keys."""
-		if key not in self._flags:
-			self._flags[key] = []
-		else:
-			self._flags[key].append(value)
-
-	def get_flag(self, key: str):
-		"""Returns the value of the specified flag."""
-		return self._flags[key]
 
 	def get_library_by_id(self, l_id):
 		"""Returns a library by ID match."""

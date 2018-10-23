@@ -41,7 +41,7 @@ class LoadedHTMLFile(LoadedCodeFile):
 				self.files_from_domain_needed.append(style_file_path)
 				#contents = ufo.file_get_contents_as_string(style_file_path)
 				#print('GET THIS PATH {' + style_file_path + '}')
-				#print(domain.does_flag_exist(DOMAIN_FLAG_CSS_FILES_THAT_UPDATED))
+				#print(domain.flag_does_exist(DOMAIN_FLAG_CSS_FILES_THAT_UPDATED))
 
 			self._pre_process_parsed = True
 

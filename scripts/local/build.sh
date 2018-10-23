@@ -9,7 +9,7 @@ source ${DIR}/../../scripts/utilities/docker_utilities.sh
 cd ${DIR}/../..;
 
 ###
-SCRIPT_NAME="Quasar Build Process"
+SCRIPT_NAME="Nexus Local Build Process"
 DOCKER_COMPOSE_FILE="docker-compose.dev.build.yml"
 ###
 
