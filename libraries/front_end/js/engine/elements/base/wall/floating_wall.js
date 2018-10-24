@@ -17,7 +17,7 @@ Object.assign(
             this.title_bar.add_button_settings();
             this.title_bar.add_button_help();
             this.title_bar.add_icon(icon);
-            this.title_bar.add_title(title, false, 0.0, false);
+            this.title_bar.add_title(title, false);
         },
 
         create_wall_mesh: function() {

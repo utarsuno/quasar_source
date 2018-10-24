@@ -43,6 +43,8 @@ Object.assign($_QE.prototype, {
                 this._engine_elapsed_time_second -= this._frames_passed;
                 this.manager_hud.hud_debug.set_current_frame_count(this._engine_frame_counter_render);
                 this._engine_frame_counter_render = 0;
+
+                this.manager_hud.hud_date_time.refresh();
             }
 
             if (this._engine_elapsed_time_physics >= this._engine_time_per_frame_physics) {

@@ -1,9 +1,10 @@
 'use strict';
 
 $_QE.prototype.Text3D = function(size, text, interactive=false) {
+    this.text            = text;
     this.text_size       = size;
     this.set_color_flags = true;
-    this.initialize_events_and_flags();
+    this.initialize_floating_element_data();
     this.set_colors(QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
     this.set_dimensions(0, 0);
     this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
@@ -16,8 +17,6 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
         $_QE.prototype.FeatureInteractive.call(this);
     }
 
-    this.text = text;
-    //this.update_text(text);
     this.set_value_post_changed_event(this._on_text_change.bind(this));
 };
 
@@ -48,7 +47,7 @@ Object.assign(
             this._cache_box.setFromObject(this.get_object());
 
             // TODO: Most likely remove this if statement. It's only covering the side affect of a bug.
-            if ((this.parent != null && this.parent.get_normal().equals(QE.CACHE_ZERO_VECTOR)) || this.get_left_right() == null) {
+            if ((this.attachment_parent != null && this.attachment_parent.get_normal().equals(QE.CACHE_ZERO_VECTOR)) || this.get_left_right() == null) {
                 this._cache_text3d_left_right.set(-1, 0, 0);
                 this._cache_text3d_up.set(0, 1, 0);
                 this.width  = (this._cache_box.min.x - this._cache_box.max.x) / this._cache_text3d_left_right.x;
@@ -56,12 +55,6 @@ Object.assign(
             } else {
                 this._cache_text3d_left_right = this.get_left_right();
                 this._cache_text3d_up         = this.get_up();
-
-                //l(this._cache_text3d_left_right);
-                //l(this._cache_box);
-                //l(this.parent);
-                //l(this.parent_attachment);
-                //l(self.parent.get_normal());
 
                 if (this._cache_text3d_left_right.x != 0) {
                     this.width = (this._cache_box.min.x - this._cache_box.max.x) / this._cache_text3d_left_right.x;
@@ -84,13 +77,9 @@ Object.assign(
                 look_at = true;
                 this.world.look_away_from_currently_looked_at_object();
             }
-
             if (this.get_flag(EFLAG_IN_WORLD)) {
                 this._remove_from_scene();
             }
-
-            //this.recycle(true, true, false);
-            //this.world.remove_
             this.recycle_geometry();
             this.recycle_mesh();
             this.create_geometry();
@@ -106,32 +95,15 @@ Object.assign(
                     this._cache_previous_position_center_look_at_z
                 );
             }
-
-            //world.add_element(this);
-
-            /*
-            if (this.is_relative()) {
-                this.group.add(this.mesh);
-            } else {
-                world.add_object_to_scene(this.mesh);
-            }*/
             if (this.get_flag(EFLAG_IN_WORLD)) {
                 this._add_to_scene();
             }
-
             if (look_at) {
                 world.set_new_currently_looked_at_object(this);
             }
             if (engaged) {
                 world.engage_currently_looked_at_object(this);
             }
-            /*
-            if (this.group == null) {
-                this.add_to_world(this.world, false, false, true);
-            } else {
-                this.add_to_world(this.world, false, false, false);
-            }
-            */
         },
 
         create: function() {

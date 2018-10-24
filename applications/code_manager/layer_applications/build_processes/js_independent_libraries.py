@@ -11,36 +11,25 @@ class BuildProcessJSIndependentLibraries(BuildProcessStepSimpleAndIsolated):
 	"""Represents the build process steps for building the independent JS Libraries."""
 
 	def __init__(self, domain):
-		super().__init__(
-			domain,
-			CodeDirectory('/quasar/libraries/front_end/js/third_party/cookies', base_directory=True),
-			['.js'],
-			['.min', '.gz']
-		)
+		super().__init__(domain, CodeDirectory('/quasar/libraries/front_end/js/third_party/cookies', base_directory=True), 'js', ['min', 'gz'])
+		self.minifies = True
+		self.gzips    = False
 
-	def handle_cached_file(self, f, file):
-		"""Code file is 'f', DB file is 'file'."""
-		# Now minify.
-		minified_path = self.domain.generated_content_path + f.file_name_with_minified_extension
-		f.minify(minified_path, preserve_first_comment_block = True)
+	def handle_minify_setup(self, code_file, minified_path: str, processed_file_path: str=None) -> None:
+		"""Handles the minification step setup (if needed)."""
+		code_file.minify(minified_path, preserve_first_comment_block=True)
 
-		cached_or_updated, minified_file = self.domain.cache_child_file_based_off_base_code_file(
-			base_code_file = f,
-			base_file = file,
-			child_path = minified_path
-		)
+	def handle_minify_end(self, code_file, minified_path: str, updated: bool) -> None:
+		"""Handles the minification step end (if needed)."""
+		pass
 
-		# Now GZIP.
-		gzip_path = minified_path + '.gz'
-		ufo.file_op_create_gzip(minified_path, gzip_path)
+	def handle_gzip_setup(self, base_path: str, gzip_path: str) -> None:
+		"""Handles the gzip step setup (if needed)."""
+		ufo.file_op_create_gzip(base_path, gzip_path)
 
-		gzip_cached_or_updated, gzip_file = self.domain.cache_child_file_based_off_base_code_file(
-			base_code_file = f,
-			base_file = minified_file,
-			child_path = gzip_path
-		)
-
+	def handle_gzip_end(self, base_path: str, gzip_path: str, base_volume_path: str, gzip_volume_path: str) -> None:
+		"""Handles the gzip step end (if needed)."""
 		# Now copy the needed files to the volume.
-		volume_file_path = self.domain.volume_path + f.file_name_with_minified_extension
-		ufo.file_op_copy(minified_path, volume_file_path)
-		ufo.file_op_copy(gzip_path, volume_file_path + '.gz')
+		ufo.file_op_copy(base_path, base_volume_path)
+		ufo.file_op_copy(gzip_path, gzip_volume_path)
+

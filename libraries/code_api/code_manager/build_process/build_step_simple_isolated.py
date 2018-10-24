@@ -14,19 +14,85 @@ class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
 		super().__init__(domain, None)
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0_single_directory))
 		self.code_directory = code_directory
+		if type(extensions_to_ignore) != list:
+			extensions_to_ignore = [extensions_to_ignore]
+		if type(extensions_to_match) != list:
+			extensions_to_match = [extensions_to_match]
 		self.code_directory.add_extensions_to_ignore(extensions_to_ignore)
 		self.code_directory.add_extensions_to_match(extensions_to_match)
 
-	def handle_cached_file(self, code_file, db_file):
-		"""Handles the cached filed."""
+		self.minifies = False
+		self.gzips    = False
+
+	def should_process_base_file(self, code_file, base_file_cached_or_updated) -> bool:
+		"""Returns a boolean indicating if this base file should be further processed."""
+		return base_file_cached_or_updated
+
+	def handle_base_file_setup(self, code_file) -> None:
+		"""Handles the base file step setup (if needed)."""
 		pass
+
+	def handle_minify_pre_setup(self, code_file, base_file, processed_file_path: str) -> None:
+		"""Handles the minification step setup (if needed)."""
+		return False
+
+	def handle_minify_setup(self, code_file, minified_path: str, processed_file_path: str=None) -> None:
+		"""Handles the minification step setup (if needed)."""
+		pass
+
+	def handle_minify_end(self, code_file, minified_path: str, updated: bool) -> None:
+		"""Handles the minification step end (if needed)."""
+		pass
+
+	def handle_gzip_setup(self, base_path: str, gzip_path: str) -> None:
+		"""Handles the gzip step setup (if needed)."""
+		pass
+
+	def handle_gzip_end(self, base_path: str, gzip_path: str, base_volume_path: str, gzip_volume_path: str) -> None:
+		"""Handles the gzip step end (if needed)."""
+		return 'pass'
 
 	def step_0x0_single_directory(self):
 		"""Utility function."""
 		files = self.code_directory.get_all_files()
+
 		for f in files:
-			cached_or_updated, file = self.domain.cache_base_file(f)
-			if cached_or_updated:
+			self.handle_base_file_setup(f)
+
+			base_file_cached_or_updated, base_file = self.domain.cache_base_file(f)
+
+			if self.should_process_base_file(f, base_file_cached_or_updated):
+
 				self.log_file_cached(f)
-				self.handle_cached_file(f, file)
+
+				if self.minifies:
+					minified_path  = self.domain.generated_content_path + f.file_name_with_minified_extension
+					processed_path = minified_path.replace('.min', '.processed')
+
+					use_processed = self.handle_minify_pre_setup(f, base_file, processed_path)
+
+					if use_processed:
+						self.handle_minify_setup(f, minified_path, processed_path)
+					else:
+						self.handle_minify_setup(f, minified_path, None)
+
+					updated, minified_file = self.domain.cache_child_file_based_off_base_code_file(
+						base_code_file = f,
+						base_file      = base_file,
+						child_path     = minified_path
+					)
+					self.handle_minify_end(f, minified_path, updated)
+
+					if self.gzips:
+						gzip_path = self.domain.generated_content_path + f.file_name_with_minified_extension + '.gz'
+						self.handle_gzip_setup(minified_path, gzip_path)
+						gzip_cached_or_updated, gzip_file = self.domain.cache_child_file_based_off_base_code_file(
+							base_code_file = f,
+							base_file      = minified_file,
+							child_path     = gzip_path
+						)
+						volume_file_path = self.domain.volume_path + f.file_name_with_minified_extension
+
+						self.handle_gzip_end(minified_path, gzip_path, volume_file_path, volume_file_path + '.gz')
+
 

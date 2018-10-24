@@ -106,6 +106,14 @@ module.exports = {
         "GLOBAL_ID_HUD_DEBUG"                   : false,
         "GLOBAL_ID_HUD_TYPING"                  : false,
         "GLOBAL_ID_HUD_CHAT"                    : false,
+        "GLOBAL_ID_DATE_TIME"                   : false,
+        //
+
+        //
+        "TEXT_ALIGNMENT_START" : false,
+        "TEXT_ALIGNMENT_CENTER": false,
+        "TEXT_ALIGNMENT_END"   : false,
+
         //
 
         //

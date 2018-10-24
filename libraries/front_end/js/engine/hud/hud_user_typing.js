@@ -10,6 +10,7 @@ Object.assign(
     $_QE.prototype.CanvasRenderingTextLines.prototype,
     {
         __init__: function(application) {
+            this.text        = '';
             this.application = application;
             this.set_properties(1, 600, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
             this.initialize_gui(10, 80);

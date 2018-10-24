@@ -1,8 +1,34 @@
 'use strict';
 
 Object.assign($_QE.prototype.FloatingElement.prototype, {
-    attachments      : [],
-    attachment_parent: null,
+
+    _set_to_group: function() {
+        this.group = new THREE.Group();
+        if (this.mesh != null) {
+            this.group.add(this.mesh);
+        }
+    },
+
+    set_to_group: function() {
+        this._set_to_group();
+
+        /*
+        if (this.get_flag(EFLAG_CREATED)) {
+            if (!this.is_relative()) {
+                this._set_to_group();
+            } else {
+                this._set_to_group();
+            }
+        } else {
+            // check if in world
+            if (this.get_flag(EFLAG_IN_WORLD)) {
+                this._set_to_group();
+            } else {
+                this._set_to_group();
+            }
+        }*/
+    },
+
 
     is_relative: function() {
         return this.attachment_parent != null;
@@ -26,8 +52,9 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     },
 
     add_attachment: function(attachment, create=false) {
+        attachment.set_to_relative();
         if (this.group == null) {
-            l('TODO: REPLACE MESH WITH GROUP!');
+            this.set_to_group();
         }
         attachment._set_attachment_parent(this);
         if (create) {
@@ -39,6 +66,16 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
+    set_to_absolute: function() {
+        this.set_to_absolute_position();
+        this.set_to_absolute_normal();
+    },
+
+    set_to_relative: function() {
+        this.set_to_relative_position();
+        this.set_to_relative_normal();
+    },
+
     _set_attachment_parent: function(parent) {
         this.attachment_parent = parent;
         parent.attachments.push(this);

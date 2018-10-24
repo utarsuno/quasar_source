@@ -35,6 +35,7 @@ $_QE.prototype = {
         this.manager_heap   = this.get_heap_manager();
         this.manager_assets = new $_QE.prototype.AssetManager(this);
         this.manager_icons  = new $_QE.prototype.IconManager(this);
+        this.manager_time   = new $_QE.prototype.TimeManager();
 
         let on_load         = this.manager_assets.load_pre_render_assets(this);
 

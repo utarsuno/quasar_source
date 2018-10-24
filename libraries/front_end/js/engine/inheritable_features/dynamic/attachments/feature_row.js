@@ -11,6 +11,8 @@ Object.assign(
             this.row_height  = height;
             this.row_y_start = y_percentage_position_start;
 
+            this.initialize_interactive_linked_list();
+
             if (add_raw) {
                 this.add_raw_element_interactive(this.parent_wall, 1);
                 this.parent_wall.add_row(this, true);
@@ -20,15 +22,11 @@ Object.assign(
         },
 
         create_icon: function(icon_type, color, relative_index) {
-            return this.add_relative_element(new $_QE.prototype.FloatingIcon(false, icon_type, this.row_height, color), relative_index, true);
+            return this.add_relative_element(new $_QE.prototype.FloatingIcon(icon_type, this.row_height, color), relative_index, true);
         },
 
         create_text3d: function(text, color, interactive, relative_index) {
-            return this.add_relative_element(new $_QE.prototype.Text3D(false, this.row_height, text, interactive), relative_index, true, true);
-        },
-
-        get_next_tab_target_from_current: function(element) {
-            return this.get_next_tab_target_from_element(element);
+            return this.add_relative_element(new $_QE.prototype.Text3D(this.row_height, text, interactive), relative_index, true, true);
         },
     }
 );

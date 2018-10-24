@@ -1,13 +1,17 @@
 'use strict';
 
-$_QE.prototype.FloatingElement = function() {
-    this.set_flag(EFLAG_VISIBLE, true);
-};
+$_QE.prototype.FloatingElement = function() {};
 
 Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.Element.prototype,
     {
+        initialize_floating_element_data: function() {
+            this.initialize_element_data();
+            this.attachments       = [];
+            this.attachment_parent = null;
+        },
+
         set_to_button: function(engage_function, use_confirmation_prompt=false) {
             $_QE.prototype.FeatureButton.call(this, engage_function);
             if (use_confirmation_prompt) {
@@ -43,11 +47,6 @@ Object.assign(
             if (set_to_group) {
                 this.set_to_root_element();
             }
-
-            //if (create) {
-            //    this.create();
-            //    this.set_flag(EFLAG_CREATED, true);
-            //}
 
             if (add_to_scene) {
                 this.set_flag(EFLAG_IS_ROOT, true);

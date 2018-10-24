@@ -5,8 +5,12 @@ $_QE.prototype.Element = function() {};
 Object.assign(
     $_QE.prototype.Element.prototype,
     {
-        group: null,
-        world: null,
+        //group: null,
+        //world: null,
+
+        initialize_element_data: function() {
+            this.initialize_events_and_flags();
+        },
 
         get_object: function() {
             if (this.group != null) {

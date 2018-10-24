@@ -1,12 +1,12 @@
 'use strict';
 
-$_QE.prototype.FloatingIcon = function(is_base, icon_type, size, foreground_color) {
+$_QE.prototype.FloatingIcon = function(icon_type, size, foreground_color) {
     if (foreground_color == null) {
         foreground_color = QE.COLOR_GREEN;
     }
     this.icon_type = icon_type;
 
-    // TODO: set is_base
+    this.initialize_floating_element_data();
     this.set_colors(foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
     this.set_dimensions(size, size);
     this.set_geometry_type(true, FEATURE_GEOMETRY_TYPE_PLANE);

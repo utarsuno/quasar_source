@@ -27,7 +27,7 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 
 		# Shaders.
 		self.shaders = CodeDirectory('/quasar/assets/shaders/', base_directory=True)
-		self.shaders.add_extensions_to_match(['.frag', '.vert'])
+		self.shaders.add_extensions_to_match(['frag', 'vert'])
 
 		# JS
 		self.javascript_manager = jsm.JavascriptManager('NEXUS_LOCAL', self.domain)

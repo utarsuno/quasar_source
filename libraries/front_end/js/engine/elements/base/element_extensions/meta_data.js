@@ -72,6 +72,8 @@ Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynam
     initialize_events_and_flags: function() {
         this._events = {};
         this.initialize_flags();
+        this.set_flag(EFLAG_CREATED, false);
+        this.set_flag(EFLAG_VISIBLE, true);
     },
 
     set_event: function(event_key, event_function) {

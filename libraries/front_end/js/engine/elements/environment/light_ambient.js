@@ -1,7 +1,7 @@
 'use strict';
 
 $_QE.prototype.LightAmbient = function() {
-    this.initialize_events_and_flags();
+    this.initialize_element_data();
 };
 
 Object.assign(

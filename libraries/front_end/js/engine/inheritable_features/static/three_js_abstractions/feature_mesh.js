@@ -3,7 +3,6 @@
 $_QE.prototype.FeatureMesh = function() {};
 
 Object.assign($_QE.prototype.FeatureMesh.prototype, {
-    mesh_type: null,
 
     set_mesh_type: function(use_cache, type, on_mesh_created) {
         this.set_flag(EFLAG_CACHEABLE_MESH, use_cache);

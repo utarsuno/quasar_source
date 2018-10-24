@@ -173,8 +173,8 @@ class LoadedCodeFile(CodeFile):
 
 	def read_file_contents(self):
 		"""Reads in the contents of this file."""
-		self._file_lines = ufo.file_get_contents_as_lines(self.full_path)
-		self._file_size = ufo.file_get_size_in_bytes(self.full_path)
+		self._file_lines      = ufo.file_get_contents_as_lines(self.full_path)
+		self._file_size       = ufo.file_get_size_in_bytes(self.full_path)
 		self._contents_loaded = True
 
 	@property

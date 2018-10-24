@@ -5,7 +5,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
     tab_to_next_interactive_object: function() {
         if (this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT)) {
-            let target = this.currently_looked_at_object._parent_row.get_next_tab_target_from_current(this.currently_looked_at_object);
+            let target = this.currently_looked_at_object._parent_row.get_next_tab_target_from_element(this.currently_looked_at_object);
             if (target != null) {
                 this.previous_tab_target = target;
                 this.look_at_different_element(target);

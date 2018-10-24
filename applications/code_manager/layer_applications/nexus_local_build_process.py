@@ -15,27 +15,16 @@ from applications.code_manager.layer_applications.build_processes.js_independent
 from applications.code_manager.layer_applications.build_processes.nexus_local_js import BuildProcessJSNexusLocal
 from applications.code_manager.layer_applications.build_processes.nexus_courier import BuildProcessNexusCourier
 
-LIBRARY_THREE_JS = 'threejs'
+LIBRARY_THREE_JS          = 'threejs'
 
-# Booleans dictate if they are enabled or not.
-ALL_BUILD_STEPS = {
-	'three_js_library': True,
-	'css'             : True,
-	'html'            : True,
-	'js libraries'    : True,
-	'js engine'       : True,
-	'nexus courier'   : True,
-}
-
-ENV_FE   = 'front_end_only'
-ENV_PROD = 'production'
+ENV_FE                    = 'front_end_only'
+ENV_PROD                  = 'production'
 
 ARG_DB_PATH               = 'CODE_BUILDER_DB_PATH'
 ARG_GENERATED_OUTPUT_PATH = 'CODE_BUILDER_DEFAULT_GENERATED_CONTENT_DIRECTORY'
 ARG_VOLUME_PATH           = 'CODE_BUILDER_VOLUME_PATH'
 ARG_DEBUG_ON              = 'CODE_BUILDER_DB_DEBUG'
 ARG_BUILD_TYPE            = 'CODE_BUILDER_BUILD_TYPE'
-
 
 
 class NexusLocalBuildProcess(BuildProcess):
@@ -59,7 +48,6 @@ class NexusLocalBuildProcess(BuildProcess):
 			'https://github.com/mrdoob/three.js',
 			None
 		))
-
 
 		self._all_build_steps = [
 			[self._add_step_lib_three_js , ENV_FE, ENV_PROD],

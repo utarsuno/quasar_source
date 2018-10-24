@@ -3,7 +3,6 @@
 $_QE.prototype.FeatureGeometry = function(){};
 
 Object.assign($_QE.prototype.FeatureGeometry.prototype, {
-    geometry_type: null,
 
     set_geometry_type: function(use_cache, type) {
         this.set_flag(EFLAG_CACHEABLE_GEOMETERY, use_cache);

@@ -236,8 +236,8 @@ class JavascriptManager(object):
 	def _add_linked_lists(self, paths):
 		"""Utility function."""
 		for p in paths:
-			self._add_js_file('data_structures/linked_lists/' + p + '/linked_list_' + p)
 			self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p)
+			self._add_js_file('data_structures/linked_lists/' + p + '/linked_list_' + p)
 
 	def _add_core(self, path):
 		"""Utility function."""
@@ -334,11 +334,16 @@ class JavascriptManager(object):
 		for p in paths:
 			self._add_js_file('asset_management/' + p)
 
+	def _add_time_abstractions(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('time_abstraction/' + p)
+
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
 		self.js = CodeDirectory('/quasar/libraries/front_end/js/engine', base_directory=True)
-		self.js.add_extensions_to_ignore(['.min', '.gz'])
-		self.js.add_extension_to_match('.js')
+		self.js.add_extensions_to_ignore(['min', 'gz'])
+		self.js.add_extension_to_match('js')
 
 		# Main engine.
 		self._add_js_file('core/engine')
@@ -356,6 +361,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# Features/extensions.
+		self._add_static_feature('three_js_abstractions/pre_process')
 		self._add_static_feature('three_js_abstractions/feature_geometry')
 		self._add_static_feature('three_js_abstractions/feature_material')
 		self._add_static_feature('three_js_abstractions/feature_mesh')
@@ -391,15 +397,19 @@ class JavascriptManager(object):
 		self._add_dom_element('base/dom_element')
 		self._add_dom_element('text/dom_element_text')
 		self._add_dom_element('canvas/dom_element_canvas')
-		self._add_dom_element('canvas/rendering/canvas_rendering_text_lines')
+		self._add_dom_element('canvas/rendering/text_lines')
 		self._add_dom_element('canvas/rendering/line_of_text')
 		self._add_dom_element('canvas/rendering/visible_row')
+
+		# Time abstraction.
+		self._add_time_abstractions(['pre_process', 'time_instance', 'time_manager'])
 
 		# HUD.
 		self._add_hud('manager/hud_manager')
 		self._add_hud('manager/extensions/pause_menu')
 		self._add_hud('hud_debug')
 		self._add_hud('hud_logs')
+		self._add_hud('hud_date_time')
 		self._add_hud('hud_user_typing')
 
 		# Globals.
@@ -420,7 +430,7 @@ class JavascriptManager(object):
 		self._add_players(['player', 'player_state', 'player_cursor'])
 
 		# Controls.
-		self._add_controls(['fps_controls', 'mouse_controls', 'input_manager'])
+		self._add_controls(['pre_process', 'player_controls/fps_controls', 'player_controls/mouse_controls', 'input_manager'])
 
 		# Worlds.
 		self._add_worlds(['world/world_base', 'world_manager/world_manager', 'world_manager/extensions/input', 'world_manager/extensions/singletons'])
@@ -428,7 +438,7 @@ class JavascriptManager(object):
 
 		# Asset Managers.
 		self._add_shaders(['pre_process', 'shader_material_abstraction', 'shader_material_noise', 'shader_material_spritesheet', 'shader_material_transition'])
-		self._add_asset_managements(['asset_manager', 'asset_batch', 'asset_file', 'icon_manager'])
+		self._add_asset_managements(['pre_process', 'asset_manager', 'asset_batch', 'asset_file', 'icon_manager'])
 
 		# Websockets.
 		self.js_files_needed.append('web_sockets/web_socket_manager.js')
@@ -444,14 +454,6 @@ class JavascriptManager(object):
 			self.js_files_needed.append('web_socket_requests/message_handler.js')
 			self.js_files_needed.append('models/floating_terminal.js')
 			self.js_files_needed.append('world/world_environment.js')
-
-
-		#elif self.engine.is_build_quasar:
-			#self.js.add_base_directory('/quasar/libraries/front_end/js/quasar')
-		#	self.js.add_external_code_directory('/quasar/libraries/front_end/js/quasar')
-			# Add js files needed.
-
-		#self.js.load_all_content()
 
 		return self.js
 

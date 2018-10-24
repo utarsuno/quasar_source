@@ -7,7 +7,7 @@ const PRE_COMPUTED_VAL_W_DISTANCE = 95.99999827696978;  // #pre-process_global_c
 
 $_QE.prototype.HexagonGrid = function(world_manager, number_of_layers) {
     this.number_of_layers = number_of_layers;
-    this.initialize_events_and_flags();
+    this.initialize_element_data();
     world_manager.singleton_add(this);
 };
 

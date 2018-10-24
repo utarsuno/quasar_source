@@ -19,11 +19,8 @@ Object.assign(
         },
 
         add_message: function(message) {
-            let r;
-            for (r = this.rows.length - 2; r > -1; r--) {
-                this.rows[r + 1].set_text(this.rows[r].text);
-            }
-            this.rows[0].set_text(message);
+            this.shift_rows_up();
+            this.set_bottom_row(message);
         },
     }
 

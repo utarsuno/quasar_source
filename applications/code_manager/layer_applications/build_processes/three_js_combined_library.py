@@ -23,8 +23,8 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 		"""The first step."""
 
 		self.js_libs = CodeDirectory('/quasar/libraries/front_end/js/third_party/three_js', base_directory=True)
-		self.js_libs.add_extensions_to_ignore(['.min', '.gz'])
-		self.js_libs.add_extension_to_match('.js')
+		self.js_libs.add_extensions_to_ignore(['min', 'gz'])
+		self.js_libs.add_extension_to_match('js')
 
 		files = self.js_libs.get_all_files()
 

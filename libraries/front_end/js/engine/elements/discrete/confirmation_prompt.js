@@ -28,7 +28,6 @@ Object.assign($_QE.prototype.ConfirmationPrompt.prototype, $_QE.prototype.Featur
     create: function() {
         l('Create called!');
         this.create_wall_mesh();
-        this.set_flag(EFLAG_CREATED, true);
         this.add_title_bar('TEST', ASSET_ICON_WARNING);
     },
 

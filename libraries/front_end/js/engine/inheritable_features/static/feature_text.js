@@ -5,11 +5,6 @@ $_QE.prototype.FeatureText = function() {};
 Object.assign(
     $_QE.prototype.FeatureText.prototype,
     {
-        // TODO: move/remove values from prototype
-        text                       : '',
-        value_pre_changed_function : null,
-        value_post_changed_function: null,
-
         set_value_pre_changed_event: function(f) {
             this.value_pre_changed_function = f;
         },

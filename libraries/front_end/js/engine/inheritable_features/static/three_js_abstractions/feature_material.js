@@ -3,7 +3,6 @@
 $_QE.prototype.FeatureMaterial = function(){};
 
 Object.assign($_QE.prototype.FeatureMaterial.prototype, {
-    material_type: null,
 
     set_material_type: function(use_cache, type) {
         this.set_flag(EFLAG_CACHEABLE_MATERIAL, use_cache);

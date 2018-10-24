@@ -4,9 +4,13 @@ $_QE.prototype.DoublyLinkedListInteractive = function() {
 };
 
 Object.assign($_QE.prototype.DoublyLinkedListInteractive.prototype, $_QE.prototype.DoublyLinkedListBase.prototype, {
-    _interactive_head   : null,
-    _interactive_tail   : null,
-    _length_interactive : 0,
+
+    initialize_interactive_linked_list: function() {
+        this._interactive_head   = null;
+        this._interactive_tail   = null;
+        this._length_interactive = 0;
+        this.initialize_linked_list();
+    },
 
     on_element_set_to_interactive: function(element) {
         this.on_node_set_to_interactive(this.get_node_from_object(element));
@@ -47,7 +51,7 @@ Object.assign($_QE.prototype.DoublyLinkedListInteractive.prototype, $_QE.prototy
             }
             break;
         default:
-            this._insert_interactive_node_util();
+            this._insert_interactive_node_util(node);
             break;
         }
         this._length_interactive += 1;

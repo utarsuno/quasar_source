@@ -1,16 +1,17 @@
 'use strict';
 
-$_QE.prototype.DoublyLinkedListBase = function(node_class) {
-    //this._node_class = node_class;
-};
+$_QE.prototype.DoublyLinkedListBase = function() {};
 
 $_QE.prototype.DoublyLinkedListBase.prototype = {
-    _node_head      : null,
-    _node_tail      : null,
-    _length         : 0,
-    _length_positive: 0,
-    _length_negative: 0,
-    _cache_node_head: null,
+
+    initialize_linked_list: function() {
+        this._node_head       = null;
+        this._node_tail       = null;
+        this._length          = 0;
+        this._length_positive = 0;
+        this._length_negative = 0;
+        this._cache_node_head = null;
+    },
 
     _on_node_added: function(node, position) {
         node._position = position;
@@ -117,7 +118,6 @@ $_QE.prototype.DoublyLinkedListBase.prototype = {
 
     _cache_get: function(object) {
         if (this._cache_node_head == null) {
-            l(this._node_class);
             return new this._node_class(object);
         } else {
             let old_cache_head     = this._cache_node_head;

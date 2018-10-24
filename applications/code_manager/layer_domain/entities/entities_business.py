@@ -237,8 +237,6 @@ class File(BusinessEntity):
 		"""Utility function."""
 		if self.new_md5sum is None:
 			self.new_md5sum = ufo.file_get_md5_checksum(self.path)
-		#if self.md5sum is None:
-		#	self.md5sum = ufo.file_get_md5_checksum(self.path)
 
 	def _update_size(self):
 		"""Utility function."""

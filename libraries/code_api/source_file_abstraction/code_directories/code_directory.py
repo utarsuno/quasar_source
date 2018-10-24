@@ -329,6 +329,8 @@ class CodeDirectory(object):
 
 	def add_extension_to_ignore(self, file_extension: str) -> None:
 		"""Adds a file extension to be ignored (not loaded)."""
+		if '.' not in file_extension:
+			file_extension = '.' + file_extension
 		if file_extension not in self._file_extensions_to_ignore:
 			self._file_extensions_to_ignore.append(file_extension)
 
@@ -359,6 +361,8 @@ class CodeDirectory(object):
 
 	def add_extension_to_match(self, file_extension: str) -> None:
 		"""Adds a file extension to be matched (loaded)."""
+		if '.' not in file_extension:
+			file_extension = '.' + file_extension
 		if file_extension not in self._file_extensions_to_match:
 			self._file_extensions_to_match.append(file_extension)
 
