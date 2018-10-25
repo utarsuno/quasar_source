@@ -53,10 +53,6 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     update_mouse_view: function() {
-        if (this._mouse_update_flag == _MOUSE_UPDATE_NONE) {
-            return;
-        }
-
         if (this._mouse_update_flag == _MOUSE_UPDATE_FOR_X || this._mouse_update_flag == _MOUSE_UPDATE_FOR_BOTH) {
             this.yaw.rotation.y   = this._mouse_angle_horizontal;
             this._cache[1]  = Math.cos(this._mouse_angle_horizontal / 2);
