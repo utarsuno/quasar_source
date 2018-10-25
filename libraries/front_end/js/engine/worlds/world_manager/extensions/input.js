@@ -17,7 +17,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
             this.current_world.left_click(is_double_click);
         } else if (this.player.is_paused() && is_double_click) {
             // On engine resume.
-            if (!QE.manager_hud.hud_typing.hidden) {
+            if (!QE.hud_typing.hidden) {
                 this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
             } else if (this.current_world.is_current_object_set_and_engaged()) {
                 this.player.set_state(PLAYER_STATE_ENGAGED);
@@ -36,12 +36,14 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
     },
 
     middle_click_up: function() {
-        l('Middle click up!');
+        l('TODO: Middle click up!');
+        /*
         if (this.client.has_pointer_lock) {
             this.client.mouse_release();
         } else {
             this.client.mouse_lock();
         }
+        */
     },
 
     right_click_down: function () {
@@ -57,7 +59,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
 
     key_down_event: function(event) {
         if (this.player.in_hud_typing_state()) {
-            QE.manager_hud.hud_typing.parse_key_event(event);
+            QE.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
             if (event.keyCode == KEY_CODE__ENTER) {
                 if (this.current_world.currently_looked_at_object == null) {
@@ -85,7 +87,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
 
     on_paste_event: function(text) {
         if (this.player.in_hud_typing_state()) {
-            this.engine.manager_hud.hud_typing.on_paste_event(text);
+            this.engine.hud_typing.on_paste_event(text);
         } else if (this.player.has_input() && this.current_world.currently_looked_at_object != null) {
             this.current_world.currently_looked_at_object.on_paste_event(text);
         }

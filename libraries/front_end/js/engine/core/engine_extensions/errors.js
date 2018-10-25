@@ -10,7 +10,7 @@ Object.assign($_QE.prototype, {
         l('------------------------------');
         l(error_message);
         l('------------------------------');
-        this.manager_hud.show_error('Error ' + EMOJI_ERROR, error_message);
+        this.pause_menu_show_error('Error ' + EMOJI_ERROR, error_message);
         //CURRENT_CLIENT.add_server_message_red(message);
         throw {
             name   : 'CustomException',

@@ -1,7 +1,7 @@
 'use strict';
 
 
-Object.assign($_QE.prototype.Client.prototype, {
+Object.assign($_QE.prototype, {
     cookies: Cookies.noConflict(),
 
     get_cookie: function(cookie_key) {

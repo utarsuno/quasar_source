@@ -127,6 +127,7 @@ module.exports = {
         "FEATURE_MATERIAL_CANVAS_BASIC": false,
         "FEATURE_MATERIAL_CANVAS_FANCY": false,
         "FEATURE_MATERIAL_CANVAS_SHINY": false,
+        "FEATURE_MATERIAL_COLOR_FANCY" : false,
         "FEATURE_MESH_TYPE_DEFAULT"    : false,
 
         // From refactorings.
@@ -553,7 +554,6 @@ module.exports = {
         "get_line_intersection_on_infinite_plane": false,
 
         // Utility constants.
-        "DIAGONAL_PENALTY": false,
         "GROUND_NORMAL"   : false,
         "ONE_THIRD"       : false,
         "ONE_FOURTH"      : false,

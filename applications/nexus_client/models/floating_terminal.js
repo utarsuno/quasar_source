@@ -11,7 +11,7 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
         this.hide();
         //
 
-        this.create_wall_mesh();
+        this.create_wall_mesh(FEATURE_MATERIAL_CANVAS_FANCY);
 
         //this.set_max_rows(number_of_rows);
         //this.set_bottom_row_as_input(this._on_enter_event.bind(this));
@@ -47,11 +47,11 @@ Object.assign(
         },
 
         _on_enter_event: function() {
-            if (this.get_text_length_without_whitespaces() != 0) {
-                this.shift_rows_up();
-                this.clear();
-                //this.add_text_line_to_bottom(this.get_text_and_clear(), COLOR_CANVAS_TEAL);
-            }
+            //if (this.get_text_length_without_whitespaces() != 0) {
+            this.shift_rows_up();
+            this.clear();
+            //this.add_text_line_to_bottom(this.get_text_and_clear(), COLOR_CANVAS_TEAL);
+            //}
         },
 
         __init__: function(width, number_of_rows, font) {

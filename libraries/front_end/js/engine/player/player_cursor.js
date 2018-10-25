@@ -44,7 +44,7 @@ $_QE.prototype.PlayerCursor = function(player) {
             QE.player.set_position_xyz(this._previous_move_position.x, this._previous_move_position.y, this._previous_move_position.z);
             QE.player.look_at(this.currently_attached_to.get_position());
 
-            QE.manager_input.disable_mouse_y = true;
+            QE.set_flag_on(ENGINE_STATE_MOUSE_Y_DISABLED);
 
             this._currently_moving = true;
         }
@@ -52,9 +52,9 @@ $_QE.prototype.PlayerCursor = function(player) {
 
     this.disengage = function() {
         this._currently_engaged = false;
-        this._currently_moving = false;
+        this._currently_moving  = false;
         this._currently_scaling = false;
-        QE.manager_input.disable_mouse_y = false;
+        QE.set_flag_off(ENGINE_STATE_MOUSE_Y_DISABLED);
         this.show();
     };
 

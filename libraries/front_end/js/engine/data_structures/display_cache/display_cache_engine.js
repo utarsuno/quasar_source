@@ -2,7 +2,7 @@
 
 $_QE.prototype.DisplayCacheEngine = function(parent_object, row_reference) {
     this.__init__(row_reference);
-    this.reference_info = parent_object.engine.manager_renderer.renderer.info;
+    this.reference_info = parent_object.engine.renderer.info;
 };
 
 Object.assign($_QE.prototype.DisplayCacheEngine.prototype, $_QE.prototype.DisplayCacheList.prototype, {

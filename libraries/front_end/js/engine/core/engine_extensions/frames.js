@@ -1,28 +1,17 @@
 'use strict';
 
 Object.assign($_QE.prototype, {
-    _engine_frame_counter_render: 0,
-
-    _engine_elapsed_time_physics: 0.0,
-    _engine_elapsed_time_render : 0.0,
-    _engine_elapsed_time_logic  : 0.0,
-    _engine_elapsed_time_second : 0.0,
-
-    // Default settings.
-    _engine_time_per_frame_physics: 0.011111111111111112, // FPS is 90 (from 1.0 / 90.0).
-    _engine_time_per_frame_render : 0.016666666666666666, // FPS is 60 (from 1.0 / 60.0).
-    _engine_time_per_frame_logic  : 0.03333333333333333,  // FPS is 30 (from 1.0 / 30.0).
 
     set_number_of_frames_for_physics: function(fps) {
-        this._engine_time_per_frame_physics = 1.0 / fps;
+        this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS] = 1.0 / fps;
     },
 
     set_number_of_frames_for_rendering: function(fps) {
-        this._engine_time_per_frame_render = 1.0 / fps;
+        this._cache_floats[ENGINE_FLOAT_FPS_RENDER] = 1.0 / fps;
     },
 
     set_number_of_frames_for_logic: function(fps) {
-        this._engine_time_per_frame_logic = 1.0 / fps;
+        this._cache_floats[ENGINE_FLOAT_FPS_LOGIC] = 1.0 / fps;
     },
 
     /*___       __          ___          __   __       ___  ___          __   __   __
@@ -32,57 +21,83 @@ Object.assign($_QE.prototype, {
         requestAnimationFrame(this.engine_main_loop);
         if (this.player.current_state != PLAYER_STATE_PAUSED) {
             this._delta = this._delta_clock.getDelta();
-            this._engine_elapsed_time_second  += this._delta;
-            this._engine_elapsed_time_physics += this._delta;
-            this._engine_elapsed_time_logic   += this._delta;
-            this._engine_elapsed_time_render  += this._delta;
+            this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_SECOND]  += this._delta;
+            this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_PHYSICS] += this._delta;
+            this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_LOGIC]   += this._delta;
+            this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_RENDER]  += this._delta;
 
-            if (this._engine_elapsed_time_second >= 1.0) {
+            if (this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_SECOND] >= 1.0) {
                 // Reset.
-                this._frames_passed = Math.floor(this._engine_elapsed_time_second);
-                this._engine_elapsed_time_second -= this._frames_passed;
-                this.manager_hud.hud_debug.set_current_frame_count(this._engine_frame_counter_render);
-                this._engine_frame_counter_render = 0;
+                this._frames_passed = Math.floor(this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_SECOND]);
+                this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_SECOND] -= this._frames_passed;
+                this.hud_debug.set_current_frame_count(this._cache_values[ENGINE_CACHE_FRAME_COUNTER]);
+                this._cache_values[ENGINE_CACHE_FRAME_COUNTER] = 0;
 
-                this.manager_hud.hud_date_time.refresh();
+                this.hud_date_time.refresh();
             }
 
-            if (this._engine_elapsed_time_physics >= this._engine_time_per_frame_physics) {
+            if (this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_PHYSICS] >= this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]) {
                 // Reset.
                 this._frame_iteration = 0;
-                this._frames_passed   = Math.floor(this._engine_elapsed_time_physics / this._engine_time_per_frame_physics);
+                this._frames_passed   = Math.floor(this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_PHYSICS] / this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]);
 
-                this._engine_elapsed_time_physics -= this._frames_passed * this._engine_time_per_frame_physics;
+                this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_PHYSICS] -= this._frames_passed * this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS];
                 while (this._frame_iteration < this._frames_passed) {
-                    this.manager_world.physics(this._engine_time_per_frame_physics);
+                    this.manager_world.physics(this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]);
                     this._frame_iteration++;
                 }
 
-                this.manager_hud.update();
+                this.hud_update();
             }
 
-            if (this._engine_elapsed_time_logic >= this._engine_time_per_frame_logic) {
+            if (this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_LOGIC] >= this._cache_floats[ENGINE_FLOAT_FPS_LOGIC]) {
                 // Reset.
                 this._frame_iteration = 0;
-                this._frames_passed   = Math.floor(this._engine_elapsed_time_logic / this._engine_time_per_frame_logic);
+                this._frames_passed   = Math.floor(this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_LOGIC] / this._cache_floats[ENGINE_FLOAT_FPS_LOGIC]);
 
-                this._engine_elapsed_time_logic -= this._frames_passed * this._engine_time_per_frame_logic;
+                this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_LOGIC] -= this._frames_passed * this._cache_floats[ENGINE_FLOAT_FPS_LOGIC];
                 while (this._frame_iteration < this._frames_passed) {
-                    this.manager_world.update(this._engine_time_per_frame_logic);
+                    this.manager_world.update(this._cache_floats[ENGINE_FLOAT_FPS_LOGIC]);
                     this._frame_iteration++;
                 }
             }
 
-            if (this._engine_elapsed_time_render >= this._engine_time_per_frame_render) {
+            if (this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_RENDER] >= this._cache_floats[ENGINE_FLOAT_FPS_RENDER]) {
                 // Reset.
-                this._frames_passed = Math.floor(this._engine_elapsed_time_render / this._engine_time_per_frame_render);
+                this._frames_passed = Math.floor(this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_RENDER] / this._cache_floats[ENGINE_FLOAT_FPS_RENDER]);
 
-                this._engine_elapsed_time_render -= this._frames_passed * this._engine_time_per_frame_render;
-                this.manager_renderer.render(this._frames_passed * this._engine_time_per_frame_render);
-                this._engine_frame_counter_render++;
+                this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_RENDER] -= this._frames_passed * this._cache_floats[ENGINE_FLOAT_FPS_RENDER];
+                this.render(this._frames_passed * this._cache_floats[ENGINE_FLOAT_FPS_RENDER]);
+                this._cache_values[ENGINE_CACHE_FRAME_COUNTER] += 1;
             }
         }
         this._delta_clock.start();
+
+        // TODO: Set a delay here?
+    },
+
+    _clear_frames: function() {
+        this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_PHYSICS] = 0.0;
+        this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_LOGIC]   = 0.0;
+        this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_RENDER]  = 0.0;
+        this._cache_floats[ENGINE_FLOAT_ELAPSED_TIME_SECOND]  = 0.0;
+        this._cache_values[ENGINE_CACHE_FRAME_COUNTER]        = 0;
+    },
+
+    pause_engine: function() {
+        this.player.set_state(PLAYER_STATE_PAUSED);
+    },
+
+    resume: function() {
+        this._hide_pause_menu();
+        if (!this.get_flag(CLIENT_FEATURE_MOBILE)) {
+            this.mouse_lock();
+        }
+    },
+
+    on_pause: function() {
+        this.pause_menu_show();
+        this._clear_frames();
     },
 
 });

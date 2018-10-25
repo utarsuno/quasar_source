@@ -18,9 +18,11 @@
     z-index: 13;
 }
 
+/* Note: Deleted (and set directly in style).
 .j {
     outline: 1px solid green;
 }
+*/
 
 /*                    __                       __
  |\/|  /\  | |\ |    /  `  /\  |\ | \  /  /\  /__`

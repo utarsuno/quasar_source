@@ -1,6 +1,6 @@
 'use strict';
 
-Object.call(
+Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     {
         is_visible: function() {

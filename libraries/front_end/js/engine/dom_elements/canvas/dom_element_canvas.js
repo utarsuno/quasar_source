@@ -35,7 +35,7 @@ Object.assign(
                 // TODO: Based off distance to player.
                 //this.texture.magFilter = THREE.NearestFilter;
                 //this.texture.minFilter = THREE.NearestFilter;
-                this.texture.anisotropy = QE.manager_renderer.renderer.capabilities.getMaxAnisotropy();
+                this.texture.anisotropy = QE.renderer.capabilities.getMaxAnisotropy();
             }
         },
 

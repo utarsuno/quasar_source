@@ -1,11 +1,4 @@
-'use strict';
-
-function LoginWorld() {
-    this.__init__();
-}
-
 LoginWorld.prototype = {
-
 
     custom_world_enter: function() {
         if (CURRENT_CLIENT.get_cookie(COOKIE_SHOULD_REMEMBER_USERNAME)) {
@@ -88,32 +81,6 @@ LoginWorld.prototype = {
     },
 
     _create_create_account_wall: function() {
-        let wall_create_account_position = new THREE.Vector3(200, 95, 600);
-        let wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
-        this.wall_create_account = new FakeFloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
-
-        // Title.
-        let row = this.wall_create_account.add_row(-1);
-        row.add_text_3D([HALF, null, true], 32, 'Create Account');
-
-        // Username.
-        row = this.wall_create_account.add_row();
-        this.input_username_create = row.add_input_2D([0, 1], 16, null, null, null, true);
-        this.input_username_create.add_syntax(TEXT_SYNTAX_USERNAME);
-        this.input_username_create.add_label_left('username:', true, true);
-
-        // Email.
-        row = this.wall_create_account.add_row();
-        this.input_email_create = row.add_input_2D([0, 1], 16, null, null, null, true);
-        this.input_email_create.add_syntax(TEXT_SYNTAX_EMAIL);
-        this.input_email_create.add_label_left('email:');
-
-        // Password.
-        row = this.wall_create_account.add_row();
-        this.input_password_create = row.add_input_2D([0, 1], 16, null, null, null, true);
-        this.input_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
-        this.input_password_create.add_label_left('password:', true, true);
-
         // Repeat Password.
         row = this.wall_create_account.add_row();
         this.input_repeat_password_create = row.add_input_2D([0, 1], 16, null, null, null, true);
@@ -129,10 +96,7 @@ LoginWorld.prototype = {
     },
 
     _create_login_wall: function() {
-        let login_wall_position = new THREE.Vector3(550, 95, 300);
-        let login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FakeFloatingWall(200, 95, login_wall_position, login_wall_normal, this);
-        this.wall_login.set_to_manual_positioning();
 
         // Title.
         let row = this.wall_login.add_row(-1);
@@ -143,17 +107,6 @@ LoginWorld.prototype = {
         this.input_username_login = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_username_login.add_syntax(TEXT_SYNTAX_USERNAME);
         this.input_username_login.add_label_left('username:', true, true);
-
-        // Password.
-        row = this.wall_login.add_row();
-        this.input_password_login = row.add_input_2D([0, 1], 16, null, null, null, true);
-        this.input_password_login.add_syntax(TEXT_SYNTAX_PASSWORD);
-        this.input_password_login.add_label_left('password:', true, true);
-
-        // Remember username.
-        row = this.wall_login.add_row();
-        this.remember_username = row.add_checkbox([0], 16, false, this.remember_username_pressed.bind(this));
-        this.remember_username.add_label_left('remember username:');
 
         // Login button.
         row = this.wall_login.add_row();

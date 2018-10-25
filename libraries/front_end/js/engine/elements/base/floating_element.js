@@ -40,32 +40,6 @@ Object.assign(
             }
         },
 
-        add_to_world: function(world, create=false, set_to_group=true, add_to_scene=false) {
-            this.world = world;
-
-            // TODO: Refactor this
-            if (set_to_group) {
-                this.set_to_root_element();
-            }
-
-            if (add_to_scene) {
-                this.set_flag(EFLAG_IS_ROOT, true);
-                this.set_flag(EFLAG_IN_ELEMENTS_ROOT, false);
-                if (set_to_group) {
-                    world.add_to_scene(this.group);
-                } else {
-                    world.add_to_scene(this.mesh);
-                }
-            }
-
-            if (this.are_flags_on_and_off_respectively(EFLAG_IS_ROOT, EFLAG_IN_ELEMENTS_ROOT)) {
-                world.add_element_root(this);
-            }
-            //if (this.are_flags_on_and_off_respectively(EFLAG_INTERACTIVE, EFLAG_IN_ELEMENTS_INTERACTIVE)) {
-            //    world.add_element_interactive(this);
-            //}
-        },
-
         refresh: function() {
             this.get_object().updateMatrix();
         },
@@ -74,7 +48,7 @@ Object.assign(
             this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = true;
             this.set_flag(EFLAG_BEING_LOOKED_AT, true);
             if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.manager_renderer.outline_glow.set_hover_object(this.get_object());
+                QE.set_hover_object(this.get_object());
             }
         },
 
@@ -82,20 +56,20 @@ Object.assign(
             this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = false;
             this.set_flag(EFLAG_BEING_LOOKED_AT, false);
             if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.manager_renderer.outline_glow.remove_hover_object(this.get_object());
+                QE.remove_hover_object(this.get_object());
             }
         },
 
         set_to_engaged: function() {
             if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.manager_renderer.outline_glow.set_to_engage_color();
+                QE.set_to_engage_color();
             }
             this.set_flag(EFLAG_ENGAGED, true);
         },
 
         set_to_disengaged: function() {
             if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.manager_renderer.outline_glow.set_to_hover_color();
+                QE.set_to_hover_color();
             }
             this.set_flag(EFLAG_ENGAGED, false);
         },

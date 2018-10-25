@@ -1,9 +1,3 @@
-'use strict';
-
-function DynamicWorld(dynamic_world_entity) {
-    this.__init__(dynamic_world_entity);
-}
-
 DynamicWorld.prototype = {
 
     __init__: function(dynamic_world_entity) {

@@ -20,12 +20,15 @@ Object.assign(
             // TODO: Eventually have this be updating.
             this.rows[1].set_text(this.engine.manager_time.get_current_date_header());
 
+            this._time = new $_QE.prototype.DisplayDateTime(this.rows[0]);
+
             return this;
         },
 
         refresh: function() {
             this.engine.manager_time.refresh();
-            this.rows[0].set_text(this.engine.manager_time.get_current_time_header());
+            this._time.set(this.engine.manager_time.get_current_time_header());
+            //this.rows[0].set_text(this.engine.manager_time.get_current_time_header());
         },
 
         add_message: function(message) {
@@ -35,3 +38,4 @@ Object.assign(
     }
 
 );
+

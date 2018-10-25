@@ -4,13 +4,37 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     _set_to_group: function() {
         this.group = new THREE.Group();
+
         if (this.mesh != null) {
+            this.group.position.set(
+                this.mesh.position.x,
+                this.mesh.position.y,
+                this.mesh.position.z
+            );
+            this.mesh.position.set(0, 0, 0);
+            //this.group.add(this.mesh);
+            //this.refresh();
+        }
+
+        if (this.attachment_parent != null) {
+            if (this.attachment_parent.group != null) {
+                this.attachment_parent.group.remove(this.mesh);
+                this.group.add(this.mesh);
+                this.attachment_parent.group.add(this.group);
+                this.refresh();
+            } else {
+                this.group.add(this.mesh);
+                this.refresh();
+            }
+        } else {
             this.group.add(this.mesh);
+            this.refresh();
         }
     },
 
     set_to_group: function() {
         this._set_to_group();
+        l('Set to group!');
 
         /*
         if (this.get_flag(EFLAG_CREATED)) {
@@ -44,6 +68,9 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             for (a = 0; a < this.attachment_parent.attachments.length; a++) {
                 if (this.attachment_parent.attachments[a] === this) {
                     this.attachment_parent.attachments.splice(a, 1);
+
+
+
                     this.attachment_parent = null;
                     break;
                 }
@@ -58,7 +85,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         }
         attachment._set_attachment_parent(this);
         if (create) {
-            attachment.create();
+            this.world.create_element(attachment);
         }
         this.group.add(attachment.get_object());
     },

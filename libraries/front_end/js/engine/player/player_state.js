@@ -30,7 +30,7 @@ Object.assign($_QE.prototype.Player.prototype, {
             break;
         case PLAYER_STATE_TYPING_IN_HUD:
             this._resume_if_previous_state_was_paused();
-            this.engine.manager_hud.hud_typing.enter_typing_state();
+            this.engine.hud_typing.enter_typing_state();
             break;
         case PLAYER_STATE_ENGAGED:
             this._reset_input_and_movements();
@@ -73,7 +73,7 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     _reset_input_and_movements: function() {
-        this.engine.manager_input.reset();
+        this.engine.reset_inputs();
         this.engine.player.reset_velocity();
 
     },

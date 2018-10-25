@@ -248,6 +248,21 @@ class JavascriptManager(object):
 		for p in paths:
 			self._add_js_file('core/engine_extensions/' + p)
 
+	def _add_core_renderings(self, paths):
+		""""Utility function."""
+		for p in paths:
+			self._add_js_file('core/engine_extensions/rendering/' + p)
+
+	def _add_core_web_features(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('core/engine_extensions/web_features/' + p)
+
+	def _add_core_huds(self, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file('core/engine_extensions/hud/' + p)
+
 	def _add_client(self, path):
 		"""Utility function."""
 		self._add_js_file('client/' + path)
@@ -267,29 +282,6 @@ class JavascriptManager(object):
 	def _add_dom_element(self, path):
 		"""Utility function."""
 		self._add_js_file('dom_elements/' + path)
-
-	def _add_hud(self, path):
-		"""Utility function."""
-		self._add_js_file('hud/' + path)
-
-	def _add_client(self, path):
-		"""Utility function."""
-		self._add_js_file('client/' + path)
-
-	def _add_client_extensions(self, paths):
-		"""Utility function."""
-		for p in paths:
-			self._add_js_file('client/extensions/' + p)
-
-	def _add_client_functionalities(self, paths):
-		"""Utility function."""
-		for p in paths:
-			self._add_js_file('client/functionality/' + p)
-
-	def _add_renderings(self, paths):
-		"""Utility function."""
-		for p in paths:
-			self._add_js_file('rendering/' + p)
 
 	def _add_players(self, paths):
 		"""Utility function."""
@@ -350,11 +342,13 @@ class JavascriptManager(object):
 
 		# Data structures.
 		self._add_boolean_flags(['dynamic', 'static'])
-		self._add_display_caches(['', 'engine', 'fps', 'memory', 'normal', 'position'])
+		self._add_display_caches(['', 'date_time', 'engine', 'fps', 'memory', 'normal', 'position'])
 		self._add_linked_lists(['base', 'interactive', 'row', 'row_element'])
 
 		# Engine extensions.
-		self._add_core_extensions(['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'settings'])
+		self._add_core_extensions(['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'flags', 'inputs/pre_process', 'inputs/inputs'])
+		self._add_core_web_features(['cookies', 'event_window_resize', 'full_screen', 'pointer_lock'])
+		self._add_core_renderings(['film_pass', 'outline_glow', 'renderer'])
 		self._add_core('heap_manager')
 
 		# Font. (TODO: Move).
@@ -404,33 +398,16 @@ class JavascriptManager(object):
 		# Time abstraction.
 		self._add_time_abstractions(['pre_process', 'time_instance', 'time_manager'])
 
-		# HUD.
-		self._add_hud('manager/hud_manager')
-		self._add_hud('manager/extensions/pause_menu')
-		self._add_hud('hud_debug')
-		self._add_hud('hud_logs')
-		self._add_hud('hud_date_time')
-		self._add_hud('hud_user_typing')
+		self._add_core_huds(['hud', 'hud_date_time', 'hud_debug', 'hud_logs', 'hud_user_typing'])
 
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
 		self.js_files_needed.append('global/global_pre_process.js')
 
-		# Client class.
-		self._add_client('client')
-		self._add_client_extensions(['features', 'cookies', 'event_window_resize'])
-		self._add_client_functionalities(['full_screen', 'pointer_lock'])
-
 		# Loading and assets.
 
-		# Rendering manager.
-		self._add_renderings(['renderer_manager', 'outline_glow', 'film_pass'])
-
 		# Player.
-		self._add_players(['player', 'player_state', 'player_cursor'])
-
-		# Controls.
-		self._add_controls(['pre_process', 'player_controls/fps_controls', 'player_controls/mouse_controls', 'input_manager'])
+		self._add_players(['player', 'player_state', 'player_cursor', 'controls/mouse', 'controls/movement'])
 
 		# Worlds.
 		self._add_worlds(['world/world_base', 'world_manager/world_manager', 'world_manager/extensions/input', 'world_manager/extensions/singletons'])

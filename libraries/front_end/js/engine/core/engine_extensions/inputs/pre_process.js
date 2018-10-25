@@ -1,5 +1,8 @@
 'use strict';
 
+const IM_WHEEL_MODE_DEFAULT     = 1; // #pre-process_global_constant
+const IM_WHEEL_MODE_ALTERNATIVE = 2; // #pre-process_global_constant
+
 const KEY_CODE__SHIFT      = 16;           // #pre-process_global_constant
 const KEY_CODE__SPACE      = 32;           // #pre-process_global_constant
 const KEY_CODE__UP         = 38;           // #pre-process_global_constant

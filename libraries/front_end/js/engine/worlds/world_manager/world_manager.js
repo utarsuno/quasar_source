@@ -1,11 +1,9 @@
 'use strict';
 
 $_QE.prototype.WorldManager = function(engine) {
-    this.engine         = engine;
-    this.player         = engine.player;
-    this.renderer       = engine.manager_renderer;
-    this.application    = engine.application;
-    this.client         = engine.client;
+    this.engine      = engine;
+    this.player      = engine.player;
+    this.application = engine.application;
     this.create_for_first_render();
 };
 
@@ -49,9 +47,10 @@ Object.assign(
         physics: function(delta) {
             this.player.physics(delta);
 
-            if (this.renderer.in_transition) {
+            if (this.engine.get_flag(ENGINE_STATE_IN_TRANSITION)) {
                 return;
             }
+
             this.current_world.update_elements_root(delta);
 
             if (!this.player_cursor.in_mouse_action()) {

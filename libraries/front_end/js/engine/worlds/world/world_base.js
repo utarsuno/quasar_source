@@ -24,7 +24,7 @@ Object.assign($_QE.prototype.World.prototype, {
         this.add_element_root(element);
         //this.check_if_element_needs_interactive(element);
 
-        this._create_element(element);
+        this.create_element(element);
         this.add_element(element);
 
         this._refresh_element(element);

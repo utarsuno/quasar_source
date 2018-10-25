@@ -56,6 +56,11 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
             //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
             break;
+        case FEATURE_MATERIAL_COLOR_FANCY:
+            this.material = new THREE.MeshToonMaterial({
+                side: THREE.FrontSide, color: this.current_foreground_color
+            });
+            break;
         }
     },
 

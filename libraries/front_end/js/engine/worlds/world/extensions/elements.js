@@ -5,7 +5,8 @@ Object.assign($_QE.prototype.World.prototype, {
     currently_looked_at_object: null,
 
     // ------------------------------------------------------------------------------
-    _create_element: function(element) {
+    create_element: function(element) {
+        element.world = this;
         element.create();
         element.set_flag(EFLAG_CREATED, true);
     },
@@ -69,8 +70,8 @@ Object.assign($_QE.prototype.World.prototype, {
         if (QE.manager_world.player_cursor.currently_attached_to != null) {
             QE.manager_world.player_cursor.detach();
         }
-        if (QE.manager_input.disable_mouse_y) {
-            QE.manager_input.disable_mouse_y = false;
+        if (QE.get_flag(ENGINE_STATE_MOUSE_Y_DISABLED)) {
+            QE.set_flag_off(ENGINE_STATE_MOUSE_Y_DISABLED);
         }
         this.currently_looked_at_object = null;
     },
