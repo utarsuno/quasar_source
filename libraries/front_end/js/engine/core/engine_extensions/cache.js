@@ -24,8 +24,8 @@ const ENGINE_FLOAT_ELAPSED_TIME_SECOND  = 10; // #pre-process_global_constant
 
 
 Object.assign($_QE.prototype, {
-    _cache_values: new Uint32Array(6),
 
+    _cache_values: new Uint32Array(6),
     _cache_floats: new Float64Array(11),
 
     // Cached references.

@@ -4,61 +4,27 @@ $_QE.prototype.CanvasRenderingTextLines = function() {};
 
 Object.assign(
     $_QE.prototype.CanvasRenderingTextLines.prototype,
+    $_QE.prototype.CanvasRendererText.prototype,
     {
         constructor : $_QE.prototype.CanvasRenderingTextLines,
 
-        set_properties: function(number_of_visible_rows, width, font, canvas_id, create_dom_canvas=false) {
-            this.text_alignment   = TEXT_ALIGNMENT_START;
-            this.rows_need_update = false;
-            this.font             = font;
-            this.rows             = [];
-            this.num_batches      = 0;
-            this.batches          = new Int32Array(number_of_visible_rows * 2);
-            if (!create_dom_canvas) {
-                this.set_canvas_reference(canvas_id);
-            } else {
-                this.create_as_canvas(canvas_id);
-            }
-            this.set_dimensions(width, this.font.height * number_of_visible_rows);
-            let r;
-            for (r = 0; r < number_of_visible_rows; r++) {
-                this.rows.push(new $_QE.prototype.VisibleRow(r, this));
-            }
+        _initialize_renderer_text_reference_canvas: function(number_of_visible_rows, width, font, canvas_id) {
+            this._initialize_renderer_text(font, number_of_visible_rows, canvas_id, false, width);
         },
 
-        set_text_alignment: function(text_alignment) {
-            if (this.text_alignment != text_alignment) {
-                this.text_alignment = text_alignment;
-                switch (this.text_alignment) {
-                case TEXT_ALIGNMENT_START:
-                    this.context.textAlign = 'start';
-                    break;
-                case TEXT_ALIGNMENT_CENTER:
-                    this.context.textAlign = 'center';
-                    break;
-                case TEXT_ALIGNMENT_END:
-                    this.context.textAlign = 'end';
-                    break;
-                }
-            }
+        _initialize_renderer_text_internal_canvas: function(number_of_visible_rows, width, font, canvas_id) {
+            this._initialize_renderer_text(font, number_of_visible_rows, canvas_id, true, width);
         },
 
-        _post_render: function() {
-            if (this.texture != null) {
-                this.texture.needsUpdate = true;
-            }
-            //if (this.material != null) {
-            //    this.material.needsUpdate = true;
-            //}
+        _render_end: function() {
             let l;
             for (l = 0; l < this.rows.length; l++) {
                 this.rows[l].update_needed = false;
             }
-            this.rows_need_update = false;
-            this.num_batches      = 0;
+            this.num_batches = 0;
         },
 
-        _batches_calculate: function() {
+        _render_start: function() {
             let r;
             let in_batch = false;
             for (r = 0; r < this.rows.length; r++) {
@@ -86,16 +52,16 @@ Object.assign(
             }
         },
 
-        _batches_clear: function() {
+        _render_clear: function() {
             let b;
             for (b = 0; b < this.num_batches; b++) {
                 this.context.clearRect(0, this.batches[1 + b * 2], this.width, this.batches[b * 2]);
             }
         },
 
-        _batches_background: function() {
+        _render_background: function() {
             if (this.current_background_color != null) {
-                this.context.fillStyle = this.current_background_color;
+                this._set_color(this.current_background_color);
                 let b;
                 for (b = 0; b < this.num_batches; b++) {
                     this.context.fillRect(0, this.batches[1 + b * 2], this.width, this.batches[b * 2]);
@@ -103,31 +69,14 @@ Object.assign(
             }
         },
 
-        _batches_foreground: function() {
+        _render_foreground: function() {
             let r;
-            this.context.fillStyle = COLOR_CANVAS_GREEN;
+            this._set_color(COLOR_CANVAS_GREEN);
             for (r = 0; r < this.rows.length; r++) {
                 if (this.rows[r].update_needed) {
                     this.rows[r].render();
                 }
             }
-        },
-
-        _render: function() {
-            this._batches_calculate();
-            this._batches_clear();
-            this._batches_background();
-            this._batches_foreground();
-            this._post_render();
-        },
-
-        update: function() {
-            if (this.rows_need_update) {
-                this._render();
-                this._post_render();
-                return true;
-            }
-            return false;
         },
 
         shift_rows_up: function() {

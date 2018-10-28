@@ -40,7 +40,8 @@ Object.assign($_QE.prototype.Player.prototype, {
             this._resume_if_previous_state_was_paused();
             break;
         default:
-            if (this.previous_state === PLAYER_STATE_PAUSED) {
+            // TODO: Remove default case?
+            if (this.previous_state == PLAYER_STATE_PAUSED) {
                 //MANAGER_AUDIO.resume_background_music();
                 this.engine.resume();
             }
@@ -74,8 +75,8 @@ Object.assign($_QE.prototype.Player.prototype, {
 
     _reset_input_and_movements: function() {
         this.engine.reset_inputs();
-        this.engine.player.reset_velocity();
-
+        //this.engine.player.reset_velocity();
+        this.reset_velocity();
     },
 
     _resume_if_previous_state_was_paused: function() {

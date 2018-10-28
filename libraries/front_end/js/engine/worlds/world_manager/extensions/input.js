@@ -3,13 +3,13 @@
 Object.assign($_QE.prototype.WorldManager.prototype, {
 
     on_wheel_event: function(direction) {
-        if (this.player_cursor._currently_moving) {
+        if (this.player_cursor.get_flag(CURSOR_FLAG_MOVING)) {
             this.player_cursor.on_wheel_event(direction);
         }
     },
 
     left_click_up: function(is_double_click) {
-        if (this.player_cursor.engaged()) {
+        if (this.player_cursor.get_flag(CURSOR_FLAG_ENGAGED)) {
             this.player_cursor.disengage();
         }
 
@@ -29,7 +29,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
 
     left_click_down: function() {
         if (!this.player.is_paused()) {
-            if (this.player_cursor.currently_attached_to !== null) {
+            if (this.player_cursor.attached_to != null) {
                 this.player_cursor.engage();
             }
         }

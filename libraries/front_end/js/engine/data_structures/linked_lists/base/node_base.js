@@ -1,13 +1,13 @@
 'use strict';
 
 $_QE.prototype.DoublyLinkedListNode = function(object) {
-    this._object = object;
+    this._object    = object;
+    this._node_next = null;
+    this._node_prev = null;
+    this._position  = null;
 };
 
 Object.assign($_QE.prototype.DoublyLinkedListNode.prototype, {
-    _node_next: null,
-    _node_prev: null,
-    _position : null,
 
     clear: function() {
         this._object    = null;

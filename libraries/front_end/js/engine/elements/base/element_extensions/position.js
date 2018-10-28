@@ -2,6 +2,15 @@
 
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
+    // State.
+
+    set_to_update_needed_for_position: function() {
+        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        if (this.is_relative()) {
+            this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+        }
+    },
+
     set_to_absolute_position: function() {
         this.position_offsets = undefined;
 
@@ -27,7 +36,6 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     // For both relative and absolute positions.
 
-
     get_world_position: function() {
         if (this.is_relative()) {
             // TEMP:
@@ -41,48 +49,30 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             return position;
         }
         // Absolute position.
-        if (this.group != null) {
-            return this.group.position;
-        }
-        return this.mesh.position;
+        return this.get_object().position;
     },
 
 
     // For absolute positions.
 
     set_position: function(x, y, z) {
-        if (this.group != null) {
-            this.group.position.set(x, y, z);
-        } else {
-            this.mesh.position.set(x, y, z);
-        }
-        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        this.get_object().position.set(x, y, z);
+        this._set_position_needs_update();
     },
 
     set_position_center: function(x, y, z, look_at_x, look_at_y, look_at_z, cache=false) {
         if (cache) {
-            this._cache_previous_position_center_x = x;
-            this._cache_previous_position_center_y = y;
-            this._cache_previous_position_center_z = z;
+            this._cache_previous_position_center_x         = x;
+            this._cache_previous_position_center_y         = y;
+            this._cache_previous_position_center_z         = z;
             this._cache_previous_position_center_look_at_x = look_at_x;
             this._cache_previous_position_center_look_at_y = look_at_y;
             this._cache_previous_position_center_look_at_z = look_at_z;
         }
-        if (this.group != null) {
-            this.group.position.set(
-                x,
-                y - this.height / 2,
-                z
-            );
-            this.group.updateMatrix();
-        } else {
-            this.mesh.position.set(
-                x,
-                y - this.height / 2,
-                z
-            );
-            this.mesh.updateMatrix();
-        }
+
+        this.get_object().position.set(x, y - this.height / 2, z);
+        this.get_object().updateMatrix();
+
         if (cache) {
             this.look_at(look_at_x, look_at_y, look_at_z);
             this.re_cache_normal();
@@ -94,7 +84,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             }
             this.shift_by_left_right(this.width / 2);
         }
-        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        this._set_position_needs_update();
     },
 
     shift_by_left_right: function(distance) {
@@ -111,13 +101,23 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
                 this.mesh.position.z + this._cache_absolute_left_right.z * distance
             );
         }
-        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        this._set_position_needs_update();
     },
 
     // For relative positions.
     _set_position_needs_update: function() {
         this.set_flag(EFLAG_UPDATE_POSITION, true);
-        this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+        this._set_parent_chain_to_update_children();
+    },
+
+    _set_parent_chain_to_update_children: function() {
+        if (this.attachment_parent == null) {
+            return;
+        } else if (this.attachment_parent.set_flag != null) {
+            this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+        } else if (this.parent_button != null) {
+            this.parent_button._set_parent_chain_to_update_children();
+        }
     },
 
     set_offset_vertical: function(parent_percentage, self_percentage=null, distance=null) {

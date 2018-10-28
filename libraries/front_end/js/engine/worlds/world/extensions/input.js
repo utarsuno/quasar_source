@@ -30,8 +30,8 @@ Object.assign($_QE.prototype.World.prototype, {
                     if (double_click) {
                         this.engage_currently_looked_at_object();
                     } else {
-                        //if (QE.manager_world.player_cursor.currently_attached_to !== null) {
-                        //    QE.manager_world.player_cursor.engage();
+                        //if (QE.manager_world.player_cursor.attached_to !== null) {
+                        //    QE.manager_world.player_cursor.get_flag(CURSOR_FLAG_ENGAGED);
                         //}
                     }
                 } else {

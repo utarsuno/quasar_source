@@ -20,4 +20,29 @@ Object.assign($_QE.prototype.Player.prototype, {
         this.yaw.add(this.pitch);
     },
 
+    set_in_front_of_object: function(element, distance) {
+        // Temporary.
+        let p = element.get_world_position();
+        let n = element.get_normal();
+        this.set_position_xyz(
+            p.x + n.x * distance,
+            p.y + n.y * distance,
+            p.z + n.z * distance
+        );
+        this.look_at(p);
+    },
+
+    set_object_in_front_of: function(element, distance) {
+        element.set_position(
+            this.yaw.position.x + this._cache_normal.x * distance,
+            this.yaw.position.y,
+            this.yaw.position.z + this._cache_normal.z * distance
+        );
+        element.look_at(
+            this.yaw.position.x,
+            this.yaw.position.y,
+            this.yaw.position.z
+        );
+    },
+
 });

@@ -31,6 +31,27 @@ module.exports = {
     },
     "globals": {
 
+        //
+        "ENGINE_CACHE_WIDTH_INNER"         : false,
+        "ENGINE_CACHE_WIDTH_OUTER"         : false,
+        "ENGINE_CACHE_HEIGHT_INNER"        : false,
+        "ENGINE_CACHE_HEIGHT_OUTER"        : false,
+        "ENGINE_CACHE_POINTER_LOCK_MODE"   : false,
+        "ENGINE_CACHE_FRAME_COUNTER"       : false,
+        "ENGINE_FLOAT_FOV"                 : false,
+        "ENGINE_FLOAT_CLIPPING_NEAR"       : false,
+        "ENGINE_FLOAT_CLIPPING_FAR"        : false,
+        "ENGINE_FLOAT_ASPECT_RATIO"        : false,
+        "ENGINE_FLOAT_FPS_PHYSICS"         : false,
+        "ENGINE_FLOAT_FPS_LOGIC"           : false,
+        "ENGINE_FLOAT_FPS_RENDER"          : false,
+        "ENGINE_FLOAT_ELAPSED_TIME_PHYSICS": false,
+        "ENGINE_FLOAT_ELAPSED_TIME_LOGIC"  : false,
+        "ENGINE_FLOAT_ELAPSED_TIME_RENDER" : false,
+        "ENGINE_FLOAT_ELAPSED_TIME_SECOND" : false,
+        "ENGINE_STATE_MOUSE_Y_DISABLED"    : false,
+        //
+
         // Shader uniforms. ------------------------------------------------------------------------
         "SHADER_UNIFORM_SPRITESHEET_COLOR"              : false,
         "SHADER_UNIFORM_SPRITESHEET_TEXTURE"            : false,
@@ -52,7 +73,6 @@ module.exports = {
         "EFLAG_CACHEABLE_MESH"                : false,
         "EFLAG_CACHEABLE_MATERIAL"            : false,
         "EFLAG_CACHEABLE_GEOMETERY"           : false,
-        "EFLAG_IS_BASE"                       : false,
         "EFLAG_IS_ROOT"                       : false,
         "EFLAG_IS_ROW_ELEMENT"                : false,
         "EFLAG_IS_SINGLETON"                  : false,

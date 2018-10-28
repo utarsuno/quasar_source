@@ -32,6 +32,10 @@ Object.assign($_QE.prototype.World.prototype, {
         // Find out what's currently being looked at if anything.
         let i;
         for (i = 0; i < this.elements_interactive.length; i++) {
+
+            // TODO: There should be objects that are skippable.
+
+
             // The true parameter indicates recursive search.
             this.raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
 

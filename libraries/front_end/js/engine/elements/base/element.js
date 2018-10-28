@@ -5,9 +5,6 @@ $_QE.prototype.Element = function() {};
 Object.assign(
     $_QE.prototype.Element.prototype,
     {
-        //group: null,
-        //world: null,
-
         initialize_element_data: function() {
             this.initialize_events_and_flags();
         },
@@ -18,10 +15,6 @@ Object.assign(
             }
             return this.mesh;
         },
-
-        /*
-        this.set_flag(EFLAG_IS_BASE, is_base);
-         */
 
         /*
         world_enter: function(world) {

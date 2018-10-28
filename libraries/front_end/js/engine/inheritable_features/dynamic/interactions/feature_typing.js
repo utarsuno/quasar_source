@@ -1,16 +1,18 @@
 'use strict';
 
-$_QE.prototype.FeatureTyping = function(on_enter) {
+$_QE.prototype.FeatureTyping = function(on_enter=null) {
 
-    this.feature_typing    = true;
     this.callback_on_enter = on_enter;
+
+
+
+
 
     // For elements.
     if (this.set_flag != null) {
         if (!this.has_flag(EFLAG_INTERACTIVE)) {
             $_QE.prototype.FeatureInteractive.call(this);
         }
-
         this.set_flag(EFLAG_TYPING, true);
     }
 

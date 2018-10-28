@@ -25,6 +25,12 @@ Object.assign($_QE.prototype.DoublyLinkedListRowElements.prototype, $_QE.prototy
 
         this.parent_wall.add_attachment(element, create, update_normal);
 
+
+        if (this.row_y_start == null || isNaN(this.row_y_start)) {
+            l('ERROR. row_y_start IS BAD!');
+            l(this.row_y_start);
+        }
+
         element.set_offset_vertical(this.row_y_start, 0.5);
         element.set_flag(EFLAG_IS_ROW_ELEMENT, true);
 

@@ -27,6 +27,8 @@ Object.assign(
         },
 
         pointer_lock_change: function () {
+            //l('pointer_lock_change! Value was {' + this._cache_values[ENGINE_CACHE_POINTER_LOCK_MODE] + '}!');
+
             switch (this._cache_values[ENGINE_CACHE_POINTER_LOCK_MODE]) {
             case _PL_MODE_DEFAULT:
                 this.set_flag(ENGINE_STATE_POINTER_LOCKED, this._cache_reference_document_body !== document.pointerLockElement);
@@ -38,10 +40,14 @@ Object.assign(
                 this.set_flag(ENGINE_STATE_POINTER_LOCKED, this._cache_reference_document_body !== document.webkitPointerLockElement);
                 break;
             }
+            //if (this.get_flag(ENGINE_STATE_POINTER_LOCKED)) {
             // TODO: Document this better.
             if (this.get_flag(ENGINE_STATE_POINTER_LOCKED)) {
+                //l('Pausing the engine?');
                 this.pause_engine();
             }
+
+            //l('Value is {' + this._cache_values[ENGINE_CACHE_POINTER_LOCK_MODE] + '}!');
         },
 
         pointer_lock_error: function(e) {

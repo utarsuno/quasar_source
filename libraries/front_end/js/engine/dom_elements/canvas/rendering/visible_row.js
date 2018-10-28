@@ -17,9 +17,9 @@ $_QE.prototype.VisibleRow.prototype = {
 
     // Temporary.
     set_text: function(t) {
-        this.text                       = t;
-        this.update_needed              = true;
-        this.container.rows_need_update = true;
+        this.text                     = t;
+        this.update_needed            = true;
+        this.container._render_needed = true;
     },
 
     render: function() {

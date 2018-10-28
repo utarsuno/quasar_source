@@ -19,9 +19,6 @@ Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.FeatureColor.prototype,
     $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.FeatureGeometry.prototype,
-    $_QE.prototype.FeatureMaterial.prototype,
-    $_QE.prototype.FeatureMesh.prototype,
     {
         create: function() {
             this.create_material();

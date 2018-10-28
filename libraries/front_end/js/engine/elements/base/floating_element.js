@@ -5,6 +5,9 @@ $_QE.prototype.FloatingElement = function() {};
 Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.Element.prototype,
+    $_QE.prototype.FeatureGeometry.prototype,
+    $_QE.prototype.FeatureMaterial.prototype,
+    $_QE.prototype.FeatureMesh.prototype,
     {
         initialize_floating_element_data: function() {
             this.initialize_element_data();
@@ -20,9 +23,11 @@ Object.assign(
         },
 
         update_element: function() {
+            // TODO: Why is only position consumed?
             if (this.consume_flag(EFLAG_UPDATE_POSITION) || this.get_flag(EFLAG_UPDATE_NORMAL)) {
                 this.refresh();
-                if (this.get_flag(EFLAG_IS_BASE)) {
+
+                if (!this.is_relative()) {
                     this.re_cache_normal();
                 }
             }
@@ -32,12 +37,28 @@ Object.assign(
                 this.update();
             }
 
-            if (this.consume_flag(EFLAG_UPDATE_CHILD)) {
+            // TODO: check if sub-children need update
+
+            //this.consume_flag(EFLAG_UPDATE_CHILD)
+
+            if (this.parent_button != null) {
+                l('Confimration promtp!');
+                l(this.get_flag(EFLAG_UPDATE_CHILD));
+            }
+
+            //if (this._node_head != null) {
+            //    l('THIS ELEMENT HAS A NODE HEAD!');
+            //}
+
+            if (this.get_flag(EFLAG_UPDATE_CHILD)) {
                 let c;
                 for (c = 0; c < this.attachments.length; c++) {
                     this.attachments[c].update_element();
                 }
+                this.set_flag(EFLAG_UPDATE_CHILD, false);
             }
+
+            // Children need to be checked for EFLAG_UPDATE_CHILD
         },
 
         refresh: function() {
@@ -91,3 +112,5 @@ Object.assign(
         },
     }
 );
+
+

@@ -11,12 +11,9 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
     this.set_material_type(true, FEATURE_MATERIAL_TYPE_TEXT_3D);
     this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT, this._calculate_dimensions.bind(this));
 
-    this.set_value_post_changed_event(this._on_text_change.bind(this));
     if (interactive) {
-        $_QE.prototype.FeatureTyping.call(this, null);
-        $_QE.prototype.FeatureInteractive.call(this);
+        $_QE.prototype.FeatureTyping.call(this);
     }
-
     this.set_value_post_changed_event(this._on_text_change.bind(this));
 };
 
@@ -26,9 +23,6 @@ Object.assign(
     $_QE.prototype.FeatureText.prototype,
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.FeatureGeometry.prototype,
-    $_QE.prototype.FeatureMaterial.prototype,
-    $_QE.prototype.FeatureMesh.prototype,
     $_QE.prototype.FeatureColor.prototype,
     {
         constructor: $_QE.prototype.Text3D,

@@ -20,9 +20,8 @@ Object.assign(
 
         __init__: function(engine) {
             this.engine = engine;
-            this.set_properties(5, 300, this.engine.FONT_ARIAL_12, GLOBAL_ID_HUD_DEBUG);
 
-            this.initialize_gui();
+            this._initialize_renderer_text_reference_canvas(5, 400, this.engine.FONT_ARIAL_12, GLOBAL_ID_HUD_DEBUG);
 
             this._cache_fps      = new $_QE.prototype.DisplayCacheFPS(this.rows[4]);
             this._cache_engine   = new $_QE.prototype.DisplayCacheEngine(this, this.rows[3]);

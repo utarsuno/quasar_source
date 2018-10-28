@@ -7,16 +7,34 @@ Object.assign(
     $_QE.prototype.WallAbstraction.prototype,
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.FeatureColor.prototype,
-    $_QE.prototype.FeatureGeometry.prototype,
-    $_QE.prototype.FeatureMaterial.prototype,
-    $_QE.prototype.FeatureMesh.prototype,
     {
-        add_title_bar: function(title, icon) {
+        create_row: function(y_offset, add_raw, row_height=null) {
+            let r = new $_QE.prototype.FeatureRow();
+            if (this.height == null || this.height == 0 || isNaN(this.height)) {
+                l('ERROR. HEIGHT IS BAD!!');
+            }
+            if (row_height == null) {
+                r.create_row(this, this.height, y_offset, add_raw);
+            } else {
+                r.create_row(this, row_height, y_offset, add_raw);
+            }
+            return r;
+        },
+
+        add_title_bar: function(title, icon=null, use_close=true, use_settings=true, use_help=true) {
             this.title_bar = new $_QE.prototype.FeatureTitleBar(this);
-            this.title_bar.add_button_close();
-            this.title_bar.add_button_settings();
-            this.title_bar.add_button_help();
-            this.title_bar.add_icon(icon);
+            if (use_close) {
+                this.title_bar.add_button_close();
+            }
+            if (use_settings) {
+                this.title_bar.add_button_settings();
+            }
+            if (use_help) {
+                this.title_bar.add_button_help();
+            }
+            if (icon != null) {
+                this.title_bar.add_icon(icon);
+            }
             this.title_bar.add_title(title, false);
         },
 
@@ -36,13 +54,6 @@ Object.assign(
 FloatingWall.prototype = {
 
     __init__: function (width, height, position, normal, world, scalable, default_background_color) {
-        this.scalable = scalable;
-        if (!(this.scalable != null)) {
-            this.scalable = false;
-        }
-        if (!this.scalable) {
-            this.only_used_for_blocking_input = true;
-        }
 
         // Inherit from Saveable but set to false by default.
         Saveable.call(this, ENTITY_TYPE_WALL, this.load_completed.bind(this));

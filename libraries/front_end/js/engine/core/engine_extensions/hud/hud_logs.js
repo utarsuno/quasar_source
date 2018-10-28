@@ -9,8 +9,7 @@ Object.assign(
     $_QE.prototype.FeatureSize.prototype,
     {
         __init__: function(number_of_rows) {
-            this.set_properties(number_of_rows, 600, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_CHAT);
-            this.initialize_gui(0, 10);
+            this._initialize_renderer_text_reference_canvas(number_of_rows, 1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_CHAT);
 
             // Temp.
             this.rows[0].set_text('Nexus Local!');

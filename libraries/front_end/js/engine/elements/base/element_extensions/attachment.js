@@ -3,15 +3,24 @@
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     _set_to_group: function() {
+
+        // TODO: There is potentially a lot more data to transfer from mesh to group!
+        // Such as userdata
+        // Also check for Text3D
+
         this.group = new THREE.Group();
 
         if (this.mesh != null) {
+
+            // Transfer the mesh's position to the group parent.
             this.group.position.set(
                 this.mesh.position.x,
                 this.mesh.position.y,
                 this.mesh.position.z
             );
             this.mesh.position.set(0, 0, 0);
+            this.mesh.updateMatrix();
+
             //this.group.add(this.mesh);
             //this.refresh();
         }
@@ -30,27 +39,12 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             this.group.add(this.mesh);
             this.refresh();
         }
+
+        this.set_to_update_needed_for_position();
     },
 
     set_to_group: function() {
         this._set_to_group();
-        l('Set to group!');
-
-        /*
-        if (this.get_flag(EFLAG_CREATED)) {
-            if (!this.is_relative()) {
-                this._set_to_group();
-            } else {
-                this._set_to_group();
-            }
-        } else {
-            // check if in world
-            if (this.get_flag(EFLAG_IN_WORLD)) {
-                this._set_to_group();
-            } else {
-                this._set_to_group();
-            }
-        }*/
     },
 
 
@@ -68,8 +62,6 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             for (a = 0; a < this.attachment_parent.attachments.length; a++) {
                 if (this.attachment_parent.attachments[a] === this) {
                     this.attachment_parent.attachments.splice(a, 1);
-
-
 
                     this.attachment_parent = null;
                     break;

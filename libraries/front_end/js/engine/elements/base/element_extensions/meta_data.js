@@ -15,7 +15,7 @@ const EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT = 'f7';  // #pre-process_global_const
 const EFLAG_ENGABLE                        = 'f8';  // #pre-process_global_constant
 const EFLAG_CLICKABLE                      = 'f9';  // #pre-process_global_constant
 
-const EFLAG_IS_BASE                        = 'f10'; // #pre-process_global_constant
+// FLAG f10 is free!!!!
 const EFLAG_IS_ROOT                        = 'f11'; // #pre-process_global_constant
 const EFLAG_IS_ROW_ELEMENT                 = 'f12'; // #pre-process_global_constant
 const EFLAG_IS_SINGLETON                   = 'f13'; // #pre-process_global_constant

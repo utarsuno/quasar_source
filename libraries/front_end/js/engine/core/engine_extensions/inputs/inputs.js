@@ -97,6 +97,12 @@ Object.assign(
                 }
             }
             // Don't put 'event.preventDefault()' nor 'event.stopPropagation()' here, it will prevent paste events.
+
+            // Do block native tab events tho.
+            if (event.keyCode == KEY_CODE__TAB) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         },
 
         on_mouse_up: function(event) {
@@ -172,6 +178,12 @@ Object.assign(
                 this._send_world_key_event(event.keyCode);
             }
             // Don't put 'event.preventDefault()' nor 'event.stopPropagation()' here, it will prevent paste events.
+
+            // Do block native tab events tho.
+            if (event.keyCode == KEY_CODE__TAB) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         },
 
         _send_world_key_event: function(key_code) {

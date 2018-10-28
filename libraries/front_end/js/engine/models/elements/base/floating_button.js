@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 $_QE.prototype.FloatingButton = function(world, width, text_height, text, engage_function, cacheable) {
     // Inherit.
     $_QE.prototype.Text2D.call(this, world, width, text_height, text, cacheable);

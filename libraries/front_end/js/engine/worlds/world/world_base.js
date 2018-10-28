@@ -1,9 +1,6 @@
 'use strict';
 
-$_QE.prototype.World = function(player) {
-    this.player = player;
-    this.scene  = new THREE.Scene();
-};
+$_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 

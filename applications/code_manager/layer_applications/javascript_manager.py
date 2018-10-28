@@ -368,8 +368,6 @@ class JavascriptManager(object):
 		self._add_dynamic_feature('interactions/feature_button')
 		self._add_dynamic_feature('interactions/feature_interactive')
 		self._add_dynamic_feature('interactions/feature_typing')
-		self._add_dynamic_feature('mouse_actions/feature_mouse_move')
-		self._add_dynamic_feature('mouse_actions/feature_mouse_scale')
 
 		# ----------------------------------------------------------------------------------------------------------------
 		self._add_element_base('element')
@@ -378,9 +376,6 @@ class JavascriptManager(object):
 		self._add_element_base_extensions(['attachment', 'normal', 'position', 'visibility'])
 		self._add_element_base('wall/wall_abstraction')
 		self._add_element_base('wall/floating_wall')
-		self._add_elements('discrete/confirmation_prompt')
-		self._add_elements('discrete/icon')
-		self._add_elements('discrete/text_3d')
 		self._add_elements('environment/hexagon_grid')
 		self._add_elements('environment/light_ambient')
 		self._add_elements('environment/light_point')
@@ -391,9 +386,18 @@ class JavascriptManager(object):
 		self._add_dom_element('base/dom_element')
 		self._add_dom_element('text/dom_element_text')
 		self._add_dom_element('canvas/dom_element_canvas')
+		self._add_dom_element('canvas/rendering/text_renderer.js')
+		self._add_dom_element('canvas/rendering/text_line')
 		self._add_dom_element('canvas/rendering/text_lines')
-		self._add_dom_element('canvas/rendering/line_of_text')
 		self._add_dom_element('canvas/rendering/visible_row')
+
+		#
+		self._add_elements('discrete/confirmation_prompt')
+		self._add_elements('discrete/icon')
+		self._add_elements('discrete/text_3d')
+		self._add_elements('discrete/text_2d')
+		#
+
 
 		# Time abstraction.
 		self._add_time_abstractions(['pre_process', 'time_instance', 'time_manager'])
@@ -407,7 +411,7 @@ class JavascriptManager(object):
 		# Loading and assets.
 
 		# Player.
-		self._add_players(['player', 'player_state', 'player_cursor', 'controls/mouse', 'controls/movement'])
+		self._add_players(['player', 'player_state', 'cursor/cursor', 'cursor/cursor_default', 'cursor/cursor_icon', 'controls/mouse', 'controls/movement'])
 
 		# Worlds.
 		self._add_worlds(['world/world_base', 'world_manager/world_manager', 'world_manager/extensions/input', 'world_manager/extensions/singletons'])

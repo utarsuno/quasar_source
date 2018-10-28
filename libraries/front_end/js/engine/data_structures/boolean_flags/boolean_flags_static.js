@@ -22,6 +22,11 @@ $_QE.prototype.BooleanFlagsStatic.prototype = {
         }
     },
 
+    clear_flags: function() {
+        this.flags[0] = 0;
+        this.flags[1] = 0;
+    },
+
     set_flag: function(flag_number, b) {
         if (b) {
             this.set_flag_on(flag_number);

@@ -11,8 +11,7 @@ Object.assign(
         __init__: function(engine) {
             this.engine = engine;
 
-            this.set_properties(2, 200, QE.FONT_ARIAL_12, GLOBAL_ID_DATE_TIME);
-            this.initialize_gui();
+            this._initialize_renderer_text_reference_canvas(2, 400, QE.FONT_ARIAL_12, GLOBAL_ID_DATE_TIME);
 
             this.rows[0].set_text_alignment(TEXT_ALIGNMENT_END);
             this.rows[1].set_text_alignment(TEXT_ALIGNMENT_END);

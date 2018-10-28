@@ -7,21 +7,22 @@ Object.assign(
     $_QE.prototype.DomElementCanvas.prototype,
     $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.FeatureText.prototype,
-    $_QE.prototype.CanvasRenderingTextLines.prototype,
+    $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
         __init__: function(application) {
             this.text        = '';
             this.application = application;
-            this.set_properties(1, 600, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
-            this.initialize_gui(10, 80);
-            this.hide();
+
+            this._initialize_renderer_text_reference_canvas(1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
+            // The typing hud starts off as hidden (style set ahead of time directly in HTML).
+            this.hidden = true;
 
             $_QE.prototype.FeatureTyping.call(
                 this,
                 this._on_enter_event.bind(this)
             );
             this.value_post_changed_function = function(text) {
-                this.rows[0].set_text(text);
+                this.set_row_text(text);
             }.bind(this);
 
             return this;

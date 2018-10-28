@@ -67,7 +67,7 @@ Object.assign($_QE.prototype.World.prototype, {
         if (this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
             this.disengage_from_currently_looked_at_object();
         }
-        if (QE.manager_world.player_cursor.currently_attached_to != null) {
+        if (QE.manager_world.player_cursor.attached_to != null) {
             QE.manager_world.player_cursor.detach();
         }
         if (QE.get_flag(ENGINE_STATE_MOUSE_Y_DISABLED)) {
