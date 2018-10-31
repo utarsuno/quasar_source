@@ -14,6 +14,7 @@ from applications.code_manager.layer_applications.build_processes.volume_assets 
 from applications.code_manager.layer_applications.build_processes.js_independent_libraries import BuildProcessJSIndependentLibraries
 from applications.code_manager.layer_applications.build_processes.nexus_local_js import BuildProcessJSNexusLocal
 from applications.code_manager.layer_applications.build_processes.nexus_courier import BuildProcessNexusCourier
+from applications.code_manager.layer_applications.build_processes.shaders import BuildProcessShaders
 
 LIBRARY_THREE_JS          = 'threejs'
 
@@ -55,6 +56,7 @@ class NexusLocalBuildProcess(BuildProcess):
 			[self._add_step_html         , ENV_FE, ENV_PROD],
 			[self._add_step_volume       , ENV_FE, ENV_PROD],
 			[self._add_step_js_libraries , ENV_FE, ENV_PROD],
+			[self._add_step_shaders      , ENV_FE, ENV_PROD],
 			[self._add_step_js_engine    , ENV_FE, ENV_PROD],
 			[self._add_step_nexus_courier, ENV_PROD]
 		]
@@ -63,6 +65,9 @@ class NexusLocalBuildProcess(BuildProcess):
 		library = self.db_domain.get_library_by_name(LIBRARY_THREE_JS)
 		self.add_step(BuildProcessThreeJSLibrary(self.db_domain, library))
 		self.add_step(BuildProcessThreeJSCombinedLibrary(self.db_domain))
+
+	def _add_step_shaders(self):
+		self.add_step(BuildProcessShaders(self.db_domain))
 
 	def _add_step_css(self):
 		self.add_step(BuildProcessCSS(self.db_domain))

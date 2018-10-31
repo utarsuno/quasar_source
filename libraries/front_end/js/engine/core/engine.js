@@ -6,11 +6,10 @@ THREE.Cache.enabled = true;
 THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
 
-function $_QE(application, application_class, first_world, world_environment) {
+function $_QE(application, application_class, first_world) {
     this.engine_main_loop  = this._engine_loop.bind(this);
     this._initialize_hud_critical();
     this.first_world_class = first_world;
-    this.world_environment = world_environment;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
     if (this.are_required_features_enabled()) {

@@ -1,7 +1,6 @@
 'use strict';
 
 Object.assign($_QE.prototype.World.prototype, {
-    previous_tab_target: null,
 
     tab_to_next_interactive_object: function() {
         if (this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT)) {

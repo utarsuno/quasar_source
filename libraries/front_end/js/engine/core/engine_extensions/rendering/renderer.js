@@ -4,7 +4,6 @@
 Object.assign(
     $_QE.prototype,
     {
-
         render: function(delta) {
             if (this.get_flag(ENGINE_STATE_IN_TRANSITION)) {
                 this._current_transition.render(delta);
@@ -12,6 +11,27 @@ Object.assign(
                 this.effect_composer.render(delta);
             }
         },
+
+        _update_renderer_dimensions() {
+            this.camera.aspect = this._cache_floats[ENGINE_FLOAT_ASPECT_RATIO];
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
+
+            if (this.get_flag(ENGINE_SETTING_STATE_SHADERS)) {
+                this.effect_composer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
+                this._update_fxaa();
+                this._update_outline_glow();
+                this._update_background();
+            }
+        },
+
+        get_aspect_ratio: function() {
+            return this._cache_values[ENGINE_CACHE_WIDTH_INNER] / this._cache_values[ENGINE_CACHE_HEIGHT_INNER];
+        },
+
+        /*        ___               __  ___
+         | |\ | |  |  |  /\  |    |  / |__
+         | | \| |  |  | /~~\ |___ | /_ |___*/
 
         _initialize_renderer: function() {
             this._cache_floats[ENGINE_FLOAT_FOV]           = 75.0;
@@ -38,46 +58,19 @@ Object.assign(
             );
         },
 
-        _update_renderer_dimensions() {
-            this.camera.aspect = this._cache_floats[ENGINE_FLOAT_ASPECT_RATIO];
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
-
-            if (this.get_flag(ENGINE_SETTING_STATE_SHADERS)) {
-                this.effect_composer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
-                if (this.get_flag(ENGINE_SETTING_STATE_FXAA)) {
-                    this.effect_FXAA.uniforms['resolution'].value.set(1 / (this._cache_values[ENGINE_CACHE_WIDTH_INNER] * window.devicePixelRatio), 1 / (this._cache_values[ENGINE_CACHE_HEIGHT_INNER] * window.devicePixelRatio));
-                }
-                //this.outline_pass.setSize(this.window_width, this.window_height);
-                this.outline_pass.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
-            }
-        },
-
         initialize_shaders: function(world) {
-            //this.load_transition_material();
             this.effect_composer = new THREE.EffectComposer(this.renderer);
             this.render_pass     = new THREE.RenderPass(world.scene, this.camera);
 
             //
             this.effect_composer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
             //
-
             this.effect_composer.addPass(this.render_pass);
 
-            this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-            this.effect_FXAA.uniforms['resolution'].value.set(1 / (this._cache_values[ENGINE_CACHE_WIDTH_INNER] * window.devicePixelRatio), 1 / (this._cache_values[ENGINE_CACHE_HEIGHT_INNER] * window.devicePixelRatio));
-
-            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]), world.scene, this.camera);
-            this.effect_composer.addPass(this.outline_pass);
-
-            // Make sure FXAA gets added after outline pass and before the film effect.
-            this.effect_composer.addPass(this.effect_FXAA);
-
-            this.effect_film = new $_QE.prototype.FilmNoise();
-            this.effect_film.renderToScreen = true;
-            this.effect_composer.addPass(this.effect_film);
-
             this._initialize_outline_glow(world);
+            this._initialize_fxaa();
+            this._initialize_noise();
+            this._initialize_background();
         },
 
     }

@@ -6,7 +6,6 @@ $_QE.prototype.AssetBatch = function() {
     this.get_layer_needed_for_asset = function(asset) {
         let depth = 0;
         let current_asset = asset;
-        // while (current_asset.depends_on != null) {
         while (current_asset.depends_on != null) {
             depth += 1;
             current_asset = current_asset.depends_on;
@@ -28,6 +27,7 @@ $_QE.prototype.AssetBatch = function() {
                 this.layers[layer_needed].push(asset);
             }
         }
+        return asset;
     };
 
     this.load_batch = function() {
@@ -57,4 +57,16 @@ $_QE.prototype.AssetBatch = function() {
         }
         return Promise.all(promises);
     };
+};
+
+$_QE.prototype.AssetBatch.prototype = {
+
+    add_asset_texture: function(asset_key, depends_on=null) {
+        return this.add_asset(new $_QE.prototype.AssetFile(asset_key, ASSET_TYPE_TEXTURE, depends_on));
+    },
+
+    add_asset_shader: function(asset_key, depends_on=null) {
+        return this.add_asset(new $_QE.prototype.AssetFile(asset_key, ASSET_TYPE_SHADER_MATERIAL, depends_on));
+    },
+
 };

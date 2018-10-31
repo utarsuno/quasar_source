@@ -2,8 +2,7 @@
 
 $_QE.prototype.ShaderMaterialAbstraction = function() {};
 
-Object.assign($_QE.prototype.ShaderMaterialAbstraction.prototype, {
-
+$_QE.prototype.ShaderMaterialAbstraction.prototype = {
     _get_value: function(v) {
         return {'value': v};
     },
@@ -27,4 +26,4 @@ Object.assign($_QE.prototype.ShaderMaterialAbstraction.prototype, {
     get_shader_material: function() {
         return this.shader_material;
     },
-});
+};

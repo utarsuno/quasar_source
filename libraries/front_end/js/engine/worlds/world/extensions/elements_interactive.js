@@ -1,14 +1,6 @@
 'use strict';
 
 Object.assign($_QE.prototype.World.prototype, {
-    elements_interactive: [],
-    raycaster           : new THREE.Raycaster(),
-
-    // For cache optimizations.
-    _intersections      : [],
-    _nums               : new Int32Array(2),
-    _intersection_data  : null,
-    _intersection_match : null,
 
     update_elements_interactive: function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.

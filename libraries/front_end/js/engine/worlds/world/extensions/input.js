@@ -24,6 +24,8 @@ Object.assign($_QE.prototype.World.prototype, {
         //    return;
         //}
 
+        // TODO: refactor left_click!
+
         if (this.currently_looked_at_object != null) {
             if (!this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
                 if (this.currently_looked_at_object.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK)) {

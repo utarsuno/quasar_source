@@ -1,7 +1,6 @@
 'use strict';
 
 Object.assign($_QE.prototype.World.prototype, {
-    elements_root: [],
 
     update_elements_root: function(delta) {
         let e;

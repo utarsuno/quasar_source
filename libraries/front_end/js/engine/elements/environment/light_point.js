@@ -1,19 +1,13 @@
 'use strict';
 
-$_QE.prototype.LightPoint = function() {
+$_QE.prototype.LightPoint = function(color, intensity, distance, decay, x, y, z) {
     this.initialize_element_data();
+    this.group = new THREE.PointLight(color, intensity, distance, decay);
+    this.group.position.set(x, y, z);
+    this.group.updateMatrix();
 };
 
 Object.assign(
     $_QE.prototype.LightPoint.prototype,
-    $_QE.prototype.Element.prototype,
-    {
-        create_singleton: function(world_manager, color, intensity, distance, decay, x, y, z) {
-            this.group = new THREE.PointLight(color, intensity, distance, decay);
-            this.group.position.set(x, y, z);
-            this.group.updateMatrix();
-            world_manager.singleton_add(this);
-            return this;
-        },
-    }
+    $_QE.prototype.Element.prototype
 );

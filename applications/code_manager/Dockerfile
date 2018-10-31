@@ -37,15 +37,19 @@ RUN apk add --no-cache libc-dev \
  && apk add --no-cache bash-completion
 
 # Build websockets C++ files.
-#COPY ./scripts/docker/build_process_steps/build_amqp.sh /var/cache/build_amqp.sh
-#RUN bash /var/cache/build_amqp.sh
+#COPY ./scripts/docker/build_process_steps/amqp.sh /var/cache/amqp.sh
+#RUN bash /var/cache/amqp.sh
 
-# Build babel-minify.
-COPY ./scripts/docker/build_process_steps/build_babel_minify.sh /var/cache/build_babel_minify.sh
-RUN bash /var/cache/build_babel_minify.sh \
+# Build babel-minify (for js minification) and build shader builders.
+COPY ./scripts/docker/build_process_steps/babel_minify.sh /var/cache/babel_minify.sh
+COPY ./scripts/docker/build_process_steps/shaders.sh /var/cache/shaders.sh
+
+RUN bash /var/cache/babel_minify.sh \
+ && bash /var/cache/shaders.sh \
  # Cleanup steps.
  && rm -rf /var/cache/apk/* \
  && rm -rf /root/.cache/pip/* \
- && rm /var/cache/build_babel_minify.sh
+ && rm /var/cache/babel_minify.sh \
+ && rm /var/cache/shaders.sh
 
 CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_build_process.py"]

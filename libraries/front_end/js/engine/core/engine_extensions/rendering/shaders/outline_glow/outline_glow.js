@@ -7,7 +7,14 @@ Object.assign(
         engage_color        : new THREE.Color(0x28ff8e),
         current_hover_object: null,
 
+        _update_outline_glow: function() {
+            this.outline_pass.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
+        },
+
         _initialize_outline_glow: function(world) {
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]), world.scene, this.camera);
+            this.effect_composer.addPass(this.outline_pass);
+
             this.outline_pass.edgeStrength      = 4.5;
             this.outline_pass.edgeGlow          = 0.2;
             this.outline_pass.edgeThickness     = 1.5;

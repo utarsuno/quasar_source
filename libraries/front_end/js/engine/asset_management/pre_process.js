@@ -12,6 +12,7 @@ const ASSET_TEXUTRE_SKYBOX_BOTTOM = 'bo.jpg'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_TRANSITION   = 'sm1'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_NOISE        = 'sm2'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_SPRITE_SHEET = 'sm3'; // #pre-process_global_constant
+const ASSET_SHADER_MATERIAL_BACKGROUND   = 'sm4'; // #pre-process_global_constant
 
 const ASSET_ICON_ADMIN      = 0;  // #pre-process_global_constant
 const ASSET_ICON_ARROW      = 1;  // #pre-process_global_constant

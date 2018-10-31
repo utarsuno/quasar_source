@@ -1,15 +1,18 @@
 'use strict';
 
 $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
-
     this.name       = name;
     this.type       = asset_type;
     this.depends_on = depends_on;
+};
 
-    this.load_asset = function() {
+$_QE.prototype.AssetFile.prototype = {
+
+    load_asset: function() {
         let me = this;
-        if (this.type === ASSET_TYPE_TEXTURE) {
 
+        switch(this.type) {
+        case ASSET_TYPE_TEXTURE:
             return new Promise(function(resolve, reject) {
                 let loader = new THREE.TextureLoader();
                 loader.load('/v/' + me.name,
@@ -25,9 +28,7 @@ $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
                     }
                 );
             });
-
-        } else if (this.type === ASSET_TYPE_SHADER_MATERIAL) {
-
+        case ASSET_TYPE_SHADER_MATERIAL:
             return new Promise(function(resolve) {
                 switch(me.name) {
                 case ASSET_SHADER_MATERIAL_TRANSITION:
@@ -42,9 +43,14 @@ $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
                     QE.manager_assets.on_asset_load(me.name, new $_QE.prototype.ShaderMaterialSpriteSheet());
                     resolve();
                     break;
+                case ASSET_SHADER_MATERIAL_BACKGROUND:
+                    QE.manager_assets.on_asset_load(me.name, new $_QE.prototype.ShaderMaterialBackground());
+                    resolve();
+                    break;
                 }
             });
-
         }
-    };
+    },
+
 };
+

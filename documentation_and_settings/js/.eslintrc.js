@@ -218,6 +218,7 @@ module.exports = {
         "ASSET_TEXTURE_SPRITE_SHEET"        : false,
         "ASSET_TEXTURE_TRANSITION"          : false,
         "ASSET_SHADER_MATERIAL_TRANSITION"  : false,
+        "ASSET_SHADER_MATERIAL_BACKGROUND"  : false,
         "ASSET_SHADER_MATERIAL_NOISE"       : false,
         "ASSET_SHADER_MATERIAL_SPRITE_SHEET": false,
 
@@ -230,9 +231,6 @@ module.exports = {
         "CLIENT_FEATURE_POINTER_LOCK": false,
 
         // OLD BELOW.
-
-        "OutlineGlow": false,
-        "FilmNoise"  : false,
 
         //       ___  __      __   __   __        ___ ___  __    /  __   ___  __        ___  __            ___  __   __        __   ___  __
         // |  | |__  |__)    /__` /  \ /  ` |__/ |__   |  /__`  /  /__` |__  |__) \  / |__  |__)     |\/| |__  /__` /__`  /\  / _` |__  /__`
@@ -279,11 +277,6 @@ module.exports = {
         "ENTITY_STATIC_WORLD_HOME"    : false,
         "ENTITY_STATIC_WORLD_SETTINGS": false,
         "ENTITY_STATIC_WORLD_ADMIN"   : false,
-
-        "PLAYER_STATE_FULL_CONTROL" : false,
-        "PLAYER_STATE_PAUSED"       : false,
-        "PLAYER_STATE_ENGAGED"      : false,
-        "PLAYER_STATE_TYPING_IN_HUD": false,
 
         "POST_KEY_GENERIC_DATA"                       : true,
         "SERVER_COMMAND_SUDO_OPERATION"               : true,

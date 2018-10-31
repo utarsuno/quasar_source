@@ -52,10 +52,10 @@ RUN apk add --no-cache bash \
 
 COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 
-#COPY ./scripts/docker/build_process_steps/build_amqp.sh /var/cache/build_amqp.sh
-#RUN bash /var/cache/build_amqp.sh
+#COPY ./scripts/docker/build_process_steps/amqp.sh /var/cache/amqp.sh
+#RUN bash /var/cache/amqp.sh
 
-#RUN rm /var/cache/build_amqp.sh
+#RUN rm /var/cache/amqp.sh
 
 #CMD ["/quasar/generated_output/websocket_server/websocket_server"]
 CMD ["bash", "/quasar/scripts/docker/run_nexus_courier.sh"]

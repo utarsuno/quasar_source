@@ -16,3 +16,8 @@ const SHADER_UNIFORM_TRANSITION_TEXTURE_MIX = 'texture_mix';               // #p
 const SHADER_UNIFORM_NOISE_T_DIFFUSE   = 'tDiffuse';   // #pre-process_global_constant
 const SHADER_UNIFORM_NOISE_TIME        = 'time';       // #pre-process_global_constant
 const SHADER_UNIFORM_NOISE_N_INTENSITY = 'nIntensity'; // #pre-process_global_constant
+
+// From background shader.
+const SHADER_UNIFORM_BACKGROUND_ASPECT      = 'aspect';     // #pre-process_global_constant
+const SHADER_UNIFORM_BACKGROUND_GRAIN_SCALE = 'grainScale'; // #pre-process_global_constant
+const SHADER_UNIFORM_BACKGROUND_GRAIN_TIME  = 'grainTime';  // #pre-process_global_constant

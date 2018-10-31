@@ -22,5 +22,8 @@ Object.assign($_QE.prototype, {
     COLOR_YELLOW       : new THREE.Color('#faff00'),
     COLOR_WHITE        : new THREE.Color('#ffffff'),
     COLOR_BLACK        : new THREE.Color('#000000'),
-    COLOR_TEXT_CONSTANT: new THREE.Color('#0b410f')
+    COLOR_TEXT_CONSTANT: new THREE.Color('#0b410f'),
+
+    COLOR_BACKGROUND_INNER: new THREE.Color('#505050'),
+    COLOR_BACKGROUND_OUTER: new THREE.Color('#111111')
 });

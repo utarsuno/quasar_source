@@ -2,8 +2,6 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    currently_looked_at_object: null,
-
     // ------------------------------------------------------------------------------
     create_element: function(element) {
         element.world = this;

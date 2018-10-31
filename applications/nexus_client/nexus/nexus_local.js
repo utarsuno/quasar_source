@@ -26,5 +26,5 @@ $_NL.prototype = {
 };
 
 window.onload = function() {
-    QE = new $_QE(NL, $_NL, $_NL.prototype.WorldDevTools, $_NL.prototype.WorldEnvironment);
+    QE = new $_QE(NL, $_NL, $_NL.prototype.WorldDevTools);
 };

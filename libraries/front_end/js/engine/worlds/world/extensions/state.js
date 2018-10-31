@@ -1,14 +1,6 @@
 'use strict';
 
 Object.assign($_QE.prototype.World.prototype, {
-    player_last_position_and_normal_set: false,
-    player_last_position               : new THREE.Vector3(),
-    player_last_normal                 : new THREE.Vector3(),
-
-    on_world_enter                     : null,
-    on_world_exit                      : null,
-    player_default_enter_position      : null,
-    player_default_enter_normal        : null,
 
     set_on_world_enter: function(f) {
         this.on_world_enter = f;

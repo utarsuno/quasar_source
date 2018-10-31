@@ -220,6 +220,11 @@ class JavascriptManager(object):
 			path += '.js'
 		self.js_files_needed.append(path)
 
+	def _add_paths(self, base, paths):
+		"""Utility function."""
+		for p in paths:
+			self._add_js_file(base + p)
+
 	def _add_display_caches(self, paths):
 		"""Utility function."""
 		for p in paths:
@@ -230,8 +235,7 @@ class JavascriptManager(object):
 
 	def _add_boolean_flags(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('data_structures/boolean_flags/boolean_flags_' + p)
+		self._add_paths('data_structures/boolean_flags/boolean_flags_', paths)
 
 	def _add_linked_lists(self, paths):
 		"""Utility function."""
@@ -245,23 +249,19 @@ class JavascriptManager(object):
 
 	def _add_core_extensions(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('core/engine_extensions/' + p)
+		self._add_paths('core/engine_extensions/', paths)
 
 	def _add_core_renderings(self, paths):
 		""""Utility function."""
-		for p in paths:
-			self._add_js_file('core/engine_extensions/rendering/' + p)
+		self._add_paths('core/engine_extensions/rendering/', paths)
 
 	def _add_core_web_features(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('core/engine_extensions/web_features/' + p)
+		self._add_paths('core/engine_extensions/web_features/', paths)
 
 	def _add_core_huds(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('core/engine_extensions/hud/' + p)
+		self._add_paths('core/engine_extensions/hud/', paths)
 
 	def _add_client(self, path):
 		"""Utility function."""
@@ -285,23 +285,19 @@ class JavascriptManager(object):
 
 	def _add_players(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('player/' + p)
+		self._add_paths('player/', paths)
 
 	def _add_controls(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('controls/' + p)
+		self._add_paths('controls/', paths)
 
 	def _add_worlds(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('worlds/' + p)
+		self._add_paths('worlds/', paths)
 
 	def _add_world_extensions(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('worlds/world/extensions/' + p)
+		self._add_paths('worlds/world/extensions/', paths)
 
 	def _add_elements(self, path):
 		"""Utility function."""
@@ -313,23 +309,19 @@ class JavascriptManager(object):
 
 	def _add_element_base_extensions(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('elements/base/element_extensions/' + p)
+		self._add_paths('elements/base/element_extensions/', paths)
 
 	def _add_shaders(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('asset_management/shaders/' + p)
+		self._add_paths('core/engine_extensions/rendering/shaders/', paths)
 
 	def _add_asset_managements(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('asset_management/' + p)
+		self._add_paths('asset_management/', paths)
 
 	def _add_time_abstractions(self, paths):
 		"""Utility function."""
-		for p in paths:
-			self._add_js_file('time_abstraction/' + p)
+		self._add_paths('time_abstraction/', paths)
 
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
@@ -348,7 +340,7 @@ class JavascriptManager(object):
 		# Engine extensions.
 		self._add_core_extensions(['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'flags', 'inputs/pre_process', 'inputs/inputs'])
 		self._add_core_web_features(['cookies', 'event_window_resize', 'full_screen', 'pointer_lock'])
-		self._add_core_renderings(['film_pass', 'outline_glow', 'renderer'])
+		self._add_core_renderings(['renderer'])
 		self._add_core('heap_manager')
 
 		# Font. (TODO: Move).
@@ -379,6 +371,7 @@ class JavascriptManager(object):
 		self._add_elements('environment/hexagon_grid')
 		self._add_elements('environment/light_ambient')
 		self._add_elements('environment/light_point')
+		self._add_elements('environment/skybox')
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# DOM element abstraction.
@@ -418,7 +411,14 @@ class JavascriptManager(object):
 		self._add_world_extensions(['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'input', 'state'])
 
 		# Asset Managers.
-		self._add_shaders(['pre_process', 'shader_material_abstraction', 'shader_material_noise', 'shader_material_spritesheet', 'shader_material_transition'])
+		self._add_shaders(['pre_process', 'shader_material_abstraction',
+		                   'background/shader_material_background', 'background/background',
+		                   'fxaa/fxaa',
+		                   'noise/noise', 'noise/shader_material_noise',
+		                   'outline_glow/outline_glow',
+		                   'spritesheet/shader_material_spritesheet',
+		                   'transition/shader_material_transition'
+		                   ])
 		self._add_asset_managements(['pre_process', 'asset_manager', 'asset_batch', 'asset_file', 'icon_manager'])
 
 		# Websockets.

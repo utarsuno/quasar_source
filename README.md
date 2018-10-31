@@ -1,11 +1,9 @@
-# Quasar Source
+## Development Screenshots
 
-##### TODO: Technical documentation + product explination.
-
-#### Development Screenshots (Out-dated):
-TODO: add newer screenshots
+October 2018
+![alt_text](https://i.imgur.com/NG7E4yN.jpg)
+---
 ![alt_text](https://i.imgur.com/839NKO1.jpg)
-(mobile support added)
 ---
 February 2018
 ![alt_text](https://i.imgur.com/iytE8bW.png)
@@ -21,7 +19,6 @@ November 2017
 ---
 October 2017
 ![alt_text](https://i.imgur.com/xKp1n9a.png)
-![alt text](https://i.imgur.com/FYvnV5B.png)
 ---
 September 2017
 ![alt text](https://i.imgur.com/V8GOzD9.png)

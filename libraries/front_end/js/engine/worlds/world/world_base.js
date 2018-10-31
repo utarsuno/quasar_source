@@ -5,8 +5,33 @@ $_QE.prototype.World = function() {};
 Object.assign($_QE.prototype.World.prototype, {
 
     init_world: function(player) {
-        this.player = player;
-        this.scene  = new THREE.Scene();
+        this.player                     = player;
+        this.scene                      = new THREE.Scene();
+        this.currently_looked_at_object = null;
+
+        this.elements_interactive= [];
+        this.raycaster           = new THREE.Raycaster();
+
+        // For cache optimizations.
+        this._intersections      = [];
+        this._nums               = new Int32Array(2);
+        this._intersection_data  = null;
+        this._intersection_match = null;
+
+        this.elements_root = [];
+
+        this.previous_tab_target = null;
+
+        // State
+        this.player_last_position_and_normal_set = false;
+        this.player_last_position                = new THREE.Vector3();
+        this.player_last_normal                  = new THREE.Vector3();
+
+        this.on_world_enter                      = null;
+        this.on_world_exit                       = null;
+        this.player_default_enter_position       = null;
+        this.player_default_enter_normal         = null;
+
     },
 
     _refresh_element: function(element) {
