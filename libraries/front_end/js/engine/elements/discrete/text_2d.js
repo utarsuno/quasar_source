@@ -1,15 +1,22 @@
 'use strict';
 
-$_QE.prototype.Text2D = function(text, height, font, interactive=false) {
+$_QE.prototype.Text2D = function(text, height, font, interactive=false, color=null) {
     this.text            = text;
     this.set_color_flags = true;
 
     this.initialize_floating_element_data();
 
     //this.set_colors(QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-
     //this.set_colors(QE.COLOR_BLUE, QE.COLOR_GREEN);
-    this.set_colors(COLOR_CANVAS_YELLOW, COLOR_CANVAS_GREEN);
+    //this.set_colors(COLOR_CANVAS_YELLOW, COLOR_CANVAS_GREEN);
+    //this.set_colors(COLOR_CANVAS_YELLOW, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+
+
+    if (color != null) {
+        this.set_colors(color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    } else {
+        this.set_colors(COLOR_CANVAS_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    }
 
     this._initialize_renderer_text_internal_canvas(128, font, 'bla');
 
@@ -36,17 +43,27 @@ Object.assign(
         constructor: $_QE.prototype.Text2D,
 
         _on_text_change: function(text) {
-            l('Text2D changed!');
+            //l('Text2D changed!');
             this.set_row_text(text);
+
+            //if (this.attachment_parent != null) {
+            //    l(this);
+            //}
         },
 
         create: function() {
-
-
-
             this.create_material();
             this.create_geometry();
             this.create_mesh();
+
+            //l('Text2D created! {' + this.text + '}');
+
+            //this.material.depthWrite = false;
+
+            // Temporary solution.
+            let t = this.text;
+            this.update_text('');
+            this.update_text(t);
         },
     }
 );

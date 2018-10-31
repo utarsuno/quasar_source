@@ -6,14 +6,18 @@ const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .45)'; // #pre-pr
 const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .45)';   // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .45)'; // #pre-process_global_constant
 
+// '#ff5e33';
+const COLOR_CANVAS_RED    = 'rgb(255,94,51,1.0)'; // #pre-process_global_constant
 // '#9dff71';
-const COLOR_CANVAS_GREEN  = 'rgb(157,255,113,0.75)'; // #pre-process_global_constant
+const COLOR_CANVAS_GREEN  = 'rgb(157,255,113,1.0)'; // #pre-process_global_constant
 // '#a7f8ff';
 const COLOR_CANVAS_TEAL   = 'rgb(167,248,255,0.75)'; // #pre-process_global_constant
 // '#f2ff66';
 const COLOR_CANVAS_YELLOW = 'rgb(242,255,102,0.75)'; // #pre-process_global_constant
 // '#292929';
 const COLOR_CANVAS_GRAY   = 'rgb(41,41,41,0.45)';    // #pre-process_global_constant
+// '#4d0005';
+const COLOR_CANVAS_DARK_RED = 'rgb(77, 0, 5, 0.6)'; // #pre-process_global_constant
 
 Object.assign($_QE.prototype, {
     COLOR_RED          : new THREE.Color('#ff5e33'),

@@ -35,14 +35,30 @@ Object.assign(
         },
 
         create_text2d: function(text, color, relative_index, depth_offset=null) {
-            let element = new $_QE.prototype.Text2D(this.row_height, text, true);
+            let element = new $_QE.prototype.Text2D(text, this.row_height, QE.FONT_ARIAL_12, false, color);
             this.add_relative_element(element, relative_index, true);
             if (depth_offset != null) {
                 element.set_offset_depth(depth_offset);
             }
-            //
             return element;
-            //
         },
+
+        create_button: function(text, color, relative_index, depth_offset=null, button_event=null) {
+            let element = new $_QE.prototype.Text2D(text, this.row_height, QE.FONT_ARIAL_12, true, color);
+            this.add_relative_element(element, relative_index, true);
+            if (depth_offset != null) {
+                element.set_offset_depth(depth_offset);
+            }
+
+            if (button_event != null) {
+                element.set_to_button(button_event);
+            } else {
+                element.set_to_button(function() {
+                    l('TODO: this buttons functionality!');
+                });
+            }
+
+            return element;
+        }
     }
 );

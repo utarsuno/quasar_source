@@ -41,24 +41,27 @@ Object.assign(
 
             //this.consume_flag(EFLAG_UPDATE_CHILD)
 
-            if (this.parent_button != null) {
-                l('Confimration promtp!');
-                l(this.get_flag(EFLAG_UPDATE_CHILD));
-            }
-
             //if (this._node_head != null) {
             //    l('THIS ELEMENT HAS A NODE HEAD!');
             //}
 
+            let c;
             if (this.get_flag(EFLAG_UPDATE_CHILD)) {
-                let c;
                 for (c = 0; c < this.attachments.length; c++) {
                     this.attachments[c].update_element();
                 }
                 this.set_flag(EFLAG_UPDATE_CHILD, false);
+            } else {
+                // TODO: Optimize later.
+                for (c = 0; c < this.attachments.length; c++) {
+                    if (this.attachments[c].get_flag(EFLAG_UPDATE_CHILD)) {
+                        this.attachments[c].update_element();
+                    }
+                }
             }
 
             // Children need to be checked for EFLAG_UPDATE_CHILD
+
         },
 
         refresh: function() {

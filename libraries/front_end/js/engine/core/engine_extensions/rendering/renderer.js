@@ -50,6 +50,11 @@ Object.assign(
             //this.renderer.setClearColor( 0x000000, 0 ); // the default
             this.renderer.autoClear = true;
 
+            //
+            // TODO: eventually switch this to false
+            this.renderer.sortObjects = true;
+            //
+
             this.camera = new THREE.PerspectiveCamera(
                 this._cache_floats[ENGINE_FLOAT_FOV],
                 this._cache_floats[ENGINE_FLOAT_ASPECT_RATIO],

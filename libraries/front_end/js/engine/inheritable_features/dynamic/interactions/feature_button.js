@@ -18,7 +18,15 @@ $_QE.prototype.FeatureButton = function(engage_function) {
         this.clear_event(ELEMENT_EVENT_ON_ENGAGE);
         let self = this;
         this.set_event(ELEMENT_EVENT_ON_ENGAGE, function() {
-            return self.confirmation._event_function();
+            self.confirmation._event_function();
         });
+    };
+
+    this._no_response = function() {
+        l('no response!');
+    };
+
+    this._yes_response = function() {
+        l('yes response!');
     };
 };

@@ -4,6 +4,11 @@ $_QE.prototype.FeatureMaterial = function(){};
 
 Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
+    set_opacity: function(v) {
+        this.material.opacity     = v;
+        this.material.needsUpdate = true;
+    },
+
     set_material_type: function(use_cache, type) {
         this.set_flag(EFLAG_CACHEABLE_MATERIAL, use_cache);
         this.material_type = type;
@@ -59,6 +64,11 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
         case FEATURE_MATERIAL_COLOR_FANCY:
             this.material = new THREE.MeshToonMaterial({
                 side: THREE.FrontSide, color: this.current_foreground_color
+            });
+            break;
+        case FEATURE_MATERIAL_COLOR_TRANSPARENT:
+            this.material = new THREE.MeshToonMaterial({
+                side: THREE.FrontSide, color: this.current_foreground_color, transparent: true
             });
             break;
         }

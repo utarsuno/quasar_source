@@ -71,7 +71,8 @@ Object.assign(
 
         _render_foreground: function() {
             let r;
-            this._set_color(COLOR_CANVAS_GREEN);
+            //this._set_color(COLOR_CANVAS_GREEN);
+            this._set_color(this.current_foreground_color);
             for (r = 0; r < this.rows.length; r++) {
                 if (this.rows[r].update_needed) {
                     this.rows[r].render();

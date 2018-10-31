@@ -7,6 +7,7 @@ Object.assign(
     $_QE.prototype.DomElementCanvas.prototype,
     $_QE.prototype.CanvasRenderingTextLines.prototype,
     $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FeatureColor.prototype,
     {
         // Debug metrics.
         _cache_fps     : null,
@@ -20,6 +21,8 @@ Object.assign(
 
         __init__: function(engine) {
             this.engine = engine;
+
+            this.set_foreground_color(COLOR_CANVAS_GREEN);
 
             this._initialize_renderer_text_reference_canvas(5, 400, this.engine.FONT_ARIAL_12, GLOBAL_ID_HUD_DEBUG);
 

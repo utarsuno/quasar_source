@@ -135,6 +135,10 @@ $_QE.prototype.DoublyLinkedListBase.prototype = {
         return this._node_tail._position;
     },
 
+    get_position_of_head: function() {
+        return this._node_head._position;
+    },
+
     get_number_of_positive_elements: function() {
         return this._length_positive;
     },
@@ -211,10 +215,10 @@ $_QE.prototype.DoublyLinkedListBase.prototype = {
         default:
             if (insert_position == 0) {
                 return this._insert_center(node_insert);
-            } else if (insert_position < this._node_head._position) {
+            } else if (insert_position < this.get_position_of_head()) {
                 this._replace_current_head(node_insert, insert_position);
                 return this._node_head;
-            } else if (insert_position > this._node_tail._position) {
+            } else if (insert_position > this.get_position_of_tail()) {
                 this._replace_current_tail(node_insert, insert_position);
                 return this._node_tail;
             } else {

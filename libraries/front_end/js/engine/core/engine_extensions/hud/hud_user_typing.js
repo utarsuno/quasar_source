@@ -7,11 +7,14 @@ Object.assign(
     $_QE.prototype.DomElementCanvas.prototype,
     $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.FeatureText.prototype,
+    $_QE.prototype.FeatureColor.prototype,
     $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
         __init__: function(application) {
             this.text        = '';
             this.application = application;
+
+            this.set_foreground_color(COLOR_CANVAS_GREEN);
 
             this._initialize_renderer_text_reference_canvas(1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
             // The typing hud starts off as hidden (style set ahead of time directly in HTML).
