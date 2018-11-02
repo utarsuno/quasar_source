@@ -1,25 +1,21 @@
 'use strict';
 
-function FloatingCheckBox(world, size, checked, on_checked_function) {
-    this.__init__(world, size, checked, on_checked_function);
-}
+$_QE.prototype.FloatingCheckbox = function(size, checked, on_checked_function) {
+    this.checked             = checked;
+    this.on_checked_function = on_checked_function;
+    this.initialize_floating_element_data();
+    this.set_dimensions(size, size);
+};
 
-FloatingCheckBox.prototype = {
+Object.assign(
+    $_QE.prototype.FloatingCheckbox.prototype,
+    $_QE.prototype.FloatingIcon.prototype
+);
 
+
+/*
     __init__: function(world, size, checked, on_checked_function) {
-        // Inherit.
-        FloatingElement.call(this, world);
         this.set_to_clickable();
-
-        this.checked = checked;
-        if (!(this.checked != null)) {
-            this.checked = false;
-        }
-
-        this.on_checked_function = on_checked_function;
-
-        this.width = size;
-        this.height = size;
 
         this.icon_checked = new FloatingIcon(this.world, ASSET_ICON_CHECKMARK, size, QE.COLOR_GREEN, true);
 
@@ -52,9 +48,7 @@ FloatingCheckBox.prototype = {
         return this.checked;
     },
 
-    /* __  ___      ___  ___     __                  __   ___  __
-      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
-      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    // State changes. ------------------------------------------------------------------------------------
     set_checked_state: function(is_checked) {
         if (is_checked) {
             this.icon_checked.switch_icon_and_color(ASSET_ICON_CHECKMARK, QE.COLOR_GREEN);
@@ -76,14 +70,10 @@ FloatingCheckBox.prototype = {
             this.on_checked_function(this.checked);
         }
     },
+ */
 
-    state_change_look_at: function(being_looked_at) {
-        if (being_looked_at) {
-            //this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
-            MANAGER_RENDERER.outline_glow.set_hover_object(this.object3D);
-        } else {
-            //this.set_background_color(this.default_background_color, true);
-            MANAGER_RENDERER.outline_glow.remove_hover_object(this.object3D);
-        }
-    }
-};
+
+
+/* __  ___      ___  ___     __                  __   ___  __
+  /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+  .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */

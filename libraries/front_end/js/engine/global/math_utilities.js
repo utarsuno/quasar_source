@@ -17,18 +17,6 @@ function get_nearest_power_of_two_for_number(n) {
     return (v - n) > (n - x) ? x : v;
 }
 
-function get_next_highest_power_of_two(n) {
-    let v = n;
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    v++; // next power of 2
-    return v;
-}
-
 /*__            __     __   __      ___            __  ___    __        __
  |__) |__| \ / /__` | /  ` /__`    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  |    |  |  |  .__/ | \__, .__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */

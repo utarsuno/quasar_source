@@ -4,10 +4,15 @@ $_QE.prototype.WallFloating = function() {};
 
 Object.assign(
     $_QE.prototype.WallFloating.prototype,
-    $_QE.prototype.WallAbstraction.prototype,
     $_QE.prototype.FloatingElement.prototype,
+    $_QE.prototype.DoublyLinkedListRows.prototype,
+    $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.FeatureColor.prototype,
     {
+        initialize_wall_rows: function() {
+            this.initialize_interactive_linked_list();
+        },
+
         create_row: function(y_offset, add_raw, row_height=null) {
             let r = new $_QE.prototype.FeatureRow();
             if (this.height == null || this.height == 0 || isNaN(this.height)) {
@@ -19,6 +24,54 @@ Object.assign(
                 r.create_row(this, row_height, y_offset, add_raw);
             }
             return r;
+        },
+
+        _get_new_row_as_tail: function(row_height) {
+            let r = new $_QE.prototype.FeatureRow();
+            r.create_row(this, row_height, this._node_tail.get_row_y() - (row_height / this.height), false);
+            return r;
+        },
+
+        add_buttons_row: function(font, buttons) {
+            let r = this._get_new_row_as_tail(font.height);
+
+            let number_of_buttons = buttons.length;
+            let button_width      = this.width / number_of_buttons;
+
+            let b = number_of_buttons - 1;
+            while (b >= 0) {
+
+                l(buttons[b]);
+
+                r.create_button(
+                    buttons[b].text,
+                    buttons[b].color,
+                    button_width,
+                    b + 2,
+                    1,
+                    buttons[b].event,
+                    font
+                );
+
+                b--;
+            }
+        },
+
+        add_text_row: function(text, color, font) {
+            if (this._node_tail != null) {
+                let r = this._get_new_row_as_tail(font.height);
+                //r.create_row(
+                //    this,
+                //    font.height,
+                //    this._node_tail.get_row_y() - (font.height / this.height),
+                //    false
+                //);
+
+                r.create_text2d(text, color, font, this.width, -1);
+
+            } else {
+                l('TODO: else condition!');
+            }
         },
 
         add_title_bar: function(title, icon=null, use_close=true, use_settings=true, use_help=true) {

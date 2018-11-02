@@ -25,7 +25,6 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
     $_QE.prototype.FloatingElement.call(this, world);
     $_QE.prototype.FeatureText.call(this, text);
 
-
     this.cacheable = cacheable;
     if (is_defined(cacheable_texture)) {
         this.cacheable_texture = cacheable_texture;

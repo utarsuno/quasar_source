@@ -36,8 +36,14 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
             this.material = QE.manager_heap.get_text_3D_material(this.current_foreground_color);
             break;
         case FEATURE_MATERIAL_TYPE_ICON:
-            this.material = QE.manager_icons.get_icon_material(this.icon_type);
+            this.material = QE.manager_assets.get_icon_material(this.icon_type);
             break;
+        }
+    },
+
+    _set_alpha_test_if_needed: function() {
+        if (this.current_background_color != null && this.current_background_color == QE.COLOR_RGBA_TRANSPARENT) {
+            this.material.alphaTest = 0.5;
         }
     },
 
@@ -48,18 +54,21 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
                 map : this.texture, transparent: true, side: THREE.FrontSide
             //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
+            this._set_alpha_test_if_needed();
             break;
         case FEATURE_MATERIAL_CANVAS_FANCY:
             this.material = new THREE.MeshLambertMaterial({
                 map : this.texture, transparent: true, side: THREE.FrontSide
             //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
+            this._set_alpha_test_if_needed();
             break;
         case FEATURE_MATERIAL_CANVAS_SHINY:
             this.material = new THREE.MeshToonMaterial({
                 map : this.texture, transparent: true, side: THREE.FrontSide
             //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
+            this._set_alpha_test_if_needed();
             break;
         case FEATURE_MATERIAL_COLOR_FANCY:
             this.material = new THREE.MeshToonMaterial({
@@ -76,6 +85,9 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     create_material: function() {
         this.get_flag(EFLAG_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
+        if (this.opacity != null) {
+            this.set_opacity(this.opacity);
+        }
     },
 
 });

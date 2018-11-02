@@ -399,12 +399,8 @@ module.exports = {
 
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 
-        "FLOATING_TEXT_BACKGROUND_DARK_GRAY"  : false,
-        "FLOATING_TEXT_BACKGROUND_TRANSPARENT": false,
-        "FLOATING_TEXT_BACKGROUND_DEFAULT"    : false,
         "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
         "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
-        "COLOR_CANVAS_GREEN"                  : false,
         "COLOR_CANVAS_TEAL"                   : false,
         "COLOR_CANVAS_YELLOW"                 : false,
         "COLOR_CANVAS_GRAY"                   : false,

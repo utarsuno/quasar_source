@@ -8,6 +8,8 @@ from libraries.code_api.code_abstraction.code_section import CodeSection
 from libraries.universal_code import debugging as dbg
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.code_abstraction.code_chunk import CodeChunk
+from applications.code_manager.layer_applications.javascript_parser import pre_process_constant
+from applications.code_manager.layer_applications.javascript_parser import pre_process_shaders
 
 FOR_DEV_START  = 'FOR_DEV_START'
 FOR_DEV_END    = 'FOR_DEV_END'
@@ -15,85 +17,6 @@ FOR_QA_START   = 'FOR_QA_START'
 FOR_QA_END     = 'FOR_QA_END'
 FOR_PROD_START = 'FOR_PROD_START'
 FOR_PROD_END   = 'FOR_PROD_END'
-
-
-class PreProcessConstant(object):
-	"""Represents a constant to pre-process."""
-
-	def __init__(self, raw_line):
-		self._raw      = raw_line
-		self._variable = None
-		self._value    = None
-		self._initialize()
-
-	def _initialize(self):
-		"""Gets the constant name."""
-		r = self._raw.lstrip().rstrip()
-		r = r[r.index('const ') + len('const '):]
-		r = r[:r.index(';')]
-
-		self._variable = r[:r.index('=')].lstrip().rstrip()
-		self._value    = r[r.index('=') + 1:].lstrip().rstrip()
-
-	@property
-	def variable(self) -> str:
-		"""Returns the name of this constant/variable."""
-		return self._variable
-
-	@property
-	def value(self) -> str:
-		"""Returns the value of this constant/variable."""
-		return self._value
-
-
-def parse_out_constants(lines_to_parse):
-	"""Returns the lines with certain constants parsed out."""
-
-	constants  = []
-
-	first_pass = []
-	final_pass = []
-
-	for l in lines_to_parse:
-		if 'const' in l and '#pre-process_global_constant' in l:
-			constants.append(PreProcessConstant(l))
-			#print(l, end='')
-		else:
-			first_pass.append(l)
-
-	for l in first_pass:
-		line_currently = l
-
-		for c in constants:
-			if c.variable in line_currently:
-				#print(line_currently, end='')
-				line_currently = line_currently.replace(c.variable, c.value)
-				#print(line_currently, end='')
-				#print()
-
-		final_pass.append(line_currently)
-
-	return final_pass
-
-
-def parse_in_shaders(lines_to_parse, assets):
-	"""Returns the lines with certain constants parsed out."""
-
-	final_pass = []
-
-	for l in lines_to_parse:
-		if '#pre-process_get_shader' in l:
-			s = l[l.index('#pre-process_get_shader'):].rstrip()
-			shader_name = s.replace('#pre-process_get_shader_', '')
-			shader_file = assets.get_file_by_full_name(shader_name)
-
-			shader_text = '\'' + shader_file.get_shader_as_javascript_string()[1:-2].replace('\'', '\\\'') + '\';'
-
-			final_pass.append(l.replace('\'\';', shader_text))
-		else:
-			final_pass.append(l)
-
-	return final_pass
 
 
 def _get_parsed_javascript_content(file_lines):
@@ -182,27 +105,20 @@ class JavascriptManager(object):
 		# Now create the combined javascript file.
 		if self.build_for == 'NEXUS_LOCAL':
 			combined_javascript_file = GeneratedJSFile('nexus_local.js')
-		#elif self.engine.is_build_quasar:
-		#	combined_javascript_file = GeneratedJSFile('quasar.js')
 
 		combined_javascript_file.add_code_section(CodeSection('all_code'))
 		all_code = combined_javascript_file.get_code_section('all_code')
 
-		# ///// Generate shader code.
-		combined_lines = parse_in_shaders(combined_lines, assets)
-		# /////
+		# Fill in any shader string variables.
+		combined_lines = pre_process_shaders.parse_in_shaders(combined_lines, assets)
 
-		# /////
-		combined_lines = parse_out_constants(combined_lines)
-		# /////
+		# Pre-process marked constants.
+		combined_lines = pre_process_constant.parse_out_constants(combined_lines)
 
 		all_code.add_code_chunk(CodeChunk(combined_lines))
 
 		if self.build_for == 'NEXUS_LOCAL':
-			#output_directory = CodeDirectory('/quasar/generated_output/web_assets')
 			output_directory = CodeDirectory(self.domain.generated_content_path)
-		#elif self.engine.is_build_quasar:
-		#	output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')
 
 		# TODO: refactor this?
 		output_directory.add_code_file(combined_javascript_file)
@@ -210,9 +126,7 @@ class JavascriptManager(object):
 		combined_javascript_file.create_or_update_file()
 
 		# Now minify the file and transfer it to its needed location.
-		loaded_javascript_file = combined_javascript_file.get_created_file_as_loaded_file()
-
-		return loaded_javascript_file
+		return combined_javascript_file.get_created_file_as_loaded_file()
 
 	def _add_js_file(self, path):
 		"""Adds a required JS file."""
@@ -271,9 +185,13 @@ class JavascriptManager(object):
 		"""Utility function."""
 		self._add_js_file('inheritable_features/' + path)
 
-	def _add_static_feature(self, path):
+	def _add_static_features(self, paths):
 		"""Utility function."""
-		self._add_js_file('inheritable_features/static/' + path)
+		self._add_paths('inheritable_features/static/', paths)
+
+	def _add_three_js_abstractions(self, paths):
+		"""Utility function."""
+		self._add_paths('inheritable_features/static/three_js_abstractions/', paths)
 
 	def _add_dynamic_feature(self, path):
 		"""Utility function."""
@@ -282,6 +200,10 @@ class JavascriptManager(object):
 	def _add_dom_element(self, path):
 		"""Utility function."""
 		self._add_js_file('dom_elements/' + path)
+
+	def _add_canvas_renderings(self, path):
+		"""Utility function."""
+		self._add_paths('dom_elements/canvas/rendering/', path)
 
 	def _add_players(self, paths):
 		"""Utility function."""
@@ -306,6 +228,10 @@ class JavascriptManager(object):
 	def _add_element_base(self, path):
 		"""Utility function."""
 		self._add_js_file('elements/base/' + path)
+
+	def _add_environments(self, paths):
+		"""Utility function."""
+		self._add_paths('elements/environment/', paths)
 
 	def _add_element_base_extensions(self, paths):
 		"""Utility function."""
@@ -347,13 +273,8 @@ class JavascriptManager(object):
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# Features/extensions.
-		self._add_static_feature('three_js_abstractions/pre_process')
-		self._add_static_feature('three_js_abstractions/feature_geometry')
-		self._add_static_feature('three_js_abstractions/feature_material')
-		self._add_static_feature('three_js_abstractions/feature_mesh')
-		self._add_static_feature('feature_text')
-		self._add_static_feature('feature_color')
-		self._add_static_feature('feature_size')
+		self._add_three_js_abstractions(['pre_process', 'feature_geometry', 'feature_material', 'feature_mesh'])
+		self._add_static_features(['feature_text', 'feature_color', 'feature_size'])
 
 		self._add_dynamic_feature('attachments/feature_row')
 		self._add_dynamic_feature('attachments/feature_title_bar')
@@ -366,12 +287,8 @@ class JavascriptManager(object):
 		self._add_element_base_extensions(['meta_data'])
 		self._add_element_base('floating_element')
 		self._add_element_base_extensions(['attachment', 'normal', 'position', 'visibility'])
-		self._add_element_base('wall/wall_abstraction')
-		self._add_element_base('wall/floating_wall')
-		self._add_elements('environment/hexagon_grid')
-		self._add_elements('environment/light_ambient')
-		self._add_elements('environment/light_point')
-		self._add_elements('environment/skybox')
+		self._add_element_base('floating_wall')
+		self._add_environments(['hexagon_grid', 'light_ambient', 'light_point', 'skybox'])
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# DOM element abstraction.
@@ -379,10 +296,11 @@ class JavascriptManager(object):
 		self._add_dom_element('base/dom_element')
 		self._add_dom_element('text/dom_element_text')
 		self._add_dom_element('canvas/dom_element_canvas')
-		self._add_dom_element('canvas/rendering/text_renderer.js')
-		self._add_dom_element('canvas/rendering/text_line')
-		self._add_dom_element('canvas/rendering/text_lines')
-		self._add_dom_element('canvas/rendering/visible_row')
+		self._add_canvas_renderings(['text_renderer', 'text_line', 'text_lines', 'visible_row'])
+
+		#
+		self._add_core_extensions(['text_2d_helper'])
+		#
 
 		#
 		self._add_elements('discrete/confirmation_prompt')
@@ -419,7 +337,7 @@ class JavascriptManager(object):
 		                   'spritesheet/shader_material_spritesheet',
 		                   'transition/shader_material_transition'
 		                   ])
-		self._add_asset_managements(['pre_process', 'asset_manager', 'asset_batch', 'asset_file', 'icon_manager'])
+		self._add_asset_managements(['pre_process', 'asset_manager', 'asset_batch', 'asset_file'])
 
 		# Websockets.
 		self.js_files_needed.append('web_sockets/web_socket_manager.js')

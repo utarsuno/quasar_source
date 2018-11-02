@@ -42,9 +42,9 @@ Object.assign(
             this.logs.add_text_line_to_bottom('Third message!', COLOR_CANVAS_GREEN);
             */
 
-            this.test = new $_QE.prototype.Text2D('Test!', 256, QE.FONT_ARIAL_32);
-            this.create_and_add_element_to_root(this.test);
-            this.test.set_position_center(-2000, 1000, -1000, 0, 0, 0, true);
+            //this.test = new $_QE.prototype.Text2D('Test!', 256, QE.FONT_ARIAL_32);
+            //this.create_and_add_element_to_root(this.test);
+            //this.test.set_position_center(-2000, 1000, -1000, 0, 0, 0, true);
 
         },
     }

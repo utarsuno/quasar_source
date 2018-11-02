@@ -14,3 +14,29 @@ const HALF             = 0.5;                // #pre-process_global_constant
 //const ONE_THIRD        = 1 / 3;
 //const DIAGONAL_PENALTY = Math.sqrt(.5);
 
+
+
+Object.assign(
+    $_QE.prototype,
+    {
+
+        // Solution from: https://stackoverflow.com/questions/30924280/what-is-the-best-way-to-determine-if-a-given-number-is-a-power-of-two.
+        is_power_of_two: function(n) {
+            return n && !(n & (n - 1));
+        },
+
+        get_next_highest_power_of_two: function(n) {
+            let v = n;
+            v--;
+            v |= v >> 1;
+            v |= v >> 2;
+            v |= v >> 4;
+            v |= v >> 8;
+            v |= v >> 16;
+            v++; // next power of 2
+            return v;
+        },
+
+    }
+);
+

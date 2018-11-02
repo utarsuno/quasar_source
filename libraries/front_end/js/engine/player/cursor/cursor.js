@@ -12,8 +12,6 @@ $_QE.prototype.PlayerCursor = function(player) {
     this._initialize_default_cursor();
     this._initialize_icon_cursor();
 
-    this.set_colors(QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-
     this.in_mouse_action = function() {
         return this.get_flag(CURSOR_FLAG_SCALING) || this.get_flag(CURSOR_FLAG_MOVING);
     };
@@ -44,7 +42,6 @@ $_QE.prototype.PlayerCursor = function(player) {
 Object.assign(
     $_QE.prototype.PlayerCursor.prototype,
     $_QE.prototype.DomElementCanvas.prototype,
-    $_QE.prototype.FeatureColor.prototype,
     $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.BooleanFlagsStatic.prototype,
     {

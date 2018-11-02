@@ -4,6 +4,12 @@ $_QE.prototype.CanvasRendererText = function() {};
 
 $_QE.prototype.CanvasRendererText.prototype = {
 
+    _set_font: function(font) {
+        if (this.context.font != font.font_as_string) {
+            this.context.font = font.font_as_string;
+        }
+    },
+
     _initialize_renderer_text: function(font, number_of_visible_rows, canvas_id, canvas_is_internal, width) {
         this._render_needed      = true;
         this._current_fill_color = null;

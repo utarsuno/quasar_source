@@ -67,7 +67,6 @@ const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_const
 
 
 Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
-    //_events: {},
 
     initialize_events_and_flags: function() {
         this._events = {};
@@ -77,9 +76,12 @@ Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynam
     },
 
     set_event: function(event_key, event_function) {
-        if (event_key in this._events) {
-            this._events[event_key] = [this._events[event_key]];
-            this._events[event_key].push(event_function);
+        if (event_key in this._events && this._events[event_key] != null) {
+            if (Array.isArray(this._events[event])) {
+                this._events[event_key].push(event_function);
+            } else {
+                this._events[event_key] = [this._events[event_key], event_function];
+            }
         } else {
             this._events[event_key] = event_function;
         }
@@ -87,12 +89,8 @@ Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynam
 
     clear_event: function(event_key) {
         if (event_key in this._events) {
-            delete this._events[event_key];
+            this._events[event_key] = undefined;
         }
-    },
-
-    has_event: function(event) {
-        return event in this._events;
     },
 
     trigger_event: function(event, data=null) {

@@ -7,7 +7,7 @@ $_QE.prototype.FloatingIcon = function(icon_type, size, foreground_color) {
     this.icon_type = icon_type;
 
     this.initialize_floating_element_data();
-    this.set_colors(foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_foreground_color(foreground_color);
     this.set_dimensions(size, size);
     this.set_geometry_type(true, FEATURE_GEOMETRY_TYPE_PLANE);
     this.set_material_type(true, FEATURE_MATERIAL_TYPE_ICON);
@@ -26,7 +26,7 @@ Object.assign(
             this.create_mesh();
             this.material.uniforms['offset'].value = this.icon_type;
             this.set_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR, this.current_foreground_color_changed.bind(this));
-            this.trigger_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR);
+            this.current_foreground_color_changed();
         },
 
         /*__   __        __   __      __   __   ___  __       ___    __        __
@@ -34,20 +34,20 @@ Object.assign(
          \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
         current_foreground_color_changed: function() {
             this.material.uniforms['color'].value = this.current_foreground_color;
-            this.material.needsUpdate = true;
+            this.material.needsUpdate             = true;
         },
 
         switch_icon: function(icon) {
             if (this.icon_type !== icon) {
                 this.material.uniforms['offset'].value = icon;
-                this.material.needsUpdate = true;
-                this.icon_type = icon;
+                this.material.needsUpdate              = true;
+                this.icon_type                         = icon;
             }
         },
 
         switch_icon_and_color: function(icon, color) {
             this.material.uniforms['color'].value = color;
-            this.material.needsUpdate = true;
+            this.material.needsUpdate             = true;
             this.switch_icon(icon);
         },
     }

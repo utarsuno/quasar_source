@@ -3,9 +3,8 @@
 $_QE.prototype.Text3D = function(size, text, interactive=false) {
     this.text            = text;
     this.text_size       = size;
-    this.set_color_flags = true;
     this.initialize_floating_element_data();
-    this.set_colors(QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_foreground_color(QE.COLOR_TEAL_LIGHT);
     this.set_dimensions(0, 0);
     this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
     this.set_material_type(true, FEATURE_MATERIAL_TYPE_TEXT_3D);

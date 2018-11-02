@@ -1,24 +1,24 @@
 'use strict';
 
-$_QE.prototype.Text2D = function(text, height, font, interactive=false, color=null) {
-    this.text            = text;
-    this.set_color_flags = true;
+$_QE.prototype.Text2D = function(text, width, height, font, interactive=false, color=null) {
+    this.text = text;
+
+    // TODO: USE WIDTH!
+
+    let w = QE.manager_text2D.get_text_width(text, font);
+
+    l('The needed width is {' + w + '}');
 
     this.initialize_floating_element_data();
 
-    //this.set_colors(QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-    //this.set_colors(QE.COLOR_BLUE, QE.COLOR_GREEN);
-    //this.set_colors(COLOR_CANVAS_YELLOW, COLOR_CANVAS_GREEN);
-    //this.set_colors(COLOR_CANVAS_YELLOW, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-
-
     if (color != null) {
-        this.set_colors(color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+        this.set_colors(color, QE.COLOR_RGBA_TRANSPARENT);
     } else {
-        this.set_colors(COLOR_CANVAS_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+        this.set_colors(QE.COLOR_RGB_GREEN_LIGHT, QE.COLOR_RGBA_TRANSPARENT);
     }
 
-    this._initialize_renderer_text_internal_canvas(128, font, 'bla');
+    //this._initialize_renderer_text_internal_canvas(128, font, 'bla');
+    this._initialize_renderer_text_internal_canvas(width, font, 'bla');
 
     this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
     this.set_material_type(false, FEATURE_MATERIAL_CANVAS_FANCY);
@@ -56,11 +56,11 @@ Object.assign(
             this.create_geometry();
             this.create_mesh();
 
-            //l('Text2D created! {' + this.text + '}');
+            this._force_refresh();
+        },
 
-            //this.material.depthWrite = false;
-
-            // Temporary solution.
+        // Temporary solution.
+        _force_refresh: function() {
             let t = this.text;
             this.update_text('');
             this.update_text(t);

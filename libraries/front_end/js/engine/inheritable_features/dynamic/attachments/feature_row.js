@@ -24,31 +24,33 @@ Object.assign(
         create_icon: function(icon_type, color, relative_index, depth_offset=null) {
             let element = new $_QE.prototype.FloatingIcon(icon_type, this.row_height, color);
             this.add_relative_element(element, relative_index, true);
-            if (depth_offset != null) {
-                element.set_offset_depth(depth_offset);
-            }
+            this._set_element_depth_offset(element, depth_offset);
             return element;
         },
 
         create_text3d: function(text, color, interactive, relative_index, depth_offset=null) {
-            return this.add_relative_element(new $_QE.prototype.Text3D(this.row_height, text, interactive), relative_index, true, true);
-        },
-
-        create_text2d: function(text, color, relative_index, depth_offset=null) {
-            let element = new $_QE.prototype.Text2D(text, this.row_height, QE.FONT_ARIAL_12, false, color);
-            this.add_relative_element(element, relative_index, true);
-            if (depth_offset != null) {
-                element.set_offset_depth(depth_offset);
-            }
+            let element = new $_QE.prototype.Text3D(this.row_height, text, interactive);
+            this.add_relative_element(element, relative_index, true, true);
+            this._set_element_depth_offset(element, depth_offset);
             return element;
         },
 
-        create_button: function(text, color, relative_index, depth_offset=null, button_event=null) {
-            let element = new $_QE.prototype.Text2D(text, this.row_height, QE.FONT_ARIAL_12, true, color);
+        create_text2d: function(text, color, font, width, relative_index, depth_offset=null) {
+            let element = new $_QE.prototype.Text2D(text, width, this.row_height, font, false, color);
             this.add_relative_element(element, relative_index, true);
-            if (depth_offset != null) {
-                element.set_offset_depth(depth_offset);
+            this._set_element_depth_offset(element, depth_offset);
+            return element;
+        },
+
+        create_button: function(text, color, width, relative_index, depth_offset=null, button_event=null, font=null) {
+            // TODO: pass in width!!!
+            if (font == null) {
+                font = QE.FONT_ARIAL_12;
             }
+            let element = new $_QE.prototype.Text2D(text, width, this.row_height, font, true, color);
+            //let element = new $_QE.prototype.Text2D(text, 128, this.row_height, font, true, color);
+            this.add_relative_element(element, relative_index, true);
+            this._set_element_depth_offset(element, depth_offset);
 
             if (button_event != null) {
                 element.set_to_button(button_event);
@@ -59,6 +61,14 @@ Object.assign(
             }
 
             return element;
-        }
+        },
+
+        _set_element_depth_offset: function(element, offset) {
+            if (offset != null) {
+                element.set_offset_depth(offset);
+            } else {
+                element.set_offset_depth(1);
+            }
+        },
     }
 );

@@ -18,6 +18,9 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
         this.set_value_post_changed_event(function(t) {
             self.rows[0].set_text(t);
         });
+
+        // TODO: Temporary solution.
+        this.mesh.renderOrder = 1;
     };
 };
 
@@ -52,13 +55,17 @@ Object.assign(
             this.set_flag(EFLAG_MOUSE_MOVEABLE, true);
             this.set_flag(EFLAG_MOUSE_SCALEABLE, true);
 
-            this.set_colors(QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
+            //this.set_colors(QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
+            // TEMP
+            this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
+            this.set_background_color(COLOR_CANVAS_GRAY);
 
             this._initialize_renderer_text_internal_canvas(number_of_rows, width, font, 'floating_terminal');
 
             $_QE.prototype.FeatureTyping.call(this, this._on_enter_event.bind(this));
             this.set_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK, true);
             // TODO: ensure input not receiving unless engaged!
+
 
             return this;
         },

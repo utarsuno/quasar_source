@@ -15,4 +15,12 @@ Object.assign($_QE.prototype.DoublyLinkedListNodeRow.prototype, $_QE.prototype.D
         return this._object._interactive_head._object;
     },
 
+    get_row_height: function() {
+        return this._object.row_height;
+    },
+
+    get_row_y: function() {
+        return this._object.row_y_start;
+    },
+
 });

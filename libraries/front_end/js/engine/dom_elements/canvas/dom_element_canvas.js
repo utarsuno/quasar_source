@@ -23,6 +23,24 @@ Object.assign(
         },
 
         _set_context: function() {
+            // TEMP TESTING.
+            let w = this.width;
+            let h = this.height;
+            let resized = false;
+
+            if (!QE.is_power_of_two(this.width)) {
+                l('TODO: Fully handle this scenario: width is not PO2 {' + this.width + '}');
+                l(QE.get_next_highest_power_of_two(this.width));
+                //this.width = QE.get_next_highest_power_of_two(this.width);
+                resized = true;
+            }
+
+            if (!QE.is_power_of_two(this.height)) {
+                l('TODO: Fully handle this scenario: height is not PO2 {' + this.height + '}');
+                //this.height = QE.get_next_highest_power_of_two(this.height);
+                resized = true;
+            }
+
             this.set_canvas_width(this.width);
             this.set_canvas_height(this.height);
 
@@ -31,6 +49,11 @@ Object.assign(
             if (this.font != null) {
                 this.context.font = this.font.font_as_string;
             }
+
+            //if (resized) {
+            //    this.width  = w;
+            //    this.height = h;
+            //}
         },
 
         _initialize_as_hud_from_reference: function() {
@@ -76,12 +99,5 @@ Object.assign(
             }
         },
         */
-
-        /*__   ___ ___ ___  ___  __   __
-         / _` |__   |   |  |__  |__) /__`
-         \__> |___  |   |  |___ |  \ .__/ */
-        //get_text_width: function(text) {
-        //    return this.context.measureText(text).width;
-        //},
     }
 );

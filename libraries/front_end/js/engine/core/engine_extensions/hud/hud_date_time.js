@@ -12,7 +12,7 @@ Object.assign(
         __init__: function(engine) {
             this.engine = engine;
 
-            this.set_foreground_color(COLOR_CANVAS_GREEN);
+            this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
 
             this._initialize_renderer_text_reference_canvas(2, 400, QE.FONT_ARIAL_12, GLOBAL_ID_DATE_TIME);
 

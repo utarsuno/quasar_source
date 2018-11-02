@@ -32,7 +32,6 @@ Object.assign(
         },
 
         _render_foreground: function() {
-            //this._set_color(COLOR_CANVAS_GREEN);
             this._set_color(this.current_foreground_color);
             this.row.render();
         },

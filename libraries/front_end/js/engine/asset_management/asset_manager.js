@@ -47,13 +47,34 @@ $_QE.prototype.AssetManager.prototype = {
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_NOISE);
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_BACKGROUND);
 
+        let self = this;
+
         return new Promise(function(resolve, reject) {
             asset_batch.load_batch().then(function() {
+                self._initialize_icon_shader();
                 resolve();
             }).catch(function(error) {
                 reject(error);
             });
         });
+    },
+
+    // For icons.
+    get_icon_material: function(icon) {
+        this._shader_material = this.engine.manager_assets.get_asset(ASSET_SHADER_MATERIAL_SPRITE_SHEET);
+        //let m                 = this._shader_material.get_clone(icon);
+        //m.transparent         = true;
+        //m.needsUpdate         = true;
+        //
+        //
+        return this._shader_material.get_clone(icon);
+    },
+
+    _initialize_icon_shader: function() {
+        this.texture             = this.get_asset(ASSET_TEXTURE_SPRITE_SHEET);
+        this.texture.magFilter   = THREE.NearestFilter;
+        this.texture.minFilter   = THREE.NearestFilter;
+        this.texture.needsUpdate = true;
     },
 };
 

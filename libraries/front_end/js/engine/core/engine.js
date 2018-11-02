@@ -40,8 +40,8 @@ $_QE.prototype = {
         this.pause_menu_set_sub_title('asset files');
         this.manager_heap   = this.get_heap_manager();
         this.manager_assets = new $_QE.prototype.AssetManager(this);
-        this.manager_icons  = new $_QE.prototype.IconManager(this);
         this.manager_time   = new $_QE.prototype.TimeManager();
+        this.manager_text2D = new $_QE.prototype._Text2DHelper(this);
 
         let on_load         = this.manager_assets.load_pre_render_assets(this);
 
@@ -49,7 +49,6 @@ $_QE.prototype = {
 
         on_load.then(function() {
             //l('LOADING FINISHED!');
-            me.manager_icons.initialize();
             me.pause_menu_set_sub_title('worlds');
             me._initialize_for_first_render();
         }).catch(function(error) {
