@@ -26,7 +26,7 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
 
 Object.assign(
     $_NL.prototype.FloatingTerminal.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
+    $_QE.prototype.DomCanvasInternalTexture.prototype,
     $_QE.prototype.WallFloating.prototype,
     $_QE.prototype.CanvasRenderingTextLines.prototype,
     $_QE.prototype.FeatureText.prototype,
@@ -60,7 +60,7 @@ Object.assign(
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
             this.set_background_color(COLOR_CANVAS_GRAY);
 
-            this._initialize_renderer_text_internal_canvas(number_of_rows, width, font, 'floating_terminal');
+            this.initialize_dom_canvas(number_of_rows, width, font);
 
             $_QE.prototype.FeatureTyping.call(this, this._on_enter_event.bind(this));
             this.set_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK, true);

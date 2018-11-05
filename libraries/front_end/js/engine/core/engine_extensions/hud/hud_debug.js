@@ -4,10 +4,8 @@ $_QE.prototype.HUDDebug = function() {};
 
 Object.assign(
     $_QE.prototype.HUDDebug.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
+    $_QE.prototype.HUDElement.prototype,
     $_QE.prototype.CanvasRenderingTextLines.prototype,
-    $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.FeatureColor.prototype,
     {
         // Debug metrics.
         _cache_fps     : null,
@@ -24,7 +22,7 @@ Object.assign(
 
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
 
-            this._initialize_renderer_text_reference_canvas(5, 400, this.engine.FONT_ARIAL_12, GLOBAL_ID_HUD_DEBUG);
+            this.initialize_hud_element(5, 400, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_DEBUG);
 
             this._cache_fps      = new $_QE.prototype.DisplayCacheFPS(this.rows[4]);
             this._cache_engine   = new $_QE.prototype.DisplayCacheEngine(this, this.rows[3]);

@@ -41,7 +41,6 @@ $_QE.prototype.PlayerCursor = function(player) {
 
 Object.assign(
     $_QE.prototype.PlayerCursor.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
     $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.BooleanFlagsStatic.prototype,
     {

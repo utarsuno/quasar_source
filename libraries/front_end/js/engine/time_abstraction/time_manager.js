@@ -6,6 +6,8 @@ $_QE.prototype.TimeManager = function() {
 
 $_QE.prototype.TimeManager.prototype = {
 
+    // TODO: Move this to the engine!
+
     current_time: null,
 
     __init__: function() {

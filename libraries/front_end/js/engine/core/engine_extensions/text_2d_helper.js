@@ -4,20 +4,18 @@ $_QE.prototype._Text2DHelper = function(engine) {
     this.engine         = engine;
     this.text_alignment = TEXT_ALIGNMENT_START;
     this.font           = engine.FONT_ARIAL_12;
-    this._set_canvas_as_internal('_internal_only');
+    this.initialize_dom_canvas();
 
     this.set_canvas_width(2);
     this.set_canvas_height(2);
     this.context        = this._element.getContext('2d');
 
-    if (this.font != null) {
-        this.context.font = this.font.font_as_string;
-    }
+    this._set_font(engine.FONT_ARIAL_12);
 };
 
 Object.assign(
     $_QE.prototype._Text2DHelper.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
+    $_QE.prototype.DomCanvasInternal.prototype,
     $_QE.prototype.CanvasRendererText.prototype,
     $_QE.prototype.FeatureSize.prototype,
     {

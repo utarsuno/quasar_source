@@ -32,6 +32,11 @@ Object.assign(
         /*        ___               __  ___
          | |\ | |  |  |  /\  |    |  / |__
          | | \| |  |  | /~~\ |___ | /_ |___*/
+        // TODO: (as a test) --> #pre_process{function_inline}
+        _add_three_js_canvas_to_window: function() {
+            this.renderer.domElement.id = GLOBAL_ID_CANVAS_MAIN;
+            document.body.appendChild(this.renderer.domElement);
+        },
 
         _initialize_renderer: function() {
             this._cache_floats[ENGINE_FLOAT_FOV]           = 75.0;
@@ -39,10 +44,7 @@ Object.assign(
             this._cache_floats[ENGINE_FLOAT_CLIPPING_FAR]  = 17500.0;
 
             this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
-
-            this.renderer_dom = new $_QE.prototype.DomElement().set_from_canvas(this.renderer.domElement);
-            this.renderer_dom.set_id(GLOBAL_ID_CANVAS_MAIN);
-            this.renderer_dom.append_to_document_body();
+            this._add_three_js_canvas_to_window();
 
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);

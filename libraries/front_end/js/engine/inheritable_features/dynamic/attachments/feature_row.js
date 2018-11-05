@@ -43,12 +43,11 @@ Object.assign(
         },
 
         create_button: function(text, color, width, relative_index, depth_offset=null, button_event=null, font=null) {
-            // TODO: pass in width!!!
             if (font == null) {
-                font = QE.FONT_ARIAL_12;
+                font = QE.FONT_ARIAL_16;
             }
+
             let element = new $_QE.prototype.Text2D(text, width, this.row_height, font, true, color);
-            //let element = new $_QE.prototype.Text2D(text, 128, this.row_height, font, true, color);
             this.add_relative_element(element, relative_index, true);
             this._set_element_depth_offset(element, depth_offset);
 
@@ -59,6 +58,13 @@ Object.assign(
                     l('TODO: this buttons functionality!');
                 });
             }
+
+            //
+            element.set_text_alignment(TEXT_ALIGNMENT_CENTER);
+            //
+
+            // TEMPORARY LOCATION
+            element.require_border();
 
             return element;
         },

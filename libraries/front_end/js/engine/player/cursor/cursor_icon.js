@@ -2,8 +2,8 @@
 
 Object.assign(
     $_QE.prototype.PlayerCursor.prototype,
+    $_QE.prototype.CanvasRendererCursorIcon.prototype,
     {
-        _current_icon : null,
         _player_offset: 1400,
 
         _need_move_icon: function() {
@@ -58,38 +58,6 @@ Object.assign(
 
             if (this.attached_to != null) {
                 this._set_needed_on_attach_icon();
-            }
-        },
-
-        set_current_icon: function(icon) {
-            if (this._current_icon != icon) {
-                this._current_icon = icon;
-                this.render();
-                // TODO: set cursor offsets!
-            }
-        },
-
-        _initialize_icon_cursor: function() {
-            this.set_dimensions(32, 32);
-            this._set_canvas_as_reference(GLOBAL_ID_CURSOR_ICON);
-            this._initialize_as_hud_from_reference();
-
-            this._image_icons    = QE.manager_assets.get_asset(ASSET_TEXTURE_SPRITE_SHEET).image;
-            this._icon_to_render = ASSET_ICON_ARROW;
-        },
-
-        _set_to_cursor_icon: function() {
-            this._cursor_default.hide();
-            this.show();
-            this.set_flag_off(CURSOR_FLAG_DEFAULT);
-        },
-
-        render: function() {
-            if (this._icon_to_render != this._current_icon) {
-                // TODO: Utilize canvas rendering abstraction!
-                this.context.clearRect(0, 0, this._canvas_width, this._canvas_height);
-                this.context.drawImage(this._image_icons, this._current_icon * 64, 0, 64, 64, 0, 0, this._canvas_width, this._canvas_height);
-                this._icon_to_render = this._current_icon;
             }
         },
 

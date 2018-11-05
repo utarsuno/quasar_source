@@ -4,10 +4,8 @@ $_QE.prototype.HUDUserTyping = function() {};
 
 Object.assign(
     $_QE.prototype.HUDUserTyping.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
-    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.HUDElement.prototype,
     $_QE.prototype.FeatureText.prototype,
-    $_QE.prototype.FeatureColor.prototype,
     $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
         __init__: function(application) {
@@ -16,7 +14,8 @@ Object.assign(
 
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
 
-            this._initialize_renderer_text_reference_canvas(1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
+            this.initialize_hud_element(-1, 1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
+
             // The typing hud starts off as hidden (style set ahead of time directly in HTML).
             this.hidden = true;
 

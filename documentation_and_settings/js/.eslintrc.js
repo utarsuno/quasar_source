@@ -162,18 +162,6 @@ module.exports = {
         "APPLICATION_NEXUS_LOCAL"  : false,
         "APPLICATION_QUASAR_PUBLIC": false,
 
-        "DOM_ELEMENT_CANVAS": false,
-        "DOM_ELEMENT_DIV"   : false,
-        "DOM_ELEMENT_H1"    : false,
-        "DOM_ELEMENT_H2"    : false,
-        "DOM_ELEMENT_H3"    : false,
-        "DOM_ELEMENT_H4"    : false,
-        "DOM_ELEMENT_H5"    : false,
-
-        "DOM_ELEMENT_INSTANCE_EXISTS"     : false,
-        "DOM_ELEMENT_INSTANCE_DNE"        : false,
-        "DOM_ELEMENT_INSTANCE_PROVIDED"   : false,
-
         "THREE": false,
 
         "console": false,
@@ -581,7 +569,5 @@ module.exports = {
         "cos"                                : false,
         "sqrt"                               : false,
         "squared"                            : false,
-        "get_nearest_power_of_two_for_number": false,
-        "round_to_n_decimal_places"          : false,
     }
 };

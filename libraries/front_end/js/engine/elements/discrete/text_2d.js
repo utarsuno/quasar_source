@@ -3,6 +3,10 @@
 $_QE.prototype.Text2D = function(text, width, height, font, interactive=false, color=null) {
     this.text = text;
 
+    //
+    //this.set_dimensions(width, height);
+    //
+
     // TODO: USE WIDTH!
 
     let w = QE.manager_text2D.get_text_width(text, font);
@@ -17,8 +21,7 @@ $_QE.prototype.Text2D = function(text, width, height, font, interactive=false, c
         this.set_colors(QE.COLOR_RGB_GREEN_LIGHT, QE.COLOR_RGBA_TRANSPARENT);
     }
 
-    //this._initialize_renderer_text_internal_canvas(128, font, 'bla');
-    this._initialize_renderer_text_internal_canvas(width, font, 'bla');
+    this.initialize_dom_canvas(-1, width, font);
 
     this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
     this.set_material_type(false, FEATURE_MATERIAL_CANVAS_FANCY);
@@ -37,10 +40,15 @@ Object.assign(
     $_QE.prototype.FeatureText.prototype,
     $_QE.prototype.FeatureSize.prototype,
     $_QE.prototype.FeatureColor.prototype,
-    $_QE.prototype.DomElementCanvas.prototype,
+    $_QE.prototype.DomCanvasInternalTexture.prototype,
     $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
         constructor: $_QE.prototype.Text2D,
+
+        // TEMPORARY LOCATION:
+        require_border: function() {
+            this._require_border = true;
+        },
 
         _on_text_change: function(text) {
             //l('Text2D changed!');

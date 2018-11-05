@@ -62,7 +62,10 @@ Object.assign(
             this.clear();
             return t;
         },
+    }
+);
 
+/*
         // TODO: Remove/refactor this function.
         get_display_text: function() {
             if (this._is_password) {
@@ -74,6 +77,5 @@ Object.assign(
             }
             return this.text;
         },
-    }
-);
 
+ */

@@ -246,6 +246,14 @@ class CodeDirectory(object):
 				return True
 		return False
 
+	def get_file_by_partial_match_on_full_path(self, text_match: str) -> object:
+		"""Returns a file by finding partial text match against the full path."""
+		self._check_if_cache_needs_update()
+		for f in self._all_files:
+			if text_match in f.full_path:
+				return f
+		return None
+
 	def get_file_by_full_name(self, full_name: str):
 		"""Returns a file by full name + extensions match."""
 		self._check_if_cache_needs_update()

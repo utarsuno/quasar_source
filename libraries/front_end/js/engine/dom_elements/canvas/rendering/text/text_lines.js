@@ -8,14 +8,6 @@ Object.assign(
     {
         constructor : $_QE.prototype.CanvasRenderingTextLines,
 
-        _initialize_renderer_text_reference_canvas: function(number_of_visible_rows, width, font, canvas_id) {
-            this._initialize_renderer_text(font, number_of_visible_rows, canvas_id, false, width);
-        },
-
-        _initialize_renderer_text_internal_canvas: function(number_of_visible_rows, width, font, canvas_id) {
-            this._initialize_renderer_text(font, number_of_visible_rows, canvas_id, true, width);
-        },
-
         _render_end: function() {
             let l;
             for (l = 0; l < this.rows.length; l++) {
@@ -32,11 +24,15 @@ Object.assign(
                     if (!in_batch) {
                         // Start of next batch.
                         in_batch = true;
-                        this.batches[this.num_batches * 2]     = this.rows[r].y_start;
+                        //this.batches[this.num_batches * 2]     = this.rows[r].y_start;
+                        this.batches[this.num_batches * 2]     = this.rows[r].y_start - this.rows[r].font.offset;
+
                         this.batches[this.num_batches * 2 + 1] = this.rows[r].y_start - this.rows[r].font.height;
+                        //this.batches[this.num_batches * 2 + 1] = this.rows[r].y_start - this.rows[r].font.height + this.rows[r].font.offset * 2;
                     } else {
                         // Continuation of current batch.
                         this.batches[this.num_batches * 2 + 1] = this.rows[r].y_start - this.rows[r].font.height;
+                        //this.batches[this.num_batches * 2 + 1] = this.rows[r].y_start - this.rows[r].font.height + this.rows[r].font.offset * 2;
                     }
                 } else {
                     if (in_batch) {

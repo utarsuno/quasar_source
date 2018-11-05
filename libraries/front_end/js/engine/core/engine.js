@@ -30,6 +30,9 @@ $_QE.prototype = {
         this._set_binding_resize();
         this._set_binding_fullscreen();
         this._set_binding_pointer_lock();
+
+        // Used for downloading a canvas as an image.
+        this.manager_canvas = new $_QE.prototype.CanvasSaver();
     },
 
     // Step : 0x0

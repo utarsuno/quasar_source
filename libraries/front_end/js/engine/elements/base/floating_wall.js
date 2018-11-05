@@ -28,11 +28,14 @@ Object.assign(
 
         _get_new_row_as_tail: function(row_height) {
             let r = new $_QE.prototype.FeatureRow();
+            l('get new row as tail with row height of : {' + row_height + '}');
             r.create_row(this, row_height, this._node_tail.get_row_y() - (row_height / this.height), false);
             return r;
         },
 
         add_buttons_row: function(font, buttons) {
+            l('add buttons row with font height of {' + font.height + '}');
+            l(font);
             let r = this._get_new_row_as_tail(font.height);
 
             let number_of_buttons = buttons.length;
@@ -57,18 +60,13 @@ Object.assign(
             }
         },
 
-        add_text_row: function(text, color, font) {
+        add_text_row: function(text, color, font, text_alignment=null) {
             if (this._node_tail != null) {
-                let r = this._get_new_row_as_tail(font.height);
-                //r.create_row(
-                //    this,
-                //    font.height,
-                //    this._node_tail.get_row_y() - (font.height / this.height),
-                //    false
-                //);
-
-                r.create_text2d(text, color, font, this.width, -1);
-
+                let r       = this._get_new_row_as_tail(font.height);
+                let element = r.create_text2d(text, color, font, this.width, -1);
+                if (text_alignment != null) {
+                    element.set_text_alignment(text_alignment);
+                }
             } else {
                 l('TODO: else condition!');
             }
@@ -88,7 +86,9 @@ Object.assign(
             if (icon != null) {
                 this.title_bar.add_icon(icon);
             }
-            this.title_bar.add_title(title, false);
+            if (title != null) {
+                this.title_bar.add_title(title, false);
+            }
         },
 
         create_wall_mesh: function(material_type) {

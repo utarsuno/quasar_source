@@ -8,7 +8,7 @@ from libraries.code_api.source_file_abstraction.code_directories.code_directory 
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files import code_file
 from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
-from applications.code_manager.layer_applications import javascript_manager as jsm
+from applications.code_manager.layer_applications import nexus_local
 
 
 class BuildProcessJSNexusLocal(BuildProcessStep):
@@ -31,8 +31,8 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 		self.shaders.add_extension_to_ignore('md')
 
 		# JS
-		self.javascript_manager = jsm.JavascriptManager('NEXUS_LOCAL', self.domain)
-		self.js = self.javascript_manager.load_all_content()
+		self.javascript_manager = nexus_local.JavascriptManagerNexusLocal(self.domain)
+		self.js                 = self.javascript_manager.load_all_content()
 
 		files = self.js.get_all_files()
 

@@ -8,12 +8,9 @@ Object.assign(
     {
         constructor : $_QE.prototype.CanvasRenderingTextLine,
 
-        _initialize_renderer_text_reference_canvas: function(width, font, canvas_id) {
-            this._initialize_renderer_text(font, -1, canvas_id, false, width);
-        },
-
-        _initialize_renderer_text_internal_canvas: function(width, font, canvas_id) {
-            this._initialize_renderer_text(font, -1, canvas_id, true, width);
+        set_text_alignment: function(text_alignment) {
+            this._set_text_alignment(text_alignment);
+            this.row.set_text_alignment(text_alignment);
         },
 
         _render_start: function() {

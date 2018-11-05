@@ -1,13 +1,26 @@
 'use strict';
 
+$_QE.prototype.HUDElement = function() {};
+Object.assign(
+    $_QE.prototype.HUDElement.prototype,
+    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.DomCanvasExternal.prototype,
+    {
+        initialize_hud_element: function(number_of_visible_rows, width, font, canvas_id) {
+            this.initialize_dom_canvas(canvas_id);
+            this.initialize_renderer_text(font, number_of_visible_rows, width);
+        },
+    }
+);
+
 Object.assign($_QE.prototype,
     {
         _initialize_hud_critical: function() {
-            this.pause_background = new $_QE.prototype.DomElement().create_div_from_existing(GLOBAL_ID_PAUSED_BACKGROUND_FILTER);
-            this.pause_menu       = new $_QE.prototype.DomElement().create_div_from_existing(GLOBAL_ID_PAUSE_DISPLAY);
-            this.pause_menu.set_display_style('table');
-            this.pause_title      = new $_QE.prototype.DomElementText().create_h1_from_existing(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE);
-            this.pause_sub_title  = new $_QE.prototype.DomElementText().create_h5_from_existing(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE);
+            this.pause_background = new $_QE.prototype.DomElementExternal().initialize_dom_element(GLOBAL_ID_PAUSED_BACKGROUND_FILTER);
+            this.pause_menu       = new $_QE.prototype.DomElementExternal().initialize_dom_element(GLOBAL_ID_PAUSE_DISPLAY, 'table');
+            this.pause_title      = new $_QE.prototype.DomTextExternal().initialize_dom_text(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE);
+            this.pause_sub_title  = new $_QE.prototype.DomTextExternal().initialize_dom_text(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE);
         },
 
         _initialize_hud: function() {
