@@ -66,7 +66,6 @@ $_QE.prototype.AssetManager.prototype = {
         //m.transparent         = true;
         //m.needsUpdate         = true;
         //
-        //
         return this._shader_material.get_clone(icon);
     },
 

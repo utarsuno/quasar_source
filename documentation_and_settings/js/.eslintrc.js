@@ -53,17 +53,18 @@ module.exports = {
         //
 
         // Shader uniforms. ------------------------------------------------------------------------
-        "SHADER_UNIFORM_SPRITESHEET_COLOR"              : false,
-        "SHADER_UNIFORM_SPRITESHEET_TEXTURE"            : false,
-        "SHADER_UNIFORM_SPRITESHEET_OFFSET"             : false,
-        "SHADER_UNIFORM_TRANSITION_NEW_SCENE"          : false,
-        "SHADER_UNIFORM_TRANSITION_OLD_SCENE"          : false,
-        "SHADER_UNIFORM_TRANSITION_MIX_RATIO"          : false,
-        "SHADER_UNIFORM_TRANSITION_THRESHOLD"          : false,
-        "SHADER_UNIFORM_TRANSITION_TEXTURE_MIX"        : false,
-        "SHADER_UNIFORM_NOISE_TIME"       : false,
-        "SHADER_UNIFORM_NOISE_N_INTENSITY": false,
-        "SHADER_UNIFORM_NOISE_T_DIFFUSE"  : false,
+        "SHADER_UNIFORM_SPRITESHEET_COLOR"     : false,
+        "SHADER_UNIFORM_SPRITESHEET_TEXTURE"   : false,
+        "SHADER_UNIFORM_SPRITESHEET_OFFSET"    : false,
+        "SHADER_UNIFORM_SPRITESHEET_ALPHA"     : false,
+        "SHADER_UNIFORM_TRANSITION_NEW_SCENE"  : false,
+        "SHADER_UNIFORM_TRANSITION_OLD_SCENE"  : false,
+        "SHADER_UNIFORM_TRANSITION_MIX_RATIO"  : false,
+        "SHADER_UNIFORM_TRANSITION_THRESHOLD"  : false,
+        "SHADER_UNIFORM_TRANSITION_TEXTURE_MIX": false,
+        "SHADER_UNIFORM_NOISE_TIME"            : false,
+        "SHADER_UNIFORM_NOISE_N_INTENSITY"     : false,
+        "SHADER_UNIFORM_NOISE_T_DIFFUSE"       : false,
         //
         "EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK": false,
         "EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT": false,
@@ -91,6 +92,7 @@ module.exports = {
         "EFLAG_FORMAT_X_END"                  : false,
         "EFLAG_MOUSE_MOVEABLE"                : false,
         "EFLAG_MOUSE_SCALEABLE"               : false,
+        "EFLAG_IN_ANIMATION"                  : false,
         "EFLAG_IN_WORLD"                      : false,
         "EFLAG_IN_ELEMENTS_ROOT"              : false,
         "EFLAG_IN_ELEMENTS_INTERACTIVE"       : false,
@@ -543,9 +545,6 @@ module.exports = {
         //           ___
         // |\/|  /\   |  |__|
         // |  | /~~\  |  |  |
-
-        "get_player_blink_spot": false,
-
         "get_parametric_line_equation"           : false,
         "get_parametric_plane_equation"          : false,
         "is_point_inside_floating_wall"          : false,

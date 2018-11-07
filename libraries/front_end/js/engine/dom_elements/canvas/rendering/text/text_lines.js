@@ -17,6 +17,9 @@ Object.assign(
         },
 
         _render_start: function() {
+
+            // TODO: Eventually switch to images or s
+
             let r;
             let in_batch = false;
             for (r = 0; r < this.rows.length; r++) {

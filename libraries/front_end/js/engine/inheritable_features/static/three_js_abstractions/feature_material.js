@@ -5,7 +5,11 @@ $_QE.prototype.FeatureMaterial = function(){};
 Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     set_opacity: function(v) {
-        this.material.opacity     = v;
+        if (this.material_type == FEATURE_MATERIAL_TYPE_ICON) {
+            this.material.uniforms['alpha'].value = v;
+        } else {
+            this.material.opacity = v;
+        }
         this.material.needsUpdate = true;
     },
 

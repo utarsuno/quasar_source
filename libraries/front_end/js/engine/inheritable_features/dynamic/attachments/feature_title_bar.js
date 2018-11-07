@@ -17,23 +17,20 @@ Object.assign(
         },
 
         add_button_help: function() {
-            this.button_help = this.create_icon(ASSET_ICON_QUESTION, QE.COLOR_YELLOW, 1);
-            this.button_help.set_to_button(function() {
+            this.button_help = this.create_icon_button(ASSET_ICON_QUESTION, QE.COLOR_YELLOW, 1, function() {
                 l('TODO: HELP!');
             });
         },
 
         add_button_settings: function() {
-            this.button_settings = this.create_icon(ASSET_ICON_GEARS, QE.COLOR_BLUE, 2);
-            this.button_settings.set_to_button(function() {
-                l('TODO: SETTINGS!');
+            this.button_settings = this.create_icon_button(ASSET_ICON_GEARS, QE.COLOR_BLUE, 2, function() {
+                l('TODO: Settings button!!!');
             });
         },
 
         add_button_close: function() {
-            this.button_close = this.create_icon(ASSET_ICON_CROSS, QE.COLOR_RED, 3);
-            this.button_close.set_to_button(function() {
-                l('TODO: CLOSE ME!');
+            this.button_close = this.create_icon_button(ASSET_ICON_CROSS, QE.COLOR_RED, 3, function() {
+                l('TODO: Close me!!');
             }, true);
         },
     }

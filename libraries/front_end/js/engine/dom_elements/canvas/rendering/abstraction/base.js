@@ -10,6 +10,8 @@ $_QE.prototype.CanvasRenderer.prototype = {
     _current_fill_color : {color}
     _text_alignment     : {TEXT_ALIGNMENT_START, TEXT_ALIGNMENT_CENTER, TEXT_ALIGNMENT_END}
 
+    // TODO: Formalize support:
+    _require_border     : {bool}
      */
 
     _set_text_alignment: function(text_alignment) {
@@ -20,7 +22,6 @@ $_QE.prototype.CanvasRenderer.prototype = {
                 this.context.textAlign = 'start';
                 break;
             case TEXT_ALIGNMENT_CENTER:
-                l('Set TEXT_ALIGNMENT_CENTER');
                 this.context.textAlign = 'center';
                 break;
             case TEXT_ALIGNMENT_END:

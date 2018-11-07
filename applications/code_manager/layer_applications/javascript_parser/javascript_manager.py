@@ -51,8 +51,9 @@ class JavascriptManager(object):
 
 		# Features/extensions.
 		self._add_paths('inheritable_features/static/three_js_abstractions', ['pre_process', 'feature_geometry', 'feature_material', 'feature_mesh'])
-		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size'])
+		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size', 'feature_animation_sequence'])
 
+		self._add_paths('inheritable_features/dynamic/animations'  , ['feature_animation_step'])
 		self._add_paths('inheritable_features/dynamic/attachments' , ['feature_row', 'feature_title_bar'])
 		self._add_paths('inheritable_features/dynamic/interactions', ['feature_button', 'feature_interactive', 'feature_typing'])
 
@@ -81,7 +82,11 @@ class JavascriptManager(object):
 		#
 
 		#
-		self._add_paths('elements/discrete', ['confirmation_prompt', 'icon', 'text_3d', 'text_2d'])
+		self._add_paths('elements/discrete/2d/text', ['text_2d', 'button_2d'])
+		self._add_paths('elements/discrete/2d/icon', ['icon', 'icon_button'])
+		self._add_paths('elements/discrete/2d'     , ['checkbox'])
+		self._add_paths('elements/discrete/3d'     , ['text_3d'])
+		self._add_paths('elements/discrete/wall'   , ['confirmation_prompt'])
 		#
 
 		# Time abstraction.
@@ -97,6 +102,7 @@ class JavascriptManager(object):
 		self._add_paths('player'         , ['player', 'player_state'])
 		self._add_paths('player/cursor'  , ['cursor', 'cursor_default', 'cursor_icon'])
 		self._add_paths('player/controls', ['mouse', 'movement'])
+		self._add_paths('player/menu'    , ['menu'])
 
 		# Worlds.
 		self._add_paths('worlds/world'                   , ['world_base'])

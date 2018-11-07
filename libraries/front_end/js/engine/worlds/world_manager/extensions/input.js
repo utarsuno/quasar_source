@@ -50,6 +50,10 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         if (this.player.has_input()) {
             if (this.current_world.is_current_object_set_and_engaged()) {
                 this.current_world.disengage_from_currently_looked_at_object();
+            } else if (this.current_world.currently_looked_at_object == null) {
+                if (!this.player_menu.is_open) {
+                    this.player_menu.open();
+                }
             }
         }
     },

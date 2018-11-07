@@ -25,7 +25,9 @@ Object.assign(
         },
 
         _render_background: function() {
-            this._fill_background();
+            if (this.current_background_color != null) {
+                this._fill_background();
+            }
         },
 
         _render_foreground: function() {
@@ -37,10 +39,6 @@ Object.assign(
             // TODO:
             this._render_needed = true;
             this.row.set_text(text);
-        },
-
-        set_bottom_row: function(text) {
-            this.rows[0].set_text(text);
         },
 
     }

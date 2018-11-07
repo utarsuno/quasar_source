@@ -1,5 +1,78 @@
 'use strict';
 
+$_QE.prototype.Text2D = function(text, width, height, font, interactive=false, color=null) {
+    //this.set_dimensions(width, height);
+    //let w = QE.manager_text2D.get_text_width(text, font);
+    //l('The needed width is {' + w + '}');
+
+    this._initialize_text_2d(text, width, font, color, QE.COLOR_RGB_GREEN_LIGHT);
+
+    if (interactive) {
+        $_QE.prototype.FeatureTyping.call(this);
+    }
+};
+
+
+Object.assign(
+    $_QE.prototype.Text2D.prototype,
+    $_QE.prototype.FloatingElement.prototype,
+    $_QE.prototype.FeatureText.prototype,
+    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.DomCanvasInternalTexture.prototype,
+    $_QE.prototype.CanvasRenderingTextLine.prototype,
+    {
+        constructor: $_QE.prototype.Text2D,
+
+        _initialize_text_2d: function(text, width, font, color, default_color=null) {
+            this.initialize_floating_element_data();
+            this.text = text;
+            this.initialize_dom_canvas(-1, width, font);
+            this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
+            this.set_material_type(false, FEATURE_MATERIAL_CANVAS_FANCY);
+            this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
+
+            if (color != null) {
+                this.set_colors(color, QE.COLOR_RGBA_TRANSPARENT);
+            } else {
+                this.set_colors(default_color, QE.COLOR_RGBA_TRANSPARENT);
+            }
+
+            this.set_value_post_changed_event(this._on_text_change.bind(this));
+        },
+
+        // TEMPORARY LOCATION:
+        require_border: function() {
+            this._require_border = true;
+        },
+
+        _on_text_change: function(text) {
+            //l('Text2D changed!');
+            this.set_row_text(text);
+
+            //if (this.attachment_parent != null) {
+            //    l(this);
+            //}
+        },
+
+        create: function() {
+            this.create_material();
+            this.create_geometry();
+            this.create_mesh();
+
+            this._force_refresh();
+        },
+
+        // Temporary solution.
+        _force_refresh: function() {
+            let t = this.text;
+            this.update_text('');
+            this.update_text(t);
+        },
+    }
+);
+
+
 /*
 $_QE.prototype.Text2DUtilities = function() {
     this.canvas = new $_QE.prototype.CanvasAbstraction();
@@ -19,6 +92,7 @@ $_QE.prototype.Text2DUtilities = function() {
 const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
 */
 
+/*
 $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheable_texture) {
 
     // Inherit.
@@ -82,27 +156,7 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
         }
     };
 
-    /*__   ___ ___ ___  ___  __   __
-     /__` |__   |   |  |__  |__) /__`
-     .__/ |___  |   |  |___ |  \ .__/ */
-    this.set_text_property_centered = function (is_centered) {
-        this.canvas.set_font_property_centered(is_centered);
-        //this.refresh();
-    };
-
-    this.set_text_property_bold = function(is_bold) {
-        this.canvas.set_font_property_bold(is_bold);
-        //this.refresh();
-    };
-
-    this.set_text_property_italic = function(is_italic) {
-        this.canvas.set_font_property_italic(is_italic);
-        //this.refresh();
-    };
-
-    /*__   __   ___      ___    __
-     /  ` |__) |__   /\   |  | /  \ |\ |
-     \__, |  \ |___ /~~\  |  | \__/ | \| */
+    // Creation
     this.process_width = function() {
         if (!is_defined(this.width)) {
             this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
@@ -186,3 +240,4 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
         }
     };
 };
+*/

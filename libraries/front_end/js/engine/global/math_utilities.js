@@ -3,15 +3,6 @@
 /*__            __     __   __      ___            __  ___    __        __
  |__) |__| \ / /__` | /  ` /__`    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  |    |  |  |  .__/ | \__, .__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-// OPTIMIZE!
-function get_player_blink_spot(distance) {
-    let player_position = CURRENT_PLAYER.get_position();
-    let player_normal   = CURRENT_PLAYER.get_direction();
-    let new_position = new THREE.Vector3(player_position.x + player_normal.x * distance, player_position.y + player_normal.y * distance, player_position.z + player_normal.z * distance);
-    let new_normal   = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
-    return [new_position, new_normal];
-}
-
 function get_parametric_line_equation(position_vector, velocity_vector) {
     return [[position_vector.x, velocity_vector.x], [position_vector.y, velocity_vector.y], [position_vector.z, velocity_vector.z]];
 }

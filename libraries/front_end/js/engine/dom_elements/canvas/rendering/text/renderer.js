@@ -17,7 +17,11 @@ Object.assign(
             this._current_fill_color = null;
 
             this.text_alignment      = TEXT_ALIGNMENT_START;
-            this.font                = font;
+            if (font != null) {
+                this.font = font;
+            } else {
+                this.font = QE.FONT_ARIAL_16;
+            }
 
             if (number_of_visible_rows != -1) {
                 this.rows        = [];

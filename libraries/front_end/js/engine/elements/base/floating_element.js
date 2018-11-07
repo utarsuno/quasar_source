@@ -51,7 +51,7 @@ Object.assign(
             }
         },
 
-        update_element: function() {
+        update_element: function(delta) {
             // TODO: Why is only position consumed?
             if (this.consume_flag(EFLAG_UPDATE_POSITION) || this.get_flag(EFLAG_UPDATE_NORMAL)) {
                 this.refresh();
@@ -66,13 +66,9 @@ Object.assign(
                 this.update();
             }
 
-            // TODO: check if sub-children need update
-
-            //this.consume_flag(EFLAG_UPDATE_CHILD)
-
-            //if (this._node_head != null) {
-            //    l('THIS ELEMENT HAS A NODE HEAD!');
-            //}
+            if (this.get_flag(EFLAG_IN_ANIMATION)) {
+                this.animation_step(delta);
+            }
 
             let c;
             if (this.get_flag(EFLAG_UPDATE_CHILD)) {
@@ -88,8 +84,6 @@ Object.assign(
                     }
                 }
             }
-
-            // Children need to be checked for EFLAG_UPDATE_CHILD
 
         },
 

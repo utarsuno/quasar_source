@@ -49,7 +49,7 @@ Object.assign(
 
         _create: function() {
             this.parent_button.add_attachment(this, true, true);
-            this.set_offset_depth(25);
+            this.set_offset_depth(50);
         },
     }
 );

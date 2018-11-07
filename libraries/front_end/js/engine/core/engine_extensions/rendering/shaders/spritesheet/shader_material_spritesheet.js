@@ -8,12 +8,14 @@ $_QE.prototype.ShaderMaterialSpriteSheet = function() {
     uniforms[SHADER_UNIFORM_SPRITESHEET_OFFSET]  = this._get_value(2);
     uniforms[SHADER_UNIFORM_SPRITESHEET_TEXTURE] = this._get_value(this.texture);
     uniforms[SHADER_UNIFORM_SPRITESHEET_COLOR]   = this._get_value(QE.COLOR_WHITE);
+    uniforms[SHADER_UNIFORM_SPRITESHEET_ALPHA]   = this._get_value(1.0);
 
     this._set_shader_material(
         QE.manager_assets.shader_spritesheet_vertex,
         QE.manager_assets.shader_spritesheet_fragment,
         uniforms
     );
+    this.shader_material.transparent = true;
 };
 
 Object.assign($_QE.prototype.ShaderMaterialSpriteSheet.prototype, $_QE.prototype.ShaderMaterialAbstraction.prototype, {
@@ -28,6 +30,8 @@ Object.assign($_QE.prototype.ShaderMaterialSpriteSheet.prototype, $_QE.prototype
         sm.uniforms[SHADER_UNIFORM_SPRITESHEET_OFFSET].value  = icon;
         sm.uniforms[SHADER_UNIFORM_SPRITESHEET_TEXTURE].value = this.texture;
         sm.uniforms[SHADER_UNIFORM_SPRITESHEET_COLOR].value   = QE.COLOR_WHITE;
+        sm.uniforms[SHADER_UNIFORM_SPRITESHEET_ALPHA].value   = 1.0;
+        sm.transparent                                        = true;
         return sm;
     }
 });

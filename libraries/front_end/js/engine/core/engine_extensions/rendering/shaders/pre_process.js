@@ -4,6 +4,7 @@
 const SHADER_UNIFORM_SPRITESHEET_OFFSET      = 'offset';  // #pre-process_global_constant
 const SHADER_UNIFORM_SPRITESHEET_TEXTURE     = 'texture'; // #pre-process_global_constant
 const SHADER_UNIFORM_SPRITESHEET_COLOR       = 'color';   // #pre-process_global_constant
+const SHADER_UNIFORM_SPRITESHEET_ALPHA       = 'alpha';   // #pre-process_global_constant
 
 // From transition shader.
 const SHADER_UNIFORM_TRANSITION_NEW_SCENE   = 'texture_diffuse_new_scene'; // #pre-process_global_constant

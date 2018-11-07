@@ -6,7 +6,7 @@ Object.assign($_QE.prototype.World.prototype, {
         let e;
         for (e = 0; e < this.elements_root.length; e++) {
             //this.elements_root[e].update(delta);
-            this.elements_root[e].update_element();
+            this.elements_root[e].update_element(delta);
         }
     },
 

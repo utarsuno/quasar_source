@@ -41,11 +41,15 @@ Object.assign($_QE.prototype.DoublyLinkedListRowElements.prototype, $_QE.prototy
 
         this.insert_element_at_position(element, position);
 
-        let self = this;
-        element.set_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE, function() {
-            //self._on_element_set_to_tab_target(element);
-            self._on_element_set_to_tab_target.bind(self)(element);
-        });
+        // Check if the element is already interactive.
+        if (element.get_flag(EFLAG_INTERACTIVE)) {
+            this._on_element_set_to_tab_target(element);
+        } else {
+            let self = this;
+            element.set_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE, function() {
+                self._on_element_set_to_tab_target.bind(self)(element);
+            });
+        }
 
         return element;
     },

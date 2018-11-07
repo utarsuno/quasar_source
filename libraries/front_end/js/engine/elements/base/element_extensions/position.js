@@ -129,9 +129,11 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
             this.position_offsets[5] = distance;
         }
         if (this.group != null) {
-            this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            //this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4] + this.position_offsets[5];
         } else {
-            this.mesh.position.y  = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            //this.mesh.position.y  = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
+            this.mesh.position.y  = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4] + this.position_offsets[5];
         }
         this._set_position_needs_update();
     },

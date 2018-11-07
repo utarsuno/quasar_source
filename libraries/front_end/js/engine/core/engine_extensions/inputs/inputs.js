@@ -46,17 +46,11 @@ Object.assign(
         on_mouse_move: function(event) {
             if (this.player.has_mouse_movement()) {
                 //this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
-                if (this.get_flag(ENGINE_STATE_MOUSE_Y_DISABLED)) {
-                    if (event.movementX != 0) {
-                        this.player.on_mouse_move_x(event.movementX);
-                    }
-                } else {
-                    if (event.movementX != 0) {
-                        this.player.on_mouse_move_x(event.movementX);
-                    }
-                    if (event.movementY != 0) {
-                        this.player.on_mouse_move_y(event.movementY);
-                    }
+                if (event.movementX != 0) {
+                    this.player.on_mouse_move_x(event.movementX);
+                }
+                if (event.movementY != 0 && !this.get_flag(ENGINE_STATE_MOUSE_Y_DISABLED)) {
+                    this.player.on_mouse_move_y(event.movementY);
                 }
             }
             event.preventDefault();

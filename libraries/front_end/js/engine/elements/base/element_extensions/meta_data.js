@@ -39,11 +39,14 @@ const EFLAG_UPDATE_NORMAL                  = 'f24'; // #pre-process_global_const
 const EFLAG_UPDATE_CHILD                   = 'f25'; // #pre-process_global_constant
 const EFLAG_UPDATE_COLOR                   = 'f26'; // #pre-process_global_constant
 
+// Animation flags.
+const EFLAG_IN_ANIMATION                   = 'f27'; // #pre-process_global_constant
+
 // 'External' states.
-const EFLAG_IN_WORLD                       = 'f27'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_ROOT               = 'f28'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f29'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_SINGLETON          = 'f30'; // #pre-process_global_constant
+const EFLAG_IN_WORLD                       = 'f28'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_ROOT               = 'f29'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f30'; // #pre-process_global_constant
+const EFLAG_IN_ELEMENTS_SINGLETON          = 'f31'; // #pre-process_global_constant
 
 //
 // flag has children

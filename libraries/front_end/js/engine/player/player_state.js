@@ -5,6 +5,7 @@ const PLAYER_STATE_FULL_CONTROL  = 2; // #pre-process_global_constant
 const PLAYER_STATE_TYPING_IN_HUD = 3; // #pre-process_global_constant
 const PLAYER_STATE_ENGAGED       = 4; // #pre-process_global_constant
 
+
 Object.assign($_QE.prototype.Player.prototype, {
     previous_state: null,
     current_state : PLAYER_STATE_PAUSED,

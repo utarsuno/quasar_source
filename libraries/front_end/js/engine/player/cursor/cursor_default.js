@@ -17,6 +17,8 @@ Object.assign(
 
             this.clear_flags();
             this.set_flag_on(CURSOR_FLAG_DEFAULT);
+
+            this.attached_to = null;
         },
     }
 );

@@ -9,7 +9,8 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
 
         this.add_title_bar(title, ASSET_ICON_TERMINAL);
 
-        this._default_row = this.create_row(0.5, true);
+        //this._default_row = this.create_row(0.5, true);
+        this._default_row = this.create_row_interactive(0.5);
 
         // Temp.
         this.rows[1].set_text('Nexus Local!');
@@ -55,9 +56,8 @@ Object.assign(
             this.set_flag(EFLAG_MOUSE_MOVEABLE, true);
             this.set_flag(EFLAG_MOUSE_SCALEABLE, true);
 
-            //this.set_colors(QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
-            // TEMP
-            this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
+            this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.85);
+            //this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
             this.set_background_color(COLOR_CANVAS_GRAY);
 
             this.initialize_dom_canvas(number_of_rows, width, font);

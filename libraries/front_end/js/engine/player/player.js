@@ -38,11 +38,14 @@ Object.assign($_QE.prototype.Player.prototype, {
             this.yaw.position.y,
             this.yaw.position.z + this._cache_normal.z * distance
         );
+        element.update_element();
         element.look_at(
             this.yaw.position.x,
             this.yaw.position.y,
             this.yaw.position.z
         );
+        element.update_element();
     },
+
 
 });

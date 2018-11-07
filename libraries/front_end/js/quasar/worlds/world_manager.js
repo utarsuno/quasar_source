@@ -1,9 +1,5 @@
 'use strict';
 
-function WorldManager() {
-    this.__init__();
-}
-
 WorldManager.prototype = {
 
     logout: function() {
@@ -18,31 +14,6 @@ WorldManager.prototype = {
     },
 
     set_current_world: function(world, transition_finished_callback) {
-        let previous_position_and_look_at;
-
-        if (this.current_world !== null) {
-            this.player_cursor.detach();
-            // Make sure to hide the player menu if it is visible.
-            if (this.player_menu.is_currently_visible()) {
-                this.player_menu.toggle_visibility();
-            }
-
-            previous_position_and_look_at = this.current_world.exit_world();
-
-            // Before exiting the world make sure to remove certain objects that are not world-unique.
-            this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
-
-            this.previous_world = this.current_world;
-        }
-        this.current_world = world;
-
-        // Before switching to the new scene make sure it has all non world-unique objects.
-        this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
-
-        // Set the player position ahead of time.
-        this.current_world.set_player_enter_position_and_look_at();
-        this.current_world.enter_world(this.player_cursor);
-
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
@@ -50,8 +21,6 @@ WorldManager.prototype = {
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
         }
-
-        //this.current_world.enter_world(this.player_cursor);
     },
 
     perform_batch_save: function() {

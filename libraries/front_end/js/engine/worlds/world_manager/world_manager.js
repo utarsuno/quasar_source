@@ -18,6 +18,7 @@ Object.assign(
             this.first_world.create_for_first_render();
             this.application.add_singletons(this);
             this.player_cursor = new $_QE.prototype.PlayerCursor(this.player);
+            this.player_menu   = new $_QE.prototype.PlayerMenu(this.player, this.first_world);
         },
 
         set_current_world: function(world) {
