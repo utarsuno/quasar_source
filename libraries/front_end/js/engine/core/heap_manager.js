@@ -105,23 +105,24 @@ $_QE.prototype.get_heap_manager = function() {
     };
     */
     // ---------------------------------------- SpritesheetShaderMaterialCache ----------------------------------------
+    /*
     function SpritesheetShaderMaterialCache(args) {
         this.__init__(args);
     }
     SpritesheetShaderMaterialCache.prototype = {
         __init__: function(args) {
-            this._icon = args[0];
-            this._color = args[1];
+            this._icon     = args[0];
+            this._color    = args[1];
             this._material = QE.manager_assets.get_icon_material(this._icon);
             this._material.uniforms['color'].value = this._color;
-            this._material.needsUpdate = true;
+            this._material.needsUpdate             = true;
             return this;
         },
         is_match: function(args) {
             return this._icon === args[0] && this._color === args[1];
         }
     };
-
+    */
     // ---------------------------------------- Text3DMaterialCache ----------------------------------------
     function Text3DMaterialCache(args) {
         this.__init__(args);
@@ -151,7 +152,7 @@ $_QE.prototype.get_heap_manager = function() {
             this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
             this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
             //this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
-            this.cached_spritesheet_shader_materails = new CachedObjects(SpritesheetShaderMaterialCache);
+            //this.cached_spritesheet_shader_materails = new CachedObjects(SpritesheetShaderMaterialCache);
             this.cached_text_3D_material = new CachedObjects(Text3DMaterialCache);
             return this;
         },
@@ -161,7 +162,7 @@ $_QE.prototype.get_heap_manager = function() {
         },
 
         get_spritesheet_shader_material: function(icon, color) {
-            return this.cached_spritesheet_shader_materails.get_cached_object([icon, color])._material;
+            //return this.cached_spritesheet_shader_materails.get_cached_object([icon, color])._material;
         },
 
         get_plane_geometry: function(width, height) {

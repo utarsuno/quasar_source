@@ -37,8 +37,8 @@ Object.assign(
 
         set_row_text: function(text) {
             // TODO:
-            this._render_needed = true;
             this.row.set_text(text);
+            this._render_needed = true;
         },
 
     }

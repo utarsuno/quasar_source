@@ -6,7 +6,8 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     set_opacity: function(v) {
         if (this.material_type == FEATURE_MATERIAL_TYPE_ICON) {
-            this.material.uniforms['alpha'].value = v;
+            //this.material.uniforms['alpha'].value = v;
+            this.shader_material.set_alpha(v);
         } else {
             this.material.opacity = v;
         }
@@ -40,7 +41,8 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
             this.material = QE.manager_heap.get_text_3D_material(this.current_foreground_color);
             break;
         case FEATURE_MATERIAL_TYPE_ICON:
-            this.material = QE.manager_assets.get_icon_material(this.icon_type);
+            this.shader_material = QE.manager_assets.get_icon_shader(this.icon_type);
+            this.material        = this.shader_material.shader_material;
             break;
         }
     },
@@ -56,21 +58,18 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
         case FEATURE_MATERIAL_CANVAS_BASIC:
             this.material = new THREE.MeshBasicMaterial({
                 map : this.texture, transparent: true, side: THREE.FrontSide
-            //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
             this._set_alpha_test_if_needed();
             break;
         case FEATURE_MATERIAL_CANVAS_FANCY:
             this.material = new THREE.MeshLambertMaterial({
                 map : this.texture, transparent: true, side: THREE.FrontSide
-            //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
             this._set_alpha_test_if_needed();
             break;
         case FEATURE_MATERIAL_CANVAS_SHINY:
             this.material = new THREE.MeshToonMaterial({
                 map : this.texture, transparent: true, side: THREE.FrontSide
-            //    map : this.texture, transparent: false, side: THREE.DoubleSide
             });
             this._set_alpha_test_if_needed();
             break;
@@ -91,6 +90,10 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
         this.get_flag(EFLAG_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
         if (this.opacity != null) {
             this.set_opacity(this.opacity);
+        }
+
+        if (this.material_type == FEATURE_MATERIAL_TYPE_ICON) {
+            this.shader_material.set_icon(this.icon_type);
         }
     },
 

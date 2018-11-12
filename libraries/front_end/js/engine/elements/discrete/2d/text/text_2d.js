@@ -41,18 +41,11 @@ Object.assign(
             this.set_value_post_changed_event(this._on_text_change.bind(this));
         },
 
-        // TEMPORARY LOCATION:
-        require_border: function() {
-            this._require_border = true;
-        },
-
         _on_text_change: function(text) {
-            //l('Text2D changed!');
             this.set_row_text(text);
-
-            //if (this.attachment_parent != null) {
-            //    l(this);
-            //}
+            if (this.attachment_parent != null) {
+                this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+            }
         },
 
         create: function() {
@@ -61,6 +54,20 @@ Object.assign(
             this.create_mesh();
 
             this._force_refresh();
+
+            let self = this;
+            this.set_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR, function() {
+                self._render_needed = true;
+                if (self.attachment_parent != null) {
+                    self.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+                }
+            });
+            this.set_event(ELEMENT_EVENT_ON_BACKGROUND_COLOR, function() {
+                self._render_needed = true;
+                if (self.attachment_parent != null) {
+                    self.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+                }
+            });
         },
 
         // Temporary solution.

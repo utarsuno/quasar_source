@@ -47,4 +47,10 @@ Object.assign($_QE.prototype, {
         this._clear_frames();
     },
 
+    // TEMPORARY LOCATION:
+    _get_number_of_cpu_cores: function() {
+        // Number of logical processors.
+        return window.navigator.hardwareConcurrency;
+    },
+
 });

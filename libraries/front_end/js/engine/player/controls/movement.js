@@ -109,6 +109,8 @@ Object.assign($_QE.prototype.Player.prototype, {
             this.yaw.updateMatrix();
             this.pitch.updateMatrix();
             this._update_player_matrix = false;
+
+            this._update_flashlight();
         }
 
         // 2 conditions (thus far) on when to not check input position updates.

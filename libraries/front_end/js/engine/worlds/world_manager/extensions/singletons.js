@@ -11,7 +11,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
 
     singletons_leave_world: function() {
         this.player_cursor.detach();
-        this.current_world.scene.remove(this.player.yaw);
+        this.player._singleton_leave(this.current_world.scene);
 
         let s;
         for (s = 0; s < this.singletons.length; s++) {
@@ -20,7 +20,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
     },
 
     singletons_enter_world: function() {
-        this.current_world.scene.add(this.player.yaw);
+        this.player._singleton_enter(this.current_world.scene);
 
         let s;
         for (s = 0; s < this.singletons.length; s++) {

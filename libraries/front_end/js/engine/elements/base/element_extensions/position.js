@@ -52,6 +52,15 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         return this.get_object().position;
     },
 
+    get_world_position_offset_horizontal: function(d) {
+        let p = this.get_world_position();
+        let lr = this.get_left_right();
+        return new THREE.Vector3(
+            p.x + lr.x * d,
+            p.y + lr.y * d,
+            p.z + lr.z * d
+        );
+    },
 
     // For absolute positions.
 

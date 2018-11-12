@@ -15,14 +15,32 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		self.needed_volume_files = {}
 		self._add_volume_file_reference('p0.png'                        , 'texture/spritesheet/icons.png')
 		self._add_volume_file_reference('p1.png'                        , 'texture/third_party/transition.png')
-		self._add_volume_file_reference('p2.png'                        , 'favicon/favicon/favicon.pn')
+		self._add_volume_file_reference('p2.png'                        , 'favicon/favicon.png')
+
+		self._add_volume_file_reference('p3_0.jpg', 'texture/third_party/tile/Tiles_009_COLOR.jpg')
+		self._add_volume_file_reference('p3_1.png', 'texture/third_party/tile/Tiles_009_DISP.png')
+		self._add_volume_file_reference('p3_2.jpg', 'texture/third_party/tile/Tiles_009_NORM.jpg')
+		self._add_volume_file_reference('p3_3.jpg', 'texture/third_party/tile/Tiles_009_OCC.jpg')
+		self._add_volume_file_reference('p3_4.jpg', 'texture/third_party/tile/Tiles_009_SPEC.jpg')
+
 		self._add_volume_file_reference('gentilis_regular.typeface.json', 'fonts/three_js_fonts/gentilis_regular.typeface.json')
+
+		# TEMPORARY SOLUTION
+		self._add_volume_file_reference_raw('three_js.min.js', '/quasar/generated_output/web_assets/three_js.min.js')
+		self._add_volume_file_reference_raw('three_js.min.js.gz', '/quasar/generated_output/web_assets/three_js.min.js.gz')
+
+		self._add_volume_file_reference_raw('cookie.min.js', '/quasar/generated_output/web_assets/cookie.min.js')
+		self._add_volume_file_reference_raw('cookie.min.js.gz', '/quasar/generated_output/web_assets/cookie.min.js.gz')
 
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
 
 	def _add_volume_file_reference(self, destination, source):
 		"""Utility function."""
 		self.needed_volume_files[self.domain.volume_path + destination] = '/quasar/assets/' + source
+
+	def _add_volume_file_reference_raw(self, destination, source):
+		"""Utility function."""
+		self.needed_volume_files[self.domain.volume_path + destination] = source
 
 	def step_0x0(self):
 		"""The first step."""

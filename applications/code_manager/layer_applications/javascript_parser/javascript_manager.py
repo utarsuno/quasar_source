@@ -63,7 +63,7 @@ class JavascriptManager(object):
 		self._add_js_file('elements/base/floating_element')
 		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility'])
 		self._add_js_file('elements/base/floating_wall')
-		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox'])
+		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox', 'tile_cube'])
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# DOM element abstraction.
@@ -99,10 +99,12 @@ class JavascriptManager(object):
 		self._add_paths('global', ['globals', 'global_pre_process'])
 
 		# Player.
-		self._add_paths('player'         , ['player', 'player_state'])
-		self._add_paths('player/cursor'  , ['cursor', 'cursor_default', 'cursor_icon'])
-		self._add_paths('player/controls', ['mouse', 'movement'])
-		self._add_paths('player/menu'    , ['menu'])
+		self._add_paths('player'           , ['player', 'player_state'])
+		self._add_paths('player/cursor'    , ['cursor', 'cursor_default', 'cursor_icon'])
+		self._add_paths('player/controls'  , ['mouse', 'movement'])
+		self._add_paths('player/flashlight', ['flashlight'])
+		#self._add_paths('player/menu'      , ['menu_abstract', 'menu', 'menu_teleport', 'action_row', 'action_fullscreen', 'action_create', 'action_teleport'])
+		self._add_paths('player/menu', ['menu_abstract', 'action_row', 'action_create', 'action_fullscreen', 'menu_teleport', 'action_teleport', 'menu'])
 
 		# Worlds.
 		self._add_paths('worlds/world'                   , ['world_base'])
@@ -121,7 +123,8 @@ class JavascriptManager(object):
 		self._add_paths(shaders_path + '/transition'  , ['shader_material_transition'])
 
 		# Assets.
-		self._add_paths('asset_management', ['pre_process', 'asset_manager', 'asset_batch', 'asset_file'])
+		self._add_paths('asset_management'              , ['pre_process', 'asset_manager', 'asset_batch', 'asset_file'])
+		self._add_paths('asset_management/asset_batches', ['tile_batch'])
 
 		# Websockets.
 		self._add_paths('web_sockets', ['web_socket_manager', 'web_socket_sessions', 'request_buffer'])

@@ -9,10 +9,12 @@ $_QE.prototype.ShaderMaterialAbstraction.prototype = {
 
     set_uniform: function(k, v) {
         this.shader_material.uniforms[k].value = v;
+        this.shader_material.needsUpdate       = true;
     },
 
     add_to_uniform: function(k, v) {
         this.shader_material.uniforms[k].value += v;
+        this.shader_material.needsUpdate       = true;
     },
 
     _set_shader_material: function(vertex_shader, fragment_shader, uniforms) {

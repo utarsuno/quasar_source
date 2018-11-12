@@ -47,6 +47,8 @@ $_QE.prototype.AssetManager.prototype = {
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_NOISE);
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_BACKGROUND);
 
+        this._load_tile_batch(asset_batch);
+
         let self = this;
 
         return new Promise(function(resolve, reject) {
@@ -59,14 +61,8 @@ $_QE.prototype.AssetManager.prototype = {
         });
     },
 
-    // For icons.
-    get_icon_material: function(icon) {
-        this._shader_material = this.engine.manager_assets.get_asset(ASSET_SHADER_MATERIAL_SPRITE_SHEET);
-        //let m                 = this._shader_material.get_clone(icon);
-        //m.transparent         = true;
-        //m.needsUpdate         = true;
-        //
-        return this._shader_material.get_clone(icon);
+    get_icon_shader: function(icon) {
+        return new $_QE.prototype.ShaderMaterialSpriteSheet(this.get_asset(ASSET_SHADER_MATERIAL_SPRITE_SHEET), icon);
     },
 
     _initialize_icon_shader: function() {
@@ -77,3 +73,15 @@ $_QE.prototype.AssetManager.prototype = {
     },
 };
 
+// Eventually delete:
+/*
+    // For icons.
+    get_icon_material: function(icon) {
+        this._shader_material = this.get_asset(ASSET_SHADER_MATERIAL_SPRITE_SHEET);
+        //let m                 = this._shader_material.get_clone(icon);
+        //m.transparent         = true;
+        //m.needsUpdate         = true;
+        //
+        return this._shader_material.get_clone(icon);
+    },
+ */

@@ -70,6 +70,7 @@ Object.assign(
                 this.animation_step(delta);
             }
 
+            // TODO: Optimize later.
             let c;
             if (this.get_flag(EFLAG_UPDATE_CHILD)) {
                 for (c = 0; c < this.attachments.length; c++) {
@@ -77,7 +78,6 @@ Object.assign(
                 }
                 this.set_flag(EFLAG_UPDATE_CHILD, false);
             } else {
-                // TODO: Optimize later.
                 for (c = 0; c < this.attachments.length; c++) {
                     if (this.attachments[c].get_flag(EFLAG_UPDATE_CHILD)) {
                         this.attachments[c].update_element();

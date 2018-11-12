@@ -1,21 +1,37 @@
 'use strict';
 
-function SettingsWorld(static_world_entity) {
-    this.__init__(static_world_entity);
-}
+$_NL.prototype.SettingsWorld = function(player) {
+    this.init_world(player);
+    this.set_world_enter_default_position(new THREE.Vector3(-34.79899682521624, 557.3571839639006, 1802.99541871182));
+    this.set_world_enter_default_normal(new THREE.Vector3(0.005015558927525423, -0.16165647877160208, -0.9868343463012478));
+};
 
+Object.assign(
+    $_NL.prototype.SettingsWorld.prototype,
+    $_QE.prototype.World.prototype,
+    {
+        update: function(delta) {
+            //this.logs.refresh();
+            //this.logs.add_message(delta);
+        },
+
+        create_for_first_render: function() {
+        },
+    }
+);
+
+
+// Really old version below.
+
+/*
 SettingsWorld.prototype = {
-
     select_phone_carrier: function() {
         this.profile_phone_carrier_list.set_to_visible();
     },
-
     selected_phone_carrier: function(selected_phone_carrier) {
         this.profile_phone_carrier_input.update_text(selected_phone_carrier);
         this.profile_phone_carrier_list.set_to_invisible();
     },
-
-
     /*
     // FOR_DEV_START
     // TODO : The .save command needs to save this data!!!
@@ -36,7 +52,7 @@ SettingsWorld.prototype = {
         }
     },
     // FOR_DEV_END
-    */
+    //*_/
 
     slider_master_volume_value_changed: function(master_volume_value) {
         // TODO : Don't linerally adjust the volume but instead follow that audio volume changing guide!!!!
@@ -50,21 +66,13 @@ SettingsWorld.prototype = {
         MANAGER_RENDERER.camera.updateProjectionMatrix();
         // TODO : Save the new value into ENTITY OWNER settings.
     },
-
-    __init__: function(static_world_entity) {
-        // Inherit.
-        World.call(this, static_world_entity);
-        WorldInput.call(this);
-        WorldState.call(this, new THREE.Vector3(-1000, 350, 350), new THREE.Vector3(.992, .124, -.122));
-        WorldDynamicContent.call(this);
-    },
-
+    
     create: function() {
-        /*__   __   __   ___         ___
+        __   __   __   ___         ___
          |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
-         |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
+         |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ 
 
-        /*
+        
         var wall_profile_position = new THREE.Vector3(500, 500, 700);
         var wall_profile_width    = 650;
         var wall_profile_height   = 512 / 2;
@@ -109,13 +117,13 @@ SettingsWorld.prototype = {
 
         this.wall_user_profile.refresh_position_and_look_at();
 
-        */
+        
 
-        /*__   ___ ___ ___         __   __
+        __   ___ ___ ___         __   __
          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
-         .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
+         .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ 
 
-        /*
+        
         var wall_settings_position = new THREE.Vector3(1150, 600, 200);
         var wall_settings_width    = 600;
         var wall_settings_height   = 512;
@@ -133,9 +141,8 @@ SettingsWorld.prototype = {
         // TODO : Don't use the default value but instead load from the ENTITY_OWNER settings value.
         this.wall_settings_slider_audio = this.wall_settings.add_floating_slider(0, 1, 100, 0, 100, 'Master Volume : ', 2);
         this.wall_settings_slider_audio.set_value_post_changed_function(this.slider_master_volume_value_changed.bind(this));
-
-        // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
-        */
+        
     }
 
 };
+*/

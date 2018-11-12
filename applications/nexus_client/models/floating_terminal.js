@@ -9,7 +9,6 @@ $_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
 
         this.add_title_bar(title, ASSET_ICON_TERMINAL);
 
-        //this._default_row = this.create_row(0.5, true);
         this._default_row = this.create_row_interactive(0.5);
 
         // Temp.

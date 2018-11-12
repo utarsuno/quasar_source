@@ -18,6 +18,8 @@ Object.assign($_QE.prototype.Player.prototype, {
     initialize_player_controls: function() {
         this.pitch.add(this.engine.camera);
         this.yaw.add(this.pitch);
+
+        this._initialize_flashlight();
     },
 
     set_in_front_of_object: function(element, distance) {
@@ -47,5 +49,15 @@ Object.assign($_QE.prototype.Player.prototype, {
         element.update_element();
     },
 
+    _singleton_leave: function(scene) {
+        scene.remove(this.yaw);
+        scene.remove(this.flashlight);
+        scene.remove(this._flashlight_target);
+    },
 
+    _singleton_enter: function(scene) {
+        scene.add(this.yaw);
+        scene.add(this.flashlight);
+        scene.add(this._flashlight_target);
+    },
 });

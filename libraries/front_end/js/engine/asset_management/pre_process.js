@@ -9,6 +9,12 @@ const ASSET_TEXUTRE_SKYBOX_RIGHT  = 'r.jpg';  // #pre-process_global_constant
 const ASSET_TEXUTRE_SKYBOX_TOP    = 't.jpg';  // #pre-process_global_constant
 const ASSET_TEXUTRE_SKYBOX_BOTTOM = 'bo.jpg'; // #pre-process_global_constant
 
+const ASSET_TEXTURE_TILE_COLOR       = 'p3_0.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_TILE_DISPLACMENT = 'p3_1.png'; // #pre-process_global_constant
+const ASSET_TEXTURE_TILE_NORMAL      = 'p3_2.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_TILE_OCCULANT    = 'p3_3.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_TILE_ROUGH       = 'p3_4.jpg'; // #pre-process_global_constant
+
 const ASSET_SHADER_MATERIAL_TRANSITION   = 'sm1'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_NOISE        = 'sm2'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_SPRITE_SHEET = 'sm3'; // #pre-process_global_constant

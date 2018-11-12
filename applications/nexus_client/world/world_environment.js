@@ -13,6 +13,11 @@ Object.assign(
             this.light_a = new $_QE.prototype.LightAmbient(0xffffff, .60);
             this.skybox  = new $_QE.prototype.SkyBox();
 
+            //
+            this.tile_cube = new $_QE.prototype.TileCube();
+            world_manager.singleton_add(this.tile_cube);
+            //
+
             world_manager.singleton_add(this.grid);
             world_manager.singleton_add(this.light_w);
             world_manager.singleton_add(this.light_r);
