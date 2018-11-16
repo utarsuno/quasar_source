@@ -29,9 +29,7 @@ $_QE.prototype.FiniteStateMachine.prototype = {
                 this.state_previous.exit();
             }
             this.state_current = state;
-            if (this.state_current.enter != null) {
-                this.state_current.enter();
-            }
+            this.state_current.enter();
         }
     },
 

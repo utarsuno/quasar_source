@@ -39,6 +39,10 @@ $_QE.prototype.BooleanFlagsStaticOneBucket.prototype = {
         return (this.flags[0] & flag_number) > 0;
     },
 
+    flags_is_at_least_one_on: function(flags) {
+        return (this.flags[0] & flags) > 0;
+    },
+
     flags_are_both_on: function(f0, f1) {
         return (this.flags[0] & (f0 | f1)) == (f0 | f1);
     },

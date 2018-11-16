@@ -4,10 +4,6 @@ $_QE.prototype.FeatureTyping = function(on_enter=null) {
 
     this.callback_on_enter = on_enter;
 
-
-
-
-
     // For elements.
     if (this.set_flag != null) {
         if (!this.has_flag(EFLAG_INTERACTIVE)) {
@@ -39,11 +35,3 @@ $_QE.prototype.FeatureTyping = function(on_enter=null) {
     };
 };
 
-
-// 32
-// 10000000000000000000000000000000
-
-// 63
-// 10000000000000000000000000000000
-
-//

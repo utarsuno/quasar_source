@@ -1,22 +1,22 @@
 'use strict';
 
-const QECACHEI_WIDTH_INNER   = 0;
-const QECACHEI_WIDTH_OUTER   = 1;
-const QECACHEI_HEIGHT_INNER  = 2;
-const QECACHEI_HEIGHT_OUTER  = 3;
-const QECACHEI_FRAME_COUNTER = 4;
+const QECACHEI_WIDTH_INNER   = 0; // #pre-process_global_constant
+const QECACHEI_WIDTH_OUTER   = 1; // #pre-process_global_constant
+const QECACHEI_HEIGHT_INNER  = 2; // #pre-process_global_constant
+const QECACHEI_HEIGHT_OUTER  = 3; // #pre-process_global_constant
+const QECACHEI_FRAME_COUNTER = 4; // #pre-process_global_constant
 
-const QECACHEF_FOV                  = 0;
-const QECACHEF_CLIPPING_NEAR        = 1;
-const QECACHEF_CLIPPING_FAR         = 2;
-const QECACHEF_ASPECT_RATIO         = 3;
-const QECACHEF_FPS_PHYSICS          = 4;
-const QECACHEF_FPS_LOGIC            = 5;
-const QECACHEF_FPS_RENDER           = 6;
-const QECACHEF_ELAPSED_TIME_PHYSICS = 7;
-const QECACHEF_ELAPSED_TIME_LOGIC   = 8;
-const QECACHEF_ELAPSED_TIME_RENDER  = 9;
-const QECACHEF_ELAPSED_TIME_SECOND  = 10;
+const QECACHEF_FOV                  = 0;  // #pre-process_global_constant
+const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant
+const QECACHEF_CLIPPING_FAR         = 2;  // #pre-process_global_constant
+const QECACHEF_ASPECT_RATIO         = 3;  // #pre-process_global_constant
+const QECACHEF_FPS_PHYSICS          = 4;  // #pre-process_global_constant
+const QECACHEF_FPS_LOGIC            = 5;  // #pre-process_global_constant
+const QECACHEF_FPS_RENDER           = 6;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_PHYSICS = 7;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_LOGIC   = 8;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_RENDER  = 9;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_SECOND  = 10; // #pre-process_global_constant
 
 
 Object.assign($_QE.prototype, {

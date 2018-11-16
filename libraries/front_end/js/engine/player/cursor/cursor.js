@@ -14,7 +14,7 @@ $_QE.prototype.PlayerCursor = function(engine) {
     this._initialize_icon_cursor();
 
     this.in_mouse_action = function() {
-        return this.flags_are_both_on(CURSOR_STATE_SCALING, CURSOR_STATE_MOVING);
+        return this.flags_is_at_least_one_on(CURSOR_STATE_SCALING | CURSOR_STATE_MOVING);
     };
 
     this.finish_mouse_action = function() {
