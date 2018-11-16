@@ -70,11 +70,10 @@ class JavascriptManagerNexusLocal(JavascriptManager):
 		# Nexus Local specific.
 		self.js.add_external_code_directory('/quasar/applications/nexus_client')
 		# Add js files needed.
-		self.js_files_needed.append('nexus/nexus_local.js')
-		self.js_files_needed.append('world/world_dev_tools.js')
-		self.js_files_needed.append('web_socket_requests/message_handler.js')
-		self.js_files_needed.append('models/floating_terminal.js')
-		self.js_files_needed.append('world/world_environment.js')
+		self.js_files_needed.append('nexus/nexus_local')
+		self.js_files_needed.append('world/world_dev_tools')
+		self.js_files_needed.append('web_socket_requests/message_handler')
+		self.js_files_needed.append('models/floating_terminal')
 
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""

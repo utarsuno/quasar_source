@@ -12,11 +12,12 @@ function $_QE(application, application_class, first_world) {
     this.first_world_class = first_world;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
-    if (this.are_required_features_enabled()) {
+    if (this._are_required_features_enabled()) {
         this.application = application;
         this.application = new application_class();
         this._initialize_cache();
         this._initialize_engine();
+        this._initialize_state();
     } else {
         this.fatal_error('Engine failed to load! Missing features {' + this.get_names_of_required_features_not_enabled() + '}');
     }
@@ -61,28 +62,32 @@ $_QE.prototype = {
 
     // Step : 0x1
     _initialize_for_first_render: function() {
-        // temp test
         this.pause_menu_set_sub_title('creating worlds');
-        //
 
         this._initialize_renderer();
         this.player           = new $_QE.prototype.Player(this);
         this.manager_world    = new $_QE.prototype.WorldManager(this);
+        this.manager_world.__init__();
 
         this.initialize_shaders(this.manager_world.first_world);
         this._initialize_hud();
 
         this._initialize_input_controls();
 
+        //
+        this.set_state(QEFLAG_STATE_RUNNING);
+        //
+
         this.manager_world.set_current_world(this.manager_world.first_world);
 
         // Perform one psedu engine loop.
-        this.manager_world.physics(this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]);
-        this.manager_world.update(this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]);
-        this.render(this._cache_floats[ENGINE_FLOAT_FPS_PHYSICS]);
+        this.manager_world.physics(this._cachef[QECACHEF_FPS_PHYSICS]);
+        this.manager_world.update(this._cachef[QECACHEF_FPS_PHYSICS]);
+        this.render(this._cachef[QECACHEF_FPS_PHYSICS]);
         //
 
-        this.pause_engine();
+        this.set_state(QEFLAG_STATE_PAUSED);
+        this.player._initialize_state(PLAYER_STATE_FULL_CONTROL);
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);

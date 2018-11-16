@@ -1,13 +1,13 @@
 'use strict';
 
-$_NL.prototype.SettingsWorld = function(player) {
-    this.init_world(player);
+$_QE.prototype.SettingsWorld = function(engine) {
+    this.init_world('Settings', ASSET_ICON_GEARS, engine);
     this.set_world_enter_default_position(new THREE.Vector3(-34.79899682521624, 557.3571839639006, 1802.99541871182));
     this.set_world_enter_default_normal(new THREE.Vector3(0.005015558927525423, -0.16165647877160208, -0.9868343463012478));
 };
 
 Object.assign(
-    $_NL.prototype.SettingsWorld.prototype,
+    $_QE.prototype.SettingsWorld.prototype,
     $_QE.prototype.World.prototype,
     {
         update: function(delta) {
@@ -15,7 +15,9 @@ Object.assign(
             //this.logs.add_message(delta);
         },
 
-        create_for_first_render: function() {
+        _init_singletons: function() {
+            this.tile_cube = new $_QE.prototype.TileCube();
+            this.tile_cube.world_include(this);
         },
     }
 );

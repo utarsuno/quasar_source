@@ -5,38 +5,38 @@ Object.assign(
     {
         _set_binding_fullscreen: function() {
             if (document.webkitCancelFullScreen != null) {
-                this.set_flag(ENGINE_BINDING_FULL_SCREEN_DEFAULT, true);
+                this._fullscreen_enter = function() {
+                    document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                };
+                this._fullscreen_exit = function() {
+                    document.webkitCancelFullScreen();
+                };
+                this._fullscreen_is_active = function() {
+                    return document.webkitIsFullScreen;
+                };
             } else {
-                this.set_flag(ENGINE_BINDING_FULL_SCREEN_DEFAULT, false);
+                this._fullscreen_enter = function() {
+                    document.body.mozRequestFullScreen();
+                };
+                this._fullscreen_exit = function() {
+                    document.mozCancelFullScreen();
+                };
+                this._fullscreen_is_active = function() {
+                    return document.mozFullScreen;
+                };
             }
-            this._is_in_fullscreen();
+            this.flag_set(QEFLAG_STATE_FULLSCREEN, this._fullscreen_is_active());
         },
 
         enter_fullscreen: function() {
-            if (this.get_flag(ENGINE_BINDING_FULL_SCREEN_DEFAULT)) {
-                document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-            } else {
-                document.body.mozRequestFullScreen();
-            }
-            this.set_flag_on(ENGINE_STATE_FULL_SCREEN);
+            this._fullscreen_enter();
+            this.flag_set_on(QEFLAG_STATE_FULLSCREEN);
         },
 
         exit_fullscreen: function() {
-            if (this.get_flag(ENGINE_BINDING_FULL_SCREEN_DEFAULT)) {
-                document.webkitCancelFullScreen();
-            } else {
-                document.mozCancelFullScreen();
-            }
-            this.set_flag_off(ENGINE_STATE_FULL_SCREEN);
+            this._fullscreen_exit();
+            this.flag_set_off(QEFLAG_STATE_FULLSCREEN);
         },
 
-        _is_in_fullscreen: function() {
-            if (this.get_flag(ENGINE_BINDING_FULL_SCREEN_DEFAULT)) {
-                this.set_flag(ENGINE_STATE_FULL_SCREEN, document.webkitIsFullScreen);
-            } else {
-                this.set_flag(ENGINE_STATE_FULL_SCREEN, document.mozFullScreen);
-            }
-            //return this.get_flag(ENGINE_STATE_FULL_SCREEN);
-        },
     }
 );

@@ -4,8 +4,22 @@ $_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    init_world: function(player) {
-        this.player                     = player;
+    create_singletons_if_needed: function() {
+        if (!this._singletons_created) {
+            if (this._init_singletons != null) {
+                this._init_singletons();
+            }
+            this._singletons_created = true;
+        }
+    },
+
+    init_world: function(world_name, world_icon, engine) {
+        this._singletons_created = false;
+
+        this.world_name                 = world_name;
+        this.world_icon                 = world_icon;
+        this.engine                     = engine;
+        this.player                     = this.engine.player;
         this.scene                      = new THREE.Scene();
         this.currently_looked_at_object = null;
 
@@ -32,6 +46,10 @@ Object.assign($_QE.prototype.World.prototype, {
         this.player_default_enter_position       = null;
         this.player_default_enter_normal         = null;
 
+        ///
+        //this.engine.manager_world.player_menu.register_world(this);
+        ///
+
     },
 
     _refresh_element: function(element) {
@@ -44,10 +62,8 @@ Object.assign($_QE.prototype.World.prototype, {
     create_and_add_element_to_root: function(element) {
         element.world = this;
         this.add_element_root(element);
-        //this.check_if_element_needs_interactive(element);
 
-        this.create_element(element);
-        this.add_element(element);
+        this.add_element(element, true);
 
         this._refresh_element(element);
     },
@@ -58,13 +74,19 @@ Object.assign($_QE.prototype.World.prototype, {
         }
 
         element.world = this;
+
+        if (create) {
+            this.create_element(element);
+        }
+
         element.set_flag(EFLAG_IN_WORLD, true);
         this.check_if_element_needs_interactive(element);
         this.check_if_element_needs_root(element);
         this.scene.add(element.get_object());
-        if (trigger_event) {
-            element.trigger_event(ELEMENT_EVENT_ON_WORLD_ENTER);
-        }
+
+        //if (trigger_event) {
+        //element.trigger_event(ELEMENT_EVENT_ON_WORLD_ENTER);
+        //}
     },
 
     add_object_to_scene: function(object) {

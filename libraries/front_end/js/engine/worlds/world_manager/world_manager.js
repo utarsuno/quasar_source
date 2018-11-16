@@ -4,7 +4,6 @@ $_QE.prototype.WorldManager = function(engine) {
     this.engine      = engine;
     this.player      = engine.player;
     this.application = engine.application;
-    this.create_for_first_render();
 };
 
 Object.assign(
@@ -13,28 +12,32 @@ Object.assign(
         previous_world: null,
         current_world : null,
 
-        create_for_first_render: function() {
-            this.first_world   = new this.engine.first_world_class(this.player);
-            this.first_world.create_for_first_render();
-            this.application.add_singletons(this);
-            this.player_cursor = new $_QE.prototype.PlayerCursor(this.player);
-            this.player_menu   = new $_QE.prototype.PlayerMenu(this.player, this.first_world);
+        __init__: function() {
+            this.first_world    = new this.engine.first_world_class(this.engine);
+            this.world_settings = new $_QE.prototype.SettingsWorld(this.engine);
+            this._create_global_singletons();
+
+            this.player_menu.register_world(this.first_world);
+            this.player_menu.register_world(this.world_settings);
         },
 
         set_current_world: function(world) {
             if (this.current_world != null) {
                 this.singletons_leave_world();
+                this.current_world.exit();
                 this.previous_world = this.current_world;
             }
             this.current_world = world;
+            this.current_world.create_singletons_if_needed();
             this.singletons_enter_world();
             this.current_world.enter();
+            this.engine._on_new_scene_set(this.current_world.scene);
         },
 
         physics: function(delta) {
             this.player.physics(delta);
 
-            if (this.engine.get_flag(ENGINE_STATE_IN_TRANSITION)) {
+            if (this.engine.flag_is_on(QEFLAG_STATE_IN_TRANSITION)) {
                 return;
             }
 

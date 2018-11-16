@@ -70,6 +70,13 @@ Object.assign(
                 this.animation_step(delta);
             }
 
+            // TODO: Temporary, lower performance for less bugs.
+            let c;
+            for (c = 0; c < this.attachments.length; c++) {
+                this.attachments[c].update_element(delta);
+            }
+
+            /*
             // TODO: Optimize later.
             let c;
             if (this.get_flag(EFLAG_UPDATE_CHILD)) {
@@ -84,6 +91,7 @@ Object.assign(
                     }
                 }
             }
+            */
 
         },
 

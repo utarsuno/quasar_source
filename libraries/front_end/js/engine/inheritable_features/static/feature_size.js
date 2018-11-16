@@ -5,6 +5,7 @@ $_QE.prototype.FeatureSize = function() {};
 Object.assign($_QE.prototype.FeatureSize.prototype, {
 
     set_dimensions: function(w, h) {
+        // TODO: Have this in DEV/QA version only!
         if (w < 0) {
             QE.log_warning('Width is negative {' + w + '}');
         }

@@ -13,7 +13,7 @@ Object.assign(
         },
 
         get_grain_scale: function() {
-            return 1.5 / Math.min(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
+            return 1.5 / Math.min(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
         },
     }
 );

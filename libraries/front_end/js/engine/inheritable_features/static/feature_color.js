@@ -23,31 +23,53 @@ Object.assign($_QE.prototype.FeatureColor.prototype, {
         }
     },
 
+    _is_background_locked: function() {
+        if (this.set_flag != null) {
+            return this.get_flag(EFLAG_LOCK_BACKGROUND);
+        }
+        return false;
+    },
+
+    _is_foreground_locked: function() {
+        if (this.set_flag != null) {
+            return this.get_flag(EFLAG_LOCK_FOREGROUND);
+        }
+        return false;
+    },
+
     set_current_background_color: function(color) {
-        if (this.current_background_color != color) {
-            this.current_background_color = color;
-            this._set_flag(false, false);
+        if (!this._is_background_locked()) {
+            if (this.current_background_color != color) {
+                this.current_background_color = color;
+                this._set_flag(false, false);
+            }
         }
     },
 
     set_default_background_color: function(color) {
-        if (this.default_background_color != color) {
-            this.default_background_color = color;
-            this._set_flag(false, false);
+        if (!this._is_background_locked()) {
+            if (this.default_background_color != color) {
+                this.default_background_color = color;
+                this._set_flag(false, false);
+            }
         }
     },
 
     set_current_foreground_color: function(color) {
-        if (this.current_foreground_color != color) {
-            this.current_foreground_color = color;
-            this._set_flag(true, false);
+        if (!this._is_foreground_locked()) {
+            if (this.current_foreground_color != color) {
+                this.current_foreground_color = color;
+                this._set_flag(true, false);
+            }
         }
     },
 
     set_default_foreground_color: function(color) {
-        if (this.default_foreground_color != color) {
-            this.default_foreground_color = color;
-            this._set_flag(false, true);
+        if (!this._is_foreground_locked()) {
+            if (this.default_foreground_color != color) {
+                this.default_foreground_color = color;
+                this._set_flag(false, true);
+            }
         }
     },
 

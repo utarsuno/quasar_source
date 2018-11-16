@@ -68,9 +68,7 @@ Object.assign($_QE.prototype.World.prototype, {
         if (QE.manager_world.player_cursor.attached_to != null) {
             QE.manager_world.player_cursor.detach();
         }
-        if (QE.get_flag(ENGINE_STATE_MOUSE_Y_DISABLED)) {
-            QE.set_flag_off(ENGINE_STATE_MOUSE_Y_DISABLED);
-        }
+        QE.flag_set_off(QEFLAG_STATE_MOUSE_Y_DISABLED);
         this.currently_looked_at_object = null;
     },
 });

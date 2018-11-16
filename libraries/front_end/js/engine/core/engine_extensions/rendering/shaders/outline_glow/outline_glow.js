@@ -8,11 +8,11 @@ Object.assign(
         current_hover_object: null,
 
         _update_outline_glow: function() {
-            this.outline_pass.setSize(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]);
+            this.outline_pass.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
         },
 
         _initialize_outline_glow: function(world) {
-            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this._cache_values[ENGINE_CACHE_WIDTH_INNER], this._cache_values[ENGINE_CACHE_HEIGHT_INNER]), world.scene, this.camera);
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]), world.scene, this.camera);
             this.effect_composer.addPass(this.outline_pass);
 
             this.outline_pass.edgeStrength      = 4.5;

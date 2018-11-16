@@ -77,6 +77,10 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         }
         attachment._set_attachment_parent(this);
         if (create) {
+            // TODO: Only check on DEV/QA
+            if (this.world == null) {
+                QE.log_warning('this.world is null!', this);
+            }
             this.world.create_element(attachment);
         }
         this.group.add(attachment.get_object());

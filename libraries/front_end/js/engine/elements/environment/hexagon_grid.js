@@ -6,15 +6,18 @@ const PRE_COMPUTED_VAL_TWO_H      = 110.85124969482422; // #pre-process_global_c
 const PRE_COMPUTED_VAL_W_DISTANCE = 95.99999827696978;  // #pre-process_global_constant
 
 $_QE.prototype.HexagonGrid = function(number_of_layers) {
-    this.number_of_layers = number_of_layers;
-    this.initialize_element_data();
-    this.create();
+    this.create_singleton(number_of_layers);
 };
 
 Object.assign(
     $_QE.prototype.HexagonGrid.prototype,
-    $_QE.prototype.Element.prototype,
+    $_QE.prototype.ElementSingleton.prototype,
     {
+        __init__: function(number_of_layers) {
+            this.number_of_layers = number_of_layers;
+            this.create();
+        },
+
         create: function() {
             this._create_cache();
 

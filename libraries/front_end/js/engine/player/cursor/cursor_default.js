@@ -15,8 +15,8 @@ Object.assign(
             this.hide();
             this._cursor_default.show();
 
-            this.clear_flags();
-            this.set_flag_on(CURSOR_FLAG_DEFAULT);
+            this.flags_clear();
+            this.flag_set_on(CURSOR_STATE_DEFAULT);
 
             this.attached_to = null;
         },

@@ -2,7 +2,7 @@
 
 $_QE.prototype.PlayerMenuRowFullScreen = function(menu) {
 
-    if (QE.get_flag(ENGINE_STATE_FULL_SCREEN)) {
+    if (QE.flag_is_on(QEFLAG_STATE_FULLSCREEN)) {
         this.__init__(menu, ASSET_ICON_EXPAND, 'exit full-screen', this._action_fullscreen.bind(this));
     } else {
         this.__init__(menu, ASSET_ICON_EXPAND, 'enter full-screen', this._action_fullscreen.bind(this));
@@ -15,7 +15,7 @@ Object.assign(
     $_QE.prototype.PlayerMenuRow.prototype,
     {
         _action_fullscreen: function() {
-            if (QE.get_flag(ENGINE_STATE_FULL_SCREEN)) {
+            if (QE.flag_is_on(QEFLAG_STATE_FULLSCREEN)) {
                 QE.exit_fullscreen();
                 this.text.update_text('enter full-screen');
             } else {

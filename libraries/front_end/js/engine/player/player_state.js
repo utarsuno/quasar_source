@@ -1,89 +1,59 @@
 'use strict';
 
-const PLAYER_STATE_PAUSED        = 1; // #pre-process_global_constant
-const PLAYER_STATE_FULL_CONTROL  = 2; // #pre-process_global_constant
-const PLAYER_STATE_TYPING_IN_HUD = 3; // #pre-process_global_constant
-const PLAYER_STATE_ENGAGED       = 4; // #pre-process_global_constant
+const PLAYER_STATE_FULL_CONTROL = 1; // #pre-process_global_constant
+const PLAYER_STATE_HUD_TYPING   = 2; // #pre-process_global_constant
+const PLAYER_STATE_ENGAGED      = 3; // #pre-process_global_constant
+const PLAYER_STATE_TELEPORTING  = 4; // #pre-process_global_constant
 
 
-Object.assign($_QE.prototype.Player.prototype, {
-    previous_state: null,
-    current_state : PLAYER_STATE_PAUSED,
+Object.assign(
+    $_QE.prototype.Player.prototype,
+    $_QE.prototype.FiniteStateMachine.prototype,
+    {
+        previous_state: null,
+        current_state : null,
 
-    set_state: function(player_state) {
-        this.previous_state = this.current_state;
-        this.current_state  = player_state;
+        _initialize_state: function() {
+            this.state_teleporting = this.add_state(PLAYER_STATE_TELEPORTING);
 
-        switch(player_state) {
-        case PLAYER_STATE_PAUSED:
-            this._reset_input_and_movements();
+            this.state_full_control = this.add_state(PLAYER_STATE_FULL_CONTROL,
+                null,
+                function() {
+                    this.engine._reset_input_and_movements();
+                }.bind(this)
+            );
 
-            if (this.engine.manager_world.player_cursor.in_mouse_action()) {
-                this.engine.manager_world.player_cursor.finish_mouse_action();
-            }
+            this.state_hud_typing = this.add_state(PLAYER_STATE_HUD_TYPING,
+                null,
+                function() {
+                    this.engine.hud_typing.enter_typing_state();
+                }.bind(this)
+            );
 
-            // Hide the player menu if visible.
+            this.state_engaged = this.add_state(PLAYER_STATE_ENGAGED);
 
-            this.engine.on_pause();
+            this.set_state(this.state_full_control);
+        },
 
-            //MANAGER_AUDIO.pause_background_music();
+        is_engaged: function() {
+            return this.is_current_state(PLAYER_STATE_ENGAGED);
+        },
 
-            break;
-        case PLAYER_STATE_TYPING_IN_HUD:
-            this._resume_if_previous_state_was_paused();
-            this.engine.hud_typing.enter_typing_state();
-            break;
-        case PLAYER_STATE_ENGAGED:
-            this._reset_input_and_movements();
-            this._resume_if_previous_state_was_paused();
-            break;
-        case PLAYER_STATE_FULL_CONTROL:
-            this._resume_if_previous_state_was_paused();
-            break;
-        default:
-            // TODO: Remove default case?
-            if (this.previous_state == PLAYER_STATE_PAUSED) {
-                //MANAGER_AUDIO.resume_background_music();
-                this.engine.resume();
-            }
-            break;
-        }
-    },
+        is_teleporting: function() {
+            return this.is_current_state(PLAYER_STATE_TELEPORTING);
+        },
 
-    is_engaged: function() {
-        return this.current_state == PLAYER_STATE_ENGAGED;
-    },
+        has_movement: function() {
+            return this.is_current_state(PLAYER_STATE_FULL_CONTROL);
+        },
 
-    is_paused: function() {
-        return this.current_state == PLAYER_STATE_PAUSED;
-    },
+        in_hud_typing_state: function() {
+            return this.is_current_state(PLAYER_STATE_HUD_TYPING);
+        },
 
-    has_mouse_movement: function() {
-        return this.current_state == PLAYER_STATE_FULL_CONTROL;
-    },
+        has_input: function() {
+            return this.is_current_state(PLAYER_STATE_FULL_CONTROL) || this.is_current_state(PLAYER_STATE_ENGAGED) || this.is_current_state(PLAYER_STATE_HUD_TYPING);
+        },
 
-    has_movement: function() {
-        return this.current_state == PLAYER_STATE_FULL_CONTROL;
-    },
-
-    in_hud_typing_state: function() {
-        return this.current_state == PLAYER_STATE_TYPING_IN_HUD;
-    },
-
-    has_input: function() {
-        return this.current_state == PLAYER_STATE_FULL_CONTROL || this.current_state == PLAYER_STATE_ENGAGED || this.current_state == PLAYER_STATE_TYPING_IN_HUD;
-    },
-
-    _reset_input_and_movements: function() {
-        this.engine.reset_inputs();
-        //this.engine.player.reset_velocity();
-        this.reset_velocity();
-    },
-
-    _resume_if_previous_state_was_paused: function() {
-        if (this.previous_state == PLAYER_STATE_PAUSED) {
-            // manager_audio.resume_background_music();
-            this.engine.resume();
-        }
-    },
-});
+    }
+);

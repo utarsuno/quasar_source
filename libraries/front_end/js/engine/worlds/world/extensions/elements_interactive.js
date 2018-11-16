@@ -79,9 +79,42 @@ Object.assign($_QE.prototype.World.prototype, {
         element.trigger_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE);
     },
 
+    _add_element_to_interactive_if_needed: function(element) {
+        if (!(element in this.elements_interactive)) {
+            this.elements_interactive.push(element);
+        }
+        let e;
+        for (e = 0; e < this.elements_interactive.length; e++) {
+            if (this.elements_interactive[e] == element) {
+                return;
+            }
+        }
+        l('no match found for element');
+        this.elements_interactive.push(element);
+    },
+
     check_if_element_needs_interactive: function(element) {
         if (element.are_flags_on_and_off_respectively(EFLAG_INTERACTIVE, EFLAG_IN_ELEMENTS_INTERACTIVE)) {
             this.add_element_interactive(element);
+        } else if (element.get_flag(EFLAG_INTERACTIVE) && element.get_flag(EFLAG_IN_ELEMENTS_INTERACTIVE)) {
+            this._add_element_to_interactive_if_needed(element);
         }
+
+        // Temporary location.
+        if (element._get_all_attachments_recursively != null) {
+            let children = element._get_all_attachments_recursively();
+            let c;
+            for (c = 0; c < children.length; c++) {
+                if (children[c].are_flags_on_and_off_respectively != null) {
+                    if (children[c].get_flag(EFLAG_INTERACTIVE) && children[c].get_flag(EFLAG_IN_ELEMENTS_INTERACTIVE)) {
+                        this._add_element_to_interactive_if_needed(children[c]);
+                    }
+                }
+            }
+        }
+
+        //l(element);
+        //l(element.get_flag(EFLAG_INTERACTIVE));
+        //l(element.get_flag(EFLAG_IN_ELEMENTS_INTERACTIVE));
     },
 });

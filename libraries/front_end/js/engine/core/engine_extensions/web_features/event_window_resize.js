@@ -8,11 +8,11 @@ Object.assign($_QE.prototype, {
     },
 
     _fetch_window_size: function() {
-        this._cache_values[ENGINE_CACHE_WIDTH_INNER]  = window.innerWidth;
-        this._cache_values[ENGINE_CACHE_WIDTH_OUTER]  = window.outerWidth;
-        this._cache_values[ENGINE_CACHE_HEIGHT_INNER] = window.innerHeight;
-        this._cache_values[ENGINE_CACHE_HEIGHT_OUTER] = window.outerHeight;
-        this._cache_floats[ENGINE_FLOAT_ASPECT_RATIO] = this._cache_values[ENGINE_CACHE_WIDTH_INNER] / this._cache_values[ENGINE_CACHE_HEIGHT_INNER];
+        this._cachei[QECACHEI_WIDTH_INNER]  = window.innerWidth;
+        this._cachei[QECACHEI_WIDTH_OUTER]  = window.outerWidth;
+        this._cachei[QECACHEI_HEIGHT_INNER] = window.innerHeight;
+        this._cachei[QECACHEI_HEIGHT_OUTER] = window.outerHeight;
+        this._cachef[QECACHEF_ASPECT_RATIO] = this._cachei[QECACHEI_WIDTH_INNER] / this._cachei[QECACHEI_HEIGHT_INNER];
     },
 
     _on_window_resize: function(event) {

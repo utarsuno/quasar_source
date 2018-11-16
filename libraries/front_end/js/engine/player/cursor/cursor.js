@@ -1,19 +1,20 @@
 'use strict';
 
-const CURSOR_FLAG_ENGAGED = 0; // #pre-process_global_constant
-const CURSOR_FLAG_MOVING  = 1; // #pre-process_global_constant
-const CURSOR_FLAG_SCALING = 2; // #pre-process_global_constant
-const CURSOR_FLAG_DEFAULT = 3; // #pre-process_global_constant
+const CURSOR_STATE_ENGAGED = 1; // #pre-process_global_constant
+const CURSOR_STATE_MOVING  = 2; // #pre-process_global_constant
+const CURSOR_STATE_SCALING = 4; // #pre-process_global_constant
+const CURSOR_STATE_DEFAULT = 8; // #pre-process_global_constant
 
-$_QE.prototype.PlayerCursor = function(player) {
 
-    this.player = player;
+$_QE.prototype.PlayerCursor = function(engine) {
+    this.engine = engine;
+    this.player = this.engine.player;
 
     this._initialize_default_cursor();
     this._initialize_icon_cursor();
 
     this.in_mouse_action = function() {
-        return this.get_flag(CURSOR_FLAG_SCALING) || this.get_flag(CURSOR_FLAG_MOVING);
+        return this.flags_are_both_on(CURSOR_STATE_SCALING, CURSOR_STATE_MOVING);
     };
 
     this.finish_mouse_action = function() {
@@ -42,17 +43,17 @@ $_QE.prototype.PlayerCursor = function(player) {
 Object.assign(
     $_QE.prototype.PlayerCursor.prototype,
     $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.BooleanFlagsStatic.prototype,
+    $_QE.prototype.BooleanFlagsStaticOneBucket.prototype,
     {
-        flags                  : new Uint32Array(2),
+        flags                  : new Uint32Array(1),
         _previous_move_position: new THREE.Vector3(),
         attached_to            : null,
         _dx                    : null,
         _dy                    : null,
 
         update: function() {
-            if (this.get_flag(CURSOR_FLAG_MOVING)) {
-                QE.player.set_object_in_front_of(this.attached_to, this._player_offset);
+            if (this.flag_is_on(CURSOR_STATE_MOVING)) {
+                this.player.set_object_in_front_of(this.attached_to, this._player_offset);
             }
         },
 

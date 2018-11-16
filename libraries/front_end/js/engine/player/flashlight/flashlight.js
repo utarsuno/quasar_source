@@ -7,6 +7,9 @@ Object.assign(
             this.flashlight         = new THREE.SpotLight(0xb9fff3, 0.85, 6000, 0.35, 0.85, 1.0);
             this._flashlight_target = new THREE.Object3D();
             this.flashlight.target  = this._flashlight_target;
+
+            QE.manager_world.singleton_add_as_singleton(this.flashlight);
+            QE.manager_world.singleton_add_as_singleton(this._flashlight_target);
         },
 
         _update_flashlight: function() {

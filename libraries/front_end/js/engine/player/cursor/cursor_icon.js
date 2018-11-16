@@ -4,7 +4,7 @@ Object.assign(
     $_QE.prototype.PlayerCursor.prototype,
     $_QE.prototype.CanvasRendererCursorIcon.prototype,
     {
-        _player_offset: 1400,
+        _player_offset: 1800,
 
         _need_move_icon: function() {
             return this.attached_to.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK) && this.attached_to.get_flag(EFLAG_MOUSE_MOVEABLE);
@@ -33,13 +33,13 @@ Object.assign(
         },
 
         engage: function() {
-            this.set_flag_on(CURSOR_FLAG_ENGAGED);
+            this.flag_set_on(CURSOR_STATE_ENGAGED);
 
             //this._current_icon === ASSET_ICON_DRAG
             if (this._need_move_icon()) {
                 QE.player.set_in_front_of_object(this.attached_to, this._player_offset);
-                QE.set_flag_on(ENGINE_STATE_MOUSE_Y_DISABLED);
-                this.set_flag_on(CURSOR_FLAG_MOVING);
+                QE.flag_set_on(QEFLAG_STATE_MOUSE_Y_DISABLED);
+                this.flag_set_on(CURSOR_STATE_MOVING);
 
                 this.set_current_icon(ASSET_ICON_DRAG);
             } else {
@@ -50,10 +50,10 @@ Object.assign(
         },
 
         disengage: function() {
-            this.set_flag_off(CURSOR_FLAG_ENGAGED);
-            this.set_flag_off(CURSOR_FLAG_MOVING);
-            this.set_flag_off(CURSOR_FLAG_SCALING);
-            QE.set_flag_off(ENGINE_STATE_MOUSE_Y_DISABLED);
+            this.flag_set_off(CURSOR_STATE_ENGAGED);
+            this.flag_set_off(CURSOR_STATE_MOVING);
+            this.flag_set_off(CURSOR_STATE_SCALING);
+            QE.flag_set_off(QEFLAG_STATE_MOUSE_Y_DISABLED);
             this.show();
 
             if (this.attached_to != null) {

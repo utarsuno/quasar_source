@@ -2,49 +2,37 @@
 
 $_QE.prototype.PlayerMenuTeleport = function(player, world, parent_row) {
     this.parent_row = parent_row;
+    this.__init__(player);
 
-    this.player = player;
-    this.group  = new THREE.Group();
-    this.initialize_floating_element_data();
-    this.initialize_interactive_linked_list();
-    // Temporary.
-    this.set_dimensions(512, 128);
+    parent_row._interactive_tail._object.add_attachment(this, true, false);
+    this.set_offset_horizontal(0, .5 + parent_row._interactive_tail._object.width / this.width, 0);
+    this.set_offset_vertical(0, -.5);
+    this.set_offset_depth(10);
 
-    world.create_and_add_element_to_root(this);
-    //parent_row.
-
-    this.row_test0 = new $_QE.prototype.PlayerMenuRowFullScreen(this);
-    this.row_test1 = new $_QE.prototype.PlayerMenuRowFullScreen(this);
+    this.number_of_rows = 0;
 };
 
 Object.assign(
     $_QE.prototype.PlayerMenuTeleport.prototype,
     $_QE.prototype.PlayerMenuAbstract.prototype,
     {
-        _open: function() {
-            //l(this.parent_row._interactive_tail._object.get_object().position);
+        register_world: function(world) {
+            let r = new $_QE.prototype.PlayerMenuRow();
+            let self = this;
+            r.__init__(this, world.world_icon, world.world_name, function() {
+                QE.manager_world.set_current_world(world);
+            }, true);
 
-            //get_world_position_offset_horizontal
+            this.number_of_rows++;
 
-            //l(this.parent_row);
-
-            let width = this.parent_row._interactive_tail._object.width;
-
-            let p = this.parent_row._interactive_tail._object.get_world_position_offset_horizontal(-width/2);
-
-            this.set_position(p.x, p.y, p.z);
-            this.update_element();
-
-            //let pp = this.player.get_position();
-            let pp = this.parent_row._interactive_tail._object.get_normal();
-            this.look_at(
-                pp.x + p.x, pp.y + p.y, pp.z + p.z
-            );
-
-            this.update_element();
-
-
-            //this.player.set_object_in_front_of(this, 300);
+            if (this.number_of_rows > 1) {
+                this.set_offset_vertical(0, -.5 + (((32 / 128) / 2) * (this.number_of_rows - 1)));
+            }
         },
+
+        _open: function() {
+            this.update_element();
+        },
+
     }
 );

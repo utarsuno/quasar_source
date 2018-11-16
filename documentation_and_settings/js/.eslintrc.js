@@ -31,26 +31,31 @@ module.exports = {
     },
     "globals": {
 
-        //
-        "ENGINE_CACHE_WIDTH_INNER"         : false,
-        "ENGINE_CACHE_WIDTH_OUTER"         : false,
-        "ENGINE_CACHE_HEIGHT_INNER"        : false,
-        "ENGINE_CACHE_HEIGHT_OUTER"        : false,
-        "ENGINE_CACHE_POINTER_LOCK_MODE"   : false,
-        "ENGINE_CACHE_FRAME_COUNTER"       : false,
-        "ENGINE_FLOAT_FOV"                 : false,
-        "ENGINE_FLOAT_CLIPPING_NEAR"       : false,
-        "ENGINE_FLOAT_CLIPPING_FAR"        : false,
-        "ENGINE_FLOAT_ASPECT_RATIO"        : false,
-        "ENGINE_FLOAT_FPS_PHYSICS"         : false,
-        "ENGINE_FLOAT_FPS_LOGIC"           : false,
-        "ENGINE_FLOAT_FPS_RENDER"          : false,
-        "ENGINE_FLOAT_ELAPSED_TIME_PHYSICS": false,
-        "ENGINE_FLOAT_ELAPSED_TIME_LOGIC"  : false,
-        "ENGINE_FLOAT_ELAPSED_TIME_RENDER" : false,
-        "ENGINE_FLOAT_ELAPSED_TIME_SECOND" : false,
-        "ENGINE_STATE_MOUSE_Y_DISABLED"    : false,
-        //
+        // Engine cache. ----------------------------------------------------------------------------
+        //    {integers}
+        "QECACHEI_WIDTH_INNER"         : false,
+        "QECACHEI_WIDTH_OUTER"         : false,
+        "QECACHEI_HEIGHT_INNER"        : false,
+        "QECACHEI_HEIGHT_OUTER"        : false,
+        "QECACHEI_FRAME_COUNTER"       : false,
+        //    {floats}
+        "QECACHEF_FOV"                 : false,
+        "QECACHEF_CLIPPING_NEAR"       : false,
+        "QECACHEF_CLIPPING_FAR"        : false,
+        "QECACHEF_ASPECT_RATIO"        : false,
+        "QECACHEF_FPS_PHYSICS"         : false,
+        "QECACHEF_FPS_LOGIC"           : false,
+        "QECACHEF_FPS_RENDER"          : false,
+        "QECACHEF_ELAPSED_TIME_PHYSICS": false,
+        "QECACHEF_ELAPSED_TIME_LOGIC"  : false,
+        "QECACHEF_ELAPSED_TIME_RENDER" : false,
+        "QECACHEF_ELAPSED_TIME_SECOND" : false,
+
+        // Cursor flags. ---------------------------------------------------------------------------
+        "CURSOR_STATE_ENGAGED": false,
+        "CURSOR_STATE_MOVING" : false,
+        "CURSOR_STATE_SCALING": false,
+        "CURSOR_STATE_DEFAULT": false,
 
         // Shader uniforms. ------------------------------------------------------------------------
         "SHADER_UNIFORM_SPRITESHEET_COLOR"     : false,
@@ -87,6 +92,8 @@ module.exports = {
         "EFLAG_UPDATE_NORMAL"                 : false,
         "EFLAG_UPDATE_CHILD"                  : false,
         "EFLAG_UPDATE_COLOR"                  : false,
+        "EFLAG_LOCK_FOREGROUND"               : false,
+        "EFLAG_LOCK_BACKGROUND"               : false,
         "EFLAG_FORMAT_X_START"                : false,
         "EFLAG_FORMAT_X_CENTER"               : false,
         "EFLAG_FORMAT_X_END"                  : false,
@@ -213,13 +220,35 @@ module.exports = {
         "ASSET_SHADER_MATERIAL_NOISE"       : false,
         "ASSET_SHADER_MATERIAL_SPRITE_SHEET": false,
 
-        "CLIENT_FEATURE_CANVAS"      : false,
-        "CLIENT_FEATURE_WEBGL"       : false,
-        "CLIENT_FEATURE_WEB_WORKERS" : false,
-        "CLIENT_FEATURE_MOBILE"      : false,
-        "CLIENT_FEATURE_VR"          : false,
-        "CLIENT_FEATURE_FULL_SCREEN" : false,
-        "CLIENT_FEATURE_POINTER_LOCK": false,
+        // Engine flags.
+        //     {state}
+        "QEFLAG_STATE_PAUSED"          : false,
+        "QEFLAG_STATE_RUNNING"         : false,
+        "QEFLAG_STATE_IN_TRANSITION"   : false,
+        //     {web feature states}
+        "QEFLAG_STATE_POINTER_LOCK"    : false,
+        "QEFLAG_STATE_FULLSCREEN"      : false,
+        //     {other states}
+        "QEFLAG_STATE_MOUSE_Y_DISABLED": false,
+        //     {web features}
+        "QEFLAG_FEATURE_CANVAS"        : false,
+        "QEFLAG_FEATURE_WEBGL"         : false,
+        "QEFLAG_FEATURE_WEB_WORKERS"   : false,
+        "QEFLAG_FEATURE_MOBILE"        : false,
+        "QEFLAG_FEATURE_VR"            : false,
+        "QEFLAG_FEATURE_FULL_SCREEN"   : false,
+        "QEFLAG_FEATURE_POINTER_LOCK"  : false,
+        "QEFLAG_FEATURE_SCROLLING"     : false,
+        //     {engine settings}
+        "QEFLAG_SETTING_AUDIO"         : false,
+        "QEFLAG_SETTING_SHADERS"       : false,
+        "QEFLAG_SETTING_FXAA"          : false,
+        "QEFLAG_SETTING_OUTLINE"       : false,
+        "QEFLAG_SETTING_GRAIN"         : false,
+        "QEFLAG_SETTING_TRANSITION"    : false,
+
+
+
 
         // OLD BELOW.
 

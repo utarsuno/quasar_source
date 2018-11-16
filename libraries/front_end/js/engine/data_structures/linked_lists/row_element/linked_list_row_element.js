@@ -25,7 +25,7 @@ Object.assign($_QE.prototype.DoublyLinkedListRowElements.prototype, $_QE.prototy
 
         this.parent_wall.add_attachment(element, create, update_normal);
 
-
+        // TODO: This check should only be in the DEV/QA version.
         if (this.row_y_start == null || isNaN(this.row_y_start)) {
             l('ERROR. row_y_start IS BAD!');
             l(this.row_y_start);

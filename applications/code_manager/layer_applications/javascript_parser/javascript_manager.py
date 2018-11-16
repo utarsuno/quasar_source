@@ -35,13 +35,14 @@ class JavascriptManager(object):
 		self._add_js_file('core/engine')
 
 		# Data structures.
-		self._add_paths('data_structures/boolean_flags/', ['dynamic', 'static'])
+		self._add_paths('data_structures/boolean_flags', ['dynamic', 'static_one_bucket'])
 		self._add_paths('data_structures/display_cache', ['display_cache', 'date_time', 'engine', 'fps', 'memory', 'normal', 'position'])
+		self._add_paths('data_structures/state_machine', ['state', 'finite_state_machine'])
 		self._add_linked_lists(['base', 'interactive', 'row', 'row_element'])
 
 		# Engine extensions.
-		self._add_paths('core/engine_extensions'             , ['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'flags'])
-		self._add_paths('core/engine_extensions/inputs'      , ['pre_process', 'inputs'])
+		self._add_paths('core/engine_extensions'             , ['cache', 'colors', 'errors', 'fonts', 'frames', 'math', 'flags', 'state'])
+		self._add_paths('core/engine_extensions/inputs'      , ['pre_process', 'inputs', 'keyboard', 'mouse'])
 		self._add_paths('core/engine_extensions/web_features', ['cookies', 'event_window_resize', 'full_screen', 'pointer_lock'])
 		self._add_js_file('core/engine_extensions/rendering/renderer')
 		self._add_js_file('core/heap_manager')
@@ -58,9 +59,11 @@ class JavascriptManager(object):
 		self._add_paths('inheritable_features/dynamic/interactions', ['feature_button', 'feature_interactive', 'feature_typing'])
 
 		# ----------------------------------------------------------------------------------------------------------------
-		self._add_js_file('elements/base/element')
+		self._add_paths('elements/base', ['element'])
 		self._add_js_file('elements/base/element_extensions/meta_data')
 		self._add_js_file('elements/base/floating_element')
+		self._add_js_file('elements/singleton/singleton')
+		self._add_paths('elements/base', ['element_singleton'])
 		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility'])
 		self._add_js_file('elements/base/floating_wall')
 		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox', 'tile_cube'])
@@ -111,6 +114,7 @@ class JavascriptManager(object):
 		self._add_paths('worlds/world/extensions'        , ['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'input', 'state'])
 		self._add_paths('worlds/world_manager'           , ['world_manager'])
 		self._add_paths('worlds/world_manager/extensions', ['input', 'singletons'])
+		self._add_paths('worlds/world/discrete'          , ['settings_world'])
 
 		# Shaders.
 		shaders_path = 'core/engine_extensions/rendering/shaders'
