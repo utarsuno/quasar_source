@@ -13,8 +13,8 @@ Object.assign($_QE.prototype.FeatureColor.prototype, {
      */
 
     _set_flag: function(foreground, background) {
-        if (this.set_flag != null) {
-            this.set_flag(EFLAG_UPDATE_COLOR, true);
+        if (this.flag_set_on != null) {
+            this.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_COLOR);
             if (foreground) {
                 this.trigger_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR);
             } else if (background) {
@@ -24,17 +24,21 @@ Object.assign($_QE.prototype.FeatureColor.prototype, {
     },
 
     _is_background_locked: function() {
-        if (this.set_flag != null) {
-            return this.get_flag(EFLAG_LOCK_BACKGROUND);
+        if (this.flag_is_on != null) {
+            return this.flag_is_on(EFLAG_IS_LOCKED_BACKGROUND);
         }
         return false;
     },
 
     _is_foreground_locked: function() {
-        if (this.set_flag != null) {
-            return this.get_flag(EFLAG_LOCK_FOREGROUND);
+        if (this.flag_is_on != null) {
+            return this.flag_is_on(EFLAG_IS_LOCKED_FOREGROUND);
         }
         return false;
+    },
+
+    set_background_color_to_default: function() {
+        this.set_current_background_color(this.default_background_color);
     },
 
     set_current_background_color: function(color) {
@@ -53,6 +57,10 @@ Object.assign($_QE.prototype.FeatureColor.prototype, {
                 this._set_flag(false, false);
             }
         }
+    },
+
+    set_foreground_color_to_default: function() {
+        this.set_current_foreground_color(this.default_foreground_color);
     },
 
     set_current_foreground_color: function(color) {

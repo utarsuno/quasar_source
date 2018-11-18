@@ -14,7 +14,7 @@ Object.assign($_QE.prototype.World.prototype, {
         let i;
         for (i = 0; i < this.elements_root.length; i++) {
             if (this.elements_root[i] == element) {
-                this.elements_root[i].set_flag(EFLAG_IN_ELEMENTS_ROOT, false);
+                this.elements_root[i].flag_set_off(EFLAG_IS_IN_ELEMENTS_ROOT);
                 this.elements_root.splice(i, 1);
                 return;
             }
@@ -38,16 +38,16 @@ Object.assign($_QE.prototype.World.prototype, {
 
     add_element_root: function(element) {
         this.elements_root.push(element);
-        element.set_flag(EFLAG_IS_ROOT         , true);
-        element.set_flag(EFLAG_IN_ELEMENTS_ROOT, true);
+        element.flag_set_on(EFLAG_IS_ROOT);
+        element.flag_set_on(EFLAG_IS_IN_ELEMENTS_ROOT);
         element.set_to_absolute_normal();
         element.set_to_absolute_position();
     },
 
     check_if_element_needs_root: function(element) {
-        if (element.are_flags_on_and_off_respectively(EFLAG_IS_ROOT, EFLAG_IN_ELEMENTS_ROOT)) {
+        if (element.flags_are_on_and_off(EFLAG_IS_ROOT, EFLAG_IS_IN_ELEMENTS_ROOT)) {
             this.add_element_root(element);
-        } else if (element.get_flag(EFLAG_IS_ROOT) && element.get_flag(EFLAG_IN_ELEMENTS_ROOT)) {
+        } else if (element.flags_are_both_on(EFLAG_IS_ROOT, EFLAG_IS_IN_ELEMENTS_ROOT)) {
             this._add_element_to_root_if_needed(element);
         }
     },

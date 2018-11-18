@@ -51,6 +51,12 @@ Object.assign($_QE.prototype.World.prototype, {
         if (this.on_world_exit != null) {
             this.on_world_exit();
         }
+
+        if (this.currently_looked_at_object != null) {
+            this.look_away_from_currently_looked_at_object();
+        }
+
+
         let pp = this.player.get_position();
         let pn = this.player.get_normal();
 

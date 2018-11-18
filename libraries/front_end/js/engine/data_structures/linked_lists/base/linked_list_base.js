@@ -1,8 +1,8 @@
 'use strict';
 
-$_QE.prototype.DoublyLinkedListBase = function() {};
+$_QE.prototype.LinkedListBase = function() {};
 
-$_QE.prototype.DoublyLinkedListBase.prototype = {
+$_QE.prototype.LinkedListBase.prototype = {
 
     initialize_linked_list: function() {
         this._node_head       = null;

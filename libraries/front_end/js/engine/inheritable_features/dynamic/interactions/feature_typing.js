@@ -5,11 +5,11 @@ $_QE.prototype.FeatureTyping = function(on_enter=null) {
     this.callback_on_enter = on_enter;
 
     // For elements.
-    if (this.set_flag != null) {
-        if (!this.has_flag(EFLAG_INTERACTIVE)) {
+    if (this.flag_is_off != null) {
+        if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {
             $_QE.prototype.FeatureInteractive.call(this);
         }
-        this.set_flag(EFLAG_TYPING, true);
+        this.flag_set_on(EFLAG_IS_TYPEABLE, true);
     }
 
     // TODO: HANDLE REMOVING THIS!

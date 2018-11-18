@@ -53,7 +53,7 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     _refresh_element: function(element) {
-        if (element.get_flag(EFLAG_IS_ROOT)) {
+        if (element.flag_is_on(EFLAG_IS_ROOT)) {
             element.re_cache_normal();
         }
         element.refresh();
@@ -69,7 +69,7 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     add_element: function(element, create=false, trigger_event=false) {
-        if (element.get_flag(EFLAG_IN_WORLD)) {
+        if (element.flag_is_on(EFLAG_IS_IN_WORLD)) {
             QE.log_warning('Element already in world?', element);
         }
 
@@ -79,7 +79,7 @@ Object.assign($_QE.prototype.World.prototype, {
             this.create_element(element);
         }
 
-        element.set_flag(EFLAG_IN_WORLD, true);
+        element.flag_set_on(EFLAG_IS_IN_WORLD);
         this.check_if_element_needs_interactive(element);
         this.check_if_element_needs_root(element);
         this.scene.add(element.get_object());
@@ -102,20 +102,20 @@ Object.assign($_QE.prototype.World.prototype, {
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
     _remove_element: function(element) {
         this.scene.remove(element.get_object());
-        element.set_flag(EFLAG_IN_WORLD, false);
+        //element.trigger_event(ELEMENT_EVENT_ON_WORLD_EXIT);
+        element.flag_set_off(EFLAG_IS_IN_WORLD);
         element.world = null;
     },
 
     _remove_element_if_needed: function(element) {
-        if (element.get_flag(EFLAG_IN_WORLD)) {
+        if (element.flag_is_on(EFLAG_IS_IN_WORLD)) {
             if (element.world == this) {
                 this._remove_element(element);
             } else if (element.world != null) {
                 element.world._remove_element(element);
             } else {
-                element.set_flag(EFLAG_IN_WORLD, false);
-                QE.log_warning('Element had in_world flag as true but world variable was null.');
-                l(element);
+                element.flag_set_off(EFLAG_IS_IN_WORLD);
+                QE.log_warning('Element had in_world flag as true but world variable was null.', element);
             }
         }
     },

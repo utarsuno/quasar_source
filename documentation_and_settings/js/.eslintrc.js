@@ -70,40 +70,51 @@ module.exports = {
         "SHADER_UNIFORM_NOISE_TIME"            : false,
         "SHADER_UNIFORM_NOISE_N_INTENSITY"     : false,
         "SHADER_UNIFORM_NOISE_T_DIFFUSE"       : false,
-        //
-        "EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK": false,
-        "EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT": false,
-        "EFLAG_TYPING"                        : false,
-        "EFLAG_OUTLINE_GLOW"                  : false,
-        "EFLAG_INTERACTIVE"                   : false,
-        "EFLAG_CACHEABLE_MESH"                : false,
-        "EFLAG_CACHEABLE_MATERIAL"            : false,
-        "EFLAG_CACHEABLE_GEOMETERY"           : false,
-        "EFLAG_IS_ROOT"                       : false,
-        "EFLAG_IS_ROW_ELEMENT"                : false,
-        "EFLAG_IS_SINGLETON"                  : false,
-        "EFLAG_CREATED"                       : false,
-        "EFLAG_ENGABLE"                       : false,
-        "EFLAG_VISIBLE"                       : false,
-        "EFLAG_BEING_LOOKED_AT"               : false,
-        "EFLAG_CLICKABLE"                     : false,
-        "EFLAG_ENGAGED"                       : false,
-        "EFLAG_UPDATE_POSITION"               : false,
-        "EFLAG_UPDATE_NORMAL"                 : false,
-        "EFLAG_UPDATE_CHILD"                  : false,
-        "EFLAG_UPDATE_COLOR"                  : false,
-        "EFLAG_LOCK_FOREGROUND"               : false,
-        "EFLAG_LOCK_BACKGROUND"               : false,
-        "EFLAG_FORMAT_X_START"                : false,
-        "EFLAG_FORMAT_X_CENTER"               : false,
-        "EFLAG_FORMAT_X_END"                  : false,
-        "EFLAG_MOUSE_MOVEABLE"                : false,
-        "EFLAG_MOUSE_SCALEABLE"               : false,
-        "EFLAG_IN_ANIMATION"                  : false,
-        "EFLAG_IN_WORLD"                      : false,
-        "EFLAG_IN_ELEMENTS_ROOT"              : false,
-        "EFLAG_IN_ELEMENTS_INTERACTIVE"       : false,
-        "EFLAG_IN_ELEMENTS_SINGLETON"         : false,
+
+        // Element flags. ---------------------------------------------------------------------------
+        "EFLAG_IS_ENGABLE"                              : false,
+        "EFLAG_IS_ENGAGED"                              : false,
+        "EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING"   : false,
+
+        "EFLAG_IS_MOUSE_SCALABLE"                       : false,
+        "EFLAG_IS_MOUSE_MOVABLE"                        : false,
+
+        "EFLAG_IS_CACHEABLE_MESH"                       : false,
+        "EFLAG_IS_CACHEABLE_MATERIAL"                   : false,
+        "EFLAG_IS_CACHEABLE_GEOMETRY"                   : false,
+
+        "EFLAG_IS_FORMAT_X_START"                       : false,
+        "EFLAG_IS_FORMAT_X_CENTER"                      : false,
+        "EFLAG_IS_FORMAT_X_END"                         : false,
+
+        "EFLAG_IS_LOCKED_FOREGROUND"                    : false,
+        "EFLAG_IS_LOCKED_BACKGROUND"                    : false,
+
+        "EFLAG_IS_UPDATED_NEEDED_FOR_POSITION"          : false,
+        "EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL"            : false,
+        "EFLAG_IS_UPDATED_NEEDED_FOR_COLOR"             : false,
+        "EFLAG_IS_UPDATED_NEEDED_FOR_CHILD"             : false,
+
+        "EFLAG_IS_IN_ANIMATION"                         : false,
+        "EFLAG_IS_IN_REVERSED_ANIMATION"                : false,
+        "EFLAG_IS_IN_WORLD"                             : false,
+        "EFLAG_IS_IN_ELEMENTS_ROOT"                     : false,
+        "EFLAG_IS_IN_ELEMENTS_INTERACTIVE"              : false,
+        "EFLAG_IS_IN_ELEMENTS_SINGLETON"                : false,
+
+        "EFLAG_IS_TYPEABLE"                             : false,
+        "EFLAG_IS_INTERACTIVE"                          : false,
+        "EFLAG_IS_CLICKABLE"                            : false,
+        "EFLAG_IS_ROOT"                                 : false,
+        "EFLAG_IS_SINGLETON"                            : false,
+        "EFLAG_IS_ROW_ELEMENT"                          : false,
+        "EFLAG_IS_VISIBLE"                              : false,
+        "EFLAG_IS_CREATED"                              : false,
+        "EFLAG_IS_BEING_LOOKED_AT"                      : false,
+        "EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE": false,
+        "EFLAG_IS_OUTLINE_GLOWABLE"                     : false,
+
+        // Element events. --------------------------------------------------------------------------
         "ELEMENT_EVENT_ON_LOOK_AT"            : false,
         "ELEMENT_EVENT_ON_LOOK_AWAY"          : false,
         "ELEMENT_EVENT_ON_ENGAGE"             : false,
@@ -116,7 +127,8 @@ module.exports = {
         "ELEMENT_EVENT_ON_MESH_CREATED"       : false,
         "ELEMENT_EVENT_ON_NODE_UPDATE"        : false,
         "ELEMENT_EVENT_ON_SET_TO_INTERACTIVE" : false,
-        //
+        "ELEMENT_EVENT_ON_SET_TO_ATTACHMENT"  : false,
+        "ELEMENT_EVENT_ON_ATTACHMENT_ADD"     : false,
 
         //
         "CLICK_LEFT"      : false,
@@ -168,9 +180,6 @@ module.exports = {
 
         "get_horizontal_distance": false,
 
-        "APPLICATION_NEXUS_LOCAL"  : false,
-        "APPLICATION_QUASAR_PUBLIC": false,
-
         "THREE": false,
 
         "console": false,
@@ -220,7 +229,7 @@ module.exports = {
         "ASSET_SHADER_MATERIAL_NOISE"       : false,
         "ASSET_SHADER_MATERIAL_SPRITE_SHEET": false,
 
-        // Engine flags.
+        // Engine flags. -------------------------------------------------------------
         //     {state}
         "QEFLAG_STATE_PAUSED"          : false,
         "QEFLAG_STATE_RUNNING"         : false,
@@ -277,10 +286,6 @@ module.exports = {
 
         "CENTER_ABSOLUTE": false,
 
-        "TypingInterface": false,
-
-        "GLOBAL_FONT": false,
-
         "DragNDrop": false,
 
         "Entity": false,
@@ -288,8 +293,6 @@ module.exports = {
         "NO_SAVE_DATA"   : false,
         "SAVE_TAG_3D_ROW": false,
         "SAVE_TAG_2D_ROW": false,
-
-        "TextSyntaxManager": true,
 
         // From globals.js
         "NOT_FOUND": false,
@@ -374,14 +377,6 @@ module.exports = {
         //  /\  /__` /__` |__   |  /__`
         // /~~\ .__/ .__/ |___  |  .__/
 
-        // Shaders.
-        "SHADER_TRANSITION_FRAGMENT": false,
-        "SHADER_TRANSITION_VERTEX"  : false,
-        "SHADER_NOISE_FRAGMENT"     : false,
-        "SHADER_NOISE_VERTEX"       : false,
-        "SHADER_MATERIAL_TRANSITION": false,
-        "SHADER_MATERIAL_NOISE"     : false,
-
         // Audio.
         "AUDIO_SOUND_TYPING"      : false,
         "AUDIO_SOUND_TRANSITION"  : false,
@@ -393,30 +388,6 @@ module.exports = {
         "AUDIO_SOUND_CHECKBOX"    : false,
         "AUDIO_MUSIC_BACKGROUND"  : false,
 
-        // Textures.
-        "ASSET_GROUP_AUDIO"  : false,
-        "ASSET_GROUP_TEXTURE": false,
-
-        "TRANSITION_GRID": true,
-
-        "SKYBOX_FRONT" : true,
-        "SKYBOX_BACK"  : true,
-        "SKYBOX_LEFT"  : true,
-        "SKYBOX_RIGHT" : true,
-        "SKYBOX_TOP"   : true,
-        "SKYBOX_BOTTOM": true,
-
-        "SPRITESHEET_ICONS": false,
-
-
-        "CELL_PHONE_CARRIERS": false,
-
-        // 3rd party hix grid reference.
-        "vg": false,
-
-        "get_color_range_list": false,
-
-        // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 
         "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
         "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
@@ -518,58 +489,6 @@ module.exports = {
         "TIME_TYPE_MONTH_STATIC" : false,
         "TIME_TYPE_DAY_CURRENT"  : false,
         "TIME_TYPE_DAY_STATIC"   : false,
-
-        "MONTH_JANUARY"  : false,
-        "MONTH_FEBRUARY" : false,
-        "MONTH_MARCH"    : false,
-        "MONTH_APRIL"    : false,
-        "MONTH_MAY"      : false,
-        "MONTH_JUNE"     : false,
-        "MONTH_JULY"     : false,
-        "MONTH_AUGUST"   : false,
-        "MONTH_SEPTEMBER": false,
-        "MONTH_OCTOBER"  : false,
-        "MONTH_NOVEMBER" : false,
-        "MONTH_DECEMBER" : false,
-
-        "MONTH_JANUARY_STRING"  : false,
-        "MONTH_FEBRUARY_STRING" : false,
-        "MONTH_MARCH_STRING"    : false,
-        "MONTH_APRIL_STRING"    : false,
-        "MONTH_MAY_STRING"      : false,
-        "MONTH_JUNE_STRING"     : false,
-        "MONTH_JULY_STRING"     : false,
-        "MONTH_AUGUST_STRING"   : false,
-        "MONTH_SEPTEMBER_STRING": false,
-        "MONTH_OCTOBER_STRING"  : false,
-        "MONTH_NOVEMBER_STRING" : false,
-        "MONTH_DECEMBER_STRING" : false,
-
-        "DAY_MONDAY"   : false,
-        "DAY_TUESDAY"  : false,
-        "DAY_WEDNESDAY": false,
-        "DAY_THURSDAY" : false,
-        "DAY_FRIDAY"   : false,
-        "DAY_SATURDAY" : false,
-        "DAY_SUNDAY"   : false,
-
-        "DAY_MONDAY_STRING"   : false,
-        "DAY_TUESDAY_STRING"  : false,
-        "DAY_WEDNESDAY_STRING": false,
-        "DAY_THURSDAY_STRING" : false,
-        "DAY_FRIDAY_STRING"   : false,
-        "DAY_SATURDAY_STRING" : false,
-        "DAY_SUNDAY_STRING"   : false,
-
-        "MONTH_NAMES": false,
-        "DAY_NAMES"  : false,
-        "get_month_number_from_string": false,
-        "get_day_number_from_string"  : false,
-        "get_month_string_from_number": false,
-        "get_day_string_from_number"  : false,
-        "get_current_month_number"    : false,
-        "get_current_year_number"     : false,
-        "get_days_in_month"           : false,
 
         //           ___
         // |\/|  /\   |  |__|

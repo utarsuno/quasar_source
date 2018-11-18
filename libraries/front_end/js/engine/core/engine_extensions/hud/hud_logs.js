@@ -4,8 +4,7 @@ $_QE.prototype.HUDLogs = function() {};
 
 Object.assign(
     $_QE.prototype.HUDLogs.prototype,
-    $_QE.prototype.HUDElement.prototype,
-    $_QE.prototype.CanvasRenderingTextLines.prototype,
+    $_QE.prototype.HUDTextLines.prototype,
     {
         __init__: function(number_of_rows) {
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);

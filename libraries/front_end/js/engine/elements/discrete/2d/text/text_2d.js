@@ -15,10 +15,7 @@ $_QE.prototype.Text2D = function(text, width, height, font, interactive=false, c
 
 Object.assign(
     $_QE.prototype.Text2D.prototype,
-    $_QE.prototype.FloatingElement.prototype,
-    $_QE.prototype.FeatureText.prototype,
-    $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.FloatingElementText.prototype,
     $_QE.prototype.DomCanvasInternalTexture.prototype,
     $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
@@ -44,7 +41,7 @@ Object.assign(
         _on_text_change: function(text) {
             this.set_row_text(text);
             if (this.attachment_parent != null) {
-                this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+                this.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
             }
         },
 
@@ -59,13 +56,13 @@ Object.assign(
             this.set_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR, function() {
                 self._render_needed = true;
                 if (self.attachment_parent != null) {
-                    self.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+                    self.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
                 }
             });
             this.set_event(ELEMENT_EVENT_ON_BACKGROUND_COLOR, function() {
                 self._render_needed = true;
                 if (self.attachment_parent != null) {
-                    self.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+                    self.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
                 }
             });
         },

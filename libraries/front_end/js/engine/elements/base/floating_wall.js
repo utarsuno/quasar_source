@@ -4,14 +4,9 @@ $_QE.prototype.WallFloating = function() {};
 
 Object.assign(
     $_QE.prototype.WallFloating.prototype,
-    $_QE.prototype.FloatingElement.prototype,
-    $_QE.prototype.DoublyLinkedListRows.prototype,
-    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FloatingRows.prototype,
     $_QE.prototype.FeatureColor.prototype,
     {
-        initialize_wall_rows: function() {
-            this.initialize_interactive_linked_list();
-        },
 
         add_title_bar: function(title, icon=null, use_close=true, use_settings=true, use_help=true) {
             this.title_bar = new $_QE.prototype.FeatureTitleBar(this);

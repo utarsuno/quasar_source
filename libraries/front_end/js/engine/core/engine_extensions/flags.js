@@ -33,7 +33,7 @@ const QEFLAG_SETTING_TRANSITION     = 524288; // #pre-process_global_constant
 
 Object.assign(
     $_QE.prototype,
-    $_QE.prototype.BooleanFlagsStaticOneBucket.prototype,
+    $_QE.prototype.BitwiseFlagsMax31.prototype,
     {
         flags: new Uint32Array(1),
 

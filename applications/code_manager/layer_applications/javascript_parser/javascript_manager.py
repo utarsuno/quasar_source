@@ -28,6 +28,8 @@ class JavascriptManager(object):
 		for p in paths:
 			self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p)
 			self._add_js_file('data_structures/linked_lists/' + p + '/linked_list_' + p)
+			if 'row' in p:
+				self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p + '_animated')
 
 	def _add_files_engine(self):
 		"""Adds the JS files needed for the overall engine."""
@@ -35,7 +37,7 @@ class JavascriptManager(object):
 		self._add_js_file('core/engine')
 
 		# Data structures.
-		self._add_paths('data_structures/boolean_flags', ['dynamic', 'static_one_bucket'])
+		self._add_paths('data_structures/bitwise_flags', ['max_size_31', 'max_size_60'])
 		self._add_paths('data_structures/display_cache', ['display_cache', 'date_time', 'engine', 'fps', 'memory', 'normal', 'position'])
 		self._add_paths('data_structures/state_machine', ['state', 'finite_state_machine'])
 		self._add_linked_lists(['base', 'interactive', 'row', 'row_element'])
@@ -55,7 +57,7 @@ class JavascriptManager(object):
 		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size', 'feature_animation_sequence'])
 
 		self._add_paths('inheritable_features/dynamic/animations'  , ['feature_animation_step'])
-		self._add_paths('inheritable_features/dynamic/attachments' , ['feature_row', 'feature_title_bar'])
+		self._add_paths('inheritable_features/dynamic/attachments' , ['feature_row_abstract', 'feature_row', 'feature_row_animated', 'feature_title_bar'])
 		self._add_paths('inheritable_features/dynamic/interactions', ['feature_button', 'feature_interactive', 'feature_typing'])
 
 		# ----------------------------------------------------------------------------------------------------------------
@@ -65,6 +67,8 @@ class JavascriptManager(object):
 		self._add_js_file('elements/singleton/singleton')
 		self._add_paths('elements/base', ['element_singleton'])
 		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility'])
+		self._add_js_file('elements/base/floating_element_text')
+		self._add_js_file('elements/base/floating_rows')
 		self._add_js_file('elements/base/floating_wall')
 		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox', 'tile_cube'])
 		# ----------------------------------------------------------------------------------------------------------------
@@ -96,7 +100,7 @@ class JavascriptManager(object):
 		self._add_paths('time_abstraction', ['pre_process', 'time_instance', 'time_manager'])
 
 		# HUDs.
-		self._add_paths('core/engine_extensions/hud', ['hud', 'hud_date_time', 'hud_debug', 'hud_logs', 'hud_user_typing'])
+		self._add_paths('core/engine_extensions/hud', ['hud', 'hud_abstraction_text_lines', 'hud_date_time', 'hud_debug', 'hud_logs', 'hud_user_typing'])
 
 		# Globals.
 		self._add_paths('global', ['globals', 'global_pre_process'])
@@ -106,7 +110,6 @@ class JavascriptManager(object):
 		self._add_paths('player/cursor'    , ['cursor', 'cursor_default', 'cursor_icon'])
 		self._add_paths('player/controls'  , ['mouse', 'movement'])
 		self._add_paths('player/flashlight', ['flashlight'])
-		#self._add_paths('player/menu'      , ['menu_abstract', 'menu', 'menu_teleport', 'action_row', 'action_fullscreen', 'action_create', 'action_teleport'])
 		self._add_paths('player/menu', ['menu_abstract', 'action_row', 'action_create', 'action_fullscreen', 'menu_teleport', 'action_teleport', 'menu'])
 
 		# Worlds.

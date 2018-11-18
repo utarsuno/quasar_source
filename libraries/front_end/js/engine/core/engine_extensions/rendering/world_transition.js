@@ -136,8 +136,8 @@ function WorldTransition() {
     this.set_current_scene = function(scene, transition_finished_callback) {
         this._current_scene = scene;
 
-        this.set_to_hover_color();
-        this.remove_current_object();
+        this.outline_glow_set_state_hover();
+        this.outline_glow_clear_target();
         this.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
 

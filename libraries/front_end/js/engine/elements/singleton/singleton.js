@@ -29,8 +29,7 @@ Object.assign(
 
         set_object: function(object) {
             this._object     = object;
-            //this._is_element = this._object.set_flag != null;
-            this._is_element = this._object.are_flags_on_and_off_respectively != null;
+            this._is_element = this._object.flags_are_on_and_off != null;
         },
 
         world_exclude: function(world) {
@@ -48,31 +47,16 @@ Object.assign(
         },
 
         world_leave: function(world) {
-            if (this._object == QE.player.yaw) {
-                l(this);
-            }
-            if (this == QE.player.yaw) {
-                l(this);
-                l('@222@@@');
-            }
             if (this._is_element) {
                 world.remove_element(this._object);
             } else {
                 world.scene.remove(this._object);
-                if (this._object == QE.player.yaw) {
-                    l(this);
-                    l('@222@@@43242342342');
-                }
-                if (this == QE.player.yaw) {
-                    l(this);
-                    l('@222@@@323232323');
-                }
             }
         },
 
         _world_enter: function(world) {
             if (this._is_element) {
-                if (!this._object.get_flag(EFLAG_IN_WORLD)) {
+                if (this._object.flag_is_off(EFLAG_IS_IN_WORLD)) {
                     world.add_element(this._object);
                 }
             } else {
@@ -106,8 +90,8 @@ Object.assign(
 
         on_add_to_singletons: function() {
             if (this._is_element) {
-                this._object.set_flag(EFLAG_IS_SINGLETON, true);
-                this._object.set_flag(EFLAG_IN_ELEMENTS_SINGLETON, true);
+                this._object.flag_set_on(EFLAG_IS_SINGLETON);
+                this._object.flag_set_on(EFLAG_IS_IN_ELEMENTS_SINGLETON);
             }
         },
     }

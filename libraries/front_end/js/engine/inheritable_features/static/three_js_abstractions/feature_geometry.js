@@ -5,12 +5,12 @@ $_QE.prototype.FeatureGeometry = function(){};
 Object.assign($_QE.prototype.FeatureGeometry.prototype, {
 
     set_geometry_type: function(use_cache, type) {
-        this.set_flag(EFLAG_CACHEABLE_GEOMETERY, use_cache);
+        this.flag_set(EFLAG_IS_CACHEABLE_GEOMETRY, use_cache);
         this.geometry_type = type;
     },
 
     recycle_geometry: function() {
-        if (!this.get_flag(EFLAG_CACHEABLE_GEOMETERY)) {
+        if (this.flag_is_off(EFLAG_IS_CACHEABLE_GEOMETRY)) {
             if (this.geometry != null) {
                 this.geometry.dispose();
                 this.geometry = undefined;
@@ -49,6 +49,6 @@ Object.assign($_QE.prototype.FeatureGeometry.prototype, {
     },
 
     create_geometry: function() {
-        this.get_flag(EFLAG_CACHEABLE_GEOMETERY) ? this._create_geometry_cached() : this._create_geometry_new();
+        this.flag_is_on(EFLAG_IS_CACHEABLE_GEOMETRY) ? this._create_geometry_cached() : this._create_geometry_new();
     },
 });

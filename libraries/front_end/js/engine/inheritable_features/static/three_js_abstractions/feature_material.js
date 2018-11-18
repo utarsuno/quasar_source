@@ -15,12 +15,12 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
     },
 
     set_material_type: function(use_cache, type) {
-        this.set_flag(EFLAG_CACHEABLE_MATERIAL, use_cache);
+        this.flag_set(EFLAG_IS_CACHEABLE_MATERIAL, use_cache);
         this.material_type = type;
     },
 
     recycle_material: function() {
-        if (!this.get_flag(EFLAG_CACHEABLE_MATERIAL)) {
+        if (this.flag_is_off(EFLAG_IS_CACHEABLE_MATERIAL)) {
             if (this.material != null) {
                 if (this.material.map != null) {
                     this.material.map.dispose();
@@ -87,7 +87,7 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
     },
 
     create_material: function() {
-        this.get_flag(EFLAG_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
+        this.flag_is_on(EFLAG_IS_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
         if (this.opacity != null) {
             this.set_opacity(this.opacity);
         }

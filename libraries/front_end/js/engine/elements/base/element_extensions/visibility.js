@@ -4,7 +4,7 @@ Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     {
         is_visible: function() {
-            return this.get_flag(EFLAG_VISIBLE);
+            return this.flag_is_on(EFLAG_IS_VISIBLE);
         },
 
         _set_to_visible: function() {
@@ -36,16 +36,16 @@ Object.assign(
         },
 
         set_to_visible: function() {
-            if (!this.get_flag(EFLAG_VISIBLE)) {
+            if (this.flag_is_off(EFLAG_IS_VISIBLE)) {
                 this._set_to_visible();
-                this.set_flag(EFLAG_VISIBLE, true);
+                this.flag_set_on(EFLAG_IS_VISIBLE);
             }
         },
 
         set_to_invisible: function() {
-            if (this.get_flag(EFLAG_VISIBLE)) {
+            if (this.flag_is_on(EFLAG_IS_VISIBLE)) {
                 this._set_to_invisible();
-                this.set_flag(EFLAG_VISIBLE, false);
+                this.flag_set_off(EFLAG_IS_VISIBLE);
             }
         },
     }

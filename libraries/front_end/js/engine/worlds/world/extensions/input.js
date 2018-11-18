@@ -4,9 +4,9 @@ Object.assign($_QE.prototype.World.prototype, {
 
     key_down_event_for_interactive_objects: function(event) {
         if (this.currently_looked_at_object != null) {
-            if (event.keyCode == KEY_CODE__TAB && !this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
+            if (event.keyCode == KEY_CODE__TAB && this.currently_looked_at_object.flag_is_off(EFLAG_IS_ENGAGED)) {
                 this.tab_to_next_interactive_object();
-            } else if (this.currently_looked_at_object.get_flag(EFLAG_ENGAGED) || !this.currently_looked_at_object.get_flag(EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT)) {
+            } else if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED) || this.currently_looked_at_object.flag_is_off(EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE)) {
                 this.currently_looked_at_object.parse_key_event(event);
             }
         } else if (event.keyCode == KEY_CODE__TAB) {
@@ -27,8 +27,8 @@ Object.assign($_QE.prototype.World.prototype, {
         // TODO: refactor left_click!
 
         if (this.currently_looked_at_object != null) {
-            if (!this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
-                if (this.currently_looked_at_object.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK)) {
+            if (this.currently_looked_at_object.flag_is_off(EFLAG_IS_ENGAGED)) {
+                if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING)) {
                     if (double_click) {
                         this.engage_currently_looked_at_object();
                     } else {

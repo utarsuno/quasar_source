@@ -4,8 +4,7 @@ $_QE.prototype.HUDDebug = function() {};
 
 Object.assign(
     $_QE.prototype.HUDDebug.prototype,
-    $_QE.prototype.HUDElement.prototype,
-    $_QE.prototype.CanvasRenderingTextLines.prototype,
+    $_QE.prototype.HUDTextLines.prototype,
     {
         // Debug metrics.
         _cache_fps     : null,

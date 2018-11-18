@@ -4,13 +4,13 @@ $_QE.prototype.FeatureButton = function(engage_function) {
 
     this._original_engage_function = engage_function;
 
-    if (!this.has_flag(EFLAG_INTERACTIVE)) {
+    if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {
         $_QE.prototype.FeatureInteractive.call(this);
     }
 
     this.set_event(ELEMENT_EVENT_ON_ENGAGE, engage_function);
 
-    this.set_flag(EFLAG_ENGABLE, false);
+    this.flag_set_off(EFLAG_IS_ENGABLE);
     this.trigger_event(ELEMENT_EVENT_ON_SET_TO_BUTTON);
 
     this.use_confirmation_prompt = function() {

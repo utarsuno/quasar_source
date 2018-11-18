@@ -4,7 +4,7 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
     this.text            = text;
     this.text_size       = size;
     this.initialize_floating_element_data();
-    this.set_foreground_color(QE.COLOR_TEAL_LIGHT);
+    this.set_foreground_color(QE.COLOR_GREEN_LIGHT);
     this.set_dimensions(0, 0);
     this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
     this.set_material_type(true, FEATURE_MATERIAL_TYPE_TEXT_3D);
@@ -19,10 +19,7 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
 
 Object.assign(
     $_QE.prototype.Text3D.prototype,
-    $_QE.prototype.FeatureText.prototype,
-    $_QE.prototype.FloatingElement.prototype,
-    $_QE.prototype.FeatureSize.prototype,
-    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.FloatingElementText.prototype,
     {
         constructor: $_QE.prototype.Text3D,
 
@@ -62,15 +59,15 @@ Object.assign(
             let world   = this.world;
             let look_at = false;
             let engaged = false;
-            if (this.get_flag(EFLAG_ENGAGED)) {
+            if (this.flag_is_on(EFLAG_IS_ENGAGED)) {
                 engaged = true;
                 this.world.disengage_from_currently_looked_at_object();
             }
-            if (this.get_flag(EFLAG_BEING_LOOKED_AT)) {
+            if (this.flag_is_on(EFLAG_IS_BEING_LOOKED_AT)) {
                 look_at = true;
                 this.world.look_away_from_currently_looked_at_object();
             }
-            if (this.get_flag(EFLAG_IN_WORLD)) {
+            if (this.flag_is_on(EFLAG_IS_IN_WORLD)) {
                 this._remove_from_scene();
             }
             this.recycle_geometry();
@@ -88,7 +85,7 @@ Object.assign(
                     this._cache_previous_position_center_look_at_z
                 );
             }
-            if (this.get_flag(EFLAG_IN_WORLD)) {
+            if (this.flag_is_on(EFLAG_IS_IN_WORLD)) {
                 this._add_to_scene();
             }
             if (look_at) {

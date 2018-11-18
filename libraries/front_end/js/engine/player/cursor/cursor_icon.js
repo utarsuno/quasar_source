@@ -7,18 +7,18 @@ Object.assign(
         _player_offset: 1800,
 
         _need_move_icon: function() {
-            return this.attached_to.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK) && this.attached_to.get_flag(EFLAG_MOUSE_MOVEABLE);
+            return this.attached_to.flags_are_both_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE);
         },
 
         _set_needed_on_attach_icon: function() {
-            if (this.attached_to.get_flag(EFLAG_CLICKABLE) && !this.attached_to.get_flag(EFLAG_TYPING)) {
+            if (this.attached_to.flag_is_on(EFLAG_IS_CLICKABLE) && this.attached_to.flag_is_off(EFLAG_IS_TYPEABLE)) {
                 this.set_current_icon(ASSET_ICON_CLICK);
-            } else if (this.attached_to.get_flag(EFLAG_TYPING)) {
+            } else if (this.attached_to.flag_is_on(EFLAG_IS_TYPEABLE)) {
                 this.set_current_icon(ASSET_ICON_WRITTING);
-            } else if (this.attached_to.get_flag(EFLAG_MOUSE_SCALEABLE)) {
+            } else if (this.attached_to.flag_is_on(EFLAG_IS_MOUSE_SCALABLE)) {
                 //if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
                 this.set_current_icon(ASSET_ICON_EXPAND);
-            } else if (this.attached_to.get_flag(EFLAG_MOUSE_MOVEABLE)) {
+            } else if (this.attached_to.flag_is_on(EFLAG_IS_MOUSE_MOVABLE)) {
 
                 this.set_current_icon(ASSET_ICON_DRAG);
             } else {
@@ -27,7 +27,7 @@ Object.assign(
         },
 
         _set_needed_on_engage_icon: function() {
-            if (this.attached_to.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK) && this.attached_to.get_flag(EFLAG_MOUSE_MOVEABLE)) {
+            if (this.attached_to.flags_are_both_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE)) {
 
             }
         },

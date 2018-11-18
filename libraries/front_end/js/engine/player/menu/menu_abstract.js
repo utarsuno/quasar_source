@@ -4,16 +4,14 @@ $_QE.prototype.PlayerMenuAbstract = function() {};
 
 Object.assign(
     $_QE.prototype.PlayerMenuAbstract.prototype,
-    $_QE.prototype.FloatingElement.prototype,
-    $_QE.prototype.DoublyLinkedListRows.prototype,
-    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FloatingRows.prototype,
     $_QE.prototype.FeatureAnimationSequence.prototype,
     {
         __init__: function(player) {
             this.player = player;
             this.group  = new THREE.Group();
             this.initialize_floating_element_data();
-            this.initialize_interactive_linked_list();
+            this.initialize_wall_rows_animated();
             this.set_dimensions(512, 128);
         },
 
@@ -22,16 +20,21 @@ Object.assign(
         },
 
         open: function() {
-            if (this.get_flag(EFLAG_IN_ANIMATION)) {
-                this.animation_terminate_early();
-            } else {
-                this.animation_stop();
-            }
+            //this.animation_stop();
 
             this.set_to_visible();
             this._open();
 
-            this.animation_start();
+            this.animation_play_forward_once();
+        },
+
+        close: function() {
+            this.animation_stop();
+            this.set_to_invisible();
+        },
+
+        _on_close: function() {
+            this.close();
         },
 
     }

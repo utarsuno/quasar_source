@@ -41,6 +41,11 @@ Object.assign($_QE.prototype, {
 
     COLOR_GRAY_DARK       : new THREE.Color('#282828'),
 
+    // Shader outline glow.
+    COLOR_GLOW_HOVER      : new THREE.Color('#88ecff'),
+    COLOR_GLOW_ENGAGED    : new THREE.Color('#28ff8e'),
+
+    // Shader background.
     COLOR_BACKGROUND_INNER: new THREE.Color('#505050'),
     COLOR_BACKGROUND_OUTER: new THREE.Color('#111111'),
 

@@ -52,8 +52,8 @@ Object.assign(
             this.initialize_floating_element_data();
             this.initialize_wall_rows();
 
-            this.set_flag(EFLAG_MOUSE_MOVEABLE, true);
-            this.set_flag(EFLAG_MOUSE_SCALEABLE, true);
+            this.flag_set_on(EFLAG_IS_MOUSE_MOVABLE);
+            this.flag_set_on(EFLAG_IS_MOUSE_SCALABLE);
 
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.85);
             //this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
@@ -62,7 +62,7 @@ Object.assign(
             this.initialize_dom_canvas(number_of_rows, width, font);
 
             $_QE.prototype.FeatureTyping.call(this, this._on_enter_event.bind(this));
-            this.set_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK, true);
+            this.flag_set_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING);
             // TODO: ensure input not receiving unless engaged!
 
 

@@ -15,10 +15,10 @@ Object.assign(
         _update_renderer_dimensions() {
             this.camera.aspect = this._cachef[QECACHEF_ASPECT_RATIO];
             this.camera.updateProjectionMatrix();
-            this.renderer.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
+            this.renderer.setSize(this.get_width(), this.get_height());
 
             if (this.flag_is_on(QEFLAG_SETTING_SHADERS)) {
-                this.effect_composer.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
+                this.effect_composer.setSize(this.get_width(), this.get_height());
                 this._update_fxaa();
                 this._update_outline_glow();
                 this._update_background();
@@ -26,7 +26,7 @@ Object.assign(
         },
 
         get_aspect_ratio: function() {
-            return this._cachei[QECACHEI_WIDTH_INNER] / this._cachei[QECACHEI_HEIGHT_INNER];
+            return this.get_width() / this.get_height();
         },
 
         /*        ___               __  ___
@@ -47,7 +47,7 @@ Object.assign(
             this._add_three_js_canvas_to_window();
 
             this.renderer.setPixelRatio(window.devicePixelRatio);
-            this.renderer.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
+            this.renderer.setSize(this.get_width(), this.get_height());
             this.renderer.setClearColor(0x252525);
             //this.renderer.setClearColor( 0x000000, 0 ); // the default
             this.renderer.autoClear = true;
@@ -70,7 +70,7 @@ Object.assign(
             this.render_pass     = new THREE.RenderPass(world.scene, this.camera);
 
             //
-            this.effect_composer.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
+            this.effect_composer.setSize(this.get_width(), this.get_height());
             //
             this.effect_composer.addPass(this.render_pass);
 

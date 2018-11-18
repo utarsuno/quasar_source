@@ -3,6 +3,14 @@
 $_QE.prototype.PlayerMenu = function(player, world) {
     this.__init__(player);
     this.create_player_menu(world);
+
+    let self = this;
+    this.set_event(ELEMENT_EVENT_ON_WORLD_EXIT, function() {
+        self.row_create._on_close();
+        self.row_teleport._on_close();
+        self.row_fullscreen._on_close();
+        self._on_close();
+    });
 };
 
 Object.assign(

@@ -37,6 +37,7 @@ Object.assign(
     $_QE.prototype.FeatureGeometry.prototype,
     $_QE.prototype.FeatureMaterial.prototype,
     $_QE.prototype.FeatureMesh.prototype,
+    $_QE.prototype.FeatureSize.prototype,
     {
         initialize_floating_element_data: function() {
             this.initialize_element_data();
@@ -51,14 +52,23 @@ Object.assign(
             }
         },
 
-        update_element: function(delta) {
-            // TODO: Why is only position consumed?
-            if (this.consume_flag(EFLAG_UPDATE_POSITION) || this.get_flag(EFLAG_UPDATE_NORMAL)) {
-                this.refresh();
+        _update_element_animation: function(delta) {
+            if (this.flag_is_on(EFLAG_IS_IN_ANIMATION)) {
+                if (this.flag_is_on(EFLAG_IS_IN_REVERSED_ANIMATION)) {
+                    this.animation_step_reverse(delta);
+                } else {
+                    this.animation_step_forward(delta);
+                }
+            }
+        },
 
+        update_element: function(delta) {
+            if (this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION) || this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL)) {
+                this.refresh();
                 if (!this.is_relative()) {
                     this.re_cache_normal();
                 }
+                this.flag_set_off(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION);
             }
 
             // TODO: set this to an event!
@@ -66,14 +76,14 @@ Object.assign(
                 this.update();
             }
 
-            if (this.get_flag(EFLAG_IN_ANIMATION)) {
-                this.animation_step(delta);
-            }
+            if (delta != null) {
+                this._update_element_animation(delta);
 
-            // TODO: Temporary, lower performance for less bugs.
-            let c;
-            for (c = 0; c < this.attachments.length; c++) {
-                this.attachments[c].update_element(delta);
+                // TODO: Temporary, lower performance for less bugs.
+                let c;
+                for (c = 0; c < this.attachments.length; c++) {
+                    this.attachments[c].update_element(delta);
+                }
             }
 
             /*
@@ -101,32 +111,32 @@ Object.assign(
 
         set_to_looked_at: function() {
             this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = true;
-            this.set_flag(EFLAG_BEING_LOOKED_AT, true);
-            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.set_hover_object(this.get_object());
+            this.flag_set_on(EFLAG_IS_BEING_LOOKED_AT);
+            if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
+                QE.outline_glow_set_target(this.get_object());
             }
         },
 
         set_to_looked_away: function() {
             this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = false;
-            this.set_flag(EFLAG_BEING_LOOKED_AT, false);
-            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.remove_hover_object(this.get_object());
+            this.flag_set_off(EFLAG_IS_BEING_LOOKED_AT);
+            if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
+                QE.outline_glow_clear_target();
             }
         },
 
         set_to_engaged: function() {
-            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.set_to_engage_color();
+            if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
+                QE.outline_glow_set_state_engaged();
             }
-            this.set_flag(EFLAG_ENGAGED, true);
+            this.flag_set_on(EFLAG_IS_ENGAGED);
         },
 
         set_to_disengaged: function() {
-            if (this.get_flag(EFLAG_OUTLINE_GLOW)) {
-                QE.set_to_hover_color();
+            if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
+                QE.outline_glow_set_state_hover();
             }
-            this.set_flag(EFLAG_ENGAGED, false);
+            this.flag_set_off(EFLAG_IS_ENGAGED);
         },
 
         _remove_from_scene: function() {

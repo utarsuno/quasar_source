@@ -59,7 +59,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         } else {
             this.mesh.lookAt(x, y, z);
         }
-        this.set_flag(EFLAG_UPDATE_NORMAL, true);
+        this.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL);
     },
 
     re_cache_normal: function() {
@@ -100,7 +100,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         ).normalize();
 
         // Don't re-calculate for the same values.
-        this.set_flag(EFLAG_UPDATE_NORMAL, false);
+        this.flag_set_off(EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL);
     },
 
 });

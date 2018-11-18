@@ -1,60 +1,39 @@
 'use strict';
 
-// Features.
-const EFLAG_TYPING                         = 'f0';  // #pre-process_global_constant
-const EFLAG_OUTLINE_GLOW                   = 'f1';  // #pre-process_global_constant
-const EFLAG_INTERACTIVE                    = 'f2';  // #pre-process_global_constant
-const EFLAG_CACHEABLE_MESH                 = 'f3';  // #pre-process_global_constant
-const EFLAG_CACHEABLE_MATERIAL             = 'f4';  // #pre-process_global_constant
-const EFLAG_CACHEABLE_GEOMETERY            = 'f5';  // #pre-process_global_constant
-
-const EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK = 'f6';  // #pre-process_global_constant
-const EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT = 'f7';  // #pre-process_global_constant
-
-// Flags.
-const EFLAG_ENGABLE                        = 'f8';  // #pre-process_global_constant
-const EFLAG_CLICKABLE                      = 'f9';  // #pre-process_global_constant
-
-// FLAG f10 is free!!!!
-const EFLAG_IS_ROOT                        = 'f11'; // #pre-process_global_constant
-const EFLAG_IS_ROW_ELEMENT                 = 'f12'; // #pre-process_global_constant
-const EFLAG_IS_SINGLETON                   = 'f13'; // #pre-process_global_constant
-
-const EFLAG_FORMAT_X_START                 = 'f14'; // #pre-process_global_constant
-const EFLAG_FORMAT_X_CENTER                = 'f15'; // #pre-process_global_constant
-const EFLAG_FORMAT_X_END                   = 'f16'; // #pre-process_global_constant
-
-// Mouse actions.
-const EFLAG_MOUSE_MOVEABLE                 = 'f17'; // #pre-process_global_constant
-const EFLAG_MOUSE_SCALEABLE                = 'f18'; // #pre-process_global_constant
-
-// States.
-const EFLAG_ENGAGED                        = 'f19'; // #pre-process_global_constant
-const EFLAG_CREATED                        = 'f20'; // #pre-process_global_constant
-const EFLAG_VISIBLE                        = 'f21'; // #pre-process_global_constant
-const EFLAG_BEING_LOOKED_AT                = 'f22'; // #pre-process_global_constant
-
-const EFLAG_UPDATE_POSITION                = 'f23'; // #pre-process_global_constant
-const EFLAG_UPDATE_NORMAL                  = 'f24'; // #pre-process_global_constant
-const EFLAG_UPDATE_CHILD                   = 'f25'; // #pre-process_global_constant
-const EFLAG_UPDATE_COLOR                   = 'f26'; // #pre-process_global_constant
-const EFLAG_LOCK_FOREGROUND                = 'f27'; // #pre-process_global_constant
-const EFLAG_LOCK_BACKGROUND                = 'f28'; // #pre-process_global_constant
-
-// Animation flags.
-const EFLAG_IN_ANIMATION                   = 'f29'; // #pre-process_global_constant
-
-// 'External' states.
-const EFLAG_IN_WORLD                       = 'f30'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_ROOT               = 'f31'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_INTERACTIVE        = 'f32'; // #pre-process_global_constant
-const EFLAG_IN_ELEMENTS_SINGLETON          = 'f33'; // #pre-process_global_constant
-
-//
-// flag has children
-// flag has parent
-//
-
+const EFLAG_IS_TYPEABLE                              = 2;          // #pre-process_global_constant
+const EFLAG_IS_INTERACTIVE                           = 4;          // #pre-process_global_constant
+const EFLAG_IS_ENGABLE                               = 8;          // #pre-process_global_constant
+const EFLAG_IS_CLICKABLE                             = 16;         // #pre-process_global_constant
+const EFLAG_IS_MOUSE_MOVABLE                         = 32;         // #pre-process_global_constant
+const EFLAG_IS_MOUSE_SCALABLE                        = 64;         // #pre-process_global_constant
+const EFLAG_IS_ROOT                                  = 128;        // #pre-process_global_constant
+const EFLAG_IS_SINGLETON                             = 256;        // #pre-process_global_constant
+const EFLAG_IS_ROW_ELEMENT                           = 512;        // #pre-process_global_constant
+const EFLAG_IS_CACHEABLE_MESH                        = 1024;       // #pre-process_global_constant
+const EFLAG_IS_CACHEABLE_MATERIAL                    = 2048;       // #pre-process_global_constant
+const EFLAG_IS_CACHEABLE_GEOMETRY                    = 4096;       // #pre-process_global_constant
+const EFLAG_IS_VISIBLE                               = 8192;       // #pre-process_global_constant
+const EFLAG_IS_CREATED                               = 16384;      // #pre-process_global_constant
+const EFLAG_IS_BEING_LOOKED_AT                       = 32768;      // #pre-process_global_constant
+const EFLAG_IS_ENGAGED                               = 65536;      // #pre-process_global_constant
+const EFLAG_IS_FORMAT_X_START                        = 131072;     // #pre-process_global_constant
+const EFLAG_IS_FORMAT_X_CENTER                       = 262144;     // #pre-process_global_constant
+const EFLAG_IS_FORMAT_X_END                          = 524288;     // #pre-process_global_constant
+const EFLAG_IS_LOCKED_FOREGROUND                     = 1048576;    // #pre-process_global_constant
+const EFLAG_IS_LOCKED_BACKGROUND                     = 2097152;    // #pre-process_global_constant
+const EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING    = 4194304;    // #pre-process_global_constant
+const EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE = 8388608;    // #pre-process_global_constant
+const EFLAG_IS_OUTLINE_GLOWABLE                      = 16777216;   // #pre-process_global_constant
+const EFLAG_IS_UPDATED_NEEDED_FOR_POSITION           = 33554432;   // #pre-process_global_constant
+const EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL             = 67108864;   // #pre-process_global_constant
+const EFLAG_IS_UPDATED_NEEDED_FOR_COLOR              = 134217728;  // #pre-process_global_constant
+const EFLAG_IS_UPDATED_NEEDED_FOR_CHILD              = 268435456;  // #pre-process_global_constant
+const EFLAG_IS_IN_ANIMATION                          = 536870912;  // #pre-process_global_constant
+const EFLAG_IS_IN_WORLD                              = 1073741824; // #pre-process_global_constant
+const EFLAG_IS_IN_ELEMENTS_ROOT                      = 3;          // #pre-process_global_constant
+const EFLAG_IS_IN_ELEMENTS_INTERACTIVE               = 5;          // #pre-process_global_constant
+const EFLAG_IS_IN_ELEMENTS_SINGLETON                 = 9;          // #pre-process_global_constant
+const EFLAG_IS_IN_REVERSED_ANIMATION                 = 17;         // #pre-process_global_constant
 
 // Events.
 const ELEMENT_EVENT_ON_LOOK_AT             = 'e0';  // #pre-process_global_constant
@@ -69,57 +48,60 @@ const ELEMENT_EVENT_ON_SET_TO_BUTTON       = 'e8';  // #pre-process_global_const
 const ELEMENT_EVENT_ON_MESH_CREATED        = 'e9';  // #pre-process_global_constant
 const ELEMENT_EVENT_ON_NODE_UPDATE         = 'e10'; // #pre-process_global_constant
 const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_constant
+const ELEMENT_EVENT_ON_SET_TO_ATTACHMENT   = 'e12'; // #pre-process_global_constant
 
 
-Object.assign($_QE.prototype.Element.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
+Object.assign(
+    $_QE.prototype.Element.prototype,
+    $_QE.prototype.BitwiseFlagsMax60.prototype,
+    {
+        initialize_events_and_flags: function() {
+            this._events = {};
+            this.flags   = new Uint32Array(2);
+            this.flag_set_on(EFLAG_IS_VISIBLE);
+        },
 
-    initialize_events_and_flags: function() {
-        this._events = {};
-        this.initialize_flags();
-        this.set_flag(EFLAG_CREATED, false);
-        this.set_flag(EFLAG_VISIBLE, true);
-    },
-
-    set_event: function(event_key, event_function) {
-        if (event_key in this._events && this._events[event_key] != null) {
-            if (Array.isArray(this._events[event])) {
-                this._events[event_key].push(event_function);
-            } else {
-                this._events[event_key] = [this._events[event_key], event_function];
-            }
-        } else {
-            this._events[event_key] = event_function;
-        }
-    },
-
-    clear_event: function(event_key) {
-        if (event_key in this._events) {
-            this._events[event_key] = undefined;
-        }
-    },
-
-    trigger_event: function(event, data=null) {
-        if (event in this._events) {
-            if (data != null) {
+        set_event: function(event_key, event_function) {
+            if (event_key in this._events && this._events[event_key] != null) {
                 if (Array.isArray(this._events[event])) {
-                    let a;
-                    for (a = 0; a < this._events[event].length; a++) {
-                        this._events[event][a](data);
-                    }
+                    this._events[event_key].push(event_function);
                 } else {
-                    this._events[event](data);
+                    this._events[event_key] = [this._events[event_key], event_function];
                 }
             } else {
-                if (Array.isArray(this._events[event])) {
-                    let a;
-                    for (a = 0; a < this._events[event].length; a++) {
-                        this._events[event][a]();
+                this._events[event_key] = event_function;
+            }
+        },
+
+        clear_event: function(event_key) {
+            if (event_key in this._events) {
+                this._events[event_key] = undefined;
+            }
+        },
+
+        trigger_event: function(event, data=null) {
+            if (event in this._events) {
+                if (data != null) {
+                    if (Array.isArray(this._events[event])) {
+                        let a;
+                        for (a = 0; a < this._events[event].length; a++) {
+                            this._events[event][a](data);
+                        }
+                    } else {
+                        this._events[event](data);
                     }
                 } else {
-                    this._events[event]();
+                    if (Array.isArray(this._events[event])) {
+                        let a;
+                        for (a = 0; a < this._events[event].length; a++) {
+                            this._events[event][a]();
+                        }
+                    } else {
+                        this._events[event]();
+                    }
                 }
             }
-        }
-    },
-});
+        },
+    }
+);
 

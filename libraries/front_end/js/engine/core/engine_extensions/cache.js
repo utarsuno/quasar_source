@@ -43,6 +43,22 @@ Object.assign($_QE.prototype, {
         this._clear_frames();
     },
 
+    set_width: function(w) {
+        this._cachei[QECACHEI_WIDTH_INNER] = w;
+    },
+
+    get_width: function() {
+        return this._cachei[QECACHEI_WIDTH_INNER];
+    },
+
+    get_height: function() {
+        return this._cachei[QECACHEI_HEIGHT_INNER];
+    },
+
+    set_height: function(h) {
+        this._cachei[QECACHEI_HEIGHT_INNER] = h;
+    },
+
     // TEMPORARY LOCATION:
     _get_number_of_cpu_cores: function() {
         // Number of logical processors.

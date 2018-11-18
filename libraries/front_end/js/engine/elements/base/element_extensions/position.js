@@ -5,9 +5,9 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     // State.
 
     set_to_update_needed_for_position: function() {
-        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        this.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION);
         if (this.is_relative()) {
-            this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+            this.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
         }
     },
 
@@ -115,15 +115,15 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     // For relative positions.
     _set_position_needs_update: function() {
-        this.set_flag(EFLAG_UPDATE_POSITION, true);
+        this.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION);
         this._set_parent_chain_to_update_children();
     },
 
     _set_parent_chain_to_update_children: function() {
         if (this.attachment_parent == null) {
             return;
-        } else if (this.attachment_parent.set_flag != null) {
-            this.attachment_parent.set_flag(EFLAG_UPDATE_CHILD, true);
+        } else if (this.attachment_parent.flag_set_on != null) {
+            this.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
         } else if (this.parent_button != null) {
             this.parent_button._set_parent_chain_to_update_children();
         }

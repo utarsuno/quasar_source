@@ -71,6 +71,10 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     },
 
     add_attachment: function(attachment, create=false) {
+        if (attachment.set_to_relative == null) {
+            l('null attachment:');
+            l(attachment);
+        }
         attachment.set_to_relative();
         if (this.group == null) {
             this.set_to_group();
@@ -101,17 +105,13 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     _set_attachment_parent: function(parent) {
         this.attachment_parent = parent;
+        this.trigger_event(ELEMENT_EVENT_ON_SET_TO_ATTACHMENT);
         parent.attachments.push(this);
     },
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    is_root_attachment: function() {
-        // Used to be : return this.parent == null;
-        return this.get_flag(EFLAG_IS_ROOT);
-    },
-
     _get_all_attachments_recursively: function() {
         let attachments = [];
         let a;

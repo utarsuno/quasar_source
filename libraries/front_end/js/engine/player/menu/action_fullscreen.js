@@ -8,6 +8,10 @@ $_QE.prototype.PlayerMenuRowFullScreen = function(menu) {
         this.__init__(menu, ASSET_ICON_EXPAND, 'enter full-screen', this._action_fullscreen.bind(this));
     }
 
+    let self = this;
+    this.button.set_event(ELEMENT_EVENT_ON_LOOK_AT, function() {
+        self.row.parent_wall.on_main_menu_button_look_at(self.button);
+    });
 };
 
 Object.assign(

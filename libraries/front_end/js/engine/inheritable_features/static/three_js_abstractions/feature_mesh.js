@@ -5,7 +5,7 @@ $_QE.prototype.FeatureMesh = function() {};
 Object.assign($_QE.prototype.FeatureMesh.prototype, {
 
     set_mesh_type: function(use_cache, type, on_mesh_created) {
-        this.set_flag(EFLAG_CACHEABLE_MESH, use_cache);
+        this.flag_set(EFLAG_IS_CACHEABLE_MESH, use_cache);
         this.mesh_type = type;
         if (on_mesh_created != null) {
             this.set_event(ELEMENT_EVENT_ON_MESH_CREATED, on_mesh_created);
@@ -17,7 +17,7 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
             this.group.remove(this.mesh);
         }
 
-        if (!this.get_flag(EFLAG_CACHEABLE_MESH)) {
+        if (this.flag_is_off(EFLAG_IS_CACHEABLE_MESH)) {
             if (this.mesh != null) {
                 this.mesh.userData = undefined;
                 this.mesh          = undefined;
@@ -40,16 +40,10 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
         }
     },
 
-    set_user_data: function() {
-        if (this.get_flag(EFLAG_INTERACTIVE)) {
-            this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
-        }
-    },
-
     create_mesh: function() {
-        this.get_flag(EFLAG_CACHEABLE_MESH) ? this._create_mesh_cached() : this._create_mesh_new();
+        this.flag_is_on(EFLAG_IS_CACHEABLE_MESH) ? this._create_mesh_cached() : this._create_mesh_new();
 
-        this.set_user_data();
+        this.set_user_data_if_needed();
 
         if (this.group != null) {
             this.group.add(this.mesh);
@@ -58,4 +52,9 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
         this.trigger_event(ELEMENT_EVENT_ON_MESH_CREATED);
     },
 
+    set_user_data_if_needed: function() {
+        if (this.flag_is_on(EFLAG_IS_INTERACTIVE) && this.mesh != null) {
+            this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
+        }
+    },
 });

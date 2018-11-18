@@ -1,9 +1,8 @@
 'use strict';
 
-// Supports a maximum of 31 unique keys.
-$_QE.prototype.BooleanFlagsStaticOneBucket = function(){};
-
-$_QE.prototype.BooleanFlagsStaticOneBucket.prototype = {
+// Supports a maximum of 31 unique keys. (The last, 32nd, bit is not supported at the moment.)
+$_QE.prototype.BitwiseFlagsMax31 = function(){};
+$_QE.prototype.BitwiseFlagsMax31.prototype = {
 
     flags_clear: function() {
         this.flags[0] = 0;
@@ -27,20 +26,12 @@ $_QE.prototype.BooleanFlagsStaticOneBucket.prototype = {
         this.flags[0] |= flag_number;
     },
 
-    flag_get: function(flag_number) {
-        return (this.flags[0] & flag_number) > 0;
-    },
-
     flag_is_off: function(flag_number) {
         return (this.flags[0] & flag_number) == 0;
     },
 
     flag_is_on: function(flag_number) {
         return (this.flags[0] & flag_number) > 0;
-    },
-
-    flags_is_at_least_one_on: function(flags) {
-        return (this.flags[0] & flags) > 0;
     },
 
     flags_are_both_on: function(f0, f1) {

@@ -6,7 +6,7 @@ Object.assign($_QE.prototype.World.prototype, {
     create_element: function(element) {
         element.world = this;
         element.create();
-        element.set_flag(EFLAG_CREATED, true);
+        element.flag_set_on(EFLAG_IS_CREATED);
     },
 
     // ------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ Object.assign($_QE.prototype.World.prototype, {
         if (this.currently_looked_at_object == null) {
             return false;
         } else {
-            return this.currently_looked_at_object.get_flag(EFLAG_ENGAGED);
+            return this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED);
         }
     },
 
@@ -30,7 +30,7 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     engage_currently_looked_at_object: function() {
-        if (this.currently_looked_at_object.get_flag(EFLAG_ENGABLE)) {
+        if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGABLE)) {
             QE.player.set_state(PLAYER_STATE_ENGAGED);
             this.currently_looked_at_object.set_to_engaged();
             //MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_ENGAGE);
@@ -40,7 +40,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
     look_at_different_element: function(element) {
         if (this.currently_looked_at_object != null) {
-            if (this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
+            if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED)) {
                 this.disengage_from_currently_looked_at_object();
             }
             this.look_away_from_currently_looked_at_object();
@@ -52,7 +52,7 @@ Object.assign($_QE.prototype.World.prototype, {
     set_new_currently_looked_at_object: function(element, position) {
         this.currently_looked_at_object = element;
         element.set_to_looked_at();
-        if (this.currently_looked_at_object.has_flag(EFLAG_INTERACTIVE)) {
+        if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_INTERACTIVE)) {
             this.previous_tab_target = element;
         }
         this.currently_looked_at_object.trigger_event(ELEMENT_EVENT_ON_LOOK_AT);
@@ -62,7 +62,7 @@ Object.assign($_QE.prototype.World.prototype, {
     look_away_from_currently_looked_at_object: function() {
         this.currently_looked_at_object.set_to_looked_away();
         this.currently_looked_at_object.trigger_event(ELEMENT_EVENT_ON_LOOK_AWAY);
-        if (this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
+        if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED)) {
             this.disengage_from_currently_looked_at_object();
         }
         if (QE.manager_world.player_cursor.attached_to != null) {

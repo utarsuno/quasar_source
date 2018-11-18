@@ -4,8 +4,7 @@ $_QE.prototype.HUDDateTime = function() {};
 
 Object.assign(
     $_QE.prototype.HUDDateTime.prototype,
-    $_QE.prototype.HUDElement.prototype,
-    $_QE.prototype.CanvasRenderingTextLines.prototype,
+    $_QE.prototype.HUDTextLines.prototype,
     {
         __init__: function(engine) {
             this.engine = engine;

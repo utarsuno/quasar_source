@@ -10,6 +10,8 @@ $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
         if (self.menu == null) {
             self.menu = new $_QE.prototype.PlayerMenuTeleport(menu.player, menu.world, self.row);
 
+            l('Teleport menu created!');
+
             if (self._register_list.length > 0) {
                 let r;
                 for (r = 0; r < self._register_list.length; r++) {

@@ -25,7 +25,7 @@ Object.assign(
         },
 
         open: function() {
-            if (!this.get_flag(EFLAG_CREATED)) {
+            if (this.flag_is_off(EFLAG_IS_CREATED)) {
                 this._create();
             } else {
                 this.set_to_visible();

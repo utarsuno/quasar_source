@@ -3,16 +3,12 @@
 Object.assign(
     $_QE.prototype,
     {
-        hover_color         : new THREE.Color(0x88ecff),
-        engage_color        : new THREE.Color(0x28ff8e),
-        current_hover_object: null,
-
         _update_outline_glow: function() {
-            this.outline_pass.setSize(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]);
+            this.outline_pass.setSize(this.get_width(), this.get_height());
         },
 
         _initialize_outline_glow: function(world) {
-            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this._cachei[QECACHEI_WIDTH_INNER], this._cachei[QECACHEI_HEIGHT_INNER]), world.scene, this.camera);
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.get_width(), this.get_height()), world.scene, this.camera);
             this.effect_composer.addPass(this.outline_pass);
 
             this.outline_pass.edgeStrength      = 4.5;
@@ -24,34 +20,26 @@ Object.assign(
             this.outline_pass.selectedObjects   = [];
             this.outline_pass.renderScene       = world.scene;
 
-            this.set_to_hover_color();
+            this.outline_glow_set_state_hover();
         },
 
-        set_to_engage_color: function() {
-            this.outline_pass.visibleEdgeColor = this.engage_color;
+        outline_glow_set_state_engaged: function() {
+            this.outline_pass.visibleEdgeColor = this.COLOR_GLOW_ENGAGED;
             //this.outline_pass.hiddenEdgeColor  = this.engage_color;
         },
 
-        set_to_hover_color: function() {
-            this.outline_pass.visibleEdgeColor = this.hover_color;
+        outline_glow_set_state_hover: function() {
+            this.outline_pass.visibleEdgeColor = this.COLOR_GLOW_HOVER;
             //this.outline_pass.hiddenEdgeColor  = this.hover_color;
         },
 
-        set_hover_object: function(object) {
-            this.current_hover_object = object;
-            this.outline_pass.selectedObjects[0] = this.current_hover_object;
+        outline_glow_set_target: function(object) {
+            this.outline_pass.selectedObjects[0] = object;
             //MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_HOVER);
         },
 
-        remove_hover_object: function(object) {
-            if (this.current_hover_object == object) {
-                this.remove_current_object();
-            }
-        },
-
-        remove_current_object: function() {
+        outline_glow_clear_target: function() {
             this.outline_pass.selectedObjects = [];
-            this.current_hover_object         = null;
         },
     }
 );
