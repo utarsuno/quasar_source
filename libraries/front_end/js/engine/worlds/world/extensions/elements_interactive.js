@@ -2,6 +2,30 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
+    _initialize_cache_for_interactive: function() {
+        this.elements_interactive = [];
+        this._raycaster           = new THREE.Raycaster();
+        this._intersections       = [];
+    },
+
+    _is_element_skippable: function(element) {
+        if (element.flag_is_off(EFLAG_IS_VISIBLE)) {
+            return true;
+        } else if (element.flag_is_off(EFLAG_IS_CREATED)) {
+            return true;
+        }
+
+        // Temporary debug.
+        if (element.mesh != null && !element.mesh.visible) {
+            QE.log_warning('Visibility check should be covered by flags!', element);
+        } else if (element.mesh == null && element.group == null) {
+            QE.log_warning('Is created check should be covered by flags!', element);
+        }
+        //
+
+        return false;
+    },
+
     update_elements_interactive: function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
         if (this.currently_looked_at_object != null && this.currently_looked_at_object.flags_are_both_on(EFLAG_IS_TYPEABLE, EFLAG_IS_ENGAGED)) {
@@ -13,51 +37,44 @@ Object.assign($_QE.prototype.World.prototype, {
             this._intersections = [];
         }
 
-        this.raycaster.set(this.player.get_position(), this.player.get_normal());
-
-        // Max search distance.
-        this._nums[0]            = 99999;
-        this._nums[1]            = -1;
-        this._intersection_data  = null;
-        this._intersection_match = null;
+        // Position intersection checks from the player's current view point.
+        this._raycaster.set(this.player.get_position(), this.player.get_normal());
 
         // Find out what's currently being looked at if anything.
         let i;
+        let max_distance        = 99999;
+        let intersection_data   = null;
+        let intersected_element = null;
         for (i = 0; i < this.elements_interactive.length; i++) {
 
-            // TODO: There should be objects that are skippable.
-
+            if (this._is_element_skippable(this.elements_interactive[i])) {
+                continue;
+            }
 
             // The true parameter indicates recursive search.
-            this.raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
+            this._raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
 
             // Only check the first result returned as they are already sorted by distance.
-            if (this._intersections.length != 0) {
-                if (this._intersections[0].distance < this._nums[0]) {
-
-                    if (this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null) {
-                        this._nums[0]           = this._intersections[0].distance;
-                        this._nums[1]           = i;
-                        this._intersection_data = this._intersections[0];
-
-                        this._intersection_match = this._intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
-                    }
-                }
+            if (this._intersections.length != 0 &&
+                this._intersections[0].distance < max_distance &&
+                this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null
+            ) {
+                max_distance        = this._intersections[0].distance;
+                intersection_data   = this._intersections[0];
+                intersected_element = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
             }
         }
 
-        // TODO: User mesh.userData to point to parent object.
-
-        if (this._nums[1] == NOT_FOUND) {
+        if (intersected_element == null) {
             if (this.currently_looked_at_object != null) {
                 this.look_away_from_currently_looked_at_object();
             }
         } else {
             if (this.currently_looked_at_object == null) {
-                this.set_new_currently_looked_at_object(this._intersection_match, this._intersection_data.point);
-            } else if (this.currently_looked_at_object != this._intersection_match) {
+                this.set_new_currently_looked_at_object(intersected_element, intersection_data.point);
+            } else if (this.currently_looked_at_object != intersected_element) {
                 this.look_away_from_currently_looked_at_object();
-                this.set_new_currently_looked_at_object(this._intersection_match, this._intersection_data.point);
+                this.set_new_currently_looked_at_object(intersected_element, intersection_data.point);
             }
         }
     },

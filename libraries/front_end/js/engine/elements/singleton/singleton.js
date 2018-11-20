@@ -65,6 +65,8 @@ Object.assign(
         },
 
         world_enter: function(world) {
+            // TODO: Don't enter a world if your alias is already in that world!
+
             if (this._includes == null && this._excludes == null) {
                 this._world_enter(world);
             } else if (this._excludes == null) {

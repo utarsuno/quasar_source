@@ -28,7 +28,7 @@ Object.assign(
                 this.previous_world = this.current_world;
             }
             this.current_world = world;
-            this.current_world.create_singletons_if_needed();
+            this.current_world._load_world_if_needed();
             this.singletons_enter_world();
             this.current_world.enter();
             this.engine._on_new_scene_set(this.current_world.scene);

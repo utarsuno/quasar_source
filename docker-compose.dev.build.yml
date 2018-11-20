@@ -5,6 +5,7 @@ services:
 
   # Builds projects.
   code_manager:
+    container_name: code_manager
     build:
       context: .
       dockerfile: ./applications/code_manager/Dockerfile

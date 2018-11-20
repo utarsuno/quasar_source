@@ -5,7 +5,7 @@ $_QE.prototype.PlayerMenuAbstract = function() {};
 Object.assign(
     $_QE.prototype.PlayerMenuAbstract.prototype,
     $_QE.prototype.FloatingRows.prototype,
-    $_QE.prototype.FeatureAnimationSequence.prototype,
+    $_QE.prototype.FeatureAnimationSequenceRows.prototype,
     {
         __init__: function(player) {
             this.player = player;

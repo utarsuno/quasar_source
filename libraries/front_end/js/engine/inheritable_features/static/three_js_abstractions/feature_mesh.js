@@ -57,4 +57,10 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
     },
+
+    _set_user_data_looked_at: function(looked_at) {
+        if (this.mesh != null) {
+            this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = looked_at;
+        }
+    },
 });

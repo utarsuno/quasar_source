@@ -11,7 +11,8 @@ Object.assign(
     $_QE.prototype.ElementSingleton.prototype,
     {
         __init__: function() {
-            let s = 1024 * 2 * 2 * 2;
+            //let s = 1024 * 2 * 2 * 2;
+            let s = 1024 * 2 * 2;
             this.geometry = new THREE.BoxGeometry(s, s, s);
 
             this.material = new THREE.MeshStandardMaterial({

@@ -2,6 +2,10 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
+    _initialize_cache_for_tab_target: function() {
+        this.previous_tab_target = null;
+    },
+
     tab_to_next_interactive_object: function() {
         if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ROW_ELEMENT)) {
             let target = this.currently_looked_at_object._parent_row.get_next_tab_target_from_element(this.currently_looked_at_object);

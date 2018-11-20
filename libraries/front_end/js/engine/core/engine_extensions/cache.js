@@ -11,18 +11,20 @@ const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant
 const QECACHEF_CLIPPING_FAR         = 2;  // #pre-process_global_constant
 const QECACHEF_ASPECT_RATIO         = 3;  // #pre-process_global_constant
 const QECACHEF_FPS_PHYSICS          = 4;  // #pre-process_global_constant
-const QECACHEF_FPS_LOGIC            = 5;  // #pre-process_global_constant
-const QECACHEF_FPS_RENDER           = 6;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_PHYSICS = 7;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_LOGIC   = 8;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_RENDER  = 9;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_SECOND  = 10; // #pre-process_global_constant
+const QECACHEF_FPS_PAUSED           = 5;  // #pre-process_global_constant
+const QECACHEF_FPS_LOGIC            = 6;  // #pre-process_global_constant
+const QECACHEF_FPS_RENDER           = 7;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_PHYSICS = 8;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_LOGIC   = 9;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_RENDER  = 10;  // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_SECOND  = 11; // #pre-process_global_constant
+const QECACHEF_ELAPSED_TIME_PAUSED  = 12; // #pre-process_global_constant
 
 
 Object.assign($_QE.prototype, {
 
     _cachei: new Uint32Array(5),
-    _cachef: new Float64Array(11),
+    _cachef: new Float64Array(13),
 
     // Cached references.
     _cache_reference_document_body: document.body,
@@ -38,6 +40,7 @@ Object.assign($_QE.prototype, {
 
     _initialize_cache: function() {
         this._cachef[QECACHEF_FPS_PHYSICS] = 0.011111111111111112; // FPS is 90 (from 1.0 / 90.0).
+        this._cachef[QECACHEF_FPS_PAUSED]  = 0.011111111111111112;
         this._cachef[QECACHEF_FPS_RENDER]  = 0.016666666666666666; // FPS is 60 (from 1.0 / 60.0).
         this._cachef[QECACHEF_FPS_LOGIC]   = 0.03333333333333333;  // FPS is 30 (from 1.0 / 30.0).
         this._clear_frames();

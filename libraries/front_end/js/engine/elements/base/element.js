@@ -16,27 +16,15 @@ Object.assign(
             return this.mesh;
         },
 
-        /*
-        world_enter: function(world) {
-            if (this.get_flag(EFLAG_IN_WORLD)) {
-                this.world_exit();
-            }
-            this.set_flag(EFLAG_IN_WORLD, true);
-            this.world = world;
-            // TODO: Check the whole parent/children/group status.
-            this.world.add_to_scene(this.element);
-            this.trigger_event(ELEMENT_EVENT_ON_WORLD_ENTER);
-        },
-
-        world_exit: function() {
-            if (this.world != null) {
-            // TODO: Check the whole parent/children/group status.
-                this.world.remove_from_scene(this.element);
-                this.set_flag(EFLAG_IN_WORLD, false);
-                this.trigger_event(ELEMENT_EVENT_ON_WORLD_EXIT);
+        _update_element_animation: function(delta) {
+            if (this.flag_is_on(EFLAG_IS_IN_ANIMATION)) {
+                if (this.flag_is_on(EFLAG_IS_IN_REVERSED_ANIMATION)) {
+                    this.animation_step_reverse(delta);
+                } else {
+                    this.animation_step_forward(delta);
+                }
             }
         },
-        */
     }
 );
 

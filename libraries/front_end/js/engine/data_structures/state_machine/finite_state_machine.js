@@ -13,6 +13,10 @@ $_QE.prototype.FiniteStateMachine.prototype = {
         return state;
     },
 
+    process_current_state: function(delta) {
+
+    },
+
     _get_state: function(state) {
         let s;
         for (s = 0; s < this._states.length; s++) {

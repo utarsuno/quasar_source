@@ -28,6 +28,27 @@ Object.assign($_QE.prototype.DomElement.prototype, {
         return this.visible;
     },
 
+    dom_element_set_background_color: function(color) {
+        if (this._element_background_color != color) {
+            this._element_background_color      = color;
+            this._element.style.backgroundColor = color;
+        }
+    },
+
+    dom_element_set_foreground_color: function(color) {
+        if (this._element_foreground_color != color) {
+            this._element_foreground_color = color;
+            this._element.style.color      = color;
+        }
+    },
+
+    dom_element_set_border_color: function(color) {
+        if (this._element_border_color != color) {
+            this._element_border_color      = color;
+            this._element.style.borderColor = color;
+        }
+    },
+
     _initialize_display_style: function(style) {
         if (style != null) {
             this._display_style = style;

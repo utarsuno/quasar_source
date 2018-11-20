@@ -19,6 +19,7 @@ Object.assign($_QE.prototype, {
      |___ | \| \__> | | \| |___    \__/ |    |__/ /~~\  |  |___    |___ \__/ \__/ |    */
     _engine_loop: function() {
         requestAnimationFrame(this.engine_main_loop);
+
         if (this.is_current_state(QEFLAG_STATE_RUNNING)) {
             this._delta = this._delta_clock.getDelta();
             this._cachef[QECACHEF_ELAPSED_TIME_SECOND]  += this._delta;
@@ -45,9 +46,9 @@ Object.assign($_QE.prototype, {
                 while (this._frame_iteration < this._frames_passed) {
                     this.manager_world.physics(this._cachef[QECACHEF_FPS_PHYSICS]);
                     this._frame_iteration++;
+                    this.hud_update(this._cachef[QECACHEF_FPS_PHYSICS]);
                 }
-
-                this.hud_update();
+                //this.hud_update();
             }
 
             if (this._cachef[QECACHEF_ELAPSED_TIME_LOGIC] >= this._cachef[QECACHEF_FPS_LOGIC]) {
@@ -69,6 +70,21 @@ Object.assign($_QE.prototype, {
                 this._cachef[QECACHEF_ELAPSED_TIME_RENDER] -= this._frames_passed * this._cachef[QECACHEF_FPS_RENDER];
                 this.render(this._frames_passed * this._cachef[QECACHEF_FPS_RENDER]);
                 this._cachei[QECACHEI_FRAME_COUNTER] += 1;
+            }
+        } else {
+            // Update the pause menu during pause.
+            this._delta = this._delta_clock.getDelta();
+            this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] += this._delta;
+
+            if (this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] >= this._cachef[QECACHEF_FPS_PAUSED]) {
+                // Reset.
+                this._frame_iteration = 0;
+                this._frames_passed   = Math.floor(this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] / this._cachef[QECACHEF_FPS_PAUSED]);
+                this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] -= this._frames_passed * this._cachef[QECACHEF_FPS_PAUSED];
+                while (this._frame_iteration < this._frames_passed) {
+                    this._frame_iteration++;
+                    this._update_pause_menu(this._cachef[QECACHEF_FPS_PAUSED]);
+                }
             }
         }
         this._delta_clock.start();

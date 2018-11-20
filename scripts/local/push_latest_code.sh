@@ -8,9 +8,9 @@ source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
 
-###
+# Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Push latest code changes"
-###
+# --------------------------------------------------------------------------------------------
 
 # c - clean_git
 # n - no_changes_to_push

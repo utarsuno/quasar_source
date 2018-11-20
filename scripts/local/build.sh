@@ -8,10 +8,10 @@ source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
 
-###
+# Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Nexus Local Build Process"
 DOCKER_COMPOSE_FILE="docker-compose.dev.build.yml"
-###
+# --------------------------------------------------------------------------------------------
 
 start_script_with_docker_health_check
 # TODO: Dynamic build

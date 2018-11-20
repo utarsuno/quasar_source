@@ -8,9 +8,9 @@ source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
 
-###
+# Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Docker clean up"
-###
+# --------------------------------------------------------------------------------------------
 
 start_script
 

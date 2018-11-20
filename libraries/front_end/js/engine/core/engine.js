@@ -8,7 +8,7 @@ THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
 function $_QE(application, application_class, first_world) {
     this.engine_main_loop  = this._engine_loop.bind(this);
-    this._initialize_hud_critical();
+    this._initialize_hud_pause_menu();
     this.first_world_class = first_world;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.

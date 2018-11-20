@@ -15,7 +15,7 @@ Object.assign(
             //this.logs.add_message(delta);
         },
 
-        _init_singletons: function() {
+        _load: function() {
             this.tile_cube = new $_QE.prototype.TileCube();
             this.tile_cube.world_include(this);
         },

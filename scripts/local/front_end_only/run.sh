@@ -8,10 +8,10 @@ source ${DIR}/../../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../../..;
 
-###
+# Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Front End Only"
 DOCKER_COMPOSE_FILE="docker-compose.dev.front_end_only.yml"
-###
+# --------------------------------------------------------------------------------------------
 
 start_script
 

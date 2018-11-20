@@ -22,12 +22,14 @@ Object.assign(
             switch (event.which) {
             case CLICK_LEFT:
                 if (this.left_click_timer.getDelta() <= .3) {
+                    // Double click.
                     if (this.is_current_state(QEFLAG_STATE_PAUSED)) {
                         this.set_state(QEFLAG_STATE_RUNNING);
                     } else {
                         this.manager_world.left_click_up(true);
                     }
-                } else {
+                } else if (this.is_current_state(QEFLAG_STATE_RUNNING)) {
+                    // Single click and engine is running.
                     this.manager_world.left_click_up(false);
                 }
                 break;

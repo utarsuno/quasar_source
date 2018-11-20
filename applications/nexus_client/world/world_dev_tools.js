@@ -28,7 +28,7 @@ Object.assign(
 
         },
 
-        _init_singletons: function() {
+        _load: function() {
             this.grid    = new $_QE.prototype.HexagonGrid(6);
             this.light_w = new $_QE.prototype.LightPoint(0xccffcc, .5, 3500, 2, 750, 450, 750);
             this.light_r = new $_QE.prototype.LightPoint(0xff8579, .5, 3500, 2, 750, 450, -750);

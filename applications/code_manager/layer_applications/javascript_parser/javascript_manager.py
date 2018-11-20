@@ -54,11 +54,12 @@ class JavascriptManager(object):
 
 		# Features/extensions.
 		self._add_paths('inheritable_features/static/three_js_abstractions', ['pre_process', 'feature_geometry', 'feature_material', 'feature_mesh'])
-		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size', 'feature_animation_sequence'])
+		self._add_paths('inheritable_features/static/animation_sequence'   , ['feature_animation_sequence', 'pause_menu', 'rows'])
+		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size'])
 
-		self._add_paths('inheritable_features/dynamic/animations'  , ['feature_animation_step'])
-		self._add_paths('inheritable_features/dynamic/attachments' , ['feature_row_abstract', 'feature_row', 'feature_row_animated', 'feature_title_bar'])
-		self._add_paths('inheritable_features/dynamic/interactions', ['feature_button', 'feature_interactive', 'feature_typing'])
+		self._add_paths('inheritable_features/dynamic/animation_step', ['feature_animation_step', 'pause_menu', 'row'])
+		self._add_paths('inheritable_features/dynamic/attachments'   , ['feature_row_abstract', 'feature_row', 'feature_row_animated', 'feature_title_bar'])
+		self._add_paths('inheritable_features/dynamic/interactions'  , ['feature_button', 'feature_interactive', 'feature_typing'])
 
 		# ----------------------------------------------------------------------------------------------------------------
 		self._add_paths('elements/base', ['element'])
@@ -100,7 +101,7 @@ class JavascriptManager(object):
 		self._add_paths('time_abstraction', ['pre_process', 'time_instance', 'time_manager'])
 
 		# HUDs.
-		self._add_paths('core/engine_extensions/hud', ['hud', 'hud_abstraction_text_lines', 'hud_date_time', 'hud_debug', 'hud_logs', 'hud_user_typing'])
+		self._add_paths('core/engine_extensions/hud', ['hud', 'hud_abstractions', 'hud_date_time', 'hud_debug', 'hud_logs', 'hud_user_typing', 'hud_pause_menu'])
 
 		# Globals.
 		self._add_paths('global', ['globals', 'global_pre_process'])

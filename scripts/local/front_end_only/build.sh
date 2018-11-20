@@ -8,16 +8,17 @@ source ${DIR}/../../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../../..;
 
-###
+# Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Front End Only Build Process"
 DOCKER_COMPOSE_FILE="docker-compose.dev.front_end_only.build.yml"
-###
+# --------------------------------------------------------------------------------------------
 
 start_script_with_docker_health_check
 # TODO: Dynamic build
 #docker_compose_build
-docker_compose_up
-CODE_MANAGER_BUILD_RESULT=$(docker wait quasar_source_code_manager_1)
+
+docker-compose -f ${DOCKER_COMPOSE_FILE} up --exit-code-from code_manager --abort-on-container-exit
+CODE_MANAGER_BUILD_RESULT=$?
 
 if [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
     print_red_text "Docker build process failed!"

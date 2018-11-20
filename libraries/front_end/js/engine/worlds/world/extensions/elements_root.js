@@ -2,6 +2,10 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
+    _initialize_cache_for_root: function() {
+        this.elements_root = [];
+    },
+
     update_elements_root: function(delta) {
         let e;
         for (e = 0; e < this.elements_root.length; e++) {
@@ -30,10 +34,6 @@ Object.assign($_QE.prototype.World.prototype, {
             }
         }
         this.elements_root.push(element);
-
-        //if (!(element in this.elements_root)) {
-        //    this.elements_root.push(element);
-        //}
     },
 
     add_element_root: function(element) {

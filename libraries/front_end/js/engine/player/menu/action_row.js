@@ -10,7 +10,7 @@ $_QE.prototype.PlayerMenuRow.prototype = {
         this._title             = title;
 
         this.row = menu.create_row(null, QE.FONT_ARIAL_16.height);
-        menu._add_animation_step(this.row, .5, true, QE.FONT_ARIAL_16.height);
+        menu._add_animation_to_row(this.row, .5, true, QE.FONT_ARIAL_16.height);
         if (!icon_first) {
             this.button = this.row.create_icon_button(icon, QE.COLOR_GREEN_LIGHT, 5, action, false);
             this.text   = this.row.create_text2d(this._title, QE.COLOR_RGB_GREEN_LIGHT, QE.FONT_ARIAL_16, 256, 4);

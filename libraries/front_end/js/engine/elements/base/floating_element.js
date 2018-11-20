@@ -52,16 +52,6 @@ Object.assign(
             }
         },
 
-        _update_element_animation: function(delta) {
-            if (this.flag_is_on(EFLAG_IS_IN_ANIMATION)) {
-                if (this.flag_is_on(EFLAG_IS_IN_REVERSED_ANIMATION)) {
-                    this.animation_step_reverse(delta);
-                } else {
-                    this.animation_step_forward(delta);
-                }
-            }
-        },
-
         update_element: function(delta) {
             if (this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION) || this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL)) {
                 this.refresh();
@@ -110,7 +100,7 @@ Object.assign(
         },
 
         set_to_looked_at: function() {
-            this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = true;
+            this._set_user_data_looked_at(true);
             this.flag_set_on(EFLAG_IS_BEING_LOOKED_AT);
             if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
                 QE.outline_glow_set_target(this.get_object());
@@ -118,7 +108,7 @@ Object.assign(
         },
 
         set_to_looked_away: function() {
-            this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = false;
+            this._set_user_data_looked_at(false);
             this.flag_set_off(EFLAG_IS_BEING_LOOKED_AT);
             if (this.flag_is_on(EFLAG_IS_OUTLINE_GLOWABLE)) {
                 QE.outline_glow_clear_target();

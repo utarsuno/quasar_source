@@ -20,6 +20,8 @@ Object.assign(
         is_open : false,
 
         _open: function() {
+            // TODO: Reset animation.
+
             this.player.set_object_in_front_of(this, 650);
         },
 

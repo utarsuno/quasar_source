@@ -2,6 +2,17 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
+    _initialize_cache_for_state: function() {
+        this.player_last_position_and_normal_set = false;
+        this.player_last_position                = new THREE.Vector3();
+        this.player_last_normal                  = new THREE.Vector3();
+
+        this.on_world_enter                      = null;
+        this.on_world_exit                       = null;
+        this.player_default_enter_position       = null;
+        this.player_default_enter_normal         = null;
+    },
+
     set_on_world_enter: function(f) {
         this.on_world_enter = f;
     },
