@@ -1,13 +1,19 @@
 'use strict';
 
-$_QE.prototype.Text2D = function(text, width, height, font, interactive=false, color=null) {
+$_QE.prototype.Text2D = function(args) {
+
     //this.set_dimensions(width, height);
     //let w = QE.manager_text2D.get_text_width(text, font);
     //l('The needed width is {' + w + '}');
 
-    this._initialize_text_2d(text, width, font, color, QE.COLOR_RGB_GREEN_LIGHT);
+    args.ARG_GEOMETRY_TYPE            = FEATURE_GEOMETRY_TYPE_PLANE;
+    args.ARG_MATERIAL_TYPE            = FEATURE_MATERIAL_CANVAS_FANCY;
+    args.ARG_MESH_TYPE                = FEATURE_MESH_TYPE_DEFAULT;
+    args.ARG_COLOR_FOREGROUND_DEFAULT = QE.COLOR_RGB_GREEN_LIGHT;
+    args.ARG_COLOR_BACKGROUND_DEFAULT = QE.COLOR_RGBA_TRANSPARENT;
+    this._initialize_text_2d(args);
 
-    if (interactive) {
+    if (args.ARG_INTERACTIVE != null && args.ARG_INTERACTIVE) {
         $_QE.prototype.FeatureTyping.call(this);
     }
 };
@@ -21,20 +27,14 @@ Object.assign(
     {
         constructor: $_QE.prototype.Text2D,
 
-        _initialize_text_2d: function(text, width, font, color, default_color=null) {
+        //_initialize_text_2d: function(text, width, font, color, default_color=null) {
+        _initialize_text_2d: function(args) {
             this.initialize_floating_element_data();
-            this.text = text;
-            this.initialize_dom_canvas(-1, width, font);
-            this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
-            this.set_material_type(false, FEATURE_MATERIAL_CANVAS_FANCY);
-            this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
-
-            if (color != null) {
-                this.set_colors(color, QE.COLOR_RGBA_TRANSPARENT);
-            } else {
-                this.set_colors(default_color, QE.COLOR_RGBA_TRANSPARENT);
-            }
-
+            this.text = args.ARG_TEXT;
+            this.initialize_dom_canvas(-1, args.ARG_WIDTH, args.ARG_FONT);
+            this._parse_arguments_engine(args);
+            this._parse_arguments_color(args);
+            this._parse_arguments_text(args);
             this.set_value_post_changed_event(this._on_text_change.bind(this));
         },
 
@@ -46,9 +46,7 @@ Object.assign(
         },
 
         create: function() {
-            this.create_material();
-            this.create_geometry();
-            this.create_mesh();
+            this._create_engine_objects();
 
             this._force_refresh();
 

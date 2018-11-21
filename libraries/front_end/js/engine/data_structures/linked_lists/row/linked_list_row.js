@@ -35,21 +35,18 @@ Object.assign(
             }
         },
 
-        add_text_row: function(text, color, font, text_alignment=null) {
+        add_text_row: function(args) {
+            args.ARG_WIDTH = this.width;
+            let r;
             if (this._node_tail != null) {
-                //let r       = this._get_new_row_as_tail(font.height);
-                let r = this.create_row(null, font.height);
-                let element = r.create_text2d(text, color, font, this.width, -1);
-                if (text_alignment != null) {
-                    element.set_text_alignment(text_alignment);
-                }
+                r = this.create_row(null, args.ARG_FONT.height);
             } else {
-                let r = new $_QE.prototype.FeatureRow();
-                r.create_row(this, font.height, 1 - (font.height / this.height), false);
-                let element = r.create_text2d(text, color, font, this.width, -1);
-                if (text_alignment != null) {
-                    element.set_text_alignment(text_alignment);
-                }
+                r = new $_QE.prototype.FeatureRow();
+                r.create_row(this, args.ARG_FONT.height, 1 - (args.ARG_FONT.height / this.height), false);
+            }
+            let element = r.create_text2d(-1, null, args);
+            if (args.ARG_TEXT_ALIGNMENT != null) {
+                element.set_text_alignment(args.ARG_TEXT_ALIGNMENT);
             }
         },
 
@@ -61,16 +58,8 @@ Object.assign(
             }
         },
 
-        _get_new_row_object: function() {
-            if (this._node_class == $_QE.prototype.LinkedListNodeRow) {
-                return new $_QE.prototype.FeatureRow();
-            } else {
-                return new $_QE.prototype.FeatureRowAnimated();
-            }
-        },
-
         _create_row: function(interactive, y_offset=null, row_height=null) {
-            let r = this._get_new_row_object();
+            let r = new $_QE.prototype.FeatureRow();
             if (row_height != null && y_offset != null) {
                 r.create_row(this, row_height , y_offset                            , interactive);
             } else if (row_height != null) {
@@ -80,6 +69,13 @@ Object.assign(
             } else {
                 r.create_row(this, this.height, this._get_tail_y_offset(this.height), interactive);
             }
+            return r;
+        },
+
+        create_row_animated: function(y_offset, row_height, duration, animation_offset_z) {
+            let r = this._create_row(false, y_offset, row_height);
+            r.set_to_animation_row(duration, row_height, animation_offset_z);
+            this._add_animation_step(r, duration);
             return r;
         },
 
@@ -100,17 +96,13 @@ Object.assign(
             let b = number_of_buttons - 1;
             while (b >= 0) {
 
-                //l(buttons[b]);
-
-                r.create_button(
-                    buttons[b].text,
-                    buttons[b].color,
-                    button_width,
-                    b + 2,
-                    buttons[b].event,
-                    1,
-                    font
-                );
+                r.create_button(b + 2, 1, {
+                    ARG_TEXT             : buttons[b].text,
+                    ARG_COLOR_FOREGROUND : buttons[b].color,
+                    ARG_WIDTH            : button_width,
+                    ARG_EVENT_ACTION     : buttons[b].event,
+                    ARG_FONT             : font
+                });
 
                 b--;
             }

@@ -21,8 +21,18 @@ $_QE.prototype.BitwiseFlagsMax60.prototype = {
         this.flags[flag_number & 1] &= (~(flag_number - (flag_number & 1)));
     },
 
+    flags_set_off: function(f0, f1) {
+        this.flags[f0 & 1] &= (~(f0 - (f0 & 1)));
+        this.flags[f1 & 1] &= (~(f1 - (f1 & 1)));
+    },
+
     flag_set_on: function(flag_number) {
         this.flags[flag_number & 1] |= (flag_number - (flag_number & 1));
+    },
+
+    flags_set_on: function(f0, f1) {
+        this.flags[f0 & 1] |= (f0 - (f0 & 1));
+        this.flags[f1 & 1] |= (f1 - (f1 & 1));
     },
 
     flag_is_off: function(flag_number) {

@@ -28,13 +28,14 @@ class JavascriptManager(object):
 		for p in paths:
 			self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p)
 			self._add_js_file('data_structures/linked_lists/' + p + '/linked_list_' + p)
-			if 'row' in p:
-				self._add_js_file('data_structures/linked_lists/' + p + '/node_' + p + '_animated')
 
 	def _add_files_engine(self):
 		"""Adds the JS files needed for the overall engine."""
 		# Main engine.
 		self._add_js_file('core/engine')
+
+		# Pre process.
+		self._add_paths('elements', ['pre_process'])
 
 		# Data structures.
 		self._add_paths('data_structures/bitwise_flags', ['max_size_31', 'max_size_60'])
@@ -54,11 +55,10 @@ class JavascriptManager(object):
 
 		# Features/extensions.
 		self._add_paths('inheritable_features/static/three_js_abstractions', ['pre_process', 'feature_geometry', 'feature_material', 'feature_mesh'])
-		self._add_paths('inheritable_features/static/animation_sequence'   , ['feature_animation_sequence', 'pause_menu', 'rows'])
-		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size'])
+		self._add_paths('inheritable_features/static'                      , ['feature_text', 'feature_color', 'feature_size', 'feature_animation_sequence'])
 
-		self._add_paths('inheritable_features/dynamic/animation_step', ['feature_animation_step', 'pause_menu', 'row'])
-		self._add_paths('inheritable_features/dynamic/attachments'   , ['feature_row_abstract', 'feature_row', 'feature_row_animated', 'feature_title_bar'])
+		self._add_paths('inheritable_features/dynamic'               , ['feature_animation_step'])
+		self._add_paths('inheritable_features/dynamic/attachments'   , ['feature_row', 'feature_title_bar'])
 		self._add_paths('inheritable_features/dynamic/interactions'  , ['feature_button', 'feature_interactive', 'feature_typing'])
 
 		# ----------------------------------------------------------------------------------------------------------------
@@ -67,7 +67,8 @@ class JavascriptManager(object):
 		self._add_js_file('elements/base/floating_element')
 		self._add_js_file('elements/singleton/singleton')
 		self._add_paths('elements/base', ['element_singleton'])
-		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility'])
+		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility', '_three_js_internals'])
+		self._add_js_file('elements/base/floating_element_color')
 		self._add_js_file('elements/base/floating_element_text')
 		self._add_js_file('elements/base/floating_rows')
 		self._add_js_file('elements/base/floating_wall')
@@ -111,14 +112,16 @@ class JavascriptManager(object):
 		self._add_paths('player/cursor'    , ['cursor', 'cursor_default', 'cursor_icon'])
 		self._add_paths('player/controls'  , ['mouse', 'movement'])
 		self._add_paths('player/flashlight', ['flashlight'])
-		self._add_paths('player/menu', ['menu_abstract', 'action_row', 'action_create', 'action_fullscreen', 'menu_teleport', 'action_teleport', 'menu'])
+		self._add_paths('player/menu'      , ['menu_abstract'])
+		self._add_paths('player/menu/row'  , ['action_row', 'action_create', 'action_close', 'action_fullscreen', 'action_teleport'])
+		self._add_paths('player/menu'      , ['menu_teleport', 'menu'])
 
 		# Worlds.
 		self._add_paths('worlds/world'                   , ['world_base'])
 		self._add_paths('worlds/world/extensions'        , ['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'input', 'state'])
 		self._add_paths('worlds/world_manager'           , ['world_manager'])
 		self._add_paths('worlds/world_manager/extensions', ['input', 'singletons'])
-		self._add_paths('worlds/world/discrete'          , ['settings_world'])
+		self._add_paths('worlds/world/discrete'          , ['settings_world', 'demo_world'])
 
 		# Shaders.
 		shaders_path = 'core/engine_extensions/rendering/shaders'

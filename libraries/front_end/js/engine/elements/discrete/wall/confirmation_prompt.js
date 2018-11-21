@@ -1,8 +1,7 @@
 'use strict';
 
 $_QE.prototype.ConfirmationPrompt = function(parent_button) {
-    this.initialize_floating_element_data();
-    this.initialize_wall_rows();
+    this.initialize_self_with_rows();
 
     this.set_foreground_color(QE.COLOR_GRAY_DARK, 0.85);
 
@@ -39,7 +38,12 @@ Object.assign(
             this.title_bar.icon.set_foreground_color(QE.COLOR_RED);
 
             // Testing area.
-            this._test0 = this.add_text_row('Are you sure?', QE.COLOR_RGB_YELLOW, QE.FONT_ARIAL_20_BOLD, TEXT_ALIGNMENT_CENTER);
+            this._test0 = this.add_text_row({
+                ARG_TEXT            : 'Are you sure?',
+                ARG_COLOR_FOREGROUND: QE.COLOR_RGB_YELLOW,
+                ARG_FONT            : QE.FONT_ARIAL_20_BOLD,
+                ARG_TEXT_ALIGNMENT  : TEXT_ALIGNMENT_CENTER
+            });
 
             this._buttons = this.add_buttons_row(QE.FONT_ARIAL_20_BOLD, [
                 {text: 'No!' , color: QE.COLOR_RGB_GREEN_LIGHT, event: this._close_prompt.bind(this)},

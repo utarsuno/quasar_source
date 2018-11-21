@@ -70,10 +70,7 @@ Object.assign(
                 this._update_element_animation(delta);
 
                 // TODO: Temporary, lower performance for less bugs.
-                let c;
-                for (c = 0; c < this.attachments.length; c++) {
-                    this.attachments[c].update_element(delta);
-                }
+                this._update_attachments(delta);
             }
 
             /*

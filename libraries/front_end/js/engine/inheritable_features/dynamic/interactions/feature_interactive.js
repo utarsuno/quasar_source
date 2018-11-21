@@ -1,7 +1,6 @@
 'use strict';
 
 $_QE.prototype.FeatureInteractive = function() {
-    // TODO: set cursor icon needed
 
     //this.trigger_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE);
 

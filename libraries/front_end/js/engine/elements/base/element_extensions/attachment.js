@@ -47,6 +47,12 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         this._set_to_group();
     },
 
+    _update_attachments: function(delta) {
+        let c;
+        for (c = 0; c < this.attachments.length; c++) {
+            this.attachments[c].update_element(delta);
+        }
+    },
 
     is_relative: function() {
         return this.attachment_parent != null;

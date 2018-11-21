@@ -91,6 +91,7 @@ module.exports = {
 
         "EFLAG_IS_LOCKED_FOREGROUND"                    : false,
         "EFLAG_IS_LOCKED_BACKGROUND"                    : false,
+        "EFLAG_IS_HIGHLIGHT_COLOR_SET"                  : false,
 
         "EFLAG_IS_UPDATED_NEEDED_FOR_POSITION"          : false,
         "EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL"            : false,
@@ -99,6 +100,7 @@ module.exports = {
 
         "EFLAG_IS_IN_ANIMATION"                         : false,
         "EFLAG_IS_IN_REVERSED_ANIMATION"                : false,
+        "EFLAG_IS_ANIMATION_COMPLETED"                  : false,
         "EFLAG_IS_IN_WORLD"                             : false,
         "EFLAG_IS_IN_ELEMENTS_ROOT"                     : false,
         "EFLAG_IS_IN_ELEMENTS_INTERACTIVE"              : false,

@@ -10,8 +10,6 @@ $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
         if (self.menu == null) {
             self.menu = new $_QE.prototype.PlayerMenuTeleport(menu.player, menu.world, self.row);
 
-            l('Teleport menu created!');
-
             if (self._register_list.length > 0) {
                 let r;
                 for (r = 0; r < self._register_list.length; r++) {
@@ -20,9 +18,8 @@ $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
             }
             self._register_list = undefined;
         }
-        self.menu.open();
-
-        self.row.parent_wall.on_main_menu_button_look_at(self.button);
+        self.menu.set_to_visible();
+        //self.row.parent_wall.on_main_menu_button_look_at(self.button);
     });
 
     this.button.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {

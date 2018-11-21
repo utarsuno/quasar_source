@@ -49,8 +49,7 @@ Object.assign(
         __init__: function(width, number_of_rows, font) {
             this.text = '';
 
-            this.initialize_floating_element_data();
-            this.initialize_wall_rows();
+            this.initialize_self_with_rows();
 
             this.flag_set_on(EFLAG_IS_MOUSE_MOVABLE);
             this.flag_set_on(EFLAG_IS_MOUSE_SCALABLE);

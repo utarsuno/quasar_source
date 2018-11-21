@@ -29,6 +29,7 @@ Object.assign(
         },
 
         _load: function() {
+
             this.grid    = new $_QE.prototype.HexagonGrid(6);
             this.light_w = new $_QE.prototype.LightPoint(0xccffcc, .5, 3500, 2, 750, 450, 750);
             this.light_r = new $_QE.prototype.LightPoint(0xff8579, .5, 3500, 2, 750, 450, -750);
@@ -37,21 +38,16 @@ Object.assign(
             //this.light_a = new $_QE.prototype.LightAmbient(0xffffff, .60);
             //this.skybox  = new $_QE.prototype.SkyBox();
 
-            this.nexus_local_title = new $_QE.prototype.Text3D(512, 'Nexus Local', true);
+
+            this.nexus_local_title = new $_QE.prototype.Text3D({
+                ARG_SIZE            : 512,
+                ARG_TEXT            : 'Nexus Local',
+                ARG_COLOR_FOREGROUND: QE.COLOR_GREEN_LIGHT,
+                ARG_INTERACTIVE     : true,
+            });
             this.create_and_add_element_to_root(this.nexus_local_title);
             this.nexus_local_title.set_position_center(0, 1000, -1750, 0, 0, 0, true);
 
-            this.nexus_local_title2 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
-            this.create_and_add_element_to_root(this.nexus_local_title2);
-            this.nexus_local_title2.set_position_center(0, 2000, -1750, 0, 0, 0, true);
-
-            this.nexus_local_title3 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
-            this.create_and_add_element_to_root(this.nexus_local_title3);
-            this.nexus_local_title3.set_position_center(0, 3000, -1750, 0, 0, 0, true);
-
-            this.nexus_local_title4 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
-            this.create_and_add_element_to_root(this.nexus_local_title4);
-            this.nexus_local_title4.set_position_center(0, 4000, -1750, 0, 0, 0, true);
 
 
             this.logs = new $_NL.prototype.FloatingTerminal(32, QE.FONT_ARIAL_32, 'Floating Terminal');

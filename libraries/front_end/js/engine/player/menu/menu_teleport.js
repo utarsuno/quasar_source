@@ -21,7 +21,7 @@ Object.assign(
             let self = this;
             r.__init__(this, world.world_icon, world.world_name, function() {
                 QE.manager_world.set_current_world(world);
-            }, true);
+            }, true, true);
 
             this.number_of_rows++;
 
@@ -31,6 +31,7 @@ Object.assign(
         },
 
         _open: function() {
+            this.set_to_visible();
             this.update_element();
         },
 

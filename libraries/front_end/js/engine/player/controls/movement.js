@@ -37,19 +37,29 @@ Object.assign($_QE.prototype.Player.prototype, {
         this._velocity.set(0, 0, 0);
     },
 
+    _move_along_normal: function(magnitude) {
+        if (this.is_walking) {
+            this._velocity.addScaledVector(this._cache_walking_normal, magnitude);
+        } else {
+            this._velocity.addScaledVector(this._cache_normal, magnitude);
+        }
+    },
+
     _physics: function() {
-        if (this.engine.key_down_space && !this.engine.key_down_shift) {
-            this._velocity.y += this._cache[10];
-        } else if (this.engine.key_down_shift && !this.engine.key_down_space) {
-            this._velocity.y -= this._cache[10];
+        if (!this.is_walking) {
+            if (this.engine.key_down_space && !this.engine.key_down_shift) {
+                this._velocity.y += this._cache[10];
+            } else if (this.engine.key_down_shift && !this.engine.key_down_space) {
+                this._velocity.y -= this._cache[10];
+            }
         }
 
         if ((this.engine.key_down_up ^ this.engine.key_down_down) & (this.engine.key_down_left ^ this.engine.key_down_right)) {
             // Move along normal.
             if (this.engine.key_down_up) {
-                this._velocity.addScaledVector(this._cache_normal, this._cache[11]);
+                this._move_along_normal(this._cache[11]);
             } else {
-                this._velocity.addScaledVector(this._cache_normal, -this._cache[11]);
+                this._move_along_normal(-this._cache[11]);
             }
             // Move left-right.
             if (this.engine.key_down_left) {
@@ -62,9 +72,9 @@ Object.assign($_QE.prototype.Player.prototype, {
         } else if (this.engine.key_down_up ^ this.engine.key_down_down) {
             // Move along normal.
             if (this.engine.key_down_up) {
-                this._velocity.addScaledVector(this._cache_normal, this._cache[10]);
+                this._move_along_normal(this._cache[10]);
             } else {
-                this._velocity.addScaledVector(this._cache_normal, -this._cache[10]);
+                this._move_along_normal(-this._cache[10]);
             }
         } else if (this.engine.key_down_left ^ this.engine.key_down_right) {
             // Move left-right.
@@ -102,6 +112,25 @@ Object.assign($_QE.prototype.Player.prototype, {
             this._velocity.multiplyScalar(Math.pow(this._cache[12], 1));
 
             this._update_player_matrix = true;
+        }
+
+        // Collision.
+        if (this._has_boundary) {
+            if (this.yaw.position.x < this._boundary_x_min) {
+                this.yaw.position.x = this._boundary_x_min;
+                this._velocity.x = 0;
+            } else if (this.yaw.position.x > this._boundary_x_max) {
+                this.yaw.position.x = this._boundary_x_max;
+                this._velocity.x = 0;
+            }
+
+            if (this.yaw.position.z < this._boundary_z_min) {
+                this.yaw.position.z = this._boundary_z_min;
+                this._velocity.z = 0;
+            } else if (this.yaw.position.z > this._boundary_z_max) {
+                this.yaw.position.z = this._boundary_z_max;
+                this._velocity.z = 0;
+            }
         }
 
         // Movement and look at direction can change but without updating matrix the changes won't be applied.

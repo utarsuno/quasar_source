@@ -1,12 +1,12 @@
 'use strict';
 
-$_QE.prototype.LinkedListNodeRowElement = function(object) {
+$_QE.prototype.LLNodeRowElement = function(object) {
     this._object = object;
 };
 
 Object.assign(
-    $_QE.prototype.LinkedListNodeRowElement.prototype,
-    $_QE.prototype.LinkedListNodeInteractive.prototype,
+    $_QE.prototype.LLNodeRowElement.prototype,
+    $_QE.prototype.LLNodeInteractive.prototype,
     {
         update_horizontal_position: function() {
             if (this._object.flag_is_on(EFLAG_IS_FORMAT_X_END)) {
@@ -51,5 +51,49 @@ Object.assign(
             this.decrement();
             this.update_node();
         },
+
+        // Animations.
+
+        _get_relative_y: function() {
+            return this._object.get_object().position.y;
+        },
+
+        _get_relative_z: function() {
+            return this._object.get_object().position.z;
+        },
+
+        _set_opacity: function(o) {
+            this._object.set_opacity(o);
+        },
+
+        _set_relative_y_z: function(time) {
+            this._object.get_object().position.y = THREE.Math.lerp(this._animation_y_start, this._animation_y_end, time);
+            this._object.get_object().position.z = THREE.Math.lerp(this._animation_z_start, this._animation_z_end, time);
+            this._object.refresh();
+        },
+
+        _set_relative_y: function(time) {
+            this._object.get_object().position.y = THREE.Math.lerp(this._animation_y_start, this._animation_y_end, time);
+            //this._object.get_object().position.y = y;
+            // TEMPORARY.
+            this._object.refresh();
+        },
+
+        _set_relative_z: function(time) {
+            this._object.get_object().position.z = THREE.Math.lerp(this._animation_z_start, this._animation_z_end, time);
+            //this._object.get_object().position.y = y;
+            // TEMPORARY.
+            this._object.refresh();
+        },
     }
 );
+
+/*
+// Animations.
+
+        _reset_relative_y: function() {
+            this._object.get_object().position.y = this._animation_y_end;
+            this._object.refresh();
+        },
+
+ */

@@ -1,16 +1,19 @@
 'use strict';
 
-$_QE.prototype.Text3D = function(size, text, interactive=false) {
-    this.text            = text;
-    this.text_size       = size;
+$_QE.prototype.Text3D = function(args) {
+    this.text            = args.ARG_TEXT;
+    this.text_size       = args.ARG_SIZE;
     this.initialize_floating_element_data();
-    this.set_foreground_color(QE.COLOR_GREEN_LIGHT);
+    this._parse_arguments_color(args);
     this.set_dimensions(0, 0);
-    this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
-    this.set_material_type(true, FEATURE_MATERIAL_TYPE_TEXT_3D);
-    this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT, this._calculate_dimensions.bind(this));
 
-    if (interactive) {
+    args.ARG_GEOMETRY_TYPE   = FEATURE_GEOMETRY_TYPE_TEXT_3D;
+    args.ARG_MATERIAL_TYPE   = FEATURE_MATERIAL_TYPE_TEXT_3D;
+    args.ARG_CACHE_MATERIAL  = true;
+    args.ARG_ON_MESH_CREATED = this._calculate_dimensions.bind(this);
+    this._parse_arguments_engine(args);
+
+    if (args.ARG_INTERACTIVE != null && args.ARG_INTERACTIVE) {
         $_QE.prototype.FeatureTyping.call(this);
     }
     this.set_value_post_changed_event(this._on_text_change.bind(this));
@@ -97,9 +100,7 @@ Object.assign(
         },
 
         create: function() {
-            this.create_material();
-            this.create_geometry();
-            this.create_mesh();
+            this._create_engine_objects();
         },
     }
 );

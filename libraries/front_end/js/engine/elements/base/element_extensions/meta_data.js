@@ -35,6 +35,8 @@ const EFLAG_IS_IN_ELEMENTS_ROOT                      = 3;          // #pre-proce
 const EFLAG_IS_IN_ELEMENTS_INTERACTIVE               = 5;          // #pre-process_global_constant
 const EFLAG_IS_IN_ELEMENTS_SINGLETON                 = 9;          // #pre-process_global_constant
 const EFLAG_IS_IN_REVERSED_ANIMATION                 = 17;         // #pre-process_global_constant
+const EFLAG_IS_ANIMATION_COMPLETED                   = 33;         // #pre-process_global_constant
+const EFLAG_IS_HIGHLIGHT_COLOR_SET                   = 65;         // #pre-process_global_constant
 
 // Events.
 const ELEMENT_EVENT_ON_LOOK_AT             = 'e0';  // #pre-process_global_constant

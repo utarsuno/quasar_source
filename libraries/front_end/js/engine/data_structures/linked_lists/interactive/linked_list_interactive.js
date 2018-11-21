@@ -71,14 +71,16 @@ Object.assign(
             } else {
                 // 0x1: Otherwise insert in-between two interactive nodes.
                 let n = this._interactive_head._interactive_next;
+                let p;
                 while (n != null) {
                     if (n._position > node._position && node.is_interactive()) {
                         node.set_interactive_prev_and_next(n._interactive_prev, n);
                         return;
                     }
+                    p = n;
                     n = n._interactive_next;
                 }
-                l('OOPS! NEED TO ADD AN INTERACTIVE TAIL!');
+                p.set_interactive_next(node);
             }
         },
     }

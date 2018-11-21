@@ -7,7 +7,6 @@ Object.assign(
     $_QE.prototype.FloatingRows.prototype,
     $_QE.prototype.FeatureColor.prototype,
     {
-
         add_title_bar: function(title, icon=null, use_close=true, use_settings=true, use_help=true) {
             this.title_bar = new $_QE.prototype.FeatureTitleBar(this);
             if (use_close) {
@@ -28,12 +27,11 @@ Object.assign(
         },
 
         create_wall_mesh: function(material_type) {
-            this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
-            this.set_material_type(false, material_type);
-            this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
-            this.create_material();
-            this.create_geometry();
-            this.create_mesh();
+            this._parse_arguments_engine({
+                ARG_GEOMETRY_TYPE: FEATURE_GEOMETRY_TYPE_PLANE,
+                ARG_MATERIAL_TYPE: material_type,
+            });
+            this._create_engine_objects();
         },
     }
 

@@ -1,14 +1,14 @@
 'use strict';
 
-$_QE.prototype.LinkedListNodeInteractive = function(object) {
+$_QE.prototype.LLNodeInteractive = function(object) {
     this._object           = object;
     this._interactive_next = null;
     this._interactive_prev = null;
 };
 
 Object.assign(
-    $_QE.prototype.LinkedListNodeInteractive.prototype,
-    $_QE.prototype.LinkedListNode.prototype,
+    $_QE.prototype.LLNodeInteractive.prototype,
+    $_QE.prototype.LLNode.prototype,
     {
         set_interactive_next: function(node) {
             this._interactive_next = node;

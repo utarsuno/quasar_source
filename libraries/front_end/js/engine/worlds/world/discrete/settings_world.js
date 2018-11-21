@@ -6,6 +6,8 @@ $_QE.prototype.SettingsWorld = function(engine) {
     this.set_world_enter_default_normal(new THREE.Vector3(0.005015558927525423, -0.16165647877160208, -0.9868343463012478));
 };
 
+// TODO: Ensure both singleton backgrounds arnt in scene!
+
 Object.assign(
     $_QE.prototype.SettingsWorld.prototype,
     $_QE.prototype.World.prototype,
@@ -18,6 +20,7 @@ Object.assign(
         _load: function() {
             this.tile_cube = new $_QE.prototype.TileCube();
             this.tile_cube.world_include(this);
+            QE.tile_cube = this.tile_cube;
         },
     }
 );

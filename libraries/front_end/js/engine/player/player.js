@@ -7,6 +7,14 @@ $_QE.prototype.Player = function(engine) {
     this._cache[12] = 0.025;
     // Somewhat the formula:  1.0 - this._decay;
     this._cache[13] = 0.55;
+
+    // TEMPORARY LOCATION.
+    this.is_walking = false;
+    this._has_boundary = false;
+    this._boundary_x_min = -1000;
+    this._boundary_x_max = 1000;
+    this._boundary_z_min = -1000;
+    this._boundary_z_max = 1000;
 };
 
 Object.assign($_QE.prototype.Player.prototype, {
@@ -34,11 +42,11 @@ Object.assign($_QE.prototype.Player.prototype, {
         this.look_at(p);
     },
 
-    set_object_in_front_of: function(element, distance) {
+    set_object_in_front_of: function(element, distance, dx=0, dy=0, dz=0) {
         element.set_position(
-            this.yaw.position.x + this._cache_normal.x * distance,
-            this.yaw.position.y,
-            this.yaw.position.z + this._cache_normal.z * distance
+            this.yaw.position.x + this._cache_normal.x * distance + dx,
+            this.yaw.position.y + dy,
+            this.yaw.position.z + this._cache_normal.z * distance + dz
         );
         element.update_element();
         element.look_at(

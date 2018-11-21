@@ -1,6 +1,6 @@
 'use strict';
 
-$_QE.prototype.LinkedListNode = function(object) {
+$_QE.prototype.LLNode = function(object) {
     this._object    = object;
     this._node_next = null;
     this._node_prev = null;
@@ -8,7 +8,7 @@ $_QE.prototype.LinkedListNode = function(object) {
 };
 
 Object.assign(
-    $_QE.prototype.LinkedListNode.prototype,
+    $_QE.prototype.LLNode.prototype,
     {
         clear: function() {
             this._object    = null;

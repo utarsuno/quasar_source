@@ -108,6 +108,10 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     _check_if_element_needs_interactive: function(element) {
+        //if (element.set_user_data_if_needed != null)  {
+        //    element.set_user_data_if_needed();
+        //}
+
         if (element.flags_are_on_and_off(EFLAG_IS_INTERACTIVE, EFLAG_IS_IN_ELEMENTS_INTERACTIVE)) {
             this.add_element_interactive(element);
         } else if (element.flags_are_both_on(EFLAG_IS_INTERACTIVE, EFLAG_IS_IN_ELEMENTS_INTERACTIVE)) {

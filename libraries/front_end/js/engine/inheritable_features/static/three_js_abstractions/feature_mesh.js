@@ -53,7 +53,7 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
     },
 
     set_user_data_if_needed: function() {
-        if (this.flag_is_on(EFLAG_IS_INTERACTIVE) && this.mesh != null) {
+        if (this.flag_is_on(EFLAG_IS_INTERACTIVE) && this.mesh != null && this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] == null) {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
     },

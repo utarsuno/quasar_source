@@ -7,8 +7,8 @@ Object.assign($_QE.prototype.World.prototype, {
         this.player_last_position                = new THREE.Vector3();
         this.player_last_normal                  = new THREE.Vector3();
 
-        this.on_world_enter                      = null;
-        this.on_world_exit                       = null;
+        //this.on_world_enter                      = null;
+        //this.on_world_exit                       = null;
         this.player_default_enter_position       = null;
         this.player_default_enter_normal         = null;
     },
@@ -18,7 +18,7 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     set_on_world_exit: function(f) {
-        this.on_world_enter = f;
+        this.on_world_exit = f;
     },
 
     set_world_enter_default_position: function(p) {
