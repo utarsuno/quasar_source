@@ -17,6 +17,8 @@ class DBDomain(Flags):
 		self.flag_set('BUILD_TYPE', build_type)
 
 		self._db_location      = db_location
+		print('Creating database at the following path')
+		print(self._db_location)
 		self._db               = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
 
