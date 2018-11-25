@@ -15,7 +15,7 @@ IS_RUNNING="$(docker ps | grep quasar_source_front_end)"
 
 start_script
 
-if [ -z "$(IS_RUNNING)" ]; then
+if [ -z "${IS_RUNNING}" ]; then
   echo "Nexus Local is already running!\n"
 else
   echo "Nexus Local is spawning!\n"
