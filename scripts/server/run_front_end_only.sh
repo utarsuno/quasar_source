@@ -18,10 +18,10 @@ start_script
 echo "IS RUNNING [${IS_RUNNING}];"
 
 if [ -z "${IS_RUNNING}" ]; then
-  echo "Nexus Local is already running!"
-else
   echo "Nexus Local is spawning!"
   nohup scripts/local/front_end_only/run.sh &
+else
+  echo "Nexus Local is already running!"
 fi
 
 finish_script_success
