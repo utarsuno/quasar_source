@@ -15,10 +15,12 @@ IS_RUNNING="$(docker ps | grep quasar_source_front_end)"
 
 start_script
 
+echo "IS RUNNING [${IS_RUNNING}];"
+
 if [ -z "${IS_RUNNING}" ]; then
-  echo "Nexus Local is already running!\n"
+  echo "Nexus Local is already running!"
 else
-  echo "Nexus Local is spawning!\n"
+  echo "Nexus Local is spawning!"
   nohup scripts/local/front_end_only/run.sh &
 fi
 
