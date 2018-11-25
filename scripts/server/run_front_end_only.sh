@@ -14,6 +14,6 @@ SCRIPT_NAME="Run Nexus Local"
 
 start_script
 
-nohup ${DIR}/scripts/local/front_end_only/run.sh &
+nohup scripts/local/front_end_only/run.sh &
 
 finish_script_success
