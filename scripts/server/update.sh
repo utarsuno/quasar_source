@@ -20,6 +20,7 @@ git pull
 if [ -d "${DIR}/../local" ]; then
   # Control will enter here if $DIRECTORY exists.
   printf "Local directory exists!"
+  sudo rm -rf ${DIR}/../local
 fi
 
 finish_script_success
