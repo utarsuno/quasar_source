@@ -16,22 +16,22 @@ class DBDomain(Flags):
 		super().__init__()
 		self.flag_set('BUILD_TYPE', build_type)
 
-		self._db_location      = db_location
+		self._db_location           = db_location
 		print('Creating database at the following path')
 		print(self._db_location)
-		self._db               = sqlite_db.SQLiteDB(self._db_location, debug_on)
+		self._db                    = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
 
 		self.generated_content_path = default_generated_content_directory
 		self.volume_path            = volume_path
 
-		self._e_libraries      = entities_db.DBEntityLibrary()
-		self._e_files          = entities_db.DBEntityFile()
-		self._e_builds         = entities_db.DBEntityBuilds()
+		self._e_libraries           = entities_db.DBEntityLibrary()
+		self._e_files               = entities_db.DBEntityFile()
+		self._e_builds              = entities_db.DBEntityBuilds()
 
-		self._libraries        = []
-		self._files            = []
-		self._pre_processes    = []
+		self._libraries             = []
+		self._files                 = []
+		self._pre_processes         = []
 
 	def get_library_by_id(self, l_id):
 		"""Returns a library by ID match."""
