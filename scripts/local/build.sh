@@ -25,9 +25,8 @@ if [ ${CODE_MANAGER_BUILD_RESULT} -eq 200 ]; then
     docker_compose_down
     finish_script_success
 elif [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
-    print_red_text "Docker build process failed!"
     docker_compose_down
-    finish_script 199
+    finish_script_fail "Docker build process failed!"
 else
     docker_compose_down
     finish_script_success

@@ -54,6 +54,16 @@ function finish_script {
 }
 
 function finish_script_success {
-    print_dashed_line_with_text "${SCRIPT_NAME} Finished"
+    print_dashed_line_with_text "${SCRIPT_NAME} Finished!"
     exit 0
+}
+
+function finish_script_fail {
+    if [ -z "$1" ]; then
+        print_dashed_line_with_text "${SCRIPT_NAME} Failed!"
+    else
+        print_red_text "${1}"
+        print_dashed_line_with_text "${SCRIPT_NAME} Failed!"
+    fi
+    exit 199
 }

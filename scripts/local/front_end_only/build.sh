@@ -21,9 +21,8 @@ docker-compose -f ${DOCKER_COMPOSE_FILE} up --exit-code-from code_manager --abor
 CODE_MANAGER_BUILD_RESULT=$?
 
 if [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
-    print_red_text "Docker build process failed!"
     docker_compose_down
-    finish_script 199
+    finish_script_fail "Docker build process failed!"
 else
     docker_compose_down
     finish_script_success

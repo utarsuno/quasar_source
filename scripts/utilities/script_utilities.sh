@@ -96,8 +96,7 @@ function terminate_script {
     if [ -z "$1" ]; then
         printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}\n"
     else
-        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}\n"
-        printf ""
+        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}\n\n"
         printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}\n"
     fi
     print_red_dotted_line
