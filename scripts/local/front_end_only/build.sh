@@ -26,5 +26,5 @@ if [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
     finish_script 199
 else
     docker_compose_down
-    finish_script 0
+    finish_script_success
 fi

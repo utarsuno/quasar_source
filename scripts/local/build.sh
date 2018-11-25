@@ -23,12 +23,12 @@ if [ ${CODE_MANAGER_BUILD_RESULT} -eq 200 ]; then
     cd ${DIR}/../..;
     docker-compose run --rm -v ${HOST_VOLUME_SOURCE_CODE} nexus_courier ${SCRIPT_BUILD_NEXUS_COURIER}
     docker_compose_down
-    finish_script 0
+    finish_script_success
 elif [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
     print_red_text "Docker build process failed!"
     docker_compose_down
     finish_script 199
 else
     docker_compose_down
-    finish_script 0
+    finish_script_success
 fi

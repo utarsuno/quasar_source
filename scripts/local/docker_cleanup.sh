@@ -36,5 +36,5 @@ print_dashed_line_with_text "Removing stopped containers."
 docker ps -aq --no-trunc -f status=exited | xargs docker rm
 print_dashed_line_with_text "Removed stopped containers."
 
-finish_script 0
+finish_script_success
 

@@ -29,4 +29,4 @@ else
   python3 ${SCRIPT_OPERATIONS_GIT} 'n';
 fi
 
-finish_script 0
+finish_script_success

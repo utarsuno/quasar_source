@@ -52,3 +52,8 @@ function finish_script {
         exit $1
     fi
 }
+
+function finish_script_success {
+    print_dashed_line_with_text "${SCRIPT_NAME} Finished"
+    exit 0
+}

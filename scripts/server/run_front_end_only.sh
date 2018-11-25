@@ -9,17 +9,11 @@ source ${DIR}/../../scripts/utilities/docker_utilities.sh
 cd ${DIR}/../..;
 
 # Script Variables ---------------------------------------------------------------------------
-SCRIPT_NAME="Nexus Local"
-DOCKER_COMPOSE_FILE="docker-compose.yml"
+SCRIPT_NAME="Run Nexus Local"
 # --------------------------------------------------------------------------------------------
 
-start_script_with_docker_health_check
+start_script
 
-# TODO: Add build process???
-
-#TODO: Dynamic build.
-docker_compose_build
-docker_compose_up
-docker_compose_down
+nohup ${DIR}/scripts/local/front_end_only/run.sh &
 
 finish_script_success

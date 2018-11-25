@@ -25,7 +25,7 @@ elif [ ${BUILD_PROCESS_RESULT_CODE} -eq 0 ]; then
     # TODO: dynamic build
     docker_compose_up
     docker_compose_down
-    finish_script 0
+    finish_script_success
 else
     print_red_text "UNKNOWN STATUS CODE [ ${BUILD_PROCESS_RESULT_CODE} ]"
     finish_script 198
