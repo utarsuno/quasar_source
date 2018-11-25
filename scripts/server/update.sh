@@ -17,4 +17,9 @@ start_script
 git fetch
 git pull
 
+if [ -d "${DIR}/../local" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  printf "Local directory exists!"
+fi
+
 finish_script_success
