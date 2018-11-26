@@ -94,10 +94,6 @@ ENV/
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
-Icon
-
-
 # Thumbnails
 ._*
 
@@ -163,7 +159,6 @@ fabric.properties
 
 
 # My custom git ignores here.
-all_scripts/build_three_js/three.js
 configuration_files/
 
 # Ignoring custom database files.
@@ -174,6 +169,4 @@ output_files_to_ignore/
 
 generated_output/
 depreciated/
-
-*.gz
 
