@@ -1,6 +1,6 @@
 'use strict';
 
-
+/*
 Object.assign($_QE.prototype, {
     cookies: Cookies.noConflict(),
 
@@ -22,3 +22,4 @@ Object.assign($_QE.prototype, {
         this.cookies.set(cookie_key, cookie_value);
     },
 });
+*/
