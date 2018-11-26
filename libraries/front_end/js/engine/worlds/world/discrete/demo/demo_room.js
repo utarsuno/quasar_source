@@ -20,6 +20,10 @@ Object.assign(
     $_QE.prototype.DemoRoom.prototype,
     $_QE.prototype.ElementSingleton.prototype,
     {
+        _initialize_cache: function() {
+            this._cache_plane_geometry = new THREE.PlaneGeometry(this.tile_size, this.tile_size);
+        },
+
         _has_tile: function(x, y) {
             let t;
             for (t = 0; t < this.tiles.length; t++) {
@@ -47,6 +51,7 @@ Object.assign(
                 this.group.add(this.tiles[t].group);
             }
             this.group.updateMatrix();
+            this.group.updateMatrixWorld(true);
             for (t = 0; t < this.tiles.length; t++) {
                 this.tiles[t]._update_lights();
             }

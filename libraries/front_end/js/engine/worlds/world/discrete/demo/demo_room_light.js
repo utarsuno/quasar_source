@@ -3,7 +3,6 @@
 $_QE.prototype.DemoRoomLight = function(depth, tile) {
     this.depth = depth;
     this.tile  = tile;
-
     this._create_lights();
 };
 
@@ -13,28 +12,24 @@ $_QE.prototype.DemoRoomLight.prototype = {
         return this.tile.room.tile_size;
     },
 
-    _get_light: function(color, intensity, width=null) {
-        if (width != null) {
-            return new THREE.RectAreaLight(color, intensity, this.get_size() / 4, width);
-        } else {
-            return new THREE.RectAreaLight(color, intensity, this.get_size() / 4, this.depth);
-        }
+    _get_light_ray: function(color, intensity, distance) {
+        return new THREE.SpotLight(color, intensity, distance, 1.55, 1, 2.0);
     },
 
-    _get_mesh: function(width=null) {
-        if (width != null) {
-            return new THREE.Mesh(new THREE.PlaneGeometry(this.get_size() / 4, width), new THREE.MeshBasicMaterial());
-        } else {
-            return new THREE.Mesh(new THREE.PlaneGeometry(this.get_size() / 4, this.depth), new THREE.MeshBasicMaterial());
-        }
-    },
+    _get_light_bulb: function(color, intensity, distance) {
+        let pl        = new THREE.PointLight(color, intensity, distance, 1.25);
+        pl.caseShadow = true;
+        pl.shadow.mapSize.width  = 4086;
+        pl.shadow.mapSize.height = 4086;
+        pl.shadow.camera.near    = 1;
+        pl.shadow.camera.far     = 4086;
 
-    _get_light_aura: function(color, target) {
-        let l = new THREE.SpotLight(color, 1000, 200, 0.85, 0.4, 2.0);
-        //l.position.y = -1;
-        //target.updateMatrixWorld();
-        l.target = target;
-        return l;
+        pl.shadow.camera.left   = -128;
+        pl.shadow.camera.bottom = -128;
+        pl.shadow.camera.right  = 128;
+        pl.shadow.camera.top    = 128;
+
+        return pl;
     },
 
     _set: function(o, direction, x=0, y=null, z=0, add_to_scene=false) {
@@ -59,23 +54,58 @@ $_QE.prototype.DemoRoomLight.prototype = {
             o.lookAt(0, 0, -1);
         }
         o.updateMatrix();
+        //
+        o.updateMatrixWorld();
+        //
         this.tile.group.add(o);
-        if (add_to_scene) {
-            this.tile.room.world.scene.add(o);
-        }
+        //if (add_to_scene) {
+        //    this.tile.room.world.scene.add(o);
+        //}
         return o;
     },
 
     _update_directions: function() {
-        this._l.updateMatrix();
-        this._l.updateMatrixWorld();
+        //this._l.updateMatrix();
+        //this._l.updateMatrixWorld();
+
         //this._la.updateMatrix();
         //this._la.updateMatrixWorld();
+
+        this._l0.updateMatrix();
+        this._l0.updateMatrixWorld();
+        this._l1.updateMatrix();
+        this._l1.updateMatrixWorld();
+
+        let p = new THREE.Vector3();
+        this._l0.getWorldPosition(p);
+        l(p);
+
+        let p2 = new THREE.Vector3();
+        this._l1.getWorldPosition(p2);
+        l(p2);
+
+        this._l1.target.position.set(
+            p.x, p.y - this.get_size() / 2, p.z
+        );
+        this._l1.target.updateMatrix();
+        this._l1.target.updateMatrixWorld();
+
+        //this._l1.updateMatrixWorld();
+
+
+
+        ////
+        this._l0.position.y = this.get_size() - (this.get_size() * .2);
+        this._l0.updateMatrix();
     },
 
     _create_lights: function() {
-        this._set(this._get_light(QE.COLOR_WHITE, 4, this.get_size() / 4), 'down');
-        this._l  = this._set(this._get_mesh(this.get_size() / 4), 'down');
+        this._l0 = this._set(this._get_light_bulb(QE.COLOR_BLUE_LIGHT, 2, this.get_size()), 'down');
+        this._l1 = this._set(this._get_light_ray(QE.COLOR_WHITE, 0.75, this.get_size() * 1.75), 'down');
+
+
+
+        //this._l  = this._set(this._get_mesh(this.get_size() / 4), 'down');
         //this._la = this._set(this._get_light_aura(QE.COLOR_RED, this._l), null, 0, 1024 - this.depth - 100, 0, true);
 
         //la.target.updateMatrix();

@@ -38,6 +38,26 @@ Object.assign(
             document.body.appendChild(this.renderer.domElement);
         },
 
+        _initialize_renderer_shadows: function() {
+            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.type    = THREE.PCFSoftShadowMap;
+            this.renderer.shadowMapSoft     = true;
+
+            //this.renderer.shadowMap.renderReverseSided = true;
+            this.renderer.shadowMap.renderSingleSided  = false; // default is true
+
+            /*
+            this.renderer.shadowCameraNear  = 2;
+            this.renderer.shadowCameraFar   = 6000;
+            this.renderer.shadowCameraFov   = 75;
+
+            this.renderer.shadowMapBias = 0.0039;
+            this.renderer.shadwMapDarkness = 0.85;
+            this.renderer.shadowMapWidth   = 2048;
+            this.renderer.shadowMapHeight  = 2048;
+            */
+        },
+
         _initialize_renderer: function() {
             this._cachef[QECACHEF_FOV]           = 75.0;
             this._cachef[QECACHEF_CLIPPING_NEAR] = 1.0;
@@ -45,6 +65,8 @@ Object.assign(
 
             this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
             this._add_three_js_canvas_to_window();
+
+            this._initialize_renderer_shadows();
 
             this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(this.get_width(), this.get_height());
