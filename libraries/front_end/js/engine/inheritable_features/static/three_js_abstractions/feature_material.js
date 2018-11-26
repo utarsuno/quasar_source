@@ -6,7 +6,6 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     set_opacity: function(v) {
         if (this.material_type == FEATURE_MATERIAL_TYPE_ICON) {
-            //this.material.uniforms['alpha'].value = v;
             this.shader_material.set_alpha(v);
         } else {
             this.material.opacity = v;
@@ -47,41 +46,39 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
         }
     },
 
-    _set_alpha_test_if_needed: function() {
+    _create_material_texture_map: function(material_class) {
+        this.material = new material_class({
+            map : this.texture, transparent: true, side: THREE.DoubleSide
+        });
         if (this.current_background_color != null && this.current_background_color == QE.COLOR_RGBA_TRANSPARENT) {
             this.material.alphaTest = 0.5;
         }
     },
 
+    _create_material_normal: function(material_class, transparent=false) {
+        let args = {side: THREE.DoubleSide, color: this.current_foreground_color};
+        if (transparent) {
+            args.transparent = true;
+        }
+        this.material = new material_class(args);
+    },
+
     _create_material_new: function() {
         switch(this.material_type) {
         case FEATURE_MATERIAL_CANVAS_BASIC:
-            this.material = new THREE.MeshBasicMaterial({
-                map : this.texture, transparent: true, side: THREE.FrontSide
-            });
-            this._set_alpha_test_if_needed();
+            this._create_material_texture_map(THREE.MeshBasicMaterial);
             break;
         case FEATURE_MATERIAL_CANVAS_FANCY:
-            this.material = new THREE.MeshLambertMaterial({
-                map : this.texture, transparent: true, side: THREE.FrontSide
-            });
-            this._set_alpha_test_if_needed();
+            this._create_material_texture_map(THREE.MeshLambertMaterial);
             break;
         case FEATURE_MATERIAL_CANVAS_SHINY:
-            this.material = new THREE.MeshToonMaterial({
-                map : this.texture, transparent: true, side: THREE.FrontSide
-            });
-            this._set_alpha_test_if_needed();
+            this._create_material_texture_map(THREE.MeshToonMaterial);
             break;
         case FEATURE_MATERIAL_COLOR_FANCY:
-            this.material = new THREE.MeshToonMaterial({
-                side: THREE.FrontSide, color: this.current_foreground_color
-            });
+            this._create_material_normal(THREE.MeshToonMaterial);
             break;
         case FEATURE_MATERIAL_COLOR_TRANSPARENT:
-            this.material = new THREE.MeshToonMaterial({
-                side: THREE.FrontSide, color: this.current_foreground_color, transparent: true
-            });
+            this._create_material_normal(THREE.MeshToonMaterial, true);
             break;
         }
     },

@@ -1,19 +1,13 @@
 'use strict';
 
 $_QE.prototype.Text2D = function(args) {
+    /*this.set_dimensions(width, height);
+    let w = QE.manager_text2D.get_text_width(text, font);
+    l('The needed width is {' + w + '}');*/
 
-    //this.set_dimensions(width, height);
-    //let w = QE.manager_text2D.get_text_width(text, font);
-    //l('The needed width is {' + w + '}');
-
-    args.ARG_GEOMETRY_TYPE            = FEATURE_GEOMETRY_TYPE_PLANE;
-    args.ARG_MATERIAL_TYPE            = FEATURE_MATERIAL_CANVAS_FANCY;
-    args.ARG_MESH_TYPE                = FEATURE_MESH_TYPE_DEFAULT;
-    args.ARG_COLOR_FOREGROUND_DEFAULT = QE.COLOR_RGB_GREEN_LIGHT;
-    args.ARG_COLOR_BACKGROUND_DEFAULT = QE.COLOR_RGBA_TRANSPARENT;
     this._initialize_text_2d(args);
 
-    if (args.ARG_INTERACTIVE != null && args.ARG_INTERACTIVE) {
+    if (this._arg_is_on(args, ARG_INTERACTIVE)) {
         $_QE.prototype.FeatureTyping.call(this);
     }
 };
@@ -27,14 +21,19 @@ Object.assign(
     {
         constructor: $_QE.prototype.Text2D,
 
-        //_initialize_text_2d: function(text, width, font, color, default_color=null) {
         _initialize_text_2d: function(args) {
+            args[ARG_GEOMETRY_TYPE]            = FEATURE_GEOMETRY_TYPE_PLANE;
+            args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_FANCY;
+            args[ARG_MESH_TYPE]                = FEATURE_MESH_TYPE_DEFAULT;
+            args[ARG_COLOR_DEFAULT_FOREGROUND] = QE.COLOR_RGB_GREEN_LIGHT;
+            args[ARG_COLOR_DEFAULT_BACKGROUND] = QE.COLOR_RGBA_TRANSPARENT;
+
             this.initialize_floating_element_data();
-            this.text = args.ARG_TEXT;
-            this.initialize_dom_canvas(-1, args.ARG_WIDTH, args.ARG_FONT);
+            this.initialize_dom_canvas(-1, args[ARG_WIDTH], args[ARG_FONT]);
             this._parse_arguments_engine(args);
             this._parse_arguments_color(args);
             this._parse_arguments_text(args);
+            this._parse_arguments_floating_element(args);
             this.set_value_post_changed_event(this._on_text_change.bind(this));
         },
 
@@ -164,7 +163,7 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
             this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
             this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
             this.dynamic_width        = true;
-            this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));
+            this.ratio                = this._original_text_width / (QE.get_next_highest_power_of_two(this.width * 2));
         } else {
             this.ratio = 1;
         }

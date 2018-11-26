@@ -41,7 +41,7 @@ Object.assign(
         _initialize_renderer: function() {
             this._cachef[QECACHEF_FOV]           = 75.0;
             this._cachef[QECACHEF_CLIPPING_NEAR] = 1.0;
-            this._cachef[QECACHEF_CLIPPING_FAR]  = 17500.0;
+            this._cachef[QECACHEF_CLIPPING_FAR]  = 30000.0;
 
             this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
             this._add_three_js_canvas_to_window();

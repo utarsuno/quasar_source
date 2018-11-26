@@ -25,24 +25,21 @@ Object.assign(
         //
 
         create_icon: function(relative_index, depth_offset, args) {
-            args.ARG_SIZE = this.row_height;
+            args[ARG_SIZE] = this.row_height;
             let element = new $_QE.prototype.FloatingIcon(args);
             return this._add_element(element, relative_index, depth_offset);
         },
 
         create_icon_button: function(relative_index, depth_offset, args) {
-            args.ARG_SIZE = this.row_height;
+            args[ARG_SIZE] = this.row_height;
             let element = new $_QE.prototype.FloatingIconButton(args);
             this.add_relative_element(element, relative_index, true);
             this._set_element_depth_offset(element, depth_offset);
-            if (args.ARG_USE_CONFIRMATION_PROMPT != null && args.ARG_USE_CONFIRMATION_PROMPT) {
-                element.use_confirmation_prompt();
-            }
             return element;
         },
 
         create_text3d: function(relative_index, depth_offset, args) {
-            args.ARG_SIZE = this.row_height;
+            args[ARG_SIZE] = this.row_height;
             let element = new $_QE.prototype.Text3D(args);
             return this._add_element(element, relative_index, depth_offset);
         },
@@ -53,7 +50,7 @@ Object.assign(
         },
 
         create_button: function(relative_index, depth_offset, args) {
-            args.ARG_HEIGHT = this.row_height;
+            args[ARG_HEIGHT] = this.row_height;
             let element = new $_QE.prototype.Button2D(args);
             return this._add_element(element, relative_index, depth_offset);
         },

@@ -36,17 +36,17 @@ Object.assign(
         },
 
         add_text_row: function(args) {
-            args.ARG_WIDTH = this.width;
+            args[ARG_WIDTH] = this.width;
             let r;
             if (this._node_tail != null) {
-                r = this.create_row(null, args.ARG_FONT.height);
+                r = this.create_row(null, args[ARG_FONT].height);
             } else {
                 r = new $_QE.prototype.FeatureRow();
-                r.create_row(this, args.ARG_FONT.height, 1 - (args.ARG_FONT.height / this.height), false);
+                r.create_row(this, args[ARG_FONT].height, 1 - (args[ARG_FONT].height / this.height), false);
             }
             let element = r.create_text2d(-1, null, args);
-            if (args.ARG_TEXT_ALIGNMENT != null) {
-                element.set_text_alignment(args.ARG_TEXT_ALIGNMENT);
+            if (args[ARG_ALIGNMENT_TEXT] != null) {
+                element.set_text_alignment(args[ARG_ALIGNMENT_TEXT]);
             }
         },
 

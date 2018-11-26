@@ -31,6 +31,19 @@ module.exports = {
     },
     "globals": {
 
+        // Globals. ---------------------------------------------------------------------------------
+        "THREE"         : false,
+        "NOT_FOUND"     : false,
+        "w"             : false,
+        "l"             : false,
+        "$_QE"          : false,
+        "$_NL"          : false,
+        "QE"            : false,
+        "NL"            : false,
+        "EMOJI_ERROR"   : false,
+        "EMOJI_SLEEPING": false,
+        "EMOJI_NERD"    : false,
+
         // Engine cache. ----------------------------------------------------------------------------
         //    {integers}
         "QECACHEI_WIDTH_INNER"         : false,
@@ -52,6 +65,12 @@ module.exports = {
         "QECACHEF_ELAPSED_TIME_LOGIC"  : false,
         "QECACHEF_ELAPSED_TIME_RENDER" : false,
         "QECACHEF_ELAPSED_TIME_SECOND" : false,
+
+        // Player state. ---------------------------------------------------------------------------
+        "PLAYER_STATE_FULL_CONTROL": false,
+        "PLAYER_STATE_HUD_TYPING": false,
+        "PLAYER_STATE_ENGAGED": false,
+        "PLAYER_STATE_TELEPORTING": false,
 
         // Cursor flags. ---------------------------------------------------------------------------
         "CURSOR_STATE_ENGAGED": false,
@@ -117,6 +136,10 @@ module.exports = {
         "EFLAG_IS_BEING_LOOKED_AT"                      : false,
         "EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE": false,
         "EFLAG_IS_OUTLINE_GLOWABLE"                     : false,
+        "EFLAG_IS_BUTTON"                               : false,
+        "EFLAG_IS_CONFIRMATION_REQUIRED_FOR_BUTTON"     : false,
+        "EFLAG_IS_STATE_LOCKED"                         : false,
+        "EFLAG_IS_STATE_ENABLED"                        : false,
 
         // Element events. --------------------------------------------------------------------------
         "ELEMENT_EVENT_ON_LOOK_AT"            : false,
@@ -133,6 +156,36 @@ module.exports = {
         "ELEMENT_EVENT_ON_SET_TO_INTERACTIVE" : false,
         "ELEMENT_EVENT_ON_SET_TO_ATTACHMENT"  : false,
         "ELEMENT_EVENT_ON_ATTACHMENT_ADD"     : false,
+        "ELEMENT_EVENT_ON_LOCKED"             : false,
+        "ELEMENT_EVENT_ON_UN_LOCKED"          : false,
+        "ELEMENT_EVENT_ON_DISABLE"            : false,
+        "ELEMENT_EVENT_ON_ENABLE"             : false,
+
+        // Generic Arguments. ----------------------------------------------------------------------
+        "ARG_COLOR_FOREGROUND"          : false,
+        "ARG_COLOR_BACKGROUND"          : false,
+        "ARG_COLOR_DEFAULT_FOREGROUND"  : false,
+        "ARG_COLOR_DEFAULT_BACKGROUND"  : false,
+        "ARG_ICON"                      : false,
+        "ARG_TEXT"                      : false,
+        "ARG_WIDTH"                     : false,
+        "ARG_HEIGHT"                    : false,
+        "ARG_FONT"                      : false,
+        "ARG_INTERACTIVE"               : false,
+        "ARG_SIZE"                      : false,
+        "ARG_USE_CONFIRMATION_PROMPT"   : false,
+        "ARG_FEATURE_HIGHLIGHT"         : false,
+        "ARG_EVENT_ACTION"              : false,
+        "ARG_ALIGNMENT_TEXT"            : false,
+        "ARG_GEOMETRY_TYPE"             : false,
+        "ARG_MATERIAL_TYPE"             : false,
+        "ARG_MESH_TYPE"                 : false,
+        "ARG_CACHE_GEOMETRY"            : false,
+        "ARG_CACHE_MATERIAL"            : false,
+        "ARG_CACHE_MESH"                : false,
+        "ARG_ON_MESH_CREATED"           : false,
+        "ARG_COPY_INTERACTIVE_OF"       : false,
+        "ARG_LOOKABLE"                  : false,
 
         //
         "CLICK_LEFT"      : false,
@@ -176,23 +229,6 @@ module.exports = {
         "FEATURE_MATERIAL_COLOR_TRANSPARENT": false,
         "FEATURE_MESH_TYPE_DEFAULT"         : false,
 
-        // From refactorings.
-        "$_QE": false,
-        "$_NL": false,
-        "QE"  : false,
-        "NL"  : false,
-
-        "get_horizontal_distance": false,
-
-        "THREE": false,
-
-        "console": false,
-
-        "EMOJI_ERROR"   : false,
-        "EMOJI_SLEEPING": false,
-        "EMOJI_NERD"    : false,
-
-
         "ASSET_ICON_CALENDAR"   : false,
         "ASSET_ICON_CROSS"      : false,
         "ASSET_ICON_CURSOR"     : false,
@@ -223,11 +259,16 @@ module.exports = {
         "ASSET_ICON_TERMINAL"   : false,
         "ASSET_ICON_PLANET"     : false,
 
-
         "ASSET_TYPE_TEXTURE"                : false,
         "ASSET_TYPE_SHADER_MATERIAL"        : false,
         "ASSET_TEXTURE_SPRITE_SHEET"        : false,
         "ASSET_TEXTURE_TRANSITION"          : false,
+        "ASSET_TEXTURE_SKYBOX_FRONT"        : false,
+        "ASSET_TEXTURE_SKYBOX_BACK"         : false,
+        "ASSET_TEXTURE_SKYBOX_LEFT"         : false,
+        "ASSET_TEXTURE_SKYBOX_RIGHT"        : false,
+        "ASSET_TEXTURE_SKYBOX_TOP"          : false,
+        "ASSET_TEXTURE_SKYBOX_BOTTOM"       : false,
         "ASSET_SHADER_MATERIAL_TRANSITION"  : false,
         "ASSET_SHADER_MATERIAL_BACKGROUND"  : false,
         "ASSET_SHADER_MATERIAL_NOISE"       : false,
@@ -261,8 +302,6 @@ module.exports = {
         "QEFLAG_SETTING_TRANSITION"    : false,
 
 
-
-
         // OLD BELOW.
 
         //       ___  __      __   __   __        ___ ___  __    /  __   ___  __        ___  __            ___  __   __        __   ___  __
@@ -288,8 +327,6 @@ module.exports = {
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
 
-        "CENTER_ABSOLUTE": false,
-
         "DragNDrop": false,
 
         "Entity": false,
@@ -297,9 +334,6 @@ module.exports = {
         "NO_SAVE_DATA"   : false,
         "SAVE_TAG_3D_ROW": false,
         "SAVE_TAG_2D_ROW": false,
-
-        // From globals.js
-        "NOT_FOUND": false,
 
         "ENTITY_STATIC_WORLD_HOME"    : false,
         "ENTITY_STATIC_WORLD_SETTINGS": false,
@@ -448,18 +482,16 @@ module.exports = {
         "KEY_CODE__CONTROL"   : false,
         "KEY_CODE__BACK_SLASH": false,
 
-        // Shortcuts.
-        "l"                                  : false,
-        // Python syntax imitation.
-        "str"                                : false,
-        "int"                                : false,
-
-        "is_string"                          : false,
-
-
         // ___          ___          __   __  ___  __        __  ___    __        __  
         //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
         //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
+
+        "TIME_DELTA_YEARS"  : false,
+        "TIME_DELTA_MONTHS" : false,
+        "TIME_DELTA_DAYS"   : false,
+        "TIME_DELTA_HOURS"  : false,
+        "TIME_DELTA_MINUTES": false,
+        "TIME_DELTA_SECONDS": false,
 
         ///// Organize this portion.
         "DateSelector": true,
@@ -483,42 +515,11 @@ module.exports = {
         "ENTITY_PROPERTY_MONTH_TYPE" : false,
         "ENTITY_PROPERTY_YEAR_TYPE"  : false,
 
-        "TIME_DELTA_YEARS" : false,
-        "TIME_DELTA_DAYS"  : false,
-        "TIME_DELTA_MONTHS": false,
-
         "TIME_TYPE_YEAR_CURRENT" : false,
         "TIME_TYPE_YEAR_STATIC"  : false,
         "TIME_TYPE_MONTH_CURRENT": false,
         "TIME_TYPE_MONTH_STATIC" : false,
         "TIME_TYPE_DAY_CURRENT"  : false,
         "TIME_TYPE_DAY_STATIC"   : false,
-
-        //           ___
-        // |\/|  /\   |  |__|
-        // |  | /~~\  |  |  |
-        "get_parametric_line_equation"           : false,
-        "get_parametric_plane_equation"          : false,
-        "is_point_inside_floating_wall"          : false,
-        "get_line_intersection_on_infinite_plane": false,
-
-        // Utility constants.
-        "GROUND_NORMAL"   : false,
-        "ONE_THIRD"       : false,
-        "ONE_FOURTH"      : false,
-        "THREE_FOURTHS"   : false,
-        "TWO_THIRDS"      : false,
-        "HALF"            : false,
-        "PIE"             : false,
-
-        // World constants.
-        // none needed for now
-
-        // Utility functions and shortcuts.
-        "pow"                                : false,
-        "sin"                                : false,
-        "cos"                                : false,
-        "sqrt"                               : false,
-        "squared"                            : false,
     }
 };

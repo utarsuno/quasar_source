@@ -38,6 +38,7 @@ $_QE.prototype.FeatureAnimationSequence.prototype = {
         } else {
             this.flag_set_off(EFLAG_IS_IN_REVERSED_ANIMATION);
             this._animation_reset_forward(false);
+            this.set_to_invisible();
         }
     },
 
@@ -118,6 +119,9 @@ $_QE.prototype.FeatureAnimationSequence.prototype = {
     },
     // ------------------------------------------------------------------------------------------------------------
     animation_step_forward: function(delta) {
+        if (this.flag_is_off(EFLAG_IS_VISIBLE)) {
+            this.set_to_visible();
+        }
         this._a_elapsed_time += delta;
         let excess_time = this._a_steps[this._a_current_step]._animation_step_forward(delta);
         if (this._a_steps[this._a_current_step].animation_step_is_finished_forward()) {

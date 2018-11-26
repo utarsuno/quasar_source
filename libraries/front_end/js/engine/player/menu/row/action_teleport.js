@@ -7,6 +7,7 @@ $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
 
     let self = this;
     this.button.set_event(ELEMENT_EVENT_ON_LOOK_AT, function() {
+
         if (self.menu == null) {
             self.menu = new $_QE.prototype.PlayerMenuTeleport(menu.player, menu.world, self.row);
 
@@ -18,13 +19,13 @@ $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
             }
             self._register_list = undefined;
         }
-        self.menu.set_to_visible();
+        //self.menu.set_to_visible();
         //self.row.parent_wall.on_main_menu_button_look_at(self.button);
-    });
+    }, 0);
 
-    this.button.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {
-        //l('Hide teleport wall!');
-    });
+    //this.button.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {
+    //l('Hide teleport wall!');
+    //});
 };
 
 Object.assign(

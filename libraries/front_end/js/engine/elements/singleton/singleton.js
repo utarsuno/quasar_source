@@ -1,7 +1,7 @@
 'use strict';
 
-$_QE.prototype.Singleton = function(object, engine) {
-    this._create_singleton(object, engine);
+$_QE.prototype.Singleton = function(object) {
+    this._create_singleton(object);
 };
 
 Object.assign(
@@ -11,39 +11,16 @@ Object.assign(
             this._alias = alias;
         },
 
-        _create_singleton: function(object, engine) {
+        _create_singleton: function(object) {
             this.set_object(object);
-            this._excludes = null;
-            this._includes = null;
-
-            this._alias    = null;
-
-            if (engine != null) {
-                this.engine = engine;
-            } else {
-                this.engine = QE;
-            }
-
+            this._alias = null;
+            this.engine = QE;
             this.engine.manager_world.singleton_add(this);
         },
 
         set_object: function(object) {
             this._object     = object;
             this._is_element = this._object.flags_are_on_and_off != null;
-        },
-
-        world_exclude: function(world) {
-            if (this._excludes == null) {
-                this._excludes = [];
-            }
-            this._excludes.push(world);
-        },
-
-        world_include: function(world) {
-            if (this._includes == null) {
-                this._includes = [];
-            }
-            this._includes.push(world);
         },
 
         world_leave: function(world) {
@@ -65,28 +42,11 @@ Object.assign(
         },
 
         world_enter: function(world) {
-            // TODO: Don't enter a world if your alias is already in that world!
-
-            if (this._includes == null && this._excludes == null) {
-                this._world_enter(world);
-            } else if (this._excludes == null) {
-                let w;
-                for (w = 0; w < this._includes.length; w++) {
-                    if (this._includes[w] == world) {
-                        this._world_enter(world);
-                        break;
-                    }
+            let s;
+            for (s = 0; s < world.needed_singletons.length; s++) {
+                if (world.needed_singletons[s] == this._alias) {
+                    this._world_enter(world);
                 }
-            } else if (this._includes == null) {
-                let w;
-                for (w = 0; w < this._excludes.length; w++) {
-                    if (this._excludes[w] == world) {
-                        return;
-                    }
-                }
-                this._world_enter(world);
-            } else {
-                l('TODO: Cover this case!');
             }
         },
 

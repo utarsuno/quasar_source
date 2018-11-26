@@ -19,12 +19,12 @@ git fetch
 git pull
 
 if [ -d "${DIR}/../local" ]; then
-  printf "Removing un-needed directory!\n"
+  printf "Removing an un-needed directory!\n"
   sudo rm -rf ${BASE_DIR}local
 fi
 
 if [ -d "${BASE_DIR}theoretical_and_depreciated_code" ]; then
-  printf "Removing un-needed directory!\n"
+  printf "Removing an un-needed directory!\n"
   sudo rm -rf ${BASE_DIR}theoretical_and_depreciated_code
 fi
 

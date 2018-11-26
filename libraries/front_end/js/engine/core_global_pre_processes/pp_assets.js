@@ -2,12 +2,12 @@
 
 const ASSET_TEXTURE_SPRITE_SHEET  = 'p0.png'; // #pre-process_global_constant
 const ASSET_TEXTURE_TRANSITION    = 'p1.png'; // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_FRONT  = 'f.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_BACK   = 'ba.jpg'; // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_LEFT   = 'l.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_RIGHT  = 'r.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_TOP    = 't.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_BOTTOM = 'bo.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_FRONT  = 'f.jpg';  // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_BACK   = 'ba.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_LEFT   = 'l.jpg';  // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_RIGHT  = 'r.jpg';  // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_TOP    = 't.jpg';  // #pre-process_global_constant
+const ASSET_TEXTURE_SKYBOX_BOTTOM = 'bo.jpg'; // #pre-process_global_constant
 
 const ASSET_TEXTURE_TILE_COLOR       = 'p3_0.jpg'; // #pre-process_global_constant
 const ASSET_TEXTURE_TILE_DISPLACMENT = 'p3_1.png'; // #pre-process_global_constant

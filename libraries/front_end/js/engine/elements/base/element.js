@@ -25,7 +25,49 @@ Object.assign(
                 }
             }
         },
+
+        _arg_is_on: function(args, key) {
+            return args[key] != null && args[key];
+        },
+
+        _arg_is_off: function(args, key) {
+            return args[key] != null && !args[key];
+        },
     }
 );
+
+/*
+    this.is_enabled = function() {
+        return this.flags_are_on_and_off(EFLAG_IS_STATE_ENABLED, EFLAG_IS_STATE_LOCKED);
+    };
+
+    this.lock = function() {
+        if (this.flag_is_off(EFLAG_IS_STATE_LOCKED)) {
+            this.flag_set_on(EFLAG_IS_STATE_LOCKED);
+            this.trigger_event(ELEMENT_EVENT_ON_LOCKED);
+        }
+    };
+
+    this.unlock = function() {
+        if (this.flag_is_on(EFLAG_IS_STATE_LOCKED)) {
+            this.flag_set_off(EFLAG_IS_STATE_LOCKED);
+            this.trigger_event(ELEMENT_EVENT_ON_UN_LOCKED);
+        }
+    };
+
+    this.enable = function() {
+        if (this.flag_is_off(EFLAG_IS_ENABLED)) {
+            this.flag_set_on(EFLAG_IS_ENABLED);
+            this.trigger_event(ELEMENT_EVENT_ON_ENABLE);
+        }
+    };
+
+    this.disable = function() {
+        if (this.flag_is_on(EFLAG_IS_ENABLED)) {
+            this.flag_set_off(EFLAG_IS_ENABLED);
+            this.trigger_event(ELEMENT_EVENT_ON_DISABLE);
+        }
+    };
+ */
 
 

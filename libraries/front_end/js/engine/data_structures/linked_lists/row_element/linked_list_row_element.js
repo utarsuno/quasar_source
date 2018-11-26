@@ -35,7 +35,6 @@ Object.assign(
             element.set_offset_vertical(this.row_y_start, 0.5);
             element.flag_set_on(EFLAG_IS_ROW_ELEMENT);
 
-            // Event handler must be set before inserting the node.
             element.set_event(ELEMENT_EVENT_ON_NODE_UPDATE, function(node) {
                 node.update_horizontal_position();
             });

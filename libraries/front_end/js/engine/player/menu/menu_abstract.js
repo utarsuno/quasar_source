@@ -19,8 +19,11 @@ Object.assign(
         },
 
         open: function() {
-            this._open();
-            this.set_to_visible();
+            // Check if _on_exit can be handled with resetting of animation.
+            this._on_exit();
+            if (this._open != null) {
+                this._open();
+            }
             this.animation_play_forward(true, true);
         },
 

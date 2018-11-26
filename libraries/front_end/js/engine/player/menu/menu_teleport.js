@@ -30,10 +30,7 @@ Object.assign(
             }
         },
 
-        _open: function() {
-            this.set_to_visible();
-            this.update_element();
-        },
+        //_open: function() {},
 
     }
 );

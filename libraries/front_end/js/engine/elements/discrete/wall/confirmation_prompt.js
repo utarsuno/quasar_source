@@ -42,7 +42,7 @@ Object.assign(
                 ARG_TEXT            : 'Are you sure?',
                 ARG_COLOR_FOREGROUND: QE.COLOR_RGB_YELLOW,
                 ARG_FONT            : QE.FONT_ARIAL_20_BOLD,
-                ARG_TEXT_ALIGNMENT  : TEXT_ALIGNMENT_CENTER
+                ARG_ALIGNMENT_TEXT  : TEXT_ALIGNMENT_CENTER
             });
 
             this._buttons = this.add_buttons_row(QE.FONT_ARIAL_20_BOLD, [

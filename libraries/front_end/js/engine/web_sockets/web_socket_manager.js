@@ -49,8 +49,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
     };
 
     this._on_error = function(error) {
-        l('ON ERROR:');
-        l(error);
+        QE.log_error('Nexus Server (websockets) is currently offline.', error);
     };
 
     this._on_close = function() {

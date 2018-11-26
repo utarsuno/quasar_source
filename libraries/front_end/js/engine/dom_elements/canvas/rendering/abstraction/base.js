@@ -5,13 +5,9 @@ $_QE.prototype.CanvasRenderer = function() {};
 $_QE.prototype.CanvasRenderer.prototype = {
 
     /* Dynamic fields:
-
     _render_needed      : {bool}
     _current_fill_color : {color}
     _text_alignment     : {TEXT_ALIGNMENT_START, TEXT_ALIGNMENT_CENTER, TEXT_ALIGNMENT_END}
-
-    // TODO: Formalize support:
-    _require_border     : {bool}
      */
 
     _set_text_alignment: function(text_alignment) {
@@ -41,6 +37,12 @@ $_QE.prototype.CanvasRenderer.prototype = {
         if (this._current_fill_color != c && c != null) {
             this._current_fill_color = c;
             this.context.fillStyle   = c;
+        }
+    },
+
+    _set_render_color: function(c) {
+        if (c != null & (this.context.fillStyle != null && this.context.fillStyle != c)) {
+            this.context.fillStyle = c;
         }
     },
 

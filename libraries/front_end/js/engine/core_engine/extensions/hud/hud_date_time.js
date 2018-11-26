@@ -30,10 +30,6 @@ Object.assign(
             //this.rows[0].set_text(this.engine.manager_time.get_current_time_header());
         },
 
-        add_message: function(message) {
-            this.shift_rows_up();
-            this.set_bottom_row(message);
-        },
     }
 
 );

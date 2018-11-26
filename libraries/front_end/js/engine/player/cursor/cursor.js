@@ -12,6 +12,8 @@ $_QE.prototype.PlayerCursor = function(engine) {
 
     this._initialize_default_cursor();
     this._initialize_icon_cursor();
+    // Start as default cursor.
+    this._set_to_cursor_default();
 
     this.in_mouse_action = function() {
         return this.flags_are_either_on(CURSOR_STATE_SCALING, CURSOR_STATE_MOVING);

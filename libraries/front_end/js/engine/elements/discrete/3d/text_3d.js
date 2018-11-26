@@ -1,19 +1,19 @@
 'use strict';
 
 $_QE.prototype.Text3D = function(args) {
-    this.text            = args.ARG_TEXT;
-    this.text_size       = args.ARG_SIZE;
+    this.text            = args[ARG_TEXT];
+    this.text_size       = args[ARG_SIZE];
     this.initialize_floating_element_data();
     this._parse_arguments_color(args);
     this.set_dimensions(0, 0);
 
-    args.ARG_GEOMETRY_TYPE   = FEATURE_GEOMETRY_TYPE_TEXT_3D;
-    args.ARG_MATERIAL_TYPE   = FEATURE_MATERIAL_TYPE_TEXT_3D;
-    args.ARG_CACHE_MATERIAL  = true;
-    args.ARG_ON_MESH_CREATED = this._calculate_dimensions.bind(this);
+    args[ARG_GEOMETRY_TYPE]   = FEATURE_GEOMETRY_TYPE_TEXT_3D;
+    args[ARG_MATERIAL_TYPE]   = FEATURE_MATERIAL_TYPE_TEXT_3D;
+    args[ARG_CACHE_MATERIAL]  = true;
+    args[ARG_ON_MESH_CREATED] = this._calculate_dimensions.bind(this);
     this._parse_arguments_engine(args);
 
-    if (args.ARG_INTERACTIVE != null && args.ARG_INTERACTIVE) {
+    if (args[ARG_INTERACTIVE] != null && args[ARG_INTERACTIVE]) {
         $_QE.prototype.FeatureTyping.call(this);
     }
     this.set_value_post_changed_event(this._on_text_change.bind(this));

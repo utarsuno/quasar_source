@@ -47,6 +47,15 @@ $_QE.prototype.AssetManager.prototype = {
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_NOISE);
         asset_batch.add_asset_shader(ASSET_SHADER_MATERIAL_BACKGROUND);
 
+        //
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_FRONT);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_BACK);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_LEFT);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_RIGHT);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_TOP);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_BOTTOM);
+        //
+
         this._load_tile_batch(asset_batch);
 
         let self = this;

@@ -16,19 +16,35 @@ $_QE.prototype.PlayerMenuRow.prototype = {
 
     ___create_text: function(index, text_alignment) {
         this.text = this.row.create_text2d(index, null, {
-            ARG_TEXT             : this._title,
-            ARG_COLOR_FOREGROUND : QE.COLOR_RGB_GREEN_LIGHT,
-            ARG_COLOR_HIGHLIGHT  : QE.COLOR_RGB_YELLOW,
-            ARG_FEATURE_HIGHLIGHT: true,
-            ARG_FONT             : QE.FONT_ARIAL_16,
-            ARG_WIDTH            : 256,
-            ARG_TEXT_ALIGNMENT   : text_alignment
+            ARG_TEXT                : this._title,
+            ARG_COLOR_FOREGROUND    : QE.COLOR_RGB_GREEN_LIGHT,
+            ARG_COLOR_HIGHLIGHT     : QE.COLOR_RGB_YELLOW,
+            ARG_FEATURE_HIGHLIGHT   : true,
+            ARG_FONT                : QE.FONT_ARIAL_16,
+            ARG_WIDTH               : 256,
+            ARG_ALIGNMENT_TEXT      : text_alignment,
+            ARG_LOOKABLE            : true,
+            ARG_EVENT_ACTION        : this.button.trigger_event.bind(this.button, ELEMENT_EVENT_ON_ENGAGE)
         });
+    },
+
+    _on_row_looked_at: function(sub_menu) {
+        this.button.set_current_foreground_color(QE.COLOR_YELLOW);
+        this.text.set_current_foreground_color(QE.COLOR_RGB_YELLOW);
+        if (!sub_menu) {
+            this.row.parent_wall.on_main_menu_button_look_at(this.button);
+        }
+    },
+
+    _on_row_looked_away: function() {
+        this.button.set_current_foreground_color(QE.COLOR_GREEN_LIGHT);
+        this.text.set_current_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
     },
 
     __init__: function(menu, icon, title, action, icon_first=false, sub_menu=false) {
         this._enabled_for_level = true;
         this._title             = title;
+        this._parent_menu       = menu;
 
         this.row = menu.create_row_animated(null, QE.FONT_ARIAL_16.height, .15, -5);
         if (!icon_first) {
@@ -39,29 +55,17 @@ $_QE.prototype.PlayerMenuRow.prototype = {
             this.___create_text(-4, TEXT_ALIGNMENT_START);
         }
 
-        let self = this;
-        this.button.set_event(ELEMENT_EVENT_ON_LOOK_AT, function() {
-            self.button.set_current_foreground_color(QE.COLOR_YELLOW);
-            self.text.set_current_foreground_color(QE.COLOR_RGB_YELLOW);
+        this.button.set_event(ELEMENT_EVENT_ON_LOOK_AT, this._on_row_looked_at.bind(this, sub_menu));
+        //this.text.set_event(ELEMENT_EVENT_ON_LOOK_AT, this._on_row_looked_at.bind(this, sub_menu));
+        this.text.set_event(ELEMENT_EVENT_ON_LOOK_AT, this.button.trigger_event.bind(this.button, ELEMENT_EVENT_ON_LOOK_AT, sub_menu));
 
-            if (!sub_menu) {
-                self.row.parent_wall.on_main_menu_button_look_at(self.button);
-            }
-        });
-
-        this.button.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {
-            self.button.set_current_foreground_color(QE.COLOR_GREEN_LIGHT);
-            self.text.set_current_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
-        });
-
+        this.button.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, this._on_row_looked_away.bind(this));
+        //this.text.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, this._on_row_looked_away.bind(this));
+        this.text.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, this.button.trigger_event.bind(this.button, ELEMENT_EVENT_ON_LOOK_AWAY));
     },
 
     _on_close: function() {
-        if (this.button.flag_is_on(EFLAG_IS_BEING_LOOKED_AT)) {
-            l('Button is engaged and being looked at!');
-            l(this);
-        }
-        this.unlock_colors();
+        this.unlock_colors(false);
         if (this.menu != null) {
             this.menu.animation_close();
         }
@@ -75,12 +79,12 @@ $_QE.prototype.PlayerMenuRow.prototype = {
         }
     },
 
-    unlock_colors: function() {
+    unlock_colors: function(play_animation=true) {
         this.button.flag_set_off(EFLAG_IS_LOCKED_FOREGROUND);
         this.text.flag_set_off(EFLAG_IS_LOCKED_FOREGROUND);
         this.button.set_foreground_color_to_default();
         this.text.set_foreground_color_to_default();
-        if (this.menu != null) {
+        if (this.menu != null && play_animation) {
             this.menu.animation_play_reverse(false, false);
         }
     },

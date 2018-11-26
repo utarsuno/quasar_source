@@ -11,16 +11,11 @@ Object.assign(
 
             this.initialize_hud_element(number_of_rows, 1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_CHAT);
 
-            // Temp.
-            this.rows[0].set_text('Nexus Local!');
+            this.set_bottom_row('Nexus Local!');
 
             return this;
         },
 
-        add_message: function(message) {
-            this.shift_rows_up();
-            this.set_bottom_row(message);
-        },
     }
 
 );

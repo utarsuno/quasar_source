@@ -42,6 +42,14 @@ $_QE.prototype.FeatureInteractive = function() {
         self.check_if_in_interactive.bind(self)();
     });
 
+    this.set_event(ELEMENT_EVENT_ON_LOOK_AT, function() {
+        self.set_to_looked_at();
+    });
+
+    this.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {
+        self.set_to_looked_away();
+    });
+
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */

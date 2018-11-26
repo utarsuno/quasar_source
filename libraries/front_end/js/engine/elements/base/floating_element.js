@@ -1,34 +1,5 @@
 'use strict';
 
-// Button features to add back in!
-/*
-   this.has_button_state = false;
-
-    this.set_button_engage_function = function(engage_function) {
-        if (engage_function != null) {
-            this.button_engage_function = engage_function;
-            this.set_engage_function(this.try_to_perform_engage_function.bind(this));
-        }
-    };
-
-    this.add_button_state = function() {
-        if (!this.has_button_state) {
-            ButtonState.call(this);
-            this.has_button_state = true;
-        }
-    };
-
-    this.try_to_perform_engage_function = function() {
-        if (this.has_button_state) {
-            if (this.enabled()) {
-                this.button_engage_function();
-            }
-        } else {
-            this.button_engage_function();
-        }
-    };
- */
-
 $_QE.prototype.FloatingElement = function() {};
 
 Object.assign(
@@ -45,10 +16,14 @@ Object.assign(
             this.attachment_parent = null;
         },
 
-        set_to_button: function(engage_function, use_confirmation_prompt=false) {
-            $_QE.prototype.FeatureButton.call(this, engage_function);
-            if (use_confirmation_prompt) {
-                this.use_confirmation_prompt();
+        _parse_arguments_floating_element: function(args) {
+            if (this._arg_is_on(args, ARG_LOOKABLE)) {
+                if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {
+                    $_QE.prototype.FeatureLookable.call(this);
+                    if (args[ARG_EVENT_ACTION] != null) {
+                        $_QE.prototype.FeatureButton.call(this, args);
+                    }
+                }
             }
         },
 

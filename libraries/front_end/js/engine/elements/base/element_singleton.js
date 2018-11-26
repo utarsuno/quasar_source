@@ -10,8 +10,7 @@ Object.assign(
         create_singleton: function(...args) {
             this.initialize_element_data();
             this.__init__(...args);
-            this._create_singleton(this, QE);
-            //QE.manager_world.singleton_add_as_singleton(this);
+            this._create_singleton(this);
             return this;
         },
     }

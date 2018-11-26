@@ -1,8 +1,8 @@
 'use strict';
 
-$_QE.prototype.TileCube = function() {
+$_QE.prototype.TileCube = function(alias) {
     this.create_singleton();
-    this.set_alias(SINGLETON_BACKGROUND);
+    this.set_alias(alias);
 };
 
 

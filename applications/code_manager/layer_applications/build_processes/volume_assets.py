@@ -23,6 +23,13 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		self._add_volume_file_reference('p3_3.jpg', 'texture/third_party/tile/Tiles_009_OCC.jpg')
 		self._add_volume_file_reference('p3_4.jpg', 'texture/third_party/tile/Tiles_009_SPEC.jpg')
 
+		self._add_volume_file_reference('ba.jpg', 'texture/skybox/ba.jpg')
+		self._add_volume_file_reference('bo.jpg', 'texture/skybox/bo.jpg')
+		self._add_volume_file_reference('f.jpg' , 'texture/skybox/f.jpg')
+		self._add_volume_file_reference('l.jpg' , 'texture/skybox/l.jpg')
+		self._add_volume_file_reference('r.jpg' , 'texture/skybox/r.jpg')
+		self._add_volume_file_reference('t.jpg' , 'texture/skybox/t.jpg')
+
 		self._add_volume_file_reference('gentilis_regular.typeface.json', 'fonts/three_js_fonts/gentilis_regular.typeface.json')
 
 		# TEMPORARY SOLUTION

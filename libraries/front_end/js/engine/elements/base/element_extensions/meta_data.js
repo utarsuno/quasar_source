@@ -1,58 +1,71 @@
 'use strict';
 
-// First bit used to determine first or second bucket of flags.
-const EFLAG_IS_TYPEABLE                              = 2;          // #pre-process_global_constant
-const EFLAG_IS_INTERACTIVE                           = 4;          // #pre-process_global_constant
-const EFLAG_IS_ENGABLE                               = 8;          // #pre-process_global_constant
-const EFLAG_IS_CLICKABLE                             = 16;         // #pre-process_global_constant
-const EFLAG_IS_MOUSE_MOVABLE                         = 32;         // #pre-process_global_constant
-const EFLAG_IS_MOUSE_SCALABLE                        = 64;         // #pre-process_global_constant
-const EFLAG_IS_ROOT                                  = 128;        // #pre-process_global_constant
-const EFLAG_IS_SINGLETON                             = 256;        // #pre-process_global_constant
-const EFLAG_IS_ROW_ELEMENT                           = 512;        // #pre-process_global_constant
-const EFLAG_IS_CACHEABLE_MESH                        = 1024;       // #pre-process_global_constant
-const EFLAG_IS_CACHEABLE_MATERIAL                    = 2048;       // #pre-process_global_constant
-const EFLAG_IS_CACHEABLE_GEOMETRY                    = 4096;       // #pre-process_global_constant
-const EFLAG_IS_VISIBLE                               = 8192;       // #pre-process_global_constant
-const EFLAG_IS_CREATED                               = 16384;      // #pre-process_global_constant
-const EFLAG_IS_BEING_LOOKED_AT                       = 32768;      // #pre-process_global_constant
-const EFLAG_IS_ENGAGED                               = 65536;      // #pre-process_global_constant
-const EFLAG_IS_FORMAT_X_START                        = 131072;     // #pre-process_global_constant
-const EFLAG_IS_FORMAT_X_CENTER                       = 262144;     // #pre-process_global_constant
-const EFLAG_IS_FORMAT_X_END                          = 524288;     // #pre-process_global_constant
-const EFLAG_IS_LOCKED_FOREGROUND                     = 1048576;    // #pre-process_global_constant
-const EFLAG_IS_LOCKED_BACKGROUND                     = 2097152;    // #pre-process_global_constant
-const EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING    = 4194304;    // #pre-process_global_constant
-const EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE = 8388608;    // #pre-process_global_constant
-const EFLAG_IS_OUTLINE_GLOWABLE                      = 16777216;   // #pre-process_global_constant
-const EFLAG_IS_UPDATED_NEEDED_FOR_POSITION           = 33554432;   // #pre-process_global_constant
-const EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL             = 67108864;   // #pre-process_global_constant
-const EFLAG_IS_UPDATED_NEEDED_FOR_COLOR              = 134217728;  // #pre-process_global_constant
-const EFLAG_IS_UPDATED_NEEDED_FOR_CHILD              = 268435456;  // #pre-process_global_constant
-const EFLAG_IS_IN_ANIMATION                          = 536870912;  // #pre-process_global_constant
-const EFLAG_IS_IN_WORLD                              = 1073741824; // #pre-process_global_constant
-const EFLAG_IS_IN_ELEMENTS_ROOT                      = 3;          // #pre-process_global_constant
-const EFLAG_IS_IN_ELEMENTS_INTERACTIVE               = 5;          // #pre-process_global_constant
-const EFLAG_IS_IN_ELEMENTS_SINGLETON                 = 9;          // #pre-process_global_constant
-const EFLAG_IS_IN_REVERSED_ANIMATION                 = 17;         // #pre-process_global_constant
-const EFLAG_IS_ANIMATION_COMPLETED                   = 33;         // #pre-process_global_constant
-const EFLAG_IS_HIGHLIGHT_COLOR_SET                   = 65;         // #pre-process_global_constant
+$_QE.prototype._ElementEvent = function() {
+    this.events          = {};
+    this.max_event_depth = 1;
+    this.revive();
+};
+$_QE.prototype._ElementEvent.prototype = {
 
-// Events.
-const ELEMENT_EVENT_ON_LOOK_AT             = 'e0';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_LOOK_AWAY           = 'e1';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_ENGAGE              = 'e2';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_DISENGAGE           = 'e3';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_WORLD_ENTER         = 'e4';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_WORLD_EXIT          = 'e5';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_FOREGROUND_COLOR    = 'e6';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_BACKGROUND_COLOR    = 'e7';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_SET_TO_BUTTON       = 'e8';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_MESH_CREATED        = 'e9';  // #pre-process_global_constant
-const ELEMENT_EVENT_ON_NODE_UPDATE         = 'e10'; // #pre-process_global_constant
-const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_constant
-const ELEMENT_EVENT_ON_SET_TO_ATTACHMENT   = 'e12'; // #pre-process_global_constant
+    _update_max_event_depth: function(order) {
+        if (order + 2 > this.max_event_depth) {
+            this.max_event_depth = order + 2;
+        }
+    },
 
+    add_event: function(event_function, event_order='-1') {
+        this._update_max_event_depth(Number(event_order));
+
+        // Add new key to 'events' if needed.
+        if (!(event_order in this.events)) {
+            this.events[event_order] = [];
+        }
+
+        // Add the actual event function.
+        this.events[event_order].push(event_function);
+    },
+
+    revive: function() {
+        this.alive = true;
+    },
+
+    kill: function() {
+        let e;
+        for (e in this.events) {
+            if (this.events.hasOwnProperty(e)) {
+                let f;
+                for (f = 0; f < this.events[e].length; f++) {
+                    this.events[e][f] = undefined;
+                }
+                this.events[e] = undefined;
+            }
+        }
+        this.alive           = false;
+        this.events          = {};
+        this.max_event_depth = 1;
+    },
+
+    _trigger_layer: function(layer, data) {
+        if (layer in this.events) {
+            let f;
+            for (f = 0; f < this.events[layer].length; f++) {
+                this.events[layer][f](data);
+            }
+        } else {
+            QE.log_warning('The layer {' + layer + '} was not found in events!');
+        }
+    },
+
+    trigger: function(data) {
+        if (this.max_event_depth > 1) {
+            let layer;
+            for (layer = 0; layer < this.max_event_depth - 1; layer++) {
+                this._trigger_layer(layer.toString(), data);
+            }
+        }
+        this._trigger_layer('-1', data);
+    },
+};
 
 Object.assign(
     $_QE.prototype.Element.prototype,
@@ -64,45 +77,43 @@ Object.assign(
             this.flag_set_on(EFLAG_IS_VISIBLE);
         },
 
-        set_event: function(event_key, event_function) {
-            if (event_key in this._events && this._events[event_key] != null) {
-                if (Array.isArray(this._events[event])) {
-                    this._events[event_key].push(event_function);
-                } else {
-                    this._events[event_key] = [this._events[event_key], event_function];
+        // ------------------------------------------------------------------------
+
+        clear_event: function(key) {
+            if (key in this._events) {
+                this._events[key].kill();
+            }
+        },
+
+        set_event: function(key, event_function, event_order='-1') {
+            if (!this._has_event(key)) {
+                this._create_event(key);
+            }
+            this._events[key].add_event(event_function, event_order);
+        },
+
+        trigger_event: function(key, data=null) {
+            if (this._has_event(key)) {
+                this._events[key].trigger(data);
+            }
+        },
+
+        // ------------------------------------------------------------------------
+
+        _has_event: function(key) {
+            if (key in this._events) {
+                return this._events[key].alive;
+            }
+            return false;
+        },
+
+        _create_event: function(key) {
+            if (key in this._events) {
+                if (!this._events[key].alive) {
+                    this._events[key].revive();
                 }
             } else {
-                this._events[event_key] = event_function;
-            }
-        },
-
-        clear_event: function(event_key) {
-            if (event_key in this._events) {
-                this._events[event_key] = undefined;
-            }
-        },
-
-        trigger_event: function(event, data=null) {
-            if (event in this._events) {
-                if (data != null) {
-                    if (Array.isArray(this._events[event])) {
-                        let a;
-                        for (a = 0; a < this._events[event].length; a++) {
-                            this._events[event][a](data);
-                        }
-                    } else {
-                        this._events[event](data);
-                    }
-                } else {
-                    if (Array.isArray(this._events[event])) {
-                        let a;
-                        for (a = 0; a < this._events[event].length; a++) {
-                            this._events[event][a]();
-                        }
-                    } else {
-                        this._events[event]();
-                    }
-                }
+                this._events[key] = new $_QE.prototype._ElementEvent();
             }
         },
     }

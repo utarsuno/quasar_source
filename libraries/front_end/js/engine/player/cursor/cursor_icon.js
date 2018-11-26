@@ -19,10 +19,11 @@ Object.assign(
                 //if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
                 this.set_current_icon(ASSET_ICON_EXPAND);
             } else if (this.attached_to.flag_is_on(EFLAG_IS_MOUSE_MOVABLE)) {
-
                 this.set_current_icon(ASSET_ICON_DRAG);
             } else {
-                QE.log_warning('Missing cursor state!');
+                //QE.log_warning('Missing cursor state!');
+                // TODO: temp
+                this.set_current_icon(ASSET_ICON_CLICK);
             }
         },
 

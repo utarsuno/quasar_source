@@ -26,7 +26,6 @@ Object.assign($_QE.prototype.World.prototype, {
         if (this.player.is_engaged()) {
             this.player.set_state(PLAYER_STATE_FULL_CONTROL);
         }
-        // TODO: play disengage sound
     },
 
     engage_currently_looked_at_object: function() {
@@ -51,7 +50,6 @@ Object.assign($_QE.prototype.World.prototype, {
 
     set_new_currently_looked_at_object: function(element, position) {
         this.currently_looked_at_object = element;
-        element.set_to_looked_at();
         if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_INTERACTIVE)) {
             this.previous_tab_target = element;
         }
@@ -60,7 +58,6 @@ Object.assign($_QE.prototype.World.prototype, {
     },
 
     look_away_from_currently_looked_at_object: function() {
-        this.currently_looked_at_object.set_to_looked_away();
         this.currently_looked_at_object.trigger_event(ELEMENT_EVENT_ON_LOOK_AWAY);
         if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED)) {
             this.disengage_from_currently_looked_at_object();

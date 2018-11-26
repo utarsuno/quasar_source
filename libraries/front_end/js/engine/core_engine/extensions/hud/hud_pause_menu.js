@@ -28,6 +28,14 @@ Object.assign(
             this._add_animation_step(this, duration_seconds);
             this.animation_set_to_completed_state();
         },
+
+        set_to_invisible: function() {
+            // Not going to perform extra DOM operations of setting display=none for now.
+        },
+
+        set_to_visible: function() {
+
+        },
     }
 );
 
