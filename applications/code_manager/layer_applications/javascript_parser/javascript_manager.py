@@ -45,7 +45,7 @@ class JavascriptManager(object):
 
 		# Engine extensions.
 		self._add_paths('core_engine/extensions/engine_static_data', ['colors', 'fonts'])
-		self._add_paths('core_engine/extensions/engine_features'   , ['math', 'errors'])
+		self._add_paths('core_engine/extensions/engine_features'   , ['math', 'errors', 'script_loader'])
 		self._add_paths('core_engine/extensions/engine_data'       , ['cache', 'flags', 'frames', 'state'])
 		self._add_paths('core_engine/extensions/inputs'            , ['inputs', 'keyboard', 'mouse'])
 		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
@@ -120,7 +120,7 @@ class JavascriptManager(object):
 		self._add_paths('worlds/world_manager'           , ['world_manager'])
 		self._add_paths('worlds/world_manager/extensions', ['input', 'singletons'])
 		self._add_paths('worlds/world/discrete'          , ['settings_world'])
-		self._add_paths('worlds/world/discrete/demo'     , ['demo_room_tile', 'demo_room', 'demo_world'])
+		self._add_paths('worlds/world/discrete/demo'     , ['demo_room_light', 'demo_room_tile', 'demo_room', 'demo_world'])
 
 		# Shaders.
 		shaders_path = 'core_engine/extensions/rendering/shaders'

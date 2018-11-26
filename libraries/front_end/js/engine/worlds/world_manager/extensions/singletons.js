@@ -10,7 +10,8 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         this._singleton_light_r      = new $_QE.prototype.LightPoint(0xff8579, .5, 3500, 2, 750, 450, -750, SINGLETON_HEXAGON_LIGHT_1);
         this._singleton_light_g      = new $_QE.prototype.LightPoint(0xb1ff90, .5, 3500, 2, -750, 450, 750, SINGLETON_HEXAGON_LIGHT_2);
         this._singleton_light_b      = new $_QE.prototype.LightPoint(0x84b5ff, .5, 3500, 2, -750, 450, -755, SINGLETON_HEXAGON_LIGHT_3);
-        this._singleton_ambient      = new $_QE.prototype.LightAmbient(0xffffff, .60, SINGLETON_AMBIENT_LIGHT);
+        //this._singleton_ambient      = new $_QE.prototype.LightAmbient(0xffffff, .60, SINGLETON_AMBIENT_LIGHT);
+        this._singleton_ambient      = new $_QE.prototype.LightAmbient(0xffffff, .30, SINGLETON_AMBIENT_LIGHT);
         this._singleton_skybox_gray  = new $_QE.prototype.SkyBox(SINGLETON_SKY_BOX_GRAY);
         this._singleton_skybox_space = new $_QE.prototype.SkyBoxSpace(SINGLETON_SKY_BOX_SPACE);
 
@@ -23,8 +24,9 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         this.singleton_player.set_alias(SINGLETON_PLAYER);
     },
 
-    singleton_add_as_singleton: function(object) {
-        new $_QE.prototype.Singleton(object, this.engine);
+    singleton_add_as_singleton: function(object, alias) {
+        let s = new $_QE.prototype.Singleton(object, this.engine);
+        s.set_alias(alias);
     },
 
     singleton_add: function(singleton) {

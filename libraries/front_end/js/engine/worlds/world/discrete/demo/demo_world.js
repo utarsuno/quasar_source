@@ -5,13 +5,14 @@
 $_QE.prototype.DemoWorld = function(engine) {
     this.init_world('Demo', ASSET_ICON_PLANET, engine);
     this.set_world_enter_default_position(new THREE.Vector3(1024, 512, 0));
-    this.set_world_enter_default_normal(new THREE.Vector3(-0.01, 0, -0.99));
+    this.set_world_enter_default_normal(new THREE.Vector3(0, 0, 1));
     this.set_on_world_enter(QE.player.set_to_walking);
     this.set_on_world_exit(QE.player.set_to_flying);
 
     this.needed_singletons = [
         SINGLETON_AMBIENT_LIGHT, SINGLETON_SKY_BOX_SPACE,
         SINGLETON_DEMO_ROOM,
+        SINGLETON_FLASH_LIGHT, SINGLETON_TARGET_OF_FLASH_LIGHT,
         SINGLETON_PLAYER_MENU, SINGLETON_PLAYER
     ];
 };
@@ -41,7 +42,7 @@ Object.assign(
                 [2, 2],
                 [1, 1],
                 [1, 0],
-            ], [1, 0], SINGLETON_DEMO_ROOM);
+            ], [1, 0], this, SINGLETON_DEMO_ROOM);
 
             this.logs = new $_NL.prototype.FloatingTerminal(16, QE.FONT_ARIAL_32, 'Text Wall');
             this.create_and_add_element_to_root(this.logs);

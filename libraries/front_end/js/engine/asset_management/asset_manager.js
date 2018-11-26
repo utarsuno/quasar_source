@@ -56,6 +56,13 @@ $_QE.prototype.AssetManager.prototype = {
         asset_batch.add_asset_texture(ASSET_TEXTURE_SKYBOX_BOTTOM);
         //
 
+        //
+        asset_batch.add_asset_texture(ASSET_TEXTURE_HARDWOOD_COLOR);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_HARDWOOD_SPEC);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_HARDWOOD_NORMAL);
+        asset_batch.add_asset_texture(ASSET_TEXTURE_HARDWOOD_GLOSS);
+        //
+
         this._load_tile_batch(asset_batch);
 
         let self = this;

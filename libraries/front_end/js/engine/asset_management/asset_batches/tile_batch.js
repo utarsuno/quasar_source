@@ -9,7 +9,7 @@ Object.assign(
             asset_batch.add_asset_texture(ASSET_TEXTURE_TILE_DISPLACMENT);
             asset_batch.add_asset_texture(ASSET_TEXTURE_TILE_NORMAL);
             asset_batch.add_asset_texture(ASSET_TEXTURE_TILE_OCCULANT);
-            asset_batch.add_asset_texture(ASSET_TEXTURE_TILE_ROUGH);
+            asset_batch.add_asset_texture(ASSET_TEXTURE_TILE_SPEC);
         },
 
     }

@@ -26,9 +26,8 @@ Object.assign($_QE.prototype.World.prototype, {
         this._initialize_cache_for_tab_target();
         this._initialize_cache_for_state();
 
-        ///
+        // TODO: dynamic
         //this.engine.manager_world.player_menu.register_world(this);
-        ///
     },
 
     _refresh_element: function(element) {

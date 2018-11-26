@@ -21,8 +21,7 @@ Object.assign(
                 normalMap      : QE.manager_assets.get_asset(ASSET_TEXTURE_TILE_NORMAL),
                 aoMap          : QE.manager_assets.get_asset(ASSET_TEXTURE_TILE_OCCULANT),
 
-                envMap         : QE.manager_assets.get_asset(ASSET_TEXTURE_TILE_ROUGH),
-                //specularMap    : QE.manager_assets.get_asset(ASSET_TEXTURE_TILE_ROUGH), // specular
+                specularMap    : QE.manager_assets.get_asset(ASSET_TEXTURE_TILE_SPEC), // specular
 
                 //color          : 0x939393,
                 color          : 0xb2dde6,

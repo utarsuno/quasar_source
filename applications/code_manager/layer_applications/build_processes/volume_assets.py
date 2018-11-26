@@ -23,6 +23,11 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		self._add_volume_file_reference('p3_3.jpg', 'texture/third_party/tile/Tiles_009_OCC.jpg')
 		self._add_volume_file_reference('p3_4.jpg', 'texture/third_party/tile/Tiles_009_SPEC.jpg')
 
+		self._add_volume_file_reference('p4_0.png', 'texture/third_party/hardwood/wood_parquet_02_ALB_1.png')
+		self._add_volume_file_reference('p4_1.png', 'texture/third_party/hardwood/wood_parquet_02_GLOSS_med.png')
+		self._add_volume_file_reference('p4_2.png', 'texture/third_party/hardwood/wood_parquet_02_NRM.png')
+		self._add_volume_file_reference('p4_3.png', 'texture/third_party/hardwood/wood_parquet_02_SPEC.png')
+
 		self._add_volume_file_reference('ba.jpg', 'texture/skybox/ba.jpg')
 		self._add_volume_file_reference('bo.jpg', 'texture/skybox/bo.jpg')
 		self._add_volume_file_reference('f.jpg' , 'texture/skybox/f.jpg')

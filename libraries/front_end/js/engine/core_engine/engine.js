@@ -32,6 +32,10 @@ $_QE.prototype = {
         this._set_binding_fullscreen();
         this._set_binding_pointer_lock();
 
+        // Test
+        this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/lights/RectAreaLightUniformsLib.js');
+        //
+
         // Used for downloading a canvas as an image.
         this.manager_canvas = new $_QE.prototype.CanvasSaver();
     },
