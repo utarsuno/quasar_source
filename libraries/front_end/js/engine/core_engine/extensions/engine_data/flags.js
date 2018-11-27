@@ -1,34 +1,38 @@
 'use strict';
 
 // State.
-const QEFLAG_STATE_PAUSED           = 1;      // #pre-process_global_constant
-const QEFLAG_STATE_RUNNING          = 2;      // #pre-process_global_constant
-const QEFLAG_STATE_IN_TRANSITION    = 4;      // #pre-process_global_constant
+const QEFLAG_STATE_PAUSED            = 1;       // #pre-process_global_constant
+const QEFLAG_STATE_RUNNING           = 2;       // #pre-process_global_constant
+const QEFLAG_STATE_IN_TRANSITION     = 4;       // #pre-process_global_constant
 
 // Web feature states.
-const QEFLAG_STATE_POINTER_LOCK     = 8;      // #pre-process_global_constant
-const QEFLAG_STATE_FULLSCREEN       = 16;     // #pre-process_global_constant
+const QEFLAG_STATE_POINTER_LOCK      = 8;       // #pre-process_global_constant
+const QEFLAG_STATE_FULLSCREEN        = 16;      // #pre-process_global_constant
 
 // Other states.
-const QEFLAG_STATE_MOUSE_Y_DISABLED = 32;     // #pre-process_global_constant
+const QEFLAG_STATE_MOUSE_Y_DISABLED  = 32;      // #pre-process_global_constant
 
 // Web features.
-const QEFLAG_FEATURE_CANVAS         = 64;     // #pre-process_global_constant
-const QEFLAG_FEATURE_WEBGL          = 128;    // #pre-process_global_constant
-const QEFLAG_FEATURE_WEB_WORKERS    = 256;    // #pre-process_global_constant
-const QEFLAG_FEATURE_MOBILE         = 512;    // #pre-process_global_constant
-const QEFLAG_FEATURE_VR             = 1024;   // #pre-process_global_constant
-const QEFLAG_FEATURE_FULL_SCREEN    = 2048;   // #pre-process_global_constant
-const QEFLAG_FEATURE_POINTER_LOCK   = 4096;   // #pre-process_global_constant
-const QEFLAG_FEATURE_SCROLLING      = 8192;   // #pre-process_global_constant
+const QEFLAG_FEATURE_CANVAS          = 64;      // #pre-process_global_constant
+const QEFLAG_FEATURE_WEBGL           = 128;     // #pre-process_global_constant
+const QEFLAG_FEATURE_WEB_WORKERS     = 256;     // #pre-process_global_constant
+const QEFLAG_FEATURE_MOBILE          = 512;     // #pre-process_global_constant
+const QEFLAG_FEATURE_VR              = 1024;    // #pre-process_global_constant
+const QEFLAG_FEATURE_FULL_SCREEN     = 2048;    // #pre-process_global_constant
+const QEFLAG_FEATURE_POINTER_LOCK    = 4096;    // #pre-process_global_constant
+const QEFLAG_FEATURE_SCROLLING       = 8192;    // #pre-process_global_constant
 
 // Engine settings.
-const QEFLAG_SETTING_AUDIO          = 16384;  // #pre-process_global_constant
-const QEFLAG_SETTING_SHADERS        = 32768;  // #pre-process_global_constant
-const QEFLAG_SETTING_FXAA           = 65536;  // #pre-process_global_constant
-const QEFLAG_SETTING_OUTLINE        = 131072; // #pre-process_global_constant
-const QEFLAG_SETTING_GRAIN          = 262144; // #pre-process_global_constant
-const QEFLAG_SETTING_TRANSITION     = 524288; // #pre-process_global_constant
+const QEFLAG_SETTING_AUDIO           = 16384;   // #pre-process_global_constant
+const QEFLAG_SETTING_SHADERS         = 32768;   // #pre-process_global_constant
+const QEFLAG_SETTING_FXAA            = 65536;   // #pre-process_global_constant
+const QEFLAG_SETTING_OUTLINE         = 131072;  // #pre-process_global_constant
+const QEFLAG_SETTING_GRAIN           = 262144;  // #pre-process_global_constant
+const QEFLAG_SETTING_TRANSITION      = 524288;  // #pre-process_global_constant
+const QEFLAG_SETTING_BACKGROUND_GRAY = 1048576; // #pre-process_global_constant
+
+//
+
 
 
 Object.assign(

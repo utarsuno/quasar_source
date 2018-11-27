@@ -18,7 +18,7 @@ $_QE.prototype.ShaderMaterialBackground = function() {
     this.shader_material = new THREE.RawShaderMaterial({
         vertexShader  : QE.manager_assets.shader_background_vertex,
         fragmentShader: QE.manager_assets.shader_background_fragment,
-        side          : THREE.DoubleSide,
+        side          : THREE.FrontSide,
         depthTest     : false,
         uniforms      : uniforms
     });

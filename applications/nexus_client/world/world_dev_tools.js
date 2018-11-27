@@ -35,7 +35,9 @@ Object.assign(
             this.logs = new $_NL.prototype.FloatingTerminal(32, QE.FONT_ARIAL_32, 'Floating Terminal');
             this.create_and_add_element_to_root(this.logs);
             this.logs.set_position_center(-2500, 1000, -1200, 0, 0, 0, true);
+
         },
+
     }
 );
 

@@ -33,7 +33,9 @@ $_QE.prototype = {
         this._set_binding_pointer_lock();
 
         // Test
-        this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/lights/RectAreaLightUniformsLib.js');
+        //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/lights/RectAreaLightUniformsLib.js');
+        //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/master/examples/js/renderers/CSS3DRenderer.js');
+        //this.load_script('https://cdn.jsdelivr.net/gh/jeromeetienne/threex.htmlmixer/threex.htmlmixer.js');
         //
 
         // Used for downloading a canvas as an image.
@@ -43,6 +45,9 @@ $_QE.prototype = {
     // Step : 0x0
     _initialize_engine: function() {
         let me              = this;
+
+        //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/renderers/CSS3DRenderer.js');
+        //this.load_script('https://cdn.jsdelivr.net/gh/jeromeetienne/threex.htmlmixer/threex.htmlmixer.js');
 
         // Start the load of asset files.
         this.pause_menu_set_sub_title('asset files');

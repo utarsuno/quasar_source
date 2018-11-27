@@ -24,6 +24,9 @@ Object.assign(
         },
 
         world_leave: function(world) {
+            if (this._alias == SINGLETON_SKY_BOX_GRAY) {
+                QE._shader_disable_background_gray();
+            }
             if (this._is_element) {
                 world.remove_element(this._object);
             } else {
@@ -32,6 +35,9 @@ Object.assign(
         },
 
         _world_enter: function(world) {
+            if (this._alias == SINGLETON_SKY_BOX_GRAY) {
+                QE._shader_enable_background_gray();
+            }
             if (this._is_element) {
                 if (this._object.flag_is_off(EFLAG_IS_IN_WORLD)) {
                     world.add_element(this._object);

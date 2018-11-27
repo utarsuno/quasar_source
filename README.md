@@ -1,6 +1,6 @@
 ## Development Screenshots
 November 2018
-![alt_text](https://i.imgur.com/kTcAz0T.jpg)
+![alt_text](https://i.imgur.com/r0Hsbc3.jpg)
 ---
 October 2018
 ![alt_text](https://i.imgur.com/NG7E4yN.jpg)

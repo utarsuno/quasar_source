@@ -34,6 +34,10 @@ Object.assign(
             this.singletons_enter_world();
             this.current_world.enter();
             this.engine._on_new_scene_set(this.current_world.scene);
+
+            //
+            //QE.mixer_context.scene = this.current_world.scene;
+            //
         },
 
         physics: function(delta) {
@@ -53,6 +57,7 @@ Object.assign(
         },
 
         update: function(delta) {
+            //this.engine.mixer_context.update(delta);
         },
     }
 );

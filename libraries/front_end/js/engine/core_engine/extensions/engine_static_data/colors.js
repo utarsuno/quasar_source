@@ -38,6 +38,7 @@ Object.assign($_QE.prototype, {
     COLOR_RED_LIGHT       : new THREE.Color('#ff7f7f'),
     COLOR_BLUE            : new THREE.Color('#0000ff'),
     COLOR_BLUE_LIGHT      : new THREE.Color('#7f7fff'),
+    COLOR_BLUE_LIGHTER    : new THREE.Color('#caf0ff'),
 
     COLOR_GRAY_DARK       : new THREE.Color('#282828'),
 

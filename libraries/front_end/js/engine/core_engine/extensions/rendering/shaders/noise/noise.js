@@ -47,6 +47,8 @@ Object.assign(
             this.effect_noise = new $_QE.prototype.ShaderPassNoise();
             this.effect_noise.renderToScreen = true;
             this.effect_composer.addPass(this.effect_noise);
+
+
         },
     }
 );

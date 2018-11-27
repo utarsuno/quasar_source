@@ -120,7 +120,7 @@ class JavascriptManager(object):
 		self._add_paths('worlds/world_manager'           , ['world_manager'])
 		self._add_paths('worlds/world_manager/extensions', ['input', 'singletons'])
 		self._add_paths('worlds/world/discrete'          , ['settings_world'])
-		self._add_paths('worlds/world/discrete/demo'     , ['demo_room_light', 'demo_room_tile', 'demo_room', 'demo_world'])
+		self._add_paths('worlds/world/discrete/demo'     , ['demo_room_tile', 'demo_room', 'demo_room_ceiling', 'demo_room_floor', 'demo_room_lights', 'demo_room_walls', 'demo_world'])
 
 		# Shaders.
 		shaders_path = 'core_engine/extensions/rendering/shaders'

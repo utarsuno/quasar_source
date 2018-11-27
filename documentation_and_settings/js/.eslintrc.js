@@ -276,30 +276,31 @@ module.exports = {
 
         // Engine flags. -------------------------------------------------------------
         //     {state}
-        "QEFLAG_STATE_PAUSED"          : false,
-        "QEFLAG_STATE_RUNNING"         : false,
-        "QEFLAG_STATE_IN_TRANSITION"   : false,
+        "QEFLAG_STATE_PAUSED"           : false,
+        "QEFLAG_STATE_RUNNING"          : false,
+        "QEFLAG_STATE_IN_TRANSITION"    : false,
         //     {web feature states}
-        "QEFLAG_STATE_POINTER_LOCK"    : false,
-        "QEFLAG_STATE_FULLSCREEN"      : false,
+        "QEFLAG_STATE_POINTER_LOCK"     : false,
+        "QEFLAG_STATE_FULLSCREEN"       : false,
         //     {other states}
-        "QEFLAG_STATE_MOUSE_Y_DISABLED": false,
+        "QEFLAG_STATE_MOUSE_Y_DISABLED" : false,
         //     {web features}
-        "QEFLAG_FEATURE_CANVAS"        : false,
-        "QEFLAG_FEATURE_WEBGL"         : false,
-        "QEFLAG_FEATURE_WEB_WORKERS"   : false,
-        "QEFLAG_FEATURE_MOBILE"        : false,
-        "QEFLAG_FEATURE_VR"            : false,
-        "QEFLAG_FEATURE_FULL_SCREEN"   : false,
-        "QEFLAG_FEATURE_POINTER_LOCK"  : false,
-        "QEFLAG_FEATURE_SCROLLING"     : false,
+        "QEFLAG_FEATURE_CANVAS"         : false,
+        "QEFLAG_FEATURE_WEBGL"          : false,
+        "QEFLAG_FEATURE_WEB_WORKERS"    : false,
+        "QEFLAG_FEATURE_MOBILE"         : false,
+        "QEFLAG_FEATURE_VR"             : false,
+        "QEFLAG_FEATURE_FULL_SCREEN"    : false,
+        "QEFLAG_FEATURE_POINTER_LOCK"   : false,
+        "QEFLAG_FEATURE_SCROLLING"      : false,
         //     {engine settings}
-        "QEFLAG_SETTING_AUDIO"         : false,
-        "QEFLAG_SETTING_SHADERS"       : false,
-        "QEFLAG_SETTING_FXAA"          : false,
-        "QEFLAG_SETTING_OUTLINE"       : false,
-        "QEFLAG_SETTING_GRAIN"         : false,
-        "QEFLAG_SETTING_TRANSITION"    : false,
+        "QEFLAG_SETTING_AUDIO"          : false,
+        "QEFLAG_SETTING_SHADERS"        : false,
+        "QEFLAG_SETTING_FXAA"           : false,
+        "QEFLAG_SETTING_OUTLINE"        : false,
+        "QEFLAG_SETTING_GRAIN"          : false,
+        "QEFLAG_SETTING_TRANSITION"     : false,
+        "QEFLAG_SETTING_BACKGROUND_GRAY": false,
 
 
         // OLD BELOW.
