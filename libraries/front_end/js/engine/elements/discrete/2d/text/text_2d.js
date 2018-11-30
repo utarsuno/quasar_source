@@ -23,7 +23,8 @@ Object.assign(
 
         _initialize_text_2d: function(args) {
             args[ARG_GEOMETRY_TYPE]            = FEATURE_GEOMETRY_TYPE_PLANE;
-            args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_FANCY;
+            //args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_FANCY;
+            args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_BASIC;
             args[ARG_MESH_TYPE]                = FEATURE_MESH_TYPE_DEFAULT;
             args[ARG_COLOR_DEFAULT_FOREGROUND] = QE.COLOR_RGB_GREEN_LIGHT;
             args[ARG_COLOR_DEFAULT_BACKGROUND] = QE.COLOR_RGBA_TRANSPARENT;

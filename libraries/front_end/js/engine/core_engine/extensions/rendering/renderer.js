@@ -154,14 +154,6 @@ Object.assign(
 
             this.effect_noise.clear      = false;
             this.effect_noise.clearDepth = true;
-
-            /*
-            this.render_pass_css.renderToScreen = true;
-            this.render_pass_css.clear = false;
-            this.render_pass_css.clearDepth = true;
-            this.effect_composer.addPass(this.render_pass_css);
-            */
-
         },
 
         // TODO: this will get replaced by the 'world_transition' file

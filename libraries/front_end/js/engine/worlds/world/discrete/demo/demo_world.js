@@ -1,13 +1,11 @@
 'use strict';
 
-
-
 $_QE.prototype.DemoWorld = function(engine) {
     this.init_world('Demo', ASSET_ICON_PLANET, engine);
     this.set_world_enter_default_position(new THREE.Vector3(1024, 512, 0));
     this.set_world_enter_default_normal(new THREE.Vector3(0, 0, 1));
-    this.set_on_world_enter(QE.player.set_to_walking);
-    this.set_on_world_exit(QE.player.set_to_flying);
+    //this.set_on_world_enter(QE.player.set_to_walking.bind(QE.player));
+    //this.set_on_world_exit(QE.player.set_to_flying.bind(QE.player));
 
     this.needed_singletons = [
         SINGLETON_AMBIENT_LIGHT, SINGLETON_SKY_BOX_SPACE,
@@ -81,10 +79,7 @@ Object.assign(
             this.logs.add_message('😒 emoji support too');
 
             //let url		= 'https://en.wikipedia.org/wiki/Main_Page';
-            //let url		= 'https://www.google.com/';
             let url		= 'http://quasarsource.com:1338';
-            //let url = 'https://en.wikipedia.org/wiki/Main_Page';
-            //let url = 'http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/';
             //let domElement	= document.createElement('iframe');
             //domElement.src	= url;
             //domElement.style.border	= 'none';
