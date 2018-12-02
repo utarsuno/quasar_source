@@ -6,18 +6,22 @@ THREE.Cache.enabled = true;
 THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
 
+let QE;
+
+
 function $_QE(application, application_class, first_world) {
+    QE = this;
     this.engine_main_loop  = this._engine_loop.bind(this);
-    this._initialize_hud_pause_menu();
+    this.__init__hud_pause_menu();
     this.first_world_class = first_world;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
     if (this._are_required_features_enabled()) {
         this.application = application;
         this.application = new application_class();
-        this._initialize_cache();
-        this._initialize_engine();
-        this._initialize_state();
+        this.__init__cache();
+        this.__init__engine();
+        this.__init__state();
     } else {
         this.fatal_error('Engine failed to load! Missing features {' + this.get_names_of_required_features_not_enabled() + '}');
     }
@@ -27,7 +31,7 @@ $_QE.prototype = {
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
-    _initialize_web_features: function() {
+    __init__web_features: function() {
         this._set_binding_resize();
         this._set_binding_fullscreen();
         this._set_binding_pointer_lock();
@@ -37,14 +41,14 @@ $_QE.prototype = {
         //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/master/examples/js/renderers/CSS3DRenderer.js');
         //this.load_script('https://cdn.jsdelivr.net/gh/jeromeetienne/threex.htmlmixer/threex.htmlmixer.js');
         //
-
-        // Used for downloading a canvas as an image.
-        this.manager_canvas = new $_QE.prototype.CanvasSaver();
     },
 
     // Step : 0x0
-    _initialize_engine: function() {
+    __init__engine: function() {
         let me              = this;
+
+        this.engine_init_time = new THREE.Clock();
+        this.engine_init_time.start();
 
         //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/renderers/CSS3DRenderer.js');
         //this.load_script('https://cdn.jsdelivr.net/gh/jeromeetienne/threex.htmlmixer/threex.htmlmixer.js');
@@ -53,12 +57,18 @@ $_QE.prototype = {
         this.pause_menu_set_sub_title('asset files');
         this.manager_heap   = this.get_heap_manager();
         this.manager_assets = new $_QE.prototype.AssetManager(this);
-        this.manager_time   = new $_QE.prototype.TimeManager();
         this.manager_text2D = new $_QE.prototype._Text2DHelper(this);
 
         let on_load         = this.manager_assets.load_pre_render_assets(this);
 
-        this._initialize_web_features();
+        this.__init__web_features();
+        this.__init__renderer();
+        this.player         = new $_QE.prototype.Player(this);
+        this.manager_world  = new $_QE.prototype.WorldManager(this);
+        this.__init__hud();
+
+        // Used for downloading a canvas as an image.
+        this.manager_canvas = new $_QE.prototype.CanvasSaver();
 
         on_load.then(function() {
             //l('LOADING FINISHED!');
@@ -73,15 +83,10 @@ $_QE.prototype = {
     _initialize_for_first_render: function() {
         this.pause_menu_set_sub_title('creating worlds');
 
-        this._initialize_renderer();
-        this.player           = new $_QE.prototype.Player(this);
-        this.manager_world    = new $_QE.prototype.WorldManager(this);
         this.manager_world.__init__();
 
         this.initialize_shaders(this.manager_world.first_world);
-        this._initialize_hud();
-
-        this._initialize_input_controls();
+        this.__init__input_controls();
 
         //
         this.set_state(QEFLAG_STATE_RUNNING);
@@ -102,6 +107,8 @@ $_QE.prototype = {
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
 
         this.application.engine_started();
+
+        l('Engine loaded in {' + this.engine_init_time.getElapsedTime() + '}');
 
         this.engine_main_loop();
     },

@@ -5,6 +5,10 @@ $_NL.prototype.WorldDevTools = function(engine) {
     this.set_world_enter_default_position(new THREE.Vector3(-34.79899682521624, 557.3571839639006, 1802.99541871182));
     this.set_world_enter_default_normal(new THREE.Vector3(0.005015558927525423, -0.16165647877160208, -0.9868343463012478));
 
+    this.set_on_world_enter(function() {
+        QE.manager_world._singleton_ambient.group.intensity = .8;
+    }.bind(this));
+
     this.needed_singletons = [
         SINGLETON_HEXAGON_GRID, SINGLETON_AMBIENT_LIGHT, SINGLETON_SKY_BOX_GRAY,
         SINGLETON_HEXAGON_LIGHT_0, SINGLETON_HEXAGON_LIGHT_1, SINGLETON_HEXAGON_LIGHT_2, SINGLETON_HEXAGON_LIGHT_3,
@@ -34,8 +38,12 @@ Object.assign(
 
             this.logs = new $_NL.prototype.FloatingTerminal(32, QE.FONT_ARIAL_32, 'Floating Terminal');
             this.create_and_add_element_to_root(this.logs);
-            this.logs.set_position_center(-2500, 1000, -1200, 0, 0, 0, true);
+            //this.logs.set_position_center(0, 1000, -2800 + 2048, 0, 0, 0, true);
 
+            this.logs.set_position(0, 1000, -2200);
+            this.logs.get_object().updateMatrix();
+            this.logs.look_at(0, 1001, 1);
+            this.logs.get_object().updateMatrix();
         },
 
     }

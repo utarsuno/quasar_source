@@ -34,10 +34,6 @@ Object.assign(
             this.singletons_enter_world();
             this.current_world.enter();
             this.engine._on_new_scene_set(this.current_world.scene);
-
-            //
-            //QE.mixer_context.scene = this.current_world.scene;
-            //
         },
 
         physics: function(delta) {
@@ -49,7 +45,7 @@ Object.assign(
 
             this.current_world.update_elements_root(delta);
 
-            if (!this.player_cursor.in_mouse_action()) {
+            if (!this.player_cursor.is_in_action()) {
                 this.current_world.update_elements_interactive();
             }
 
@@ -57,7 +53,8 @@ Object.assign(
         },
 
         update: function(delta) {
-            //this.engine.mixer_context.update(delta);
+            //this.current_world.update_elements_root(delta);
+            //this.current_world.update(delta);
         },
     }
 );

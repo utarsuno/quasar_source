@@ -38,7 +38,7 @@ Object.assign($_QE.prototype, {
     _delta_clock    : new THREE.Clock(false),
     _delta          : 0,
 
-    _initialize_cache: function() {
+    __init__cache: function() {
         this._cachef[QECACHEF_FPS_PHYSICS] = 0.011111111111111112; // FPS is 90 (from 1.0 / 90.0).
         this._cachef[QECACHEF_FPS_PAUSED]  = 0.011111111111111112;
         this._cachef[QECACHEF_FPS_RENDER]  = 0.016666666666666666; // FPS is 60 (from 1.0 / 60.0).

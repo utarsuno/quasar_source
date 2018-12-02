@@ -1,7 +1,6 @@
 // Nexus Local starts here!
 
 let NL;
-let QE;
 
 function $_NL() {
     this.__init__();

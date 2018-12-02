@@ -10,7 +10,7 @@ Object.assign(
     $_QE.prototype.FeatureMesh.prototype,
     $_QE.prototype.FeatureSize.prototype,
     {
-        initialize_floating_element_data: function() {
+        __init__floating_element: function() {
             this.initialize_element_data();
             this.attachments       = [];
             this.attachment_parent = null;

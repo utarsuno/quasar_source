@@ -12,7 +12,7 @@ Object.assign(
             this.row_height  = height;
             this.row_y_start = y_percentage_position_start;
 
-            this.initialize_interactive_linked_list($_QE.prototype.LLNodeRowElement);
+            this.__init__ll_interactive($_QE.prototype.LLNodeRowElement);
 
             if (add_raw) {
                 this.add_raw_element_interactive(this.parent_wall, 1);

@@ -63,8 +63,6 @@ $_QE.prototype.AssetManager.prototype = {
         asset_batch.add_asset_texture(ASSET_TEXTURE_HARDWOOD_GLOSS);
         //
 
-        this._load_tile_batch(asset_batch);
-
         let self = this;
 
         return new Promise(function(resolve, reject) {

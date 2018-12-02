@@ -11,7 +11,7 @@ Object.assign(
         _initialize_floating_icon: function(args) {
             this.icon_type = args[ARG_ICON];
 
-            this.initialize_floating_element_data();
+            this.__init__floating_element();
             if (args[ARG_COLOR_FOREGROUND] == null) {
                 args[ARG_COLOR_FOREGROUUND] = QE.COLOR_GREEN;
             }

@@ -5,7 +5,7 @@ $_QE.prototype.Text2D = function(args) {
     let w = QE.manager_text2D.get_text_width(text, font);
     l('The needed width is {' + w + '}');*/
 
-    this._initialize_text_2d(args);
+    this.__init__text2d(args);
 
     if (this._arg_is_on(args, ARG_INTERACTIVE)) {
         $_QE.prototype.FeatureTyping.call(this);
@@ -16,21 +16,21 @@ $_QE.prototype.Text2D = function(args) {
 Object.assign(
     $_QE.prototype.Text2D.prototype,
     $_QE.prototype.FloatingElementText.prototype,
-    $_QE.prototype.DomCanvasInternalTexture.prototype,
+    $_QE.prototype.DomCanvasTexture.prototype,
     $_QE.prototype.CanvasRenderingTextLine.prototype,
     {
         constructor: $_QE.prototype.Text2D,
 
-        _initialize_text_2d: function(args) {
+        __init__text2d: function(args) {
             args[ARG_GEOMETRY_TYPE]            = FEATURE_GEOMETRY_TYPE_PLANE;
-            //args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_FANCY;
             args[ARG_MATERIAL_TYPE]            = FEATURE_MATERIAL_CANVAS_BASIC;
             args[ARG_MESH_TYPE]                = FEATURE_MESH_TYPE_DEFAULT;
             args[ARG_COLOR_DEFAULT_FOREGROUND] = QE.COLOR_RGB_GREEN_LIGHT;
             args[ARG_COLOR_DEFAULT_BACKGROUND] = QE.COLOR_RGBA_TRANSPARENT;
+            args[ARG_NUMBER_OF_ROWS]           = -1;
 
-            this.initialize_floating_element_data();
-            this.initialize_dom_canvas(-1, args[ARG_WIDTH], args[ARG_FONT]);
+            this.__init__floating_element();
+            this.__init__canvas_texture(args);
             this._parse_arguments_engine(args);
             this._parse_arguments_color(args);
             this._parse_arguments_text(args);

@@ -4,7 +4,7 @@ $_QE.prototype.LinkedListBase = function() {};
 
 $_QE.prototype.LinkedListBase.prototype = {
 
-    initialize_linked_list: function() {
+    __init__ll: function() {
         this._node_head       = null;
         this._node_tail       = null;
         this._length          = 0;

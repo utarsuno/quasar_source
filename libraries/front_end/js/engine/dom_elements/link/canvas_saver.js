@@ -1,14 +1,12 @@
 'use strict';
 
 $_QE.prototype.CanvasSaver = function() {
-    this.initialize_dom_link();
-
-
+    this.__init__internal_link();
 };
 
 Object.assign(
     $_QE.prototype.CanvasSaver.prototype,
-    $_QE.prototype.DomLinkInternal.prototype,
+    $_QE.prototype.DomElement.prototype,
     {
         // Solution from : https://stackoverflow.com/questions/10673122/how-to-save-canvas-as-an-image-with-canvas-todataurl
         download_canvas: function(canvas, file_name) {

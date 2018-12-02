@@ -33,6 +33,9 @@ Object.assign(
         },
 
         add_character: function(character) {
+            if (character == '\n' || character == '\r\n' || character == '\\n') {
+                l('new line!');
+            }
             this.update_text(this.get_text() + character);
         },
 

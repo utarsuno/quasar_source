@@ -7,6 +7,10 @@ $_QE.prototype.DemoWorld = function(engine) {
     //this.set_on_world_enter(QE.player.set_to_walking.bind(QE.player));
     //this.set_on_world_exit(QE.player.set_to_flying.bind(QE.player));
 
+    this.set_on_world_enter(function() {
+        QE.manager_world._singleton_ambient.group.intensity = .15;
+    }.bind(this));
+
     this.needed_singletons = [
         SINGLETON_AMBIENT_LIGHT, SINGLETON_SKY_BOX_SPACE,
         SINGLETON_DEMO_ROOM,

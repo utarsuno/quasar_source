@@ -13,10 +13,6 @@ Object.assign(
             this.row.set_text_alignment(text_alignment);
         },
 
-        _render_start: function() {
-            // TODO: check if context style has changed.
-        },
-
         _render_end: function() {
         },
 
@@ -26,7 +22,7 @@ Object.assign(
 
         _render_background: function() {
             if (this.current_background_color != null) {
-                this._fill_background();
+                this._fill_canvas_background();
             }
         },
 

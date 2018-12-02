@@ -98,7 +98,7 @@ Object.assign(
             //
         },
 
-        _initialize_renderer: function() {
+        __init__renderer: function() {
             this._cachef[QECACHEF_FOV]           = 75.0;
             this._cachef[QECACHEF_CLIPPING_NEAR] = 1.0;
             this._cachef[QECACHEF_CLIPPING_FAR]  = 50000.0;
@@ -132,20 +132,16 @@ Object.assign(
             this._create_css_renderer(world);
 
             //
-            this.render_pass_css     = new THREE.RenderPass(this.css_scene, this.camera);
+            //this.render_pass_css     = new THREE.RenderPass(this.css_scene, this.camera);
             //
 
             this.effect_composer = new THREE.EffectComposer(this.renderer);
             this.render_pass     = new THREE.RenderPass(world.scene, this.camera);
 
-            //this.render_pass_css = new THREE.RenderPass(this.css_scene, this.camera);
-
             //
             this.effect_composer.setSize(this.get_width(), this.get_height());
             //
-            //this.effect_composer.addPass(this.render_pass_css);
             this.effect_composer.addPass(this.render_pass);
-            //this.effect_composer.addPass(this.render_pass_css);
 
             this._initialize_outline_glow(world);
             this._initialize_fxaa();

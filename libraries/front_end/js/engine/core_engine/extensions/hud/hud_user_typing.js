@@ -12,9 +12,12 @@ Object.assign(
             this.text        = '';
             this.application = application;
 
-            this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT);
-
-            this.initialize_hud_element(-1, 1200, QE.FONT_ARIAL_12, GLOBAL_ID_HUD_TYPING);
+            this.__init__hud_element({
+                ARG_NUMBER_OF_ROWS  : -1,
+                ARG_WIDTH           : 1200,
+                ARG_DOM_ELEMENT_ID  : GLOBAL_ID_HUD_TYPING,
+                ARG_COLOR_FOREGROUND: QE.COLOR_RGB_GREEN_LIGHT
+            });
 
             // The typing hud starts off as hidden (style set ahead of time directly in HTML).
             this.hidden = true;

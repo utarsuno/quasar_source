@@ -7,13 +7,12 @@ Object.assign(
     $_QE.prototype.LinkedListInteractive.prototype,
     $_QE.prototype.LinkedListBase.prototype,
     {
-
-        initialize_interactive_linked_list: function(node_class) {
+        __init__ll_interactive: function(node_class) {
             this._node_class         = node_class;
             this._interactive_head   = null;
             this._interactive_tail   = null;
             this._length_interactive = 0;
-            this.initialize_linked_list();
+            this.__init__ll();
         },
 
         on_element_set_to_interactive: function(element) {

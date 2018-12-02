@@ -22,6 +22,8 @@ from libraries.universal_code.system_abstraction.shell_command_runner import Bas
 from libraries.universal_code import debugging as dbg
 # Used for copying files and other operations such as deleting directories.
 import shutil
+# Needed for compression.
+from PIL import Image
 
 # GLOBAL TODO (s):
 # Add more safety checks on all functions.
@@ -140,6 +142,24 @@ def file_op_create_gzip(path_source: str, path_destination=None) -> None:
 	bash_command.run()
 	if path_destination is not None:
 		os.rename(path_source + '.gz', path_destination)
+
+
+def file_op_convert_png_to_compressed_jpg(path_source: str, path_destination=None) -> None:
+	"""Generates a compressed JPG file from the provided PNG file."""
+	jpg = path_source.replace('.png', '.jpg')
+
+	Image.open(path_source).convert('RGB').save(jpg)
+	Image.open(jpg).save(path_destination, quality=85, optimize=True, progressive=False)
+
+
+def file_op_compress_image(path_source: str, path_destination=None) -> None:
+	"""Compressed the provided JPG or PNG image."""
+	is_png = '.png' in path_source
+	image = Image.open(path_source)
+	if is_png:
+		image.save(path_destination, quality=85, optimize=True, compress_level=9)
+	else:
+		image.save(path_destination, quality=85, optimize=True, progressive=False)
 
 
 def file_op_append_files_content(source_path: str, append_file_path: str) -> None:

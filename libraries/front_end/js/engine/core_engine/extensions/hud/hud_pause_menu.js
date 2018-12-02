@@ -42,11 +42,11 @@ Object.assign(
 Object.assign($_QE.prototype,
     {
 
-        _initialize_hud_pause_menu: function() {
-            this.pause_background = new $_QE.prototype.DomElementExternal().initialize_dom_element(GLOBAL_ID_PAUSED_BACKGROUND_FILTER);
-            this.pause_menu       = new $_QE.prototype.DomElementExternal().initialize_dom_element(GLOBAL_ID_PAUSE_DISPLAY, 'table');
-            this.pause_title      = new $_QE.prototype.DomTextExternal().initialize_dom_text(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE);
-            this.pause_sub_title  = new $_QE.prototype.DomTextExternal().initialize_dom_text(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE);
+        __init__hud_pause_menu: function() {
+            this.pause_background = new $_QE.prototype.DomElement().__init__external(GLOBAL_ID_PAUSED_BACKGROUND_FILTER);
+            this.pause_menu       = new $_QE.prototype.DomElement().__init__external(GLOBAL_ID_PAUSE_DISPLAY, 'table');
+            this.pause_title      = new $_QE.prototype.DomElementText().__init__(GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE);
+            this.pause_sub_title  = new $_QE.prototype.DomElementText().__init__(GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE);
             this._pause_menu      = new $_QE.prototype._PauseMenu(this);
         },
 

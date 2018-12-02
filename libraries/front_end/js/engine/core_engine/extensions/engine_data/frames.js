@@ -34,7 +34,8 @@ Object.assign($_QE.prototype, {
                 this.hud_debug.set_current_frame_count(this._cachei[QECACHEI_FRAME_COUNTER]);
                 this._cachei[QECACHEI_FRAME_COUNTER] = 0;
 
-                this.hud_date_time.refresh();
+                this.hud_date_time.content_update();
+                this.hud_date_time.update();
             }
 
             if (this._cachef[QECACHEF_ELAPSED_TIME_PHYSICS] >= this._cachef[QECACHEF_FPS_PHYSICS]) {
@@ -48,7 +49,7 @@ Object.assign($_QE.prototype, {
                     this._frame_iteration++;
                     this.hud_update(this._cachef[QECACHEF_FPS_PHYSICS]);
                 }
-                //this.hud_update();
+                this.hud_render();
             }
 
             if (this._cachef[QECACHEF_ELAPSED_TIME_LOGIC] >= this._cachef[QECACHEF_FPS_LOGIC]) {

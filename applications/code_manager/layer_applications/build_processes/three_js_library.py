@@ -39,8 +39,9 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 			self.latest_version = self._get_latest_version()
 			if not self.failed:
 				if self.latest_version != self.library_entity.version:
-					oc.print_ascii_yellow('TODO:')
-					oc.print_error('LOG/INFORM THAT THREE JS HAS UPDATED!!!')
+					oc.print_data_with_red_dashes_at_start('TODO: LOG/INFORM THAT THRREE JS HAS UPDATED!')
+					#oc.print_ascii_yellow('TODO:')
+					#oc.print_error('LOG/INFORM THAT THREE JS HAS UPDATED!!!')
 					#self.finish()
 					return
 				else:

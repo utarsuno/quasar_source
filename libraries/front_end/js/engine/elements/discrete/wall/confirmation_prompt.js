@@ -1,7 +1,7 @@
 'use strict';
 
 $_QE.prototype.ConfirmationPrompt = function(parent_button) {
-    this.initialize_self_with_rows();
+    this.__init__floating_rows();
 
     this.set_foreground_color(QE.COLOR_GRAY_DARK, 0.85);
 

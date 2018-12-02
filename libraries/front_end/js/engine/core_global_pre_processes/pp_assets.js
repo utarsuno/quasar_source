@@ -1,7 +1,7 @@
 'use strict';
 
 const ASSET_TEXTURE_SPRITE_SHEET  = 'p0.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_TRANSITION    = 'p1.png'; // #pre-process_global_constant
+const ASSET_TEXTURE_TRANSITION    = 'p1.jpg'; // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_FRONT  = 'f.jpg';  // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_BACK   = 'ba.jpg'; // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_LEFT   = 'l.jpg';  // #pre-process_global_constant
@@ -9,16 +9,10 @@ const ASSET_TEXTURE_SKYBOX_RIGHT  = 'r.jpg';  // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_TOP    = 't.jpg';  // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_BOTTOM = 'bo.jpg'; // #pre-process_global_constant
 
-const ASSET_TEXTURE_HARDWOOD_COLOR  = 'p4_0.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_HARDWOOD_SPEC   = 'p4_1.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_HARDWOOD_NORMAL = 'p4_2.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_HARDWOOD_GLOSS  = 'p4_3.png'; // #pre-process_global_constant
-
-const ASSET_TEXTURE_TILE_COLOR       = 'p3_0.jpg'; // #pre-process_global_constant
-const ASSET_TEXTURE_TILE_DISPLACMENT = 'p3_1.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_TILE_NORMAL      = 'p3_2.jpg'; // #pre-process_global_constant
-const ASSET_TEXTURE_TILE_OCCULANT    = 'p3_3.jpg'; // #pre-process_global_constant
-const ASSET_TEXTURE_TILE_SPEC        = 'p3_4.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_HARDWOOD_COLOR  = 'p4_0.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_HARDWOOD_SPEC   = 'p4_1.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_HARDWOOD_NORMAL = 'p4_2.jpg'; // #pre-process_global_constant
+const ASSET_TEXTURE_HARDWOOD_GLOSS  = 'p4_3.jpg'; // #pre-process_global_constant
 
 const ASSET_SHADER_MATERIAL_TRANSITION   = 'sm1'; // #pre-process_global_constant
 const ASSET_SHADER_MATERIAL_NOISE        = 'sm2'; // #pre-process_global_constant

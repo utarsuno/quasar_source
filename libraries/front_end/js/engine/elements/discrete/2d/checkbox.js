@@ -3,7 +3,7 @@
 $_QE.prototype.FloatingCheckbox = function(size, checked, on_checked_function) {
     this.checked             = checked;
     this.on_checked_function = on_checked_function;
-    this.initialize_floating_element_data();
+    this.__init__floating_element();
     this.set_dimensions(size, size);
 };
 

@@ -3,7 +3,7 @@
 $_QE.prototype.Text3D = function(args) {
     this.text            = args[ARG_TEXT];
     this.text_size       = args[ARG_SIZE];
-    this.initialize_floating_element_data();
+    this.__init__floating_element();
     this._parse_arguments_color(args);
     this.set_dimensions(0, 0);
 

@@ -58,13 +58,15 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 		"""Builds the JS engine file."""
 		for f in self.all_files:
 
+			minified_path           = self.domain.generated_content_path + f.file_name_with_minified_extension
+			gzip_path               = minified_path + '.gz'
+			volume_file_path        = self.domain.volume_path + f.file_name_with_minified_extension
+
+			if 'nexus_local' in volume_file_path:
+				volume_file_path = volume_file_path.replace('nexus_local', 'nl')
+
 			updated_or_cached, file = self.domain.cache_base_file(f)
-
 			if updated_or_cached:
-				# Minify.
-				minified_path = self.domain.generated_content_path + f.file_name_with_minified_extension
-				gzip_path     = minified_path + '.gz'
-
 				f.minify(output_path=minified_path)
 
 				updated_or_cached, minified_file = self.domain.cache_child_file_based_off_base_code_file(
@@ -83,9 +85,14 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 				)
 
 				# Now copy the needed files to the volume.
-				volume_file_path = self.domain.volume_path + f.file_name_with_minified_extension
 				ufo.file_op_copy(minified_path, volume_file_path)
 				ufo.file_op_copy(gzip_path    , volume_file_path + '.gz')
 
 				#self.finish_early('NexusLocal was generated.')
 				self.add_output_line('Cached {' + f.file_name + '}.')
+
+			else:
+				# Ensure volume file exists.
+				if not ufo.file_get_is_file(volume_file_path):
+					ufo.file_op_copy(minified_path, volume_file_path)
+					ufo.file_op_copy(gzip_path, volume_file_path + '.gz')

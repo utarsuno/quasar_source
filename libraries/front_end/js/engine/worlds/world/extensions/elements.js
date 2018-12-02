@@ -54,7 +54,7 @@ Object.assign($_QE.prototype.World.prototype, {
             this.previous_tab_target = element;
         }
         this.currently_looked_at_object.trigger_event(ELEMENT_EVENT_ON_LOOK_AT);
-        QE.manager_world.player_cursor.attach(this.currently_looked_at_object, position);
+        this.engine.manager_world.event_trigger_element_looked_at(this.currently_looked_at_object, position);
     },
 
     look_away_from_currently_looked_at_object: function() {
@@ -62,11 +62,7 @@ Object.assign($_QE.prototype.World.prototype, {
         if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED)) {
             this.disengage_from_currently_looked_at_object();
         }
-        if (QE.manager_world.player_cursor.attached_to != null) {
-            QE.manager_world.player_cursor.detach();
-        }
-        QE.flag_set_off(QEFLAG_STATE_MOUSE_Y_DISABLED);
+        this.engine.manager_world.event_trigger_element_looked_away_from(this.currently_looked_at_object);
         this.currently_looked_at_object = null;
     },
 });
-

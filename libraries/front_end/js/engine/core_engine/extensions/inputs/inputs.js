@@ -15,7 +15,7 @@ Object.assign(
         key_down_v      : false,
         key_down_control: false,
 
-        _initialize_input_controls: function() {
+        __init__input_controls: function() {
             this.left_click_timer.start();
 
             this._initialize_mouse();

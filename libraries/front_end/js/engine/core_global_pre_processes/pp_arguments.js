@@ -25,3 +25,9 @@ const ARG_COLOR_DEFAULT_BACKGROUND = 'ARG_COLOR_DEFAULT_BACKGROUND'; // #pre-pro
 const ARG_LOOKABLE                 = 'ARG_LOOKABLE';                 // #pre-process_global_constant
 const ARG_USE_OUTLINE_GLOW         = 'ARG_USE_OUTLINE_GLOW';         // #pre-process_global_constant
 const ARG_RENDER_BORDER            = 'ARG_RENDER_BORDER';            // #pre-process_global_constant
+const ARG_NUMBER_OF_ROWS           = 'ARG_NUMBER_OF_ROWS';           // #pre-process_global_constant
+const ARG_DOM_ELEMENT_ID           = 'ARG_DOM_ELEMENT_ID';           // #pre-process_global_constant
+
+
+
+

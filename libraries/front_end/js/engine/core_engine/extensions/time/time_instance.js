@@ -27,6 +27,14 @@ $_QE.prototype.TimeInstance.prototype = {
         } else {
             this.minutes = this.minutes.toString();
         }
+        this.seconds = this.d.getSeconds();
+        if (this.seconds == 0) {
+            this.seconds = '00';
+        } else if (this.seconds < 10) {
+            this.seconds = '0' + this.seconds.toString();
+        } else {
+            this.seconds = this.seconds.toString();
+        }
     },
 
     __init__: function(date=null) {
@@ -55,11 +63,11 @@ $_QE.prototype.TimeInstance.prototype = {
     },
 
     _get_military_time: function() {
-        return this.hours + ':' + this.minutes;
+        return this.hours + ':' + this.minutes + ':' + this.seconds;
     },
 
     _get_month_str_full: function() {
-        return this._get_month_str() + '{' + this.month + '}';
+        return this._get_month_str() + '{' + (this.month + 1) + '}';
     },
 
     _get_day_str_full: function() {

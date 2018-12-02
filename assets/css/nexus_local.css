@@ -1,62 +1,6 @@
-/*__        __   __                __             ___  __
- / _` |    /  \ |__)  /\  |       |__) |  | |    |__  /__`
- \__> |___ \__/ |__) /~~\ |___    |  \ \__/ |___ |___ .__/ */
-.h {
-    user-select: none;
-    touch-action: none;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.59);
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
-
-/*__
- / _` |  | |
- \__> \__/ | */
-.i {
-    position: fixed;
-    z-index: 13;
-}
-
-/* Note: Deleted (and set directly in style).
-.j {
-    outline: 1px solid green;
-}
-*/
-
-/*                    __                       __
- |\/|  /\  | |\ |    /  `  /\  |\ | \  /  /\  /__`
- |  | /~~\ | | \|    \__, /~~\ | \|  \/  /~~\ .__/ */
-#k {
-    left: 0;
-    display: block;
-    z-index: 5;
-}
-
-/*__   ___      ___  ___  __      __        __   __   __   __
- /  ` |__  |\ |  |  |__  |__)    /  ` |  | |__) /__` /  \ |__)
- \__, |___ | \|  |  |___ |  \    \__, \__/ |  \ .__/ \__/ |  \ */
-.e {
-    position: fixed;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-}
-
-#f {
-    border-radius: 50%;
-    width: 4px;
-    height: 4px;
-    background-color: #00ffd7;
-    margin-top: -4px;
-    margin-left: -4px;
-}
-
-#g {
-    width: 32px;
-    height: 32px;
-    margin-top: -16px;
-    margin-left: -16px;
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('Inconsolata.woff') format('woff');
 }
 
 /*__             __   ___  __      __  ___      ___  ___
@@ -73,7 +17,7 @@
 #b {
     -webkit-font-smoothing: subpixel-antialiased;
     text-align: center;
-    font-family: Arial, Helvetica, Sans-serif, serif;
+    font-family: Helvetica, Sans-serif, serif;
 
     position: absolute;
     z-index: 16;
@@ -94,4 +38,49 @@
 #d {
     font-size: 3vw;
     margin: 0;
+}
+
+
+/*__   ___      ___  ___  __      __        __   __   __   __
+ /  ` |__  |\ |  |  |__  |__)    /  ` |  | |__) /__` /  \ |__)
+ \__, |___ | \|  |  |___ |  \    \__, \__/ |  \ .__/ \__/ |  \ */
+#e {
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
+}
+
+
+/*__        __   __                __             ___  __
+ / _` |    /  \ |__)  /\  |       |__) |  | |    |__  /__`
+ \__> |___ \__/ |__) /~~\ |___    |  \ \__/ |___ |___ .__/ */
+.f {
+    user-select: none;
+    touch-action: none;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.59);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+/*__
+ / _` |  | |
+ \__> \__/ | */
+.g {
+    position: fixed;
+    z-index: 13;
+}
+
+/*                    __                       __
+ |\/|  /\  | |\ |    /  `  /\  |\ | \  /  /\  /__`
+ |  | /~~\ | | \|    \__, /~~\ | \|  \/  /~~\ .__/ */
+#h {
+    left: 0;
+    display: block;
+    z-index: 5;
 }

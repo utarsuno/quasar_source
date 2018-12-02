@@ -10,7 +10,7 @@ Object.assign(
         __init__: function(player) {
             this.player = player;
             this.group  = new THREE.Group();
-            this.initialize_self_with_rows();
+            this.__init__floating_rows();
             this.set_dimensions(512, 128);
         },
 

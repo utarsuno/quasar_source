@@ -7,9 +7,9 @@ Object.assign(
     $_QE.prototype.FloatingElement.prototype,
     $_QE.prototype.LinkedListRows.prototype,
     {
-        initialize_self_with_rows: function() {
-            this.initialize_floating_element_data();
-            this.initialize_interactive_linked_list($_QE.prototype.LLNodeRow);
+        __init__floating_rows: function() {
+            this.__init__floating_element();
+            this.__init__ll_interactive($_QE.prototype.LLNodeRow);
         },
 
     }

@@ -35,8 +35,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
     },
 
     singletons_leave_world: function() {
-        this.player_cursor.detach();
-        //this.player_menu.set_to_invisible();
+        this.player_cursor.set_state(CURSOR_STATE_DEFAULT);
         this.player_menu.trigger_event(ELEMENT_EVENT_ON_WORLD_EXIT);
         let s;
         for (s = 0; s < this.singletons.length; s++) {

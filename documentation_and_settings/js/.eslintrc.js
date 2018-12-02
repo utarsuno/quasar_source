@@ -186,6 +186,10 @@ module.exports = {
         "ARG_ON_MESH_CREATED"           : false,
         "ARG_COPY_INTERACTIVE_OF"       : false,
         "ARG_LOOKABLE"                  : false,
+        "ARG_USE_OUTLINE_GLOW"          : false,
+        "ARG_RENDER_BORDER"             : false,
+        "ARG_NUMBER_OF_ROWS"            : false,
+        "ARG_DOM_ELEMENT_ID"            : false,
 
         //
         "CLICK_LEFT"      : false,
@@ -269,6 +273,10 @@ module.exports = {
         "ASSET_TEXTURE_SKYBOX_RIGHT"        : false,
         "ASSET_TEXTURE_SKYBOX_TOP"          : false,
         "ASSET_TEXTURE_SKYBOX_BOTTOM"       : false,
+        "ASSET_TEXTURE_HARDWOOD_COLOR"      : false,
+        "ASSET_TEXTURE_HARDWOOD_SPEC"       : false,
+        "ASSET_TEXTURE_HARDWOOD_NORMAL"     : false,
+        "ASSET_TEXTURE_HARDWOOD_GLOSS"      : false,
         "ASSET_SHADER_MATERIAL_TRANSITION"  : false,
         "ASSET_SHADER_MATERIAL_BACKGROUND"  : false,
         "ASSET_SHADER_MATERIAL_NOISE"       : false,

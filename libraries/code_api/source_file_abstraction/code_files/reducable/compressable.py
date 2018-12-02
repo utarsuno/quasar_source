@@ -37,7 +37,7 @@ class Compressable(object):
 		image = Image.open(self.full_path)
 
 		if self._is_png:
-			image.save(self._compressed_save_path, quality=85, optimize=False, compress_level=9)
+			image.save(self._compressed_save_path, quality=85, optimize=True, compress_level=9)
 		elif self._is_jpg:
 			image.save(self._compressed_save_path, quality=85, progressive=False)
 		else:

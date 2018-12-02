@@ -3,14 +3,14 @@
 Object.assign($_QE.prototype.WorldManager.prototype, {
 
     on_wheel_event: function(direction) {
-        if (this.player_cursor.flag_is_on(CURSOR_STATE_MOVING)) {
+        if (this.player_cursor.flag_is_on(CURSOR_STATE_MOVE)) {
             this.player_cursor.on_wheel_event(direction);
         }
     },
 
     left_click_up: function(is_double_click) {
-        if (this.player_cursor.flag_is_on(CURSOR_STATE_ENGAGED)) {
-            this.player_cursor.disengage();
+        if (this.player_cursor.is_in_action()) {
+            this.player_cursor.finish_action();
         }
         if (this.player.has_input()) {
             this.current_world.left_click(is_double_click);
@@ -20,7 +20,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
     left_click_down: function() {
         if (this.engine.is_current_state(QEFLAG_STATE_RUNNING)) {
             if (this.player_cursor.attached_to != null) {
-                this.player_cursor.engage();
+                this.player_cursor.on_left_click_down();
             }
         }
     },

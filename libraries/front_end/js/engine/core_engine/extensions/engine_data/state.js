@@ -8,7 +8,7 @@ Object.assign(
         state_current : null,
         state_previous: null,
 
-        _initialize_state: function(first_state=null) {
+        __init__state: function(first_state=null) {
             this.state_paused = this.add_state(QEFLAG_STATE_PAUSED,
                 this._on_state_exit_paused.bind(this),
                 this._on_state_enter_paused.bind(this)
@@ -40,9 +40,7 @@ Object.assign(
 
         _on_state_exit_running: function() {
             this._reset_input_and_movements();
-            if (this.manager_world.player_cursor.in_mouse_action()) {
-                this.manager_world.player_cursor.finish_mouse_action();
-            }
+            this.manager_world.event_trigger_on_pause();
             this.pause_menu_fade_in();
             this._clear_frames();
         },

@@ -24,7 +24,7 @@ Object.assign(
         },
 
         _load: function() {
-            //this.tile_cube = new $_QE.prototype.TileCube(SINGLETON_TILE_CUBE);
+
         },
     }
 );
