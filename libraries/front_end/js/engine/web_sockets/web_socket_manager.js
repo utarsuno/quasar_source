@@ -69,6 +69,14 @@ $_QE.prototype.WebSocketManager = function(engine) {
         this.socket.onerror   = this._on_error.bind(this);
         this.socket.onopen    = this._on_open.bind(this);
         this.socket.onclose   = this._on_close.bind(this);
+
+        // Solution from: https://stackoverflow.com/questions/25779831/how-to-catch-websocket-connection-to-ws-xxxnn-failed-connection-closed-be
+        let self = this;
+        setTimeout(function () {
+            if (self.socket.readyState != 1) {
+                self._on_error('Websocket did not connect to server within 3 seconds.');
+            }
+        }, 3000);
     };
 
     this.connect();

@@ -3,7 +3,7 @@
 Object.assign(
     $_QE.prototype,
     {
-        _set_binding_fullscreen: function() {
+        __init__fullscreen: function() {
             if (document.webkitCancelFullScreen != null) {
                 this._fullscreen_enter = function() {
                     document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);

@@ -32,6 +32,7 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
             l('WARNING: recycle_material called on cacheable material.');
             l(this);
         }
+        this.material = null;
     },
 
     _create_material_cached: function() {

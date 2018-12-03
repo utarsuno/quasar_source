@@ -4,6 +4,24 @@ $_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 
+    handle_file_upload: function(f) {
+        l('TODO!!!: HANDLE FILE UPLOAD');
+        //l(f);
+
+        let image = document.createElement('img');
+        image.src = f;
+        //l(image);
+        let self = this;
+        image.onload = function() {
+            let fp = new $_QE.prototype.FloatingPicture(image);
+            //l(image.width);
+            //l(image.height);
+
+            self.create_and_add_element_to_root(fp);
+            self.player.set_object_in_front_of(fp, 1000);
+        };
+    },
+
     _load_world_if_needed: function() {
         if (!this._is_loaded) {
             this._load();

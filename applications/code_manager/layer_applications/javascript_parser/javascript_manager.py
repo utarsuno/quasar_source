@@ -48,7 +48,7 @@ class JavascriptManager(object):
 		self._add_paths('core_engine/extensions/engine_features'   , ['math', 'errors', 'script_loader'])
 		self._add_paths('core_engine/extensions/engine_data'       , ['cache', 'flags', 'frames', 'state'])
 		self._add_paths('core_engine/extensions/inputs'            , ['inputs', 'keyboard', 'mouse'])
-		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
+		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_drag_and_drop', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
 		self._add_js_file('core_engine/extensions/rendering/renderer')
 		self._add_js_file('core_engine/heap_manager')
 
@@ -94,7 +94,7 @@ class JavascriptManager(object):
 		self._add_paths('elements/discrete/2d/icon', ['e_icon', 'e_icon_button'])
 		self._add_paths('elements/discrete/2d'     , ['checkbox'])
 		self._add_paths('elements/discrete/3d'     , ['text_3d'])
-		self._add_paths('elements/discrete/wall'   , ['confirmation_prompt'])
+		self._add_paths('elements/discrete/wall'   , ['confirmation_prompt', 'floating_picture'])
 		#
 
 		# HUDs.

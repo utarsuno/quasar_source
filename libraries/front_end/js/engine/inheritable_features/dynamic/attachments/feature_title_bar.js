@@ -44,12 +44,14 @@ Object.assign(
         },
 
         add_button_close: function() {
+            let self = this;
             this.button_settings = this.create_icon_button(3, null, {
                 ARG_COLOR_FOREGROUND        : QE.COLOR_RED,
                 ARG_ICON                    : ASSET_ICON_CROSS,
                 ARG_USE_CONFIRMATION_PROMPT : true,
                 ARG_EVENT_ACTION            : function() {
                     l('TODO: Close me!!');
+                    self.parent_wall.fully_destroy_self();
                 }
             });
         },

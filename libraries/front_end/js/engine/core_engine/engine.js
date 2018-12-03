@@ -31,17 +31,6 @@ $_QE.prototype = {
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
-    __init__web_features: function() {
-        this._set_binding_resize();
-        this._set_binding_fullscreen();
-        this._set_binding_pointer_lock();
-
-        // Test
-        //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/js/lights/RectAreaLightUniformsLib.js');
-        //this.load_script('https://cdn.jsdelivr.net/gh/mrdoob/three.js/master/examples/js/renderers/CSS3DRenderer.js');
-        //this.load_script('https://cdn.jsdelivr.net/gh/jeromeetienne/threex.htmlmixer/threex.htmlmixer.js');
-        //
-    },
 
     // Step : 0x0
     __init__engine: function() {
@@ -61,7 +50,10 @@ $_QE.prototype = {
 
         let on_load         = this.manager_assets.load_pre_render_assets(this);
 
-        this.__init__web_features();
+        this.__init__resize();
+        this.__init__fullscreen();
+        this.__init__pointer_lock();
+        this.__init__drag_and_drop();
         this.__init__renderer();
         this.player         = new $_QE.prototype.Player(this);
         this.manager_world  = new $_QE.prototype.WorldManager(this);

@@ -16,7 +16,6 @@ Object.assign(
             this.set_canvas_font(args[ARG_FONT]);
             this.__init__visible_rows(args[ARG_NUMBER_OF_ROWS], args[ARG_WIDTH]);
 
-
         },
 
         __init__visible_rows: function(number_of_visible_rows, width) {
@@ -61,3 +60,5 @@ Object.assign(
 
     }
 );
+
+

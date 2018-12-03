@@ -5,34 +5,36 @@ $_QE.prototype.FeatureButton = function(args) {
     if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {
         $_QE.prototype.FeatureInteractive.call(this);
     }
-    this._original_engage_function = args[ARG_EVENT_ACTION];
+    this._button_on_event_action = args[ARG_EVENT_ACTION];
     this.flag_set_on(EFLAG_IS_BUTTON);
     this.flag_set_on(EFLAG_IS_BORDER_RENDERED);
     this.flag_set_off(EFLAG_IS_ENGABLE);
 
+    let self = this;
+
     if (this._arg_is_on(args, ARG_USE_CONFIRMATION_PROMPT)) {
         this.flag_set_on(EFLAG_IS_CONFIRMATION_REQUIRED_FOR_BUTTON);
-        this._confirmation = new $_QE.prototype.ConfirmationPrompt(this);
+        this._confirmation = new $_QE.prototype.ConfirmationPrompt(this,
+            function() {
+                // No response.
+            },
+            function() {
+                // Yes response.
+                self._button_on_event_action();
+            }
+        );
     }
 
     this._button_action = function() {
-        if (this.flag_is_on(EFLAG_IS_CONFIRMATION_REQUIRED_FOR_BUTTON)) {
-            this._confirmation._event_function();
+        if (this.flag_is_off(EFLAG_IS_CONFIRMATION_REQUIRED_FOR_BUTTON)) {
+            this._button_on_event_action();
         } else {
-            this._original_engage_function();
+            this._confirmation.open();
         }
     };
 
     this.trigger_event(ELEMENT_EVENT_ON_SET_TO_BUTTON);
     this.set_event(ELEMENT_EVENT_ON_ENGAGE, this._button_action.bind(this));
-
-    this._no_response = function() {
-        l('no response!');
-    };
-
-    this._yes_response = function() {
-        l('yes response!');
-    };
 
     //this.set_event(ELEMENT_EVENT_ON_LOCKED   , function() {this._icon.switch_icon(ASSET_ICON_LOCKED);this._icon.set_to_visible();});
     //this.set_event(ELEMENT_EVENT_ON_UN_LOCKED, function() {this._icon.set_to_invisible();});

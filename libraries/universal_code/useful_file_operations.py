@@ -144,6 +144,12 @@ def file_op_create_gzip(path_source: str, path_destination=None) -> None:
 		os.rename(path_source + '.gz', path_destination)
 
 
+def file_op_convert_image_to_webp(path_source: str, path_destination:str) -> None:
+	"""Converts the provided PNG or JPG file to a compressed WebP format."""
+	is_png = '.png' in path_source
+	
+
+
 def file_op_convert_png_to_compressed_jpg(path_source: str, path_destination=None) -> None:
 	"""Generates a compressed JPG file from the provided PNG file."""
 	jpg = path_source.replace('.png', '.jpg')

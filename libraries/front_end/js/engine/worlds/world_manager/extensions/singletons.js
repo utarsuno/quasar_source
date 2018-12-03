@@ -34,6 +34,17 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         this.singletons.push(singleton);
     },
 
+    singleton_remove: function(singleton) {
+        let s;
+        for (s = 0; s < this.singletons.length; s++) {
+            if (this.singletons[s] == singleton) {
+                singleton.flag_set_off(EFLAG_IS_SINGLETON);
+                this.singletons.splice(s, 1);
+                return;
+            }
+        }
+    },
+
     singletons_leave_world: function() {
         this.player_cursor.set_state(CURSOR_STATE_DEFAULT);
         this.player_menu.trigger_event(ELEMENT_EVENT_ON_WORLD_EXIT);

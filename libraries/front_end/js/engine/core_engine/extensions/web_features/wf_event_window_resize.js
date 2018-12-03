@@ -2,7 +2,7 @@
 
 Object.assign($_QE.prototype, {
 
-    _set_binding_resize: function() {
+    __init__resize: function() {
         this._fetch_window_size();
         window.addEventListener('resize', this._on_window_resize.bind(this), true);
     },

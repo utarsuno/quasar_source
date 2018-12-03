@@ -88,10 +88,12 @@ Object.assign(
             //domElement.src	= url;
             //domElement.style.border	= 'none';
 
+            /*
             this.__c = this.createCssObject(1800, 1200, new THREE.Vector3(5000, 1024, 800), new THREE.Vector3(0, 1024, 800), url);
             QE.css_scene.add(this.__c);
             this.__c2 = this.createCssObject(1800, 1200, new THREE.Vector3(5000, 1024, 3000), new THREE.Vector3(0, 1024, 3000), 'https://en.wikipedia.org/wiki/Main_Page');
             QE.css_scene.add(this.__c2);
+            */
         },
 
         createCssObject(w, h, position, rotation, url) {

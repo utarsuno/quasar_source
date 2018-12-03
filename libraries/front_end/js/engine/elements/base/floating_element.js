@@ -116,6 +116,75 @@ Object.assign(
                 this.world.add_object_to_scene(this.mesh);
             }
         },
+
+        fully_destroy_self: function() {
+            if (this.attachments.length != 0) {
+                let a;
+                for (a = 0; a < this.attachments.length; a++) {
+                    this.attachments[a].fully_destroy_self();
+                }
+            }
+            this._fully_destroy_self();
+        },
+
+        _fully_destroy_self: function() {
+            let world = QE.manager_world.current_world;
+
+            if (this.flag_is_on(EFLAG_IS_SINGLETON)) {
+                QE.manager_world.singleton_remove(this);
+            }
+
+            if (this.flag_is_on(EFLAG_IS_INTERACTIVE)) {
+
+                // TODO: HANDLE UPDATING LINKED LISTS!!!
+
+                if (world.currently_looked_at_object != null && world.currently_looked_at_object === this) {
+                    if (this.flag_is_on(EFLAG_IS_ENGAGED)) {
+                        world.disengage_from_currently_looked_at_object();
+                    }
+                    world.look_away_from_currently_looked_at_object();
+                }
+                world.remove_from_elements_interactive(this);
+                this.flag_set_off(EFLAG_IS_ENGAGED);
+                this.flag_set_off(EFLAG_IS_INTERACTIVE);
+                this.flag_set_off(EFLAG_IS_CLICKABLE);
+                this.flag_set_off(EFLAG_IS_TYPEABLE);
+                this.flag_set_off(EFLAG_IS_MOUSE_MOVABLE);
+                this.flag_set_off(EFLAG_IS_MOUSE_SCALABLE);
+            }
+
+            if (this.flag_is_on(EFLAG_IS_ROOT)) {
+                world.remove_from_elements_root(this);
+                this.flag_set_off(EFLAG_IS_ROOT);
+            }
+
+            if (this.flag_is_on(EFLAG_IS_IN_WORLD)) {
+                world.remove_element(this);
+            }
+            // Just to be sure.
+            world.remove_object_from_scene(this);
+            if (this.mesh != null) {
+                world.remove_object_from_scene(this.mesh);
+            }
+            if (this.group != null) {
+                world.remove_object_from_scene(this.group);
+            }
+
+            if (this.geometry != null) {
+                this.recycle_geometry();
+            }
+            if (this.material != null) {
+                this.recycle_material();
+            }
+            if (this.mesh != null) {
+                this.recycle_mesh();
+            }
+            if (this.texture != null) {
+                this.texture.dispose();
+                this.texture = null;
+            }
+
+        },
     }
 );
 

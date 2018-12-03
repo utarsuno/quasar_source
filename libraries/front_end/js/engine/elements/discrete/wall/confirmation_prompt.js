@@ -1,16 +1,15 @@
 'use strict';
 
-$_QE.prototype.ConfirmationPrompt = function(parent_button) {
+$_QE.prototype.ConfirmationPrompt = function(parent_button, no_response, yes_response) {
     this.__init__floating_rows();
 
-    this.set_foreground_color(QE.COLOR_GRAY_DARK, 0.85);
+    this._no_response  = no_response;
+    this._yes_response = yes_response;
 
-    //this.set_dimensions(512, 256);
+    this.set_foreground_color(QE.COLOR_GRAY_DARK, 0.80);
+    this.set_dimensions(512, 80);
 
-    //this.set_dimensions(513, 24 * 4);
-    this.set_dimensions(512, 40 * 2);
-
-    this._event_function = this.open.bind(this);
+    //this._event_function = this.open.bind(this);
     this.parent_button   = parent_button;
 };
 
@@ -18,9 +17,13 @@ Object.assign(
     $_QE.prototype.ConfirmationPrompt.prototype,
     $_QE.prototype.WallFloating.prototype,
     {
-        _close_prompt: function() {
+        _close_prompt: function(response) {
             this.set_to_invisible();
-            this.parent_button._no_response();
+            if (response) {
+                this._yes_response();
+            } else {
+                this._no_response();
+            }
         },
 
         open: function() {
@@ -46,8 +49,8 @@ Object.assign(
             });
 
             this._buttons = this.add_buttons_row(QE.FONT_ARIAL_20_BOLD, [
-                {text: 'No!' , color: QE.COLOR_RGB_GREEN_LIGHT, event: this._close_prompt.bind(this)},
-                {text: 'Yes!', color: QE.COLOR_RGB_RED        , event: this.parent_button._yes_response}
+                {text: 'No!' , color: QE.COLOR_RGB_GREEN_LIGHT, event: this._close_prompt.bind(this, false)},
+                {text: 'Yes!', color: QE.COLOR_RGB_RED        , event: this._close_prompt.bind(this, true)}
             ]);
         },
 

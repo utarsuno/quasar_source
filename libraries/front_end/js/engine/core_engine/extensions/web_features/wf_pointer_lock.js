@@ -4,7 +4,7 @@
 Object.assign(
     $_QE.prototype,
     {
-        _set_binding_pointer_lock: function() {
+        __init__pointer_lock: function() {
             this.flag_set_off(QEFLAG_STATE_POINTER_LOCK);
 
             if (this._cache_reference_document_body.requestPointerLock) {

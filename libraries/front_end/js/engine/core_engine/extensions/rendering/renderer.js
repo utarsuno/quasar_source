@@ -21,6 +21,10 @@ Object.assign(
         },
 
         _update_renderer_dimensions() {
+            if (this.effect_composer == null) {
+                return;
+            }
+
             this.camera.aspect = this._cachef[QECACHEF_ASPECT_RATIO];
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(this.get_width(), this.get_height());
