@@ -66,6 +66,8 @@ Object.assign(
         },
 
         __init__player_cursor: function() {
+            this.__init__state_machine();
+
             this._add_player_state(CURSOR_STATE_DEFAULT,
                 null,
                 function() {

@@ -4,6 +4,7 @@ $_QE.prototype.Text3D = function(args) {
     this.text            = args[ARG_TEXT];
     this.text_size       = args[ARG_SIZE];
     this.__init__floating_element();
+    this.flag_set_on(EFLAG_IS_CENTER_OFF_BY_HALF);
     this._parse_arguments_color(args);
     this.set_dimensions(0, 0);
 
@@ -17,6 +18,9 @@ $_QE.prototype.Text3D = function(args) {
         $_QE.prototype.FeatureTyping.call(this);
     }
     this.set_value_post_changed_event(this._on_text_change.bind(this));
+
+
+    this._parse_arguments_on_constructor_end_floating_element(args);
 };
 
 

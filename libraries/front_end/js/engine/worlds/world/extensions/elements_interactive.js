@@ -2,7 +2,7 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    _initialize_cache_for_interactive: function() {
+    __init__world_feature_interactive: function() {
         this.elements_interactive = [];
         this._raycaster           = new THREE.Raycaster();
         this._intersections       = [];

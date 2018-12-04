@@ -48,7 +48,7 @@ class JavascriptManager(object):
 		self._add_paths('core_engine/extensions/engine_features'   , ['math', 'errors', 'script_loader'])
 		self._add_paths('core_engine/extensions/engine_data'       , ['cache', 'flags', 'frames', 'state'])
 		self._add_paths('core_engine/extensions/inputs'            , ['inputs', 'keyboard', 'mouse'])
-		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_drag_and_drop', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
+		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_on_hover', 'wf_drag_and_drop', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
 		self._add_js_file('core_engine/extensions/rendering/renderer')
 		self._add_js_file('core_engine/heap_manager')
 
@@ -70,10 +70,12 @@ class JavascriptManager(object):
 		self._add_js_file('elements/singleton/singleton')
 		self._add_paths('elements/base', ['element_singleton'])
 		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility', '_three_js_internals'])
-		self._add_js_file('elements/base/floating_element_color')
-		self._add_js_file('elements/base/floating_element_text')
-		self._add_js_file('elements/base/floating_rows')
-		self._add_js_file('elements/base/floating_wall')
+		self._add_paths('elements/base', ['floating_element_color', 'floating_element_text', 'floating_rows', 'floating_wall', 'floating_css'])
+		#self._add_js_file('elements/base/floating_element_color')
+		#self._add_js_file('elements/base/floating_element_text')
+		#self._add_js_file('elements/base/floating_rows')
+		#self._add_js_file('elements/base/floating_wall')
+		#self._add_js_file('elements/base/floating_css')
 		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox', 'skybox_space'])
 		# ----------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +112,7 @@ class JavascriptManager(object):
 
 		# Worlds.
 		self._add_paths('worlds/world'                   , ['world_base'])
-		self._add_paths('worlds/world/extensions'        , ['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'input', 'state'])
+		self._add_paths('worlds/world/extensions'        , ['elements', 'elements_interactive', 'elements_root', 'elements_tab_target', 'elements_css', 'input', 'state'])
 		self._add_paths('worlds/world_manager'           , ['world_manager'])
 		self._add_paths('worlds/world_manager/extensions', ['input', 'singletons', 'events'])
 		self._add_paths('worlds/world/discrete'          , ['settings_world'])

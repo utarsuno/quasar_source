@@ -82,34 +82,33 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         this.get_object().position.set(x, y - this.height / 2, z);
         this.get_object().updateMatrix();
 
-        if (cache) {
-            this.look_at(look_at_x, look_at_y, look_at_z);
-            this.re_cache_normal();
-            this.shift_by_left_right(this.width / 2);
-        } else {
-            if (this.group == null) {
+        if (this.flag_is_on(EFLAG_IS_CENTER_OFF_BY_HALF)) {
+            if (cache) {
                 this.look_at(look_at_x, look_at_y, look_at_z);
                 this.re_cache_normal();
+                this.shift_by_left_right(this.width / 2);
+            } else {
+                if (this.group == null) {
+                    this.look_at(look_at_x, look_at_y, look_at_z);
+                    this.re_cache_normal();
+                }
+                this.shift_by_left_right(this.width / 2);
             }
-            this.shift_by_left_right(this.width / 2);
         }
+
         this._set_position_needs_update();
     },
 
     shift_by_left_right: function(distance) {
-        if (this.group != null) {
-            this.group.position.set(
-                this.group.position.x + this._cache_absolute_left_right.x * distance,
-                this.group.position.y,
-                this.group.position.z + this._cache_absolute_left_right.z * distance
-            );
-        } else {
-            this.mesh.position.set(
-                this.mesh.position.x + this._cache_absolute_left_right.x * distance,
-                this.mesh.position.y,
-                this.mesh.position.z + this._cache_absolute_left_right.z * distance
-            );
-        }
+        this._shift_by_left_right(this.get_object(), distance);
+    },
+
+    _shift_by_left_right: function(o, distance) {
+        o.position.set(
+            o.position.x + this._cache_absolute_left_right.x * distance,
+            o.position.y,
+            o.position.z + this._cache_absolute_left_right.z * distance
+        );
         this._set_position_needs_update();
     },
 

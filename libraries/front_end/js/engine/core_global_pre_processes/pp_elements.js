@@ -43,6 +43,9 @@ const EFLAG_IS_CONFIRMATION_REQUIRED_FOR_BUTTON      = 257;        // #pre-proce
 const EFLAG_IS_STATE_LOCKED                          = 513;        // #pre-process_global_constant
 const EFLAG_IS_STATE_ENABLED                         = 1025;       // #pre-process_global_constant
 const EFLAG_IS_BORDER_RENDERED                       = 2049;       // #pre-process_global_constant
+const EFLAG_IS_CENTER_OFF_BY_HALF                    = 4097;       // #pre-process_global_constant
+const EFLAG_IS_CSS                                   = 8193;       // #pre-process_global_constant
+const EFLAG_IS_IN_ELEMENTS_CSS                       = 16385;      // #pre-process_global_constant
 
 // Events.
 const ELEMENT_EVENT_ON_LOOK_AT             = 'e0';  // #pre-process_global_constant
@@ -62,3 +65,4 @@ const ELEMENT_EVENT_ON_LOCKED              = 'e13'; // #pre-process_global_const
 const ELEMENT_EVENT_ON_UN_LOCKED           = 'e14'; // #pre-process_global_constant
 const ELEMENT_EVENT_ON_DISABLE             = 'e15'; // #pre-process_global_constant
 const ELEMENT_EVENT_ON_ENABLE              = 'e16'; // #pre-process_global_constant
+

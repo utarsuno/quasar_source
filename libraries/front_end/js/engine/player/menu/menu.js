@@ -7,6 +7,8 @@ $_QE.prototype.PlayerMenu = function(player, world) {
     this.set_event(ELEMENT_EVENT_ON_WORLD_EXIT, this._on_exit.bind(this));
 };
 
+
+
 Object.assign(
     $_QE.prototype.PlayerMenu.prototype,
     $_QE.prototype.PlayerMenuAbstract.prototype,
@@ -23,7 +25,7 @@ Object.assign(
 
         _open: function() {
             // Horizontal intersection.
-            let distance = 750;
+            let distance = 575;
 
             let pp = this.player.get_position();
             let pn = this.player.get_normal();

@@ -2,7 +2,7 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    _initialize_cache_for_tab_target: function() {
+    __init__world_feature_tab_target: function() {
         this.previous_tab_target = null;
     },
 

@@ -1,50 +1,8 @@
 'use strict';
 
-$_NL.prototype.FloatingTerminal = function(number_of_rows, font, title) {
-
-    this.__init__floating_terminal(1024 * 4, number_of_rows, font);
-
-    this.create = function() {
-        this.create_wall_mesh(FEATURE_MATERIAL_CANVAS_FANCY);
-
-        this.add_title_bar(title, ASSET_ICON_TERMINAL);
-
-        this._default_row = this.create_row_interactive(0.5);
-
-        //
-        this.add_message('              \'`--._,dd###pp=""\'');
-        this.add_message('          _o/"`\'\'  \'\',, dMF9MMMMMHo_');
-        this.add_message('       .o&#\'        `"MbHMMMMMMMMMMMHo.');
-        this.add_message('     .o"" \'         vodM*$&&HMMMMMMMMMM?.');
-        this.add_message('    ,\'              $M&ood,~\'`(&##MMMMMMH\\');
-        this.add_message('   /               ,MMMMMMM#b?#bobMMMMHMMML');
-        this.add_message('  &              ?MMMMMMMMMMMMMMMMM7MMM$R*Hk');
-        this.add_message(' ?$.            :MMMMMMMMMMMMMMMMMMM/HMMM|`*L');
-        this.add_message('|               |MMMMMMMMMMMMMMMMMMMMbMH\'   T,');
-        this.add_message('$H#:            `*MMMMMMMMMMMMMMMMMMMMb#}\'  `?');
-        this.add_message(']MMH#             ""*""""*#MMMMMMMMMMMMM\'    -');
-        this.add_message('MMMMMb_                   |MMMMMMMMMMMP\'     :');
-        this.add_message('HMMMMMMMHo                 `MMMMMMMMMT       .');
-        this.add_message('?MMMMMMMMP                  9MMMMMMMM}       -');
-        this.add_message('-?MMMMMMM                  |MMMMMMMMM?,d-    ');
-        this.add_message(' :|MMMMMM-                 `MMMMMMMT .M|.   :');
-        this.add_message('  .9MMM[                    &MMMMM*\' `\'    .');
-        this.add_message('   :9MMk                    `MMM#"        -');
-        this.add_message('     &M}                     `          .-');
-        this.add_message('      `&.                             .');
-        this.add_message('        `~,   .                     ./');
-        this.add_message('            . _                  .-');
-        this.add_message('              \'`--._,dd###pp=""\'');
-        //
-
-        let self = this;
-        this.set_value_post_changed_event(function(t) {
-            self.rows[0].set_text(t);
-        });
-
-        // TODO: Temporary solution.
-        //this.mesh.renderOrder = 1;
-    };
+$_NL.prototype.FloatingTerminal = function(args) {
+    args[ARG_WIDTH] = 1024 * 4;
+    this.__init__floating_terminal(args);
 };
 
 Object.assign(
@@ -78,8 +36,9 @@ Object.assign(
             //}
         },
 
-        __init__floating_terminal: function(width, number_of_rows, font) {
-            this.text = '';
+        //__init__floating_terminal: function(width, number_of_rows, font) {
+        __init__floating_terminal: function(args) {
+            this.text = args[ARG_TEXT];
 
             this.__init__floating_rows();
 
@@ -91,11 +50,7 @@ Object.assign(
             this.set_background_color(COLOR_CANVAS_GRAY);
 
             //this.__init__canvas_texture(number_of_rows, width, font);
-            this.__init__canvas_texture({
-                ARG_NUMBER_OF_ROWS: number_of_rows,
-                ARG_WIDTH         : width,
-                ARG_FONT          : font
-            });
+            this.__init__canvas_texture(args);
 
             $_QE.prototype.FeatureTyping.call(this, this._on_enter_event.bind(this));
             this.flag_set_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING);
@@ -104,7 +59,50 @@ Object.assign(
             //this._render_needed = true;
             //this.update();
 
+            this._parse_arguments_on_constructor_end_floating_element(args);
             return this;
+        },
+
+        create: function() {
+            this.create_wall_mesh(FEATURE_MATERIAL_CANVAS_FANCY);
+
+            this.add_title_bar(this.text, ASSET_ICON_TERMINAL);
+
+            this._default_row = this.create_row_interactive(0.5);
+
+            //
+            this.add_message('              \'`--._,dd###pp=""\'');
+            this.add_message('          _o/"`\'\'  \'\',, dMF9MMMMMHo_');
+            this.add_message('       .o&#\'        `"MbHMMMMMMMMMMMHo.');
+            this.add_message('     .o"" \'         vodM*$&&HMMMMMMMMMM?.');
+            this.add_message('    ,\'              $M&ood,~\'`(&##MMMMMMH\\');
+            this.add_message('   /               ,MMMMMMM#b?#bobMMMMHMMML');
+            this.add_message('  &              ?MMMMMMMMMMMMMMMMM7MMM$R*Hk');
+            this.add_message(' ?$.            :MMMMMMMMMMMMMMMMMMM/HMMM|`*L');
+            this.add_message('|               |MMMMMMMMMMMMMMMMMMMMbMH\'   T,');
+            this.add_message('$H#:            `*MMMMMMMMMMMMMMMMMMMMb#}\'  `?');
+            this.add_message(']MMH#             ""*""""*#MMMMMMMMMMMMM\'    -');
+            this.add_message('MMMMMb_                   |MMMMMMMMMMMP\'     :');
+            this.add_message('HMMMMMMMHo                 `MMMMMMMMMT       .');
+            this.add_message('?MMMMMMMMP                  9MMMMMMMM}       -');
+            this.add_message('-?MMMMMMM                  |MMMMMMMMM?,d-    ');
+            this.add_message(' :|MMMMMM-                 `MMMMMMMT .M|.   :');
+            this.add_message('  .9MMM[                    &MMMMM*\' `\'    .');
+            this.add_message('   :9MMk                    `MMM#"        -');
+            this.add_message('     &M}                     `          .-');
+            this.add_message('      `&.                             .');
+            this.add_message('        `~,   .                     ./');
+            this.add_message('            . _                  .-');
+            this.add_message('              \'`--._,dd###pp=""\'');
+            //
+
+            let self = this;
+            this.set_value_post_changed_event(function(t) {
+                self.rows[0].set_text(t);
+            });
+
+            // TODO: Temporary solution.
+            //this.mesh.renderOrder = 1;
         },
     }
 );

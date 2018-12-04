@@ -30,6 +30,10 @@ Object.assign(
             return args[key] != null && args[key];
         },
 
+        _args_both_not_null: function(args, key0, key1) {
+            return args[key0] != null && args[key1] != null;
+        },
+
         _arg_is_off: function(args, key) {
             return args[key] != null && !args[key];
         },

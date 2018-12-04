@@ -27,6 +27,39 @@ Object.assign(
             }
         },
 
+        _parse_arguments_on_constructor_end_floating_element: function(args) {
+            if (this._arg_is_on(args, ARG_CREATE_AND_ADD_TO_ROOT)) {
+                args[ARG_CREATE_AND_ADD_TO_ROOT].create_and_add_element_to_root(this);
+                if (this._arg_is_on(args, ARG_SET_POSITION_CENTER)) {
+                    this.set_position_center(
+                        args[ARG_SET_POSITION_CENTER][0],
+                        args[ARG_SET_POSITION_CENTER][1],
+                        args[ARG_SET_POSITION_CENTER][2],
+                        args[ARG_SET_POSITION_CENTER][3],
+                        args[ARG_SET_POSITION_CENTER][4],
+                        args[ARG_SET_POSITION_CENTER][5],
+                        args[ARG_SET_POSITION_CENTER][6]
+                    );
+                } else if (this._args_both_not_null(args, ARG_INITIAL_POSITION, ARG_INITIAL_LOOK_AT)) {
+                    this.set_position(
+                        args[ARG_INITIAL_POSITION].x,
+                        args[ARG_INITIAL_POSITION].y,
+                        args[ARG_INITIAL_POSITION].z,
+                    );
+                    this.get_object().updateMatrix();
+                    this.look_at(
+                        args[ARG_INITIAL_LOOK_AT].x,
+                        args[ARG_INITIAL_LOOK_AT].y,
+                        args[ARG_INITIAL_LOOK_AT].z,
+                    );
+                    this.get_object().updateMatrix();
+                } else {
+                    l('case 3');
+                }
+            }
+
+        },
+
         update_element: function(delta) {
             if (this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION) || this.flag_is_on(EFLAG_IS_UPDATED_NEEDED_FOR_NORMAL)) {
                 this.refresh();
@@ -34,6 +67,20 @@ Object.assign(
                     this.re_cache_normal();
                 }
                 this.flag_set_off(EFLAG_IS_UPDATED_NEEDED_FOR_POSITION);
+
+                if (this.flag_is_on(EFLAG_IS_CSS)) {
+                    let p = this.get_world_position();
+                    let n = this.get_normal();
+                    this.css_object.position.set(p.x, p.y, p.z);
+                    this.css_object.updateMatrix();
+                    this._cache_css_look_at.set(
+                        p.x + n.x * 10,
+                        p.y + n.y * 10,
+                        p.z + n.z * 10
+                    );
+                    this.css_object.lookAt(this._cache_css_look_at);
+                    this.css_object.updateMatrix();
+                }
             }
 
             // TODO: set this to an event!

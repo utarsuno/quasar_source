@@ -4,30 +4,23 @@ $_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    handle_image_upload: function(f) {
-        l('TODO!!!: HANDLE FILE UPLOAD');
-        //l(f);
-
+    handle_image_upload: function(file_data, file, file_name) {
         l('File uploaded!');
-        l(f.size);
-        l(f.type);
+        l(file_name);
 
         let image = document.createElement('img');
-        image.src = f;
+        image.src = file_data;
         //l(image);
         let self = this;
         image.onload = function() {
             let fp = new $_QE.prototype.FloatingPicture(image);
-            //l(image.width);
-            //l(image.height);
+            l(image.width);
+            l(image.height);
+            l(image.name);
 
 
             self.create_and_add_element_to_root(fp);
             self.player.set_object_in_front_of(fp, 1000);
-
-
-            l(image);
-            l(image.parentNode);
         };
     },
 
@@ -48,10 +41,11 @@ Object.assign($_QE.prototype.World.prototype, {
         this.scene                      = new THREE.Scene();
         this.currently_looked_at_object = null;
 
-        this._initialize_cache_for_interactive();
-        this._initialize_cache_for_root();
-        this._initialize_cache_for_tab_target();
-        this._initialize_cache_for_state();
+        this.__init__world_feature_interactive();
+        this.__init__world_feature_root();
+        this.__init__world_feature_tab_target();
+        this.__init__world_feature_state();
+        this.__init__world_feature_elements_css();
 
         // TODO: dynamic
         //this.engine.manager_world.player_menu.register_world(this);
@@ -87,6 +81,7 @@ Object.assign($_QE.prototype.World.prototype, {
         element.flag_set_on(EFLAG_IS_IN_WORLD);
         this.check_if_element_needs_interactive(element);
         this.check_if_element_needs_root(element);
+        this.check_if_element_needs_css(element);
         this.scene.add(element.get_object());
 
         //if (trigger_event) {

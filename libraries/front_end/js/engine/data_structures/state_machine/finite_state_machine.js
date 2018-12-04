@@ -4,6 +4,11 @@ $_QE.prototype.FiniteStateMachine = function() {};
 
 $_QE.prototype.FiniteStateMachine.prototype = {
 
+    __init__state_machine: function() {
+        this.state_current  = null;
+        this.state_previous = null;
+    },
+
     add_state: function(state_id, state_exit_function, state_enter_function) {
         let state = new $_QE.prototype.State(state_id, state_exit_function, state_enter_function);
         if (this._states == null) {

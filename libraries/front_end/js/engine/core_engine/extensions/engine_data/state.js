@@ -5,10 +5,9 @@ Object.assign(
     $_QE.prototype,
     $_QE.prototype.FiniteStateMachine.prototype,
     {
-        state_current : null,
-        state_previous: null,
 
         __init__state: function(first_state=null) {
+            this.__init__state_machine();
             this.state_paused = this.add_state(QEFLAG_STATE_PAUSED,
                 this._on_state_exit_paused.bind(this),
                 this._on_state_enter_paused.bind(this)

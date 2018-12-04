@@ -13,7 +13,7 @@ $_QE.prototype._ElementEvent.prototype = {
         }
     },
 
-    add_event: function(event_function, event_order='-1') {
+    _add_event: function(event_function, event_order='-1') {
         this._update_max_event_depth(Number(event_order));
 
         // Add new key to 'events' if needed.
@@ -89,7 +89,7 @@ Object.assign(
             if (!this._has_event(key)) {
                 this._create_event(key);
             }
-            this._events[key].add_event(event_function, event_order);
+            this._events[key]._add_event(event_function, event_order);
         },
 
         trigger_event: function(key, data=null) {

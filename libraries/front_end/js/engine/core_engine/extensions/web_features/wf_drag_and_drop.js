@@ -52,7 +52,7 @@ Object.assign($_QE.prototype, {
     _engine_on_local_file_upload_finish: function(event) {
         // Create a floating picture for image files.
         if (this._ei_file_current.type == 'image/webp' || this._ei_file_current.type == 'image/png' || this._ei_file_current.type == 'image/jpeg') {
-            this.manager_world.current_world.handle_image_upload(event.target.result);
+            this.manager_world.current_world.handle_image_upload(event.target.result, this._ei_queue_file, this._ei_file_current.name);
         }
 
         // TODO: Other file type support.
@@ -64,7 +64,7 @@ Object.assign($_QE.prototype, {
             this._engine_on_local_file_upload_start(this._ei_file_current, this._ei_file_event);
         } else {
             this._ei_file_current = null;
-            this._ei_file_event = null;
+            this._ei_file_event   = null;
         }
     },
 

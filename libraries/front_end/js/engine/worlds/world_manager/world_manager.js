@@ -13,9 +13,13 @@ Object.assign(
         current_world : null,
 
         __init__: function() {
-            this.first_world    = new this.engine.first_world_class(this.engine);
-            this.world_demo     = new $_QE.prototype.DemoWorld(this.engine);
-            this.world_settings = new $_QE.prototype.SettingsWorld(this.engine);
+            //this.first_world = new $_QE.prototype.SettingsWorld(this.engine);
+            //this.first_world    = new this.engine.first_world_class(this.engine);
+            //this.world_demo     = new $_QE.prototype.DemoWorld(this.engine);
+            this.first_world = new $_QE.prototype.DemoWorld(this.engine);
+            this.world_demo     = new $_QE.prototype.SettingsWorld(this.engine);
+            this.world_settings    = new this.engine.application_first_world(this.engine);
+            //this.world_settings = new $_QE.prototype.SettingsWorld(this.engine);
             this._create_global_singletons();
 
             this.player_menu.register_world(this.first_world);

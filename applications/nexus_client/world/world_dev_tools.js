@@ -26,27 +26,25 @@ Object.assign(
         },
 
         _load: function() {
-            this.nexus_local_title = new $_QE.prototype.Text3D({
-                ARG_SIZE            : 512,
-                ARG_TEXT            : 'Nexus Local',
-                ARG_COLOR_FOREGROUND: QE.COLOR_GREEN_LIGHT,
-                ARG_INTERACTIVE     : true,
+            // T I T L E
+            this.title = new $_QE.prototype.Text3D({
+                ARG_SIZE                  : 512,
+                ARG_TEXT                  : 'Nexus Local',
+                ARG_COLOR_FOREGROUND      : QE.COLOR_GREEN_LIGHT,
+                ARG_INTERACTIVE           : true,
+                ARG_CREATE_AND_ADD_TO_ROOT: this,
+                ARG_SET_POSITION_CENTER   : [0, 1000, -1750, 0, 0, 0, true]
             });
-            this.create_and_add_element_to_root(this.nexus_local_title);
-            this.nexus_local_title.set_position_center(0, 1000, -1750, 0, 0, 0, true);
 
-
-            this.logs = new $_NL.prototype.FloatingTerminal(32, QE.FONT_ARIAL_32, 'Floating Terminal');
-            this.create_and_add_element_to_root(this.logs);
-            //this.logs.set_position_center(0, 1000, -2800 + 2048, 0, 0, 0, true);
-
-            this.logs.set_position(0, 1000, -2200);
-            this.logs.get_object().updateMatrix();
-            this.logs.look_at(0, 1001, 1);
-            this.logs.get_object().updateMatrix();
+            // F L O A T I N G - T E R M I N A L
+            this.logs = new $_NL.prototype.FloatingTerminal({
+                ARG_NUMBER_OF_ROWS        : 32,
+                ARG_FONT                  : QE.FONT_ARIAL_32,
+                ARG_TEXT                  : 'Floating Terminal',
+                ARG_CREATE_AND_ADD_TO_ROOT: this,
+                ARG_SET_POSITION_CENTER   : [0, 2048, -2200, 0, 0, 0, true]
+            });
         },
 
     }
 );
-
-

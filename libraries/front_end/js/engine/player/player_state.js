@@ -5,10 +5,9 @@ Object.assign(
     $_QE.prototype.Player.prototype,
     $_QE.prototype.FiniteStateMachine.prototype,
     {
-        previous_state: null,
-        current_state : null,
-
         _initialize_state: function() {
+            this.__init__state_machine();
+
             this.state_teleporting = this.add_state(PLAYER_STATE_TELEPORTING);
 
             this.state_full_control = this.add_state(PLAYER_STATE_FULL_CONTROL,

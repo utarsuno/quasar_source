@@ -7,16 +7,15 @@ $_QE.prototype.FloatingPicture = function(image) {
 Object.assign(
     $_QE.prototype.FloatingPicture.prototype,
     $_QE.prototype.WallFloating.prototype,
-    $_QE.prototype.FloatingElement.prototype,
     {
         __init__floating_picture: function(image) {
             this.__init__floating_rows();
 
             this.set_dimensions(image.width, image.height);
-            this.texture = new THREE.Texture(image);
+            this.texture             = new THREE.Texture(image);
             this.texture.anisotropy  = QE.renderer.capabilities.getMaxAnisotropy();
             this.texture.needsUpdate = true;
-            this.material = new THREE.MeshBasicMaterial({map : this.texture});
+            this.material            = new THREE.MeshBasicMaterial({map : this.texture});
 
             $_QE.prototype.FeatureInteractive.call(this);
             this.flag_set_off(EFLAG_IS_ENGABLE);

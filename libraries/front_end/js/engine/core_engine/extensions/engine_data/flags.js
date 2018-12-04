@@ -32,7 +32,7 @@ const QEFLAG_SETTING_TRANSITION      = 524288;  // #pre-process_global_constant
 const QEFLAG_SETTING_BACKGROUND_GRAY = 1048576; // #pre-process_global_constant
 
 //
-
+const QEFLAG_CSS_LOOKED_AT           = 2097152; // #pre-process_global_constant
 
 
 Object.assign(

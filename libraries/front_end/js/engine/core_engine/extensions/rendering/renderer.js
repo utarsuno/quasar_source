@@ -100,10 +100,11 @@ Object.assign(
             document.body.appendChild(this.css_renderer.domElement);
             //this.css_renderer.domElement.appendChild(this.renderer.domElement);
             //
+            this.css_renderer.domElement.id = 'GLOBAL_CSS';
         },
 
         __init__renderer: function() {
-            this._cachef[QECACHEF_FOV]           = 75.0;
+            this._cachef[QECACHEF_FOV]           = 95.0;
             this._cachef[QECACHEF_CLIPPING_NEAR] = 1.0;
             this._cachef[QECACHEF_CLIPPING_FAR]  = 50000.0;
 

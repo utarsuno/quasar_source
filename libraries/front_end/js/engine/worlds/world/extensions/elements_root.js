@@ -2,7 +2,7 @@
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    _initialize_cache_for_root: function() {
+    __init__world_feature_root: function() {
         this.elements_root = [];
     },
 

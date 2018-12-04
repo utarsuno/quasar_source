@@ -9,11 +9,11 @@ THREE.Object3D.DefaultMatrixAutoUpdate = false;
 let QE;
 
 
-function $_QE(application, application_class, first_world) {
+function $_QE(application, application_class, application_first_world) {
     QE = this;
     this.engine_main_loop  = this._engine_loop.bind(this);
     this.__init__hud_pause_menu();
-    this.first_world_class = first_world;
+    this.application_first_world = application_first_world;
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
     if (this._are_required_features_enabled()) {
@@ -55,6 +55,7 @@ $_QE.prototype = {
         this.__init__pointer_lock();
         this.__init__drag_and_drop();
         this.__init__renderer();
+        this.__init__on_hover();
         this.player         = new $_QE.prototype.Player(this);
         this.manager_world  = new $_QE.prototype.WorldManager(this);
         this.__init__hud();
