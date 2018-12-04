@@ -4,9 +4,13 @@ $_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    handle_file_upload: function(f) {
+    handle_image_upload: function(f) {
         l('TODO!!!: HANDLE FILE UPLOAD');
         //l(f);
+
+        l('File uploaded!');
+        l(f.size);
+        l(f.type);
 
         let image = document.createElement('img');
         image.src = f;
@@ -17,8 +21,13 @@ Object.assign($_QE.prototype.World.prototype, {
             //l(image.width);
             //l(image.height);
 
+
             self.create_and_add_element_to_root(fp);
             self.player.set_object_in_front_of(fp, 1000);
+
+
+            l(image);
+            l(image.parentNode);
         };
     },
 
