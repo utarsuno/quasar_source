@@ -13,6 +13,10 @@ SCRIPT_OPERATIONS_GIT="./scripts/functionalities/_operations_git.py"
 # |__  |  | |\ | /  `  |  | /  \ |\ | /__`
 # |    \__/ | \| \__,  |  | \__/ | \| .__/
 
+function run_code_manager_process {
+    docker-compose -f ${DOCKER_COMPOSE_FILE} up --exit-code-from code_manager --abort-on-container-exit
+}
+
 function stop_docker_compose {
     docker-compose -f ${DOCKER_COMPOSE_FILE} stop;
 }

@@ -17,7 +17,8 @@ start_script_with_docker_health_check
 # TODO: Dynamic build
 #docker_compose_build
 
-docker-compose -f ${DOCKER_COMPOSE_FILE} up --exit-code-from code_manager --abort-on-container-exit
+#docker-compose -f ${DOCKER_COMPOSE_FILE} up --exit-code-from code_manager --abort-on-container-exit
+run_code_manager_process
 CODE_MANAGER_BUILD_RESULT=$?
 
 if [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
