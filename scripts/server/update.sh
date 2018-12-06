@@ -21,6 +21,7 @@ git pull
 if [ -d "${BASE_DIR}generated_output" ]; then
   mkdir -p ${BASE_DIR}generated_output/local/code_manager
   mkdir -p ${BASE_DIR}generated_output/web_assets
+  mkdir -p ${BASE_DIR}generated_output/nexus_courier
   #mkdir -p ${BASE_DIR}generated_output/third_party_libraries/three_js
 fi
 
