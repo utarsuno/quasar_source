@@ -50,7 +50,7 @@ RUN apk add --no-cache bash \
  && rm -rf /var/cache/apk/*
 
 
-COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
+COPY ./libraries/pre_compiled/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 
 #COPY ./scripts/docker/build_process_steps/amqp.sh /var/cache/amqp.sh
 #RUN bash /var/cache/amqp.sh
@@ -60,8 +60,3 @@ COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 #CMD ["/quasar/generated_output/websocket_server/websocket_server"]
 CMD ["bash", "/quasar/scripts/docker/run_nexus_courier.sh"]
 #CMD ["sleep", "10m"]
-
-
-#    environment:
-#      - LD_LIBRARY_PATH=/quasar/generated_output/libamqpcpp.so.3.1
-#
