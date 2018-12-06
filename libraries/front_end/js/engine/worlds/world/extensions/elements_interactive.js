@@ -26,6 +26,33 @@ Object.assign($_QE.prototype.World.prototype, {
         return false;
     },
 
+    util_raycaster_get_closest_intersection: function(raycaster) {
+        // Find out what's currently being looked at if anything.
+        let i;
+        let max_distance        = 99999;
+        let intersection_data   = null;
+        let intersected_element = null;
+        for (i = 0; i < this.elements_interactive.length; i++) {
+            if (this._is_element_skippable(this.elements_interactive[i])) {
+                continue;
+            }
+
+            // The true parameter indicates recursive search.
+            raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
+
+            // Only check the first result returned as they are already sorted by distance.
+            if (this._intersections.length != 0 &&
+                this._intersections[0].distance < max_distance &&
+                this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null
+            ) {
+                max_distance        = this._intersections[0].distance;
+                intersection_data   = this._intersections[0];
+                intersected_element = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
+            }
+        }
+        return intersected_element;
+    },
+
     update_elements_interactive: function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
         if (this.currently_looked_at_object != null && this.currently_looked_at_object.flags_are_both_on(EFLAG_IS_TYPEABLE, EFLAG_IS_ENGAGED)) {
@@ -39,31 +66,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
         // Position intersection checks from the player's current view point.
         this._raycaster.set(this.player.get_position(), this.player.get_normal());
-
-        // Find out what's currently being looked at if anything.
-        let i;
-        let max_distance        = 99999;
-        let intersection_data   = null;
-        let intersected_element = null;
-        for (i = 0; i < this.elements_interactive.length; i++) {
-
-            if (this._is_element_skippable(this.elements_interactive[i])) {
-                continue;
-            }
-
-            // The true parameter indicates recursive search.
-            this._raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
-
-            // Only check the first result returned as they are already sorted by distance.
-            if (this._intersections.length != 0 &&
-                this._intersections[0].distance < max_distance &&
-                this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null
-            ) {
-                max_distance        = this._intersections[0].distance;
-                intersection_data   = this._intersections[0];
-                intersected_element = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
-            }
-        }
+        let intersected_element = this.util_raycaster_get_closest_intersection(this._raycaster);
 
         if (intersected_element == null) {
             if (this.currently_looked_at_object != null) {

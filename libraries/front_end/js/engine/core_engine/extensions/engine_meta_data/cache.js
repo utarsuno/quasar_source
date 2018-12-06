@@ -1,25 +1,5 @@
 'use strict';
 
-const QECACHEI_WIDTH_INNER   = 0; // #pre-process_global_constant
-const QECACHEI_WIDTH_OUTER   = 1; // #pre-process_global_constant
-const QECACHEI_HEIGHT_INNER  = 2; // #pre-process_global_constant
-const QECACHEI_HEIGHT_OUTER  = 3; // #pre-process_global_constant
-const QECACHEI_FRAME_COUNTER = 4; // #pre-process_global_constant
-
-const QECACHEF_FOV                  = 0;  // #pre-process_global_constant
-const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant
-const QECACHEF_CLIPPING_FAR         = 2;  // #pre-process_global_constant
-const QECACHEF_ASPECT_RATIO         = 3;  // #pre-process_global_constant
-const QECACHEF_FPS_PHYSICS          = 4;  // #pre-process_global_constant
-const QECACHEF_FPS_PAUSED           = 5;  // #pre-process_global_constant
-const QECACHEF_FPS_LOGIC            = 6;  // #pre-process_global_constant
-const QECACHEF_FPS_RENDER           = 7;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_PHYSICS = 8;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_LOGIC   = 9;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_RENDER  = 10;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_SECOND  = 11; // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_PAUSED  = 12; // #pre-process_global_constant
-
 
 Object.assign($_QE.prototype, {
 
@@ -38,6 +18,12 @@ Object.assign($_QE.prototype, {
     _delta_clock    : new THREE.Clock(false),
     _delta          : 0,
 
+    // Eh, just use the cacei way faster and way less taxing on dynamic memory usage
+    // TODO: rename to _vector_cursor
+    _cursor         : new THREE.Vector2(),
+    // TODO:
+    _cachev_dimensions: new THREE.Vector2(),
+
     __init__cache: function() {
         this._cachef[QECACHEF_FPS_PHYSICS] = 0.011111111111111112; // FPS is 90 (from 1.0 / 90.0).
         this._cachef[QECACHEF_FPS_PAUSED]  = 0.011111111111111112;
@@ -52,6 +38,14 @@ Object.assign($_QE.prototype, {
 
     get_width: function() {
         return this._cachei[QECACHEI_WIDTH_INNER];
+    },
+
+    get_center_x: function() {
+        return Math.floor(this._cachei[QECACHEI_WIDTH_INNER] / 2);
+    },
+
+    get_center_y: function() {
+        return Math.floor(this._cachei[QECACHEI_HEIGHT_INNER] / 2);
     },
 
     get_height: function() {

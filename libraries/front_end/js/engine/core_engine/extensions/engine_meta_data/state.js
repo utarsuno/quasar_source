@@ -39,13 +39,18 @@ Object.assign(
 
         _on_state_exit_running: function() {
             this._reset_input_and_movements();
-            this.manager_world.event_trigger_on_pause();
+            if (this.manager_world != null) {
+                this.manager_world.event_trigger_on_pause();
+            }
             this.pause_menu_fade_in();
             this._clear_frames();
         },
 
         _on_state_enter_running: function() {
             // TODO: On running resume.
+            if (this.manager_world.current_world != null) {
+                this.manager_world.current_world.css_on_running_state();
+            }
         },
 
         _reset_input_and_movements: function() {

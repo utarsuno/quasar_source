@@ -9,6 +9,7 @@ Object.assign($_QE.prototype, {
 
     _fetch_window_size: function() {
         this.set_width(window.innerWidth);
+        this._cachei[QECACHEI_WIDTH_INNER]  = window.innerWidth;
         this._cachei[QECACHEI_WIDTH_OUTER]  = window.outerWidth;
         this.set_height(window.innerHeight);
         this._cachei[QECACHEI_HEIGHT_OUTER] = window.outerHeight;

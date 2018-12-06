@@ -32,7 +32,7 @@ class JavascriptManager(object):
 	def _add_files_engine(self):
 		"""Adds the JS files needed for the overall engine."""
 		# Global pre-processes.
-		self._add_paths('core_global_pre_processes', ['pp_globals', 'pp_arguments', 'pp_assets', 'pp_dom_elements', 'pp_elements', 'pp_inputs', 'pp_player', 'pp_shaders', 'pp_singleton', 'pp_three_js', 'pp_time'])
+		self._add_paths('core_global_pre_processes', ['pp_globals', 'pp_arguments', 'pp_engine', 'pp_assets', 'pp_dom_elements', 'pp_elements', 'pp_inputs', 'pp_player', 'pp_shaders', 'pp_singleton', 'pp_three_js', 'pp_time'])
 
 		# Main engine.
 		self._add_js_file('core_engine/engine')
@@ -46,7 +46,7 @@ class JavascriptManager(object):
 		self._add_paths('core_engine/extensions/engine_static_data', ['colors', 'fonts'])
 		self._add_paths('core_engine/extensions/time'              , ['time_instance', 'time'])
 		self._add_paths('core_engine/extensions/engine_features'   , ['math', 'errors', 'script_loader'])
-		self._add_paths('core_engine/extensions/engine_data'       , ['cache', 'flags', 'frames', 'state'])
+		self._add_paths('core_engine/extensions/engine_meta_data'  , ['cache', 'flags', 'frames', 'state'])
 		self._add_paths('core_engine/extensions/inputs'            , ['inputs', 'keyboard', 'mouse'])
 		self._add_paths('core_engine/extensions/web_features'      , ['wf_cookies', 'wf_on_hover', 'wf_drag_and_drop', 'wf_event_window_resize', 'wf_full_screen', 'wf_pointer_lock'])
 		self._add_js_file('core_engine/extensions/rendering/renderer')
@@ -71,11 +71,6 @@ class JavascriptManager(object):
 		self._add_paths('elements/base', ['element_singleton'])
 		self._add_paths('elements/base/element_extensions', ['attachment', 'normal', 'position', 'visibility', '_three_js_internals'])
 		self._add_paths('elements/base', ['floating_element_color', 'floating_element_text', 'floating_rows', 'floating_wall', 'floating_css'])
-		#self._add_js_file('elements/base/floating_element_color')
-		#self._add_js_file('elements/base/floating_element_text')
-		#self._add_js_file('elements/base/floating_rows')
-		#self._add_js_file('elements/base/floating_wall')
-		#self._add_js_file('elements/base/floating_css')
 		self._add_paths('elements/environment', ['hexagon_grid', 'light_ambient', 'light_point', 'skybox', 'skybox_space'])
 		# ----------------------------------------------------------------------------------------------------------------
 

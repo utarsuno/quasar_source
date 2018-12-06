@@ -2,7 +2,7 @@
 
 $_QE.prototype.DemoWorld = function(engine) {
     this.init_world('Demo', ASSET_ICON_PLANET, engine);
-    
+
     this.set_world_enter_default_position(new THREE.Vector3(2000, 1000, 6750));
     this.set_world_enter_default_normal(new THREE.Vector3(.70, .02, -.72));
     //this.set_on_world_enter(QE.player.set_to_walking.bind(QE.player));

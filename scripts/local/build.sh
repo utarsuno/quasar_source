@@ -15,6 +15,7 @@ DOCKER_COMPOSE_FILE="docker-compose.dev.build.yml"
 
 start_script_with_docker_health_check
 # TODO: Dynamic build
+#docker_compose_build
 docker_compose_up
 CODE_MANAGER_BUILD_RESULT=$(docker wait quasar_source_code_manager_1)
 

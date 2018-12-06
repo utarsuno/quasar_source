@@ -6,6 +6,9 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         if (this.player_cursor.is_in_action()) {
             this.player_cursor.finish_action();
         }
+        if (this.manager_world != null && this.manager_world.current_world != null) {
+            this.manager_world.current_world.css_on_pause_state();
+        }
     },
 
     event_trigger_element_looked_at: function(element, position) {

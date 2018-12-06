@@ -4,17 +4,26 @@ Object.assign(
     $_QE.prototype,
     {
         on_mouse_move: function(event) {
+            if (this.flag_is_on(QEFLAG_CSS_LOOKED_AT)) {
+                l(event);
+            }
+            this._cursor.x = event.clientX;
+            this._cursor.y = event.clientY;
+
             if (this.is_current_state(QEFLAG_STATE_RUNNING) && this.player.has_movement()) {
                 //this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
-                if (event.movementX != 0) {
-                    this.player.on_mouse_move_x(event.movementX);
-                }
-                if (event.movementY != 0 && this.flag_is_off(QEFLAG_STATE_MOUSE_Y_DISABLED)) {
-                    this.player.on_mouse_move_y(event.movementY);
+
+                if (this.flags_are_same(QEFLAG_CSS_LOOKED_AT, QEFLAG_CSS_HOVERED_ON)) {
+                    if (event.movementX != 0) {
+                        this.player.on_mouse_move_x(event.movementX);
+                    }
+                    if (event.movementY != 0 && this.flag_is_off(QEFLAG_STATE_MOUSE_Y_DISABLED)) {
+                        this.player.on_mouse_move_y(event.movementY);
+                    }
                 }
             }
-            event.preventDefault();
-            event.stopPropagation();
+            //event.preventDefault();
+            //event.stopPropagation();
         },
 
         on_mouse_up: function(event) {
@@ -68,7 +77,8 @@ Object.assign(
         },
 
         _initialize_mouse: function() {
-            document.addEventListener('mousemove', this.on_mouse_move.bind(this), true);
+            document.onmousemove = this.on_mouse_move.bind(this);
+            //document.addEventListener('mousemove', this.on_mouse_move.bind(this), true);
             document.addEventListener('mousedown', this.on_mouse_down.bind(this), true);
             document.addEventListener('mouseup'  , this.on_mouse_up.bind(this), true);
 

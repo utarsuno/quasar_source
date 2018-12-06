@@ -10,10 +10,8 @@ $_QE.prototype.BitwiseFlagsMax31.prototype = {
 
     flag_set: function(flag_number, b) {
         if (b) {
-            // Flag set on.
             this.flags[0] |= flag_number;
         } else {
-            // Flag set off.
             this.flags[0] &= (~flag_number);
         }
     },
@@ -34,8 +32,16 @@ $_QE.prototype.BitwiseFlagsMax31.prototype = {
         return (this.flags[0] & flag_number) > 0;
     },
 
+    flags_are_same: function(f0, f1) {
+        return ((this.flags[0] & (f0 | f1)) == (f0 | f1)) || ((this.flags[0] & f0) + (this.flags[0] & f1) == 0);
+    },
+
     flags_are_both_on: function(f0, f1) {
         return (this.flags[0] & (f0 | f1)) == (f0 | f1);
+    },
+
+    flags_are_both_off: function(f0, f1) {
+        return (this.flags[0] & f0) + (this.flags[0] & f1) == 0;
     },
 
     flags_are_either_on: function(f0, f1) {

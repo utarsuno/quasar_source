@@ -6,6 +6,30 @@ Object.assign($_QE.prototype.World.prototype, {
         this.elements_css = [];
     },
 
+    on_css_hover: function(element) {
+        let e;
+        for (e = 0; e < this.elements_css.length; e++) {
+            if (this.elements_css[e].matches_css_object(element)) {
+                QE.flag_set_on(QEFLAG_CSS_HOVERED_ON);
+                return;
+            }
+        }
+    },
+
+    css_on_pause_state: function() {
+        let e;
+        for (e = 0; e < this.elements_css.length; e++) {
+            this.elements_css[e].on_pause_state();
+        }
+    },
+
+    css_on_running_state: function() {
+        let e;
+        for (e = 0; e < this.elements_css.length; e++) {
+            this.elements_css[e].on_resume_state();
+        }
+    },
+
     remove_from_elements_css: function(element) {
         let i;
         for (i = 0; i < this.elements_css.length; i++) {

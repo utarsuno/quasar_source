@@ -16,6 +16,7 @@ Object.assign(
 
             //this.renderer.clearDepth();
             //this.renderer.render(this.manager_world.current_world.scene, this.camera);
+            // TODO: Avoid updates when the world has no active CSS elements!
             this.css_renderer.render(this.css_scene, this.camera);
 
         },

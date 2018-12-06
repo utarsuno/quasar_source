@@ -19,34 +19,39 @@ Object.assign(
             this.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, function() {
                 QE.mouse_lock();
                 QE.flag_set_off(QEFLAG_CSS_LOOKED_AT);
+                QE.flag_set_off(QEFLAG_CSS_HOVERED_ON);
                 document.activeElement.blur();
             }.bind(this), '0');
 
 
-            /*
-            this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-            this.mesh     = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
-                color: QE.COLOR_GREEN_LIGHT,
-                //side: THREE.DoubleSide
-            }));
-            */
-
             this.add_title_bar(null, ASSET_ICON_VIDEO, true, true, true);
             //this._default_row = this.create_row_interactive(0.5);
+        },
+
+        matches_css_object: function(o) {
+            return o == this.div || o == this.div.parentElement;
+        },
+
+        on_pause_state: function() {
+            this.div.parentElement.parentElement.style.position = '';
+        },
+
+        on_resume_state: function() {
+            this.div.parentElement.parentElement.style.position = 'absolute';
         },
 
         __init__floating_css_wall: function(args) {
             this._cache_css_look_at = new THREE.Vector3();
 
             this.__init__floating_rows(EFLAG_IS_CSS);
-            this.set_dimensions(args[ARG_WIDTH], args[ARG_HEIGHT] * 1.20);
+            this.set_dimensions(args[ARG_WIDTH], args[ARG_HEIGHT]);
             this.set_foreground_color(QE.COLOR_GRAY_DARK);
             this.set_background_color(QE.COLOR_BLUE);
             $_QE.prototype.FeatureInteractive.call(this);
             this.flag_set_off(EFLAG_IS_ENGABLE);
-            this.flag_set_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING);
-            this.flag_set_on(EFLAG_IS_MOUSE_MOVABLE);
-            this.flag_set_on(EFLAG_IS_MOUSE_SCALABLE);
+            //this.flag_set_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING);
+            //this.flag_set_on(EFLAG_IS_MOUSE_MOVABLE);
+            //this.flag_set_on(EFLAG_IS_MOUSE_SCALABLE);
 
             if (this._arg_is_on(args, ARG_CSS_WEBSITE)) {
                 this.___init__floating_css_website(args);
@@ -67,6 +72,16 @@ Object.assign(
         ___init__floating_wall_end: function() {
             this.css_object = new THREE.CSS3DObject(this.div);
             QE.css_scene.add(this.css_object);
+
+            /*
+            document.addEventListener('mousemove', function(event) {
+                l('CSS MOUSE MOVE!');
+                l(event);
+            });
+            */
+            this.div.addEventListener('mousemove', QE.on_mouse_move.bind(QE));
+            this.div.addEventListener('mouseenter', QE._engine_on_hover.bind(QE));
+            this.div.addEventListener('mouseover', QE._engine_on_hover.bind(QE));
         },
 
         ___init__floating_css_traider: function() {
@@ -92,7 +107,8 @@ Object.assign(
             this.iframe.style.width  = args[ARG_WIDTH].toString() + 'px';
             this.iframe.style.height = args[ARG_HEIGHT].toString() + 'px';
             this.iframe.style.border = '0px';
-            this.iframe.src          = ['https://www.youtube.com/embed/', args[ARG_URL], '?rel=0'].join( '' );
+            // iv_load_policy=3 --> disables video annotations (turned off for now to see any performance difference)
+            this.iframe.src          = ['https://www.youtube-nocookie.com/embed/', args[ARG_URL], '?rel=1&theme=dark&iv_load_policy=3'].join( '' );
             this.div.appendChild(this.iframe);
             this.___init__floating_wall_end();
         },

@@ -10,7 +10,7 @@ Object.assign(
             if (this._cache_reference_document_body.requestPointerLock) {
                 document.addEventListener('pointerlockchange', function() {
                     this.flag_set(QEFLAG_STATE_POINTER_LOCK, this._cache_reference_document_body === document.pointerLockElement);
-                    if (this.flag_is_off(QEFLAG_STATE_POINTER_LOCK) && this.flag_is_off(QEFLAG_CSS_LOOKED_AT)) {
+                    if (this.flags_are_both_off(QEFLAG_STATE_POINTER_LOCK, QEFLAG_CSS_LOOKED_AT)) {
                         this.set_state(QEFLAG_STATE_PAUSED);
                     }
                 }.bind(this), true);
@@ -25,7 +25,7 @@ Object.assign(
             } else if (this._cache_reference_document_body.mozRequestPointerLock) {
                 document.addEventListener('mozpointerlockchange', function() {
                     this.flag_set(QEFLAG_STATE_POINTER_LOCK, this._cache_reference_document_body === document.mozPointerLockElement);
-                    if (this.flag_is_off(QEFLAG_STATE_POINTER_LOCK) && this.flag_is_off(QEFLAG_CSS_LOOKED_AT)) {
+                    if (this.flags_are_both_off(QEFLAG_STATE_POINTER_LOCK, QEFLAG_CSS_LOOKED_AT)) {
                         this.set_state(QEFLAG_STATE_PAUSED);
                     }
                 }.bind(this), true);
@@ -40,7 +40,7 @@ Object.assign(
             } else {
                 document.addEventListener('webkitpointerlockchange', function() {
                     this.flag_set(QEFLAG_STATE_POINTER_LOCK, this._cache_reference_document_body === document.webkitPointerLockElement);
-                    if (this.flag_is_off(QEFLAG_STATE_POINTER_LOCK) && this.flag_is_off(QEFLAG_CSS_LOOKED_AT)) {
+                    if (this.flags_are_both_off(QEFLAG_STATE_POINTER_LOCK, QEFLAG_CSS_LOOKED_AT)) {
                         this.set_state(QEFLAG_STATE_PAUSED);
                     }
                 }.bind(this), true);
