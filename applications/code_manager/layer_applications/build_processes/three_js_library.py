@@ -2,12 +2,12 @@
 
 """This module, three_js_library.py, contains the build processes for building ThreeJS (if needed)."""
 
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
 import requests
+
+from libraries.code_api.code_manager.build_step import BuildProcessStep
+from libraries.code_api.source_file_abstraction.code_files import code_file
 from libraries.universal_code import output_coloring as oc
 from libraries.universal_code import useful_file_operations as ufo
-from libraries.code_api.source_file_abstraction.code_files import code_file
-
 
 DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED = 'three_js_library_updated'
 
@@ -15,10 +15,15 @@ DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED = 'three_js_library_updated'
 class BuildProcessThreeJSLibrary(BuildProcessStep):
 	"""Represents the build process steps for updating the ThreeJS library."""
 
-	def __init__(self, domain, library_entity):
+	#def __init__(self, domain, library_entity):
+	def __init__(self, domain):
 		super().__init__(domain, None)
 
 		self.latest_version = None
+
+		#
+		library_entity = domain.get_library_by_name('threejs')
+		#
 
 		#TEMP
 		self.library_entity = library_entity

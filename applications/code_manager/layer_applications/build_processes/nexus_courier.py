@@ -2,7 +2,8 @@
 
 """This module, nexus_courier.py, contains the build processes for NexusCourier (if needed)."""
 
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
+from applications.code_manager.layer_domain.domains import db_domain
+from libraries.code_api.code_manager.build_step import BuildProcessStep
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
@@ -34,6 +35,7 @@ class BuildProcessNexusCourier(BuildProcessStep):
 				self.add_output_line('Cached {' + f.file_name + '}.')
 
 		if self.any_files_updated:
-			self.domain.flag_set('NEXUS_COURIER_UPDATED', True)
+			self.domain.flag_set(db_domain.DOMAIN_FLAG_NEXUS_COURIER_UPDATED, True)
 		else:
-			self.domain.flag_set('NEXUS_COURIER_UPDATED', False)
+			self.domain.flag_set(db_domain.DOMAIN_FLAG_NEXUS_COURIER_UPDATED, False)
+

@@ -2,13 +2,10 @@
 
 """This module, nexus_local.py, runs the build process to create nexus_local.js (if needed)."""
 
-
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
+from applications.code_manager.layer_applications import nexus_local
+from libraries.code_api.code_manager.build_step import BuildProcessStep
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from libraries.universal_code import useful_file_operations as ufo
-from libraries.code_api.source_file_abstraction.code_files import code_file
-from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
-from applications.code_manager.layer_applications import nexus_local
 
 
 class BuildProcessJSNexusLocal(BuildProcessStep):
@@ -58,9 +55,9 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 		"""Builds the JS engine file."""
 		for f in self.all_files:
 
-			minified_path           = self.domain.generated_content_path + f.file_name_with_minified_extension
+			minified_path           = self.domain.path_output + f.file_name_with_minified_extension
 			gzip_path               = minified_path + '.gz'
-			volume_file_path        = self.domain.volume_path + f.file_name_with_minified_extension
+			volume_file_path        = self.domain.path_volume + f.file_name_with_minified_extension
 
 			if 'nexus_local' in volume_file_path:
 				volume_file_path = volume_file_path.replace('nexus_local', 'nl')

@@ -2,6 +2,7 @@
 
 """This module, flags.py, provides an OOP abstraction to flags."""
 
+
 class Flags:
 	"""Provides an API to using flags."""
 

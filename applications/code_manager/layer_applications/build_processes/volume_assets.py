@@ -2,7 +2,7 @@
 
 """This module, volume_assets.py, contains the build processes for building Volume assets (if needed)."""
 
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
+from libraries.code_api.code_manager.build_step import BuildProcessStep
 from libraries.universal_code import useful_file_operations as ufo
 
 
@@ -49,12 +49,12 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 
 	def _add_volume_file_reference(self, destination, source):
 		"""Utility function."""
-		self.needed_files_volume[self.domain.volume_path + destination] = '/quasar/assets/' + source
+		self.needed_files_volume[self.domain.path_volume + destination] = '/quasar/assets/' + source
 		self.needed_files_compressed['/quasar/assets/' + source] = '/quasar/generated_output/local/code_manager/' + destination
 
 	def _add_volume_file_reference_raw(self, destination, source):
 		"""Utility function."""
-		self.needed_files_volume[self.domain.volume_path + destination] = source
+		self.needed_files_volume[self.domain.path_volume + destination] = source
 
 	def step_0x0(self):
 		"""The first step."""

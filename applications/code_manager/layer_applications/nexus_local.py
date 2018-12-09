@@ -55,7 +55,7 @@ class JavascriptManagerNexusLocal(JavascriptManager):
 
 		all_code.add_code_chunk(CodeChunk(combined_lines))
 
-		output_directory = CodeDirectory(self.domain.generated_content_path)
+		output_directory = CodeDirectory(self.domain.path_output)
 
 		# TODO: refactor this?
 		output_directory.add_code_file(combined_javascript_file)

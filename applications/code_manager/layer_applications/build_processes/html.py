@@ -2,7 +2,7 @@
 
 """This module, html.py, contains the build processes for building HTML files (if needed)."""
 
-from libraries.code_api.code_manager.build_process.build_step_simple_isolated import BuildProcessStepSimpleAndIsolated
+from libraries.code_api.code_manager.build_step_simple_isolated import BuildProcessStepSimpleAndIsolated
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from libraries.universal_code import useful_file_operations as ufo
 

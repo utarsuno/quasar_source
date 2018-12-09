@@ -3,7 +3,7 @@
 """This module, nexus_local.py, runs the build process to create nexus_local.js (if needed)."""
 
 
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
+from libraries.code_api.code_manager.build_step import BuildProcessStep
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from libraries.universal_code import useful_file_operations as ufo
 

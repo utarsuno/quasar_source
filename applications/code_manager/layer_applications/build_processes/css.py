@@ -2,7 +2,7 @@
 
 """This module, css.py, contains the build processes for building CSS files (if needed)."""
 
-from libraries.code_api.code_manager.build_process.build_step_simple_isolated import BuildProcessStepSimpleAndIsolated
+from libraries.code_api.code_manager.build_step_simple_isolated import BuildProcessStepSimpleAndIsolated
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 DOMAIN_FLAG_CSS_FILES_THAT_UPDATED = 'CSS_files_that_have_been_updated'

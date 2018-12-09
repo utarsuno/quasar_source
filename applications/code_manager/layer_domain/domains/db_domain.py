@@ -9,19 +9,41 @@ from applications.code_manager.layer_domain.entities import entities_business
 from libraries.universal_code.data_structures.flags import Flags
 
 
+DOMAIN_ENV_DEV          = 'dev'
+DOMAIN_ENV_QA           = 'qa'
+DOMAIN_ENV_PROD         = 'prod'
+
+DOMAIN_BUILD_FE         = 'build_fe'
+DOMAIN_BUILD_ALL        = 'build_all'
+
+DOMAIN_FLAG_NEXUS_COURIER_UPDATED = 'nexus_courier_updated'
+
+DOMAIN_FLAG_BUILD_TYPE  = 'ARG_BUILD_TYPE'
+DOMAIN_FLAG_PATH_DB     = 'ARG_PATH_DB'
+DOMAIN_FLAG_PATH_VOLUME = 'ARG_PATH_VOLUME'
+DOMAIN_FLAG_PATH_OUTPUT = 'ARG_PATH_OUTPUT'
+
+DOMAIN_FLAG_DEBUG       = 'ARG_DEBUG'
+DOMAIN_FLAG_ENVIRONMENT = 'ARG_ENVIRONMENT'
+
+DOMAIN_EXIT_CODE_SUCCESS                   = 0
+DOMAIN_EXIT_CODE_SUCCESS_BUILD_NEXUS_LOCAL = 200
+DOMAIN_EXIT_CODE_FAIL                      = 199
+
+
 class DBDomain(Flags):
 	"""Represents a DB connection to code_manager."""
 
-	def __init__(self, db_location, default_generated_content_directory, volume_path, debug_on, build_type):
+	def __init__(self, args):
 		super().__init__()
-		self.flag_set('BUILD_TYPE', build_type)
+		for arg in args:
+			#print('Setting flag {' + arg + '} to value {' + str(args[arg]) + '} with type {' + str(type(args[arg])) + '}')
+			self.flag_set(arg, args[arg])
 
-		self._db_location           = db_location
-		self._db                    = sqlite_db.SQLiteDB(self._db_location, debug_on)
-		self._db.connect()
+		self._db = sqlite_db.SQLiteDB(self.flag_get(DOMAIN_FLAG_PATH_DB), self.flag_get(DOMAIN_FLAG_DEBUG), auto_connect=True)
 
-		self.generated_content_path = default_generated_content_directory
-		self.volume_path            = volume_path
+		self.path_output            = self.flag_get(DOMAIN_FLAG_PATH_OUTPUT)
+		self.path_volume            = self.flag_get(DOMAIN_FLAG_PATH_VOLUME)
 
 		self._e_libraries           = entities_db.DBEntityLibrary()
 		self._e_files               = entities_db.DBEntityFile()
@@ -147,3 +169,20 @@ class DBDomain(Flags):
 		if parent_file.child_f_id is None:
 			parent_file.set_child_file(child_file)
 			child_file.set_parent_file(parent_file)
+
+	#
+	def is_build_type_front_end(self):
+		"""Utility function."""
+		return self.flag_get(DOMAIN_FLAG_BUILD_TYPE) == DOMAIN_BUILD_FE
+
+	def is_build_type_all(self):
+		"""Utility function."""
+		return self.flag_get(DOMAIN_FLAG_BUILD_TYPE) == DOMAIN_BUILD_ALL
+
+	#
+	def get_exit_code_needed(self) -> int:
+		"""Returns the exit code needed."""
+		if self.flag_does_exist(DOMAIN_FLAG_NEXUS_COURIER_UPDATED) and self.flag_get(DOMAIN_FLAG_NEXUS_COURIER_UPDATED):
+			return DOMAIN_EXIT_CODE_SUCCESS_BUILD_NEXUS_LOCAL
+		else:
+			return DOMAIN_EXIT_CODE_SUCCESS

@@ -10,7 +10,7 @@ import sqlite3
 class SQLiteDB(object):
 	"""Represents an SQLiteDB."""
 
-	def __init__(self, db_file_path, debug=False):
+	def __init__(self, db_file_path, debug=False, auto_connect=False):
 		self._debug        = debug
 		self._db_file_path = db_file_path
 		self._connection   = None
@@ -21,6 +21,9 @@ class SQLiteDB(object):
 		self._all_tables.add_column_string('name', unique=True)
 		self._all_tables.add_column_row_id_alias() # self._all_tables.name_id
 		self._all_tables.set_db(self)
+
+		if auto_connect:
+			self.connect()
 
 	def connect(self):
 		"""Establish a connection to the db file."""

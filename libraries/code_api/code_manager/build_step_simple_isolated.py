@@ -2,9 +2,7 @@
 
 """This module, build_step.py, represents a single build step in a build process."""
 
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
-import traceback
+from libraries.code_api.code_manager.build_step import BuildProcessStep
 
 
 class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
@@ -66,7 +64,7 @@ class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
 				self.log_file_cached(f)
 
 				if self.minifies:
-					minified_path  = self.domain.generated_content_path + f.file_name_with_minified_extension
+					minified_path  = self.domain.path_output + f.file_name_with_minified_extension
 					processed_path = minified_path.replace('.min', '.processed')
 
 					use_processed = self.handle_minify_pre_setup(f, base_file, processed_path)
@@ -84,14 +82,14 @@ class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
 					self.handle_minify_end(f, minified_path, updated)
 
 					if self.gzips:
-						gzip_path = self.domain.generated_content_path + f.file_name_with_minified_extension + '.gz'
+						gzip_path = self.domain.path_output + f.file_name_with_minified_extension + '.gz'
 						self.handle_gzip_setup(minified_path, gzip_path)
 						gzip_cached_or_updated, gzip_file = self.domain.cache_child_file_based_off_base_code_file(
 							base_code_file = f,
 							base_file      = minified_file,
 							child_path     = gzip_path
 						)
-						volume_file_path = self.domain.volume_path + f.file_name_with_minified_extension
+						volume_file_path = self.domain.path_volume + f.file_name_with_minified_extension
 
 						self.handle_gzip_end(minified_path, gzip_path, volume_file_path, volume_file_path + '.gz')
 

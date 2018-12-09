@@ -109,7 +109,10 @@ Object.assign(
             this._cachef[QECACHEF_CLIPPING_NEAR] = 1.0;
             this._cachef[QECACHEF_CLIPPING_FAR]  = 50000.0;
 
-            this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
+            //this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false});
+            // TESTING SOMETHING:
+            this.renderer     = new THREE.WebGLRenderer({antialias: false, alpha: false, logging: false});
+
             this._add_three_js_canvas_to_window();
 
             this._initialize_renderer_shadows();

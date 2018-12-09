@@ -15,6 +15,7 @@ BASE_DIR=${DIR}/../../
 
 start_script
 
+git clean -f -d
 git fetch
 git pull
 

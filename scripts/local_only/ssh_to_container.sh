@@ -8,7 +8,7 @@ source ${DIR}/../../scripts/utilities/script_utilities.sh
 cd ${DIR}/../..;
 
 # Useful link: http://sebthom.de/158-bash-capturing-stderr-variable/
-CHOSEN_CONTAINER_ID=$(python3 ./scripts/functionalities/_operations_docker.py 'c' 3>&1 1>&2 2>&3 | tee /dev/stderr)
+CHOSEN_CONTAINER_ID=$(python3 ./scripts/utilities/_operations_docker.py 'c' 3>&1 1>&2 2>&3 | tee /dev/stderr)
 
 if [ -z "$CHOSEN_CONTAINER_ID" ]; then
       # No container was chosen.

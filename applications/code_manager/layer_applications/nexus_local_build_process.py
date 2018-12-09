@@ -2,9 +2,6 @@
 
 """This module, build_nexus_local.py, builds NexusLocal."""
 
-from libraries.universal_code.system_abstraction.system_functions import get_system_environment as get_env
-from libraries.code_api.code_manager.build_process.build_process import BuildProcess
-from applications.code_manager.layer_domain.domains import db_domain
 from applications.code_manager.layer_domain.entities import entities_db
 from applications.code_manager.layer_applications.build_processes.three_js_library import BuildProcessThreeJSLibrary
 from applications.code_manager.layer_applications.build_processes.three_js_combined_library import BuildProcessThreeJSCombinedLibrary
@@ -15,31 +12,28 @@ from applications.code_manager.layer_applications.build_processes.js_independent
 from applications.code_manager.layer_applications.build_processes.nexus_local_js import BuildProcessJSNexusLocal
 from applications.code_manager.layer_applications.build_processes.nexus_courier import BuildProcessNexusCourier
 from applications.code_manager.layer_applications.build_processes.shaders import BuildProcessShaders
+from applications.code_manager.layer_domain.domains import db_domain
+from libraries.universal_code.system_abstraction.system_functions import get_system_environment as get_env
+from libraries.universal_code import output_coloring as oc
+from libraries.universal_code.time_abstraction.simple_timer import SimpleTimer
+
 
 LIBRARY_THREE_JS          = 'threejs'
 
-ENV_FE                    = 'front_end_only'
-ENV_PROD                  = 'production'
 
-ARG_DB_PATH               = 'CODE_BUILDER_DB_PATH'
-ARG_GENERATED_OUTPUT_PATH = 'CODE_BUILDER_DEFAULT_GENERATED_CONTENT_DIRECTORY'
-ARG_VOLUME_PATH           = 'CODE_BUILDER_VOLUME_PATH'
-ARG_DEBUG_ON              = 'CODE_BUILDER_DB_DEBUG'
-ARG_BUILD_TYPE            = 'CODE_BUILDER_BUILD_TYPE'
-
-
-class NexusLocalBuildProcess(BuildProcess):
+class NexusLocalBuildProcess(object):
 	"""Represents the Nexus Local full build process."""
 
 	def __init__(self):
-		super().__init__(
-			'NexusLocal',
-			db_domain.DBDomain(get_env(ARG_DB_PATH),
-			                   get_env(ARG_GENERATED_OUTPUT_PATH),
-			                   get_env(ARG_VOLUME_PATH),
-			                   get_env(ARG_DEBUG_ON),
-			                   get_env(ARG_BUILD_TYPE))
-		)
+		self.name = 'NexusLocal'
+		self.db_domain = db_domain.DBDomain({
+			db_domain.DOMAIN_FLAG_BUILD_TYPE : get_env('CODE_BUILDER_BUILD_TYPE'),
+			db_domain.DOMAIN_FLAG_ENVIRONMENT: get_env('CODE_BUILDER_ENVIRONMENT'),
+			db_domain.DOMAIN_FLAG_PATH_DB    : get_env('CODE_BUILDER_PATH_DB'),
+			db_domain.DOMAIN_FLAG_PATH_VOLUME: get_env('CODE_BUILDER_PATH_VOLUME'),
+			db_domain.DOMAIN_FLAG_PATH_OUTPUT: get_env('CODE_BUILDER_PATH_OUTPUT'),
+			db_domain.DOMAIN_FLAG_DEBUG      : get_env('CODE_BUILDER_DB_DEBUG')
+		})
 
 		self.db_domain.add_library(entities_db.util_get_library_data(
 			LIBRARY_THREE_JS,
@@ -51,55 +45,64 @@ class NexusLocalBuildProcess(BuildProcess):
 		))
 
 		self._all_build_steps = [
-			[self._add_step_lib_three_js , ENV_FE, ENV_PROD],
-			[self._add_step_css          , ENV_FE, ENV_PROD],
-			[self._add_step_html         , ENV_FE, ENV_PROD],
-			[self._add_step_volume       , ENV_FE, ENV_PROD],
-			[self._add_step_js_libraries , ENV_FE, ENV_PROD],
-			[self._add_step_shaders      , ENV_FE, ENV_PROD],
-			[self._add_step_js_engine    , ENV_FE, ENV_PROD],
-			[self._add_step_nexus_courier, ENV_PROD]
+			[BuildProcessThreeJSLibrary],
+			[BuildProcessThreeJSCombinedLibrary],
+			[BuildProcessShaders],
+			[BuildProcessCSS],
+			[BuildProcessHTML],
+			[BuildProcessVolumeAssets],
+			[BuildProcessJSIndependentLibraries],
+			[BuildProcessJSNexusLocal],
+			[BuildProcessNexusCourier, db_domain.DOMAIN_BUILD_FE],
 		]
 
-	def _add_step_lib_three_js(self):
-		library = self.db_domain.get_library_by_name(LIBRARY_THREE_JS)
-		self.add_step(BuildProcessThreeJSLibrary(self.db_domain, library))
-		self.add_step(BuildProcessThreeJSCombinedLibrary(self.db_domain))
-
-	def _add_step_shaders(self):
-		self.add_step(BuildProcessShaders(self.db_domain))
-
-	def _add_step_css(self):
-		self.add_step(BuildProcessCSS(self.db_domain))
-
-	def _add_step_html(self):
-		self.add_step(BuildProcessHTML(self.db_domain))
-
-	def _add_step_volume(self):
-		self.add_step(BuildProcessVolumeAssets(self.db_domain))
-
-	def _add_step_js_libraries(self):
-		self.add_step(BuildProcessJSIndependentLibraries(self.db_domain))
-
-	def _add_step_js_engine(self):
-		self.add_step(BuildProcessJSNexusLocal(self.db_domain))
-
-	def _add_step_nexus_courier(self):
-		self.add_step(BuildProcessNexusCourier(self.db_domain))
+		self.build_steps = []
+		self.logs        = {}
 
 	def run_setup(self):
 		"""Runs the needed setup."""
 		for bs in self._all_build_steps:
-			if self.build_type in bs:
-				bs[0]()
+			if self.db_domain.is_build_type_front_end() and db_domain.DOMAIN_BUILD_FE not in bs:
+				self.build_steps.append(bs[0](self.db_domain))
+			elif self.db_domain.is_build_type_all() and db_domain.DOMAIN_BUILD_ALL not in bs:
+				self.build_steps.append(bs[0](self.db_domain))
 
-	def build_completed_successfully(self):
+	def run_build_process(self):
+		"""Runs this build process."""
+		self.build_time = SimpleTimer(auto_start=True)
+		oc.print_ascii_yellow('building ' + self.name)
+
+		self.db_domain.load()
+		self.run_setup()
+
+		all_build_steps_passed = True
+
+		for bs in self.build_steps:
+			bs.run()
+			if bs.failed:
+				all_build_steps_passed = False
+				if bs.output is not None:
+					oc.print_error('build step failed! {' + bs.output + '}')
+				else:
+					oc.print_error('build step failed! {}')
+				break
+			else:
+				if bs.output is not None:
+					oc.print_data_with_red_dashes_at_start(bs.output)
+
+		oc.print_data_with_red_dashes_at_start('all_build_steps_passed {' + str(all_build_steps_passed) + '}')
+		self.build_completed(not all_build_steps_passed)
+
+	def build_completed(self, fail=False):
 		"""If build completed without errors then set the needed exit code."""
-		if not self.db_domain.flag_does_exist('NEXUS_COURIER_UPDATED'):
-			exit(200)
-		elif self.db_domain.flag_get('NEXUS_COURIER_UPDATED'):
-			exit(200)
-		exit(0)
+		self.build_time.stop()
+		if fail:
+			oc.print_error('Building {' + self.name + '} failed in {' + str(self.build_time) + '}')
+			exit(db_domain.DOMAIN_EXIT_CODE_FAIL)
+		else:
+			oc.print_pink('Building {' + self.name + '} finished in {' + str(self.build_time) + '}')
+			exit(self.db_domain.get_exit_code_needed())
+
 
 nexus_local_builder = NexusLocalBuildProcess()
 nexus_local_builder.run_build_process()
