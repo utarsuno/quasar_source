@@ -26,6 +26,10 @@ function cd_base {
     cd ${PATH_ROOT}
 }
 
+function cd_scripts {
+    cd ${PATH_SCRIPTS}
+}
+
 function __init__ {
     while getopts 'e:b:l:f:d:' OPTION; do
         case "$OPTION" in
@@ -152,7 +156,7 @@ function start_script {
 function docker_health_check {
     # ARG_OPERATION_ENSURE_NETWORK = 'n'
     # ARG_OPERATION_ENSURE_VOLUME  = 'v'
-    cd ${PATH_SCRIPTS}
+    cd_scripts
     python3 ./_pre_process/_operations_docker.py 'n' 'v'
 
     if [ "${IS_BUILD_NEEDED}" = "true" ]; then

@@ -18,7 +18,7 @@ DOCKER_COMPOSE_FILE="docker-compose.yml"
 
 start_script_with_docker_health_check
 
-cd_base
+cd_scripts
 
 bash build.sh -e ${ENVIRONMENT} -l ${IS_LOCAL} -f ${IS_FRONT_END_ONLY} -d ${IS_DB_DEBUG} -b ${IS_BUILD_NEEDED}
 BUILD_PROCESS_RESULT_CODE=$?
