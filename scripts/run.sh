@@ -24,11 +24,14 @@ BUILD_PROCESS_RESULT_CODE=$?
 if [ ${BUILD_PROCESS_RESULT_CODE} -eq 199 ]; then
     echo "BUILD PROCESS 199"
 elif [ ${BUILD_PROCESS_RESULT_CODE} -eq 0 ]; then
-    # TODO: dynamic build
-    #docker_compose_build
+
+    if [ "${IS_BUILD_NEEDED}" = "true" ]; then
+        docker_compose_build
+    fi
+
     docker_compose_up
     docker_compose_down
-    echo "BUILD PROCESS 0"
+    #echo "BUILD PROCESS 0"
     finish_script_success
 else
     #echo "BUILD PROCESS "
