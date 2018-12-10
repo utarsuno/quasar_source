@@ -3,6 +3,7 @@
 // Message types.
 const _WEB_SOCKET_TYPE_MESSAGE_CHAT = 'm0'; // #pre-process_global_constant
 const _WEB_SOCKET_TYPE_REQUEST_CMD  = 'm1'; // #pre-process_global_constant
+const _WEB_SOCKET_TYPE_DATA_UPDATE  = 'm2'; // #pre-process_global_constant
 // Request types.
 
 
@@ -15,13 +16,16 @@ $_NL.prototype.WebsocketMessageHandler = function() {
         l('TODO: parse user input!');
         l('user input was {' + user_input + '}');
         QE.hud_chat.add_message(user_input);
-        /*
-            if (text.startsWith('>')) {
-                this.websocket_message_parser.send_request_cmd(text.substring(1));
+
+        if (user_input == '.save()') {
+            QE.perform_global_save();
+        } else {
+            if (user_input.startsWith('>')) {
+                this.send_request_cmd(user_input.substring(1));
             } else {
-                this.websocket_message_parser.send_request_chat(text);
+                this.send_request_chat(user_input);
             }
-         */
+        }
     };
 
     this.send_request_chat = function(m) {

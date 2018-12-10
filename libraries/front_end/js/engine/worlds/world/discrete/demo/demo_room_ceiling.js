@@ -8,8 +8,8 @@ Object.assign(
         _initialize_cache_ceiling: function() {
             this._cache_material_ceiling = new THREE.MeshPhongMaterial({
                 color        : QE.COLOR_WHITE,
-                side         : THREE.DoubleSide,
-                reflectivity : 0.6,
+                side         : THREE.FrontSide,
+                reflectivity : 0.55,
                 lights       : true,
                 // Test
                 flatShading  : true,

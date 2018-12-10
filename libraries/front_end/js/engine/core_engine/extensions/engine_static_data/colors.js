@@ -57,6 +57,8 @@ Object.assign($_QE.prototype, {
     COLOR_RGB_GREEN_LIGHT : 'rgb(127,255,127,1.0)',
     COLOR_RGB_RED         : 'rgb(255,0,0,1.0)',
     COLOR_RGB_RED_LIGHT   : 'rgb(255,127,127,1.0)',
+    COLOR_RGB_WHITE       : 'rgb(255,255,255,1.0)',
+    COLOR_RGB_BLACK       : 'rgb(0,0,0,1.0)',
 
     COLOR_RGBA_FADE_RANGE : [
         'rgba(1,1,1,0)', 'rgba(1,1,1,0.01)', 'rgba(1,1,1,0.02)', 'rgba(1,1,1,0.03)', 'rgba(1,1,1,0.04)', 'rgba(1,1,1,0.05)', 'rgba(1,1,1,0.06)',

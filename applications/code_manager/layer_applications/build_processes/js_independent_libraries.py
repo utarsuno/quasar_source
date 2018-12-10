@@ -11,7 +11,7 @@ class BuildProcessJSIndependentLibraries(BuildProcessStepSimpleAndIsolated):
 	"""Represents the build process steps for building the independent JS Libraries."""
 
 	def __init__(self, domain):
-		super().__init__(domain, CodeDirectory('/quasar/libraries/front_end/js/third_party/cookies', base_directory=True), 'js', ['min', 'gz'])
+		super().__init__(domain, CodeDirectory('/quasar_source/libraries/front_end/js/third_party/cookies', base_directory=True), 'js', ['min', 'gz'])
 		self.minifies = True
 		self.gzips    = False
 

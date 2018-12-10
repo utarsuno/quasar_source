@@ -99,8 +99,6 @@ class GeneratedJSFile(GeneratedCodeFile):
 			# Really temporary lol.
 			self._file_name = self._file_name.replace(self._file_extension, '')
 
-		# /quasar/source/libraries/front_end/js/nexus/nexus/nexus_local.js
-
 	def get_created_file_as_loaded_file(self):
 		"""Returns a loaded code file object based off the one created."""
 		loaded_file = LoadedJSFile(self.file_name, self.file_extension)

@@ -1,10 +1,13 @@
 # The version of the Docker compose file format to use.
 version: '3.7'
 
+# TODO: Investigate into 'container_name', it breaks builds.
+
 services:
 
   # Serves static content and forwards requests to servers.
   nginx:
+    #container_name: nginx
     build:
       context: .
       dockerfile: ./applications/nginx/Dockerfile
@@ -19,6 +22,7 @@ services:
 
   # RabbitMQ broker.
   rabbit_manager:
+    #container_name: rabbit_manager
     build:
       context: .
       dockerfile: ./applications/rabbitmq_manager/Dockerfile
@@ -26,7 +30,6 @@ services:
     environment:
       RABBITMQ_ERLANG_COOKIE: "secret string"
       RABBITMQ_NODENAME: rabbit_manager
-    # TODO: switch to COPY cmd?
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
@@ -36,6 +39,7 @@ services:
       - "25672:25672"
 
   rabbit2:
+    #container_name: rabbit2
     build:
       context: .
       dockerfile: ./applications/nexus_server/Dockerfile
@@ -44,42 +48,37 @@ services:
     depends_on:
       - rabbit_manager
     environment:
-      - PYTHONPATH=:/quasar
+      - PYTHONPATH=:/quasar_source
       - RABBITMQ_ERLANG_COOKIE="secret string"
       - RABBITMQ_NODENAME=rabbit2
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
-      - ./:/quasar
+      - ./applications/nexus_server:/quasar_source/applications/nexus_server
+      - ./libraries:/quasar_source/libraries
+      - ./scripts:/quasar_source/scripts
+      - nexus_volume:/v
 
   nexus_courier:
+    #container_name: nexus_courier
     build:
       context: .
       dockerfile: ./applications/nexus_courier/Dockerfile
     environment:
-      - PYTHONPATH=:/quasar
+      - PYTHONPATH=:/quasar_source
       - RABBITMQ_ERLANG_COOKIE="secret string"
       - RABBITMQ_NODENAME=nexus_courier
     tty: true
     hostname: nexus_courier
     depends_on:
       - rabbit_manager
-    #depends_on:
-    #  - rabbit_host
-    #networks:
-    #  - rabbitmq_network
-    #ports:
-    #  - "3001:3001"
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
-      - ./:/quasar
-    #depends_on:
-    #  - nginx
-
-#networks:
-#  default:
-#    name: rabbitmq_cluster
+      - ./applications/nexus_courier:/quasar_source/applications/nexus_courier
+      - ./libraries:/quasar_source/libraries
+      - ./scripts:/quasar_source/scripts
+      - ./generated_output/nexus_courier:/quasar_source/generated_output/nexus_courier
 
 networks:
   default:

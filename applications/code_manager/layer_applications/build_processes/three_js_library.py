@@ -67,7 +67,7 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 
 	def step_0x1(self):
 		"""The second step."""
-		r = self.run_bash_step('ls', cwd='/quasar/generated_output/third_party_libraries/three_js')
+		r = self.run_bash_step('ls', cwd='/quasar_source/generated_output/third_party_libraries/three_js')
 		if self.failed:
 			return
 		#if not r or len(r) == 0:
@@ -82,7 +82,7 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 			if self.failed:
 				return
 
-		path_to_library_repo = '/quasar/generated_output/third_party_libraries/three_js/three.js'
+		path_to_library_repo = '/quasar_source/generated_output/third_party_libraries/three_js/three.js'
 
 		# Update git data.
 		r = self.run_bash_step('git fetch', cwd=path_to_library_repo)
@@ -96,10 +96,10 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 		if self.failed:
 			return
 
-		file_path = '/quasar/libraries/front_end/js/third_party/three_js/three.min.js'
+		file_path = '/quasar_source/libraries/front_end/js/third_party/three_js/three.min.js'
 
 		ufo.file_op_copy(
-			path_source      = '/quasar/generated_output/third_party_libraries/three_js/three.js/build/three.min.js',
+			path_source      = '/quasar_source/generated_output/third_party_libraries/three_js/three.js/build/three.min.js',
 			path_destination = file_path
 		)
 

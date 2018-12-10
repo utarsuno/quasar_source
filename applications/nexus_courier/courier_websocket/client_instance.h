@@ -1,7 +1,7 @@
 #ifndef CLIENT_INSTANCE
 #define CLIENT_INSTANCE
 
-#include "/quasar/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
+#include "nexus_courier.h"
 
 class ClientInstance {
     public:
@@ -10,6 +10,9 @@ class ClientInstance {
         void kill();
         int is_alive();
         int get_id();
+
+        //
+        void send_message(const char * message, size_t length);
     private:
         int alive;
         uWS::WebSocket<uWS::SERVER> * ws;

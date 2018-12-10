@@ -1,7 +1,5 @@
 // Nexus Local starts here!
 
-let NL;
-
 function $_NL() {
     this.__init__();
 }
@@ -24,6 +22,9 @@ $_NL.prototype = {
 
 };
 
+let NL;
+
 window.onload = function() {
-    QE = new $_QE(NL, $_NL, $_NL.prototype.WorldDevTools);
+    NL = new $_NL();
+    QE = new $_QE(NL, $_NL.prototype.WorldDevTools);
 };

@@ -1,10 +1,8 @@
 'use strict';
 
 const QECACHEI_WIDTH_INNER   = 0; // #pre-process_global_constant
-const QECACHEI_WIDTH_OUTER   = 1; // #pre-process_global_constant
-const QECACHEI_HEIGHT_INNER  = 2; // #pre-process_global_constant
-const QECACHEI_HEIGHT_OUTER  = 3; // #pre-process_global_constant
-const QECACHEI_FRAME_COUNTER = 4; // #pre-process_global_constant
+const QECACHEI_HEIGHT_INNER  = 1; // #pre-process_global_constant
+const QECACHEI_FRAME_COUNTER = 2; // #pre-process_global_constant
 
 const QECACHEF_FOV                  = 0;  // #pre-process_global_constant
 const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant

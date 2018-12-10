@@ -46,8 +46,8 @@ Object.assign($_QE.prototype.World.prototype, {
                 this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null
             ) {
                 max_distance        = this._intersections[0].distance;
-                intersection_data   = this._intersections[0];
-                intersected_element = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
+                this.intersection_data   = this._intersections[0];
+                intersected_element = this.intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
             }
         }
         return intersected_element;
@@ -74,10 +74,10 @@ Object.assign($_QE.prototype.World.prototype, {
             }
         } else {
             if (this.currently_looked_at_object == null) {
-                this.set_new_currently_looked_at_object(intersected_element, intersection_data.point);
+                this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
             } else if (this.currently_looked_at_object != intersected_element) {
                 this.look_away_from_currently_looked_at_object();
-                this.set_new_currently_looked_at_object(intersected_element, intersection_data.point);
+                this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
             }
         }
     },

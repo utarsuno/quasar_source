@@ -4,15 +4,15 @@
 #rabbitmq-server -detached;
 #echo "SERVER IS RUNNING";
 
-#python3 /quasar/applications/nexus_server/receive.py;
+#python3 /quasar_source/applications/nexus_server/receive.py;
 
 
 
 
-python3 /quasar/scripts/docker/wait_for_rabbit_host.py;
+python3 /quasar_source/scripts/docker/wait_for_rabbit_host.py;
 
 
-/quasar/generated_output/nexus_courier/nexus_courier;
+/quasar_source/generated_output/nexus_courier/nexus_courier;
 
 
 

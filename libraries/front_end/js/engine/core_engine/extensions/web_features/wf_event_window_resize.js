@@ -8,11 +8,8 @@ Object.assign($_QE.prototype, {
     },
 
     _fetch_window_size: function() {
-        this.set_width(window.innerWidth);
         this._cachei[QECACHEI_WIDTH_INNER]  = window.innerWidth;
-        this._cachei[QECACHEI_WIDTH_OUTER]  = window.outerWidth;
-        this.set_height(window.innerHeight);
-        this._cachei[QECACHEI_HEIGHT_OUTER] = window.outerHeight;
+        this._cachei[QECACHEI_HEIGHT_INNER] = window.innerHeight;
         this._cachef[QECACHEF_ASPECT_RATIO] = this.get_width() / this.get_height();
     },
 

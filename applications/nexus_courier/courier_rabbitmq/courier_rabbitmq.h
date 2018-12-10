@@ -1,16 +1,9 @@
 #ifndef COURIER_RABBITMQ
 #define COURIER_RABBITMQ
 
-// C++
-#include <thread>
-// RabbitMQ
-#include <amqpcpp.h>
-#include <boost/asio/io_service.hpp>
-#include <boost/asio/strand.hpp>
-#include <boost/asio/deadline_timer.hpp>
-#include <amqpcpp/libboostasio.h>
+#include "nexus_courier.h"
 
-// Let C++ know that this class will be defined.
+// Forward declaration.
 class CourierWebsocket;
 
 
@@ -25,12 +18,8 @@ class CourierRabbitMQ {
         CourierWebsocket * websockets;
         std::string        connection_address;
         std::string        queue_name;
-
-        //
         AMQP::TcpChannel * channel;
-
         void run_rabbitmq();
 };
-
 
 #endif

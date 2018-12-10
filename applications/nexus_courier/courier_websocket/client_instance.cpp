@@ -1,5 +1,4 @@
 #include "client_instance.h"
-#include "nexus_courier.h"
 
 /*
 unsigned int get_client_id_from_websocket(uWS::WebSocket<uWS::SERVER> * ws) {
@@ -28,4 +27,9 @@ int ClientInstance::get_id() {
 
 void ClientInstance::kill() {
     this->alive = FALSE;
+}
+
+void ClientInstance::send_message(const char * message, size_t length) {
+    this->ws->send(message, length, uWS::OpCode::TEXT);
+    //this->ws->send(message, length, uWS::OpCode::BINARY);
 }

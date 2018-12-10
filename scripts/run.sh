@@ -16,7 +16,8 @@ SCRIPT_NAME="Nexus Local"
 DOCKER_COMPOSE_FILE="docker-compose.yml"
 # --------------------------------------------------------------------------------------------
 
-start_script_with_docker_health_check
+#start_script_with_docker_health_check
+start_script
 
 cd_scripts
 
@@ -29,6 +30,14 @@ elif [ ${BUILD_PROCESS_RESULT_CODE} -eq 0 ]; then
 
     if [ "${IS_BUILD_NEEDED}" = "true" ]; then
         docker_compose_build
+    elif [ "${IS_BUILD_NEEDED}" = "nginx" ]; then
+        #cd_scripts
+        #bash nuke_build_cache.sh
+        cd_base
+        docker-compose -f ${DOCKER_COMPOSE_FILE} build nginx
+    elif [ "${IS_BUILD_NEEDED}" = "nexus_courier" ]; then
+        cd_base
+        docker-compose -f ${DOCKER_COMPOSE_FILE} build nexus_courier
     fi
 
     docker_compose_up

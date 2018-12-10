@@ -38,7 +38,7 @@ class NexusLocalBuildProcess(object):
 		self.db_domain.add_library(entities_db.util_get_library_data(
 			LIBRARY_THREE_JS,
 			None,
-			'/quasar/generated_output/third_party_libraries/three_js/',
+			'/quasar_source/generated_output/third_party_libraries/three_js/',
 			True,
 			'https://github.com/mrdoob/three.js',
 			None

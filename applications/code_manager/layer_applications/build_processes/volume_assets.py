@@ -34,23 +34,23 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		self._add_volume_file_reference('gentilis_regular.typeface.json', 'fonts/three_js_fonts/gentilis_regular.typeface.json')
 
 		# TEMPORARY SOLUTION
-		self._add_volume_file_reference_raw('Inconsolata.woff', '/quasar/assets/fonts/Inconsolata.woff')
+		self._add_volume_file_reference_raw('Inconsolata.woff', '/quasar_source/assets/fonts/Inconsolata.woff')
 
-		self._add_volume_file_reference_raw('manifest.webmanifest', '/quasar/documentation_and_settings/js/manifest.webmanifest')
+		self._add_volume_file_reference_raw('manifest.webmanifest', '/quasar_source/documentation_and_settings/js/manifest.webmanifest')
 
-		self._add_volume_file_reference_raw('_3js.min.js', '/quasar/generated_output/web_assets/three_js.min.js')
-		self._add_volume_file_reference_raw('_3js.min.js.gz', '/quasar/generated_output/web_assets/three_js.min.js.gz')
-		self._add_volume_file_reference_raw('nl.min.js', '/quasar/generated_output/web_assets/nexus_local.min.js')
-		self._add_volume_file_reference_raw('nl.min.js.gz', '/quasar/generated_output/web_assets/nexus_local.min.js.gz')
-		self._add_volume_file_reference_raw('nl.min.html', '/quasar/generated_output/web_assets/nexus_local.min.html')
-		self._add_volume_file_reference_raw('nl.min.html.gz', '/quasar/generated_output/web_assets/nexus_local.min.html.gz')
+		self._add_volume_file_reference_raw('_3js.min.js', '/quasar_source/generated_output/web_assets/three_js.min.js')
+		self._add_volume_file_reference_raw('_3js.min.js.gz', '/quasar_source/generated_output/web_assets/three_js.min.js.gz')
+		self._add_volume_file_reference_raw('nl.min.js', '/quasar_source/generated_output/web_assets/nexus_local.min.js')
+		self._add_volume_file_reference_raw('nl.min.js.gz', '/quasar_source/generated_output/web_assets/nexus_local.min.js.gz')
+		self._add_volume_file_reference_raw('nl.min.html', '/quasar_source/generated_output/web_assets/nexus_local.min.html')
+		self._add_volume_file_reference_raw('nl.min.html.gz', '/quasar_source/generated_output/web_assets/nexus_local.min.html.gz')
 
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
 
 	def _add_volume_file_reference(self, destination, source):
 		"""Utility function."""
-		self.needed_files_volume[self.domain.path_volume + destination] = '/quasar/assets/' + source
-		self.needed_files_compressed['/quasar/assets/' + source] = '/quasar/generated_output/local/code_manager/' + destination
+		self.needed_files_volume[self.domain.path_volume + destination] = '/quasar_source/assets/' + source
+		self.needed_files_compressed['/quasar_source/assets/' + source] = '/quasar_source/generated_output/local/code_manager/' + destination
 
 	def _add_volume_file_reference_raw(self, destination, source):
 		"""Utility function."""

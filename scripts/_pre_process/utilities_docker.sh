@@ -7,12 +7,17 @@
 UNDEFINED="UNDEFINED"
 ENVIRONMENT="dev"
 BUILD_MODE=${UNDEFINED}
-IS_LOCAL="true"
+IS_LOCAL="false"
 IS_DB_DEBUG="false"
+IS_BUILD_NEEDED="false"
+IS_FRONT_END_ONLY="false"
 PATH_SCRIPTS=${PATH_ROOT}scripts
-PATH_SCRIPT_BUILD_NEXUS_LOCAL="/quasar/applications/code_manager/layer_applications/nexus_local_build_process.py"
+PATH_SCRIPT_BUILD_NEXUS_LOCAL="/quasar_source/applications/code_manager/layer_applications/nexus_local_build_process.py"
 PATH_DOCKER_BUILD="docker-compose.build.yml"
-SCRIPT_BUILD_NEXUS_COURIER="/quasar/scripts/docker/build_nexus_courier.sh"
+SCRIPT_BUILD_NEXUS_COURIER="/quasar_source/scripts/docker/build_nexus_courier.sh"
+EXIT_CODE_SUCCESS=0
+EXIT_CODE_SUCCESS_BUT_BUILD_NEXUS_COURIER=200
+EXIT_CODE_FAILED=199
 
 #if [ ! -f ${SCRIPT_BUILD_NEXUS_COURIER} ]; then
 #    SCRIPT_BUILD_NEXUS_COURIER="~/quasar_source/scripts/docker/build_nexus_courier.sh"
@@ -45,7 +50,7 @@ function __init__ {
                 IS_DB_DEBUG="$OPTARG";;
             ?)
                 echo "script usage: $(basename $0) [-e <environment>] [-b <is_build_needed>] [-l <is_local>] [-f <is_front_end_only>]" >&2
-                exit 1;;
+                exit ${EXIT_CODE_FAILED};;
       esac
     done
     shift "$(($OPTIND -1))"
@@ -59,6 +64,12 @@ function __init__ {
 
     case "${IS_BUILD_NEEDED}" in
         true)
+            ;;
+        nginx)
+            ;;
+        nexus_courier)
+            ;;
+        code_manager)
             ;;
         false)
             ;;
@@ -78,11 +89,11 @@ function __init__ {
     case "${IS_LOCAL}" in
         true)
             HOST_SOURCE_CODE_PATH="/Users/utarsuno/git_repos/quasar_source"
-            HOST_VOLUME_SOURCE_CODE="${HOST_SOURCE_CODE_PATH}:/quasar"
+            HOST_VOLUME_SOURCE_CODE="${HOST_SOURCE_CODE_PATH}:/quasar_source"
             ;;
         false)
-            HOST_SOURCE_CODE_PATH="/quasar"
-            HOST_VOLUME_SOURCE_CODE="${HOST_SOURCE_CODE_PATH}:/quasar"
+            HOST_SOURCE_CODE_PATH="/quasar_source"
+            HOST_VOLUME_SOURCE_CODE="${HOST_SOURCE_CODE_PATH}:/quasar_source"
             ;;
         *)
             terminate_script "Bad is_local value passed in: ${IS_LOCAL}";;
@@ -111,20 +122,23 @@ function run_code_manager_process {
 
     CODE_MANAGER_BUILD_RESULT=$?
 
-    if [ ${CODE_MANAGER_BUILD_RESULT} -eq 200 ]; then
-        echo "BUILD RESULT 200"
+    if [ ${CODE_MANAGER_BUILD_RESULT} -eq ${EXIT_CODE_SUCCESS_BUT_BUILD_NEXUS_COURIER} ]; then
+        echo "c0"
         docker-compose run --rm -v ${HOST_VOLUME_SOURCE_CODE} nexus_courier ${SCRIPT_BUILD_NEXUS_COURIER}
+        echo "c1"
         docker_compose_down
-        #finish_script_success
-    elif [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
-        #echo "BUILD RESULT 199"
+        echo "c2"
+        finish_script_success
+    elif [ ${CODE_MANAGER_BUILD_RESULT} -eq ${EXIT_CODE_FAILED} ]; then
+        echo "a0"
         docker_compose_down
+        echo "a1"
         finish_script_fail "Docker build process failed!"
     else
-        #echo "BUILD RESULT NOT 199 NOR 200"
-        #echo ${CODE_MANAGER_BUILD_RESULT}
+        echo "b0"
         docker_compose_down
-        #finish_script_success
+        echo "b1"
+        finish_script_success
     fi
 }
 
@@ -159,9 +173,9 @@ function docker_health_check {
     cd_scripts
     python3 ./_pre_process/_operations_docker.py 'n' 'v'
 
-    if [ "${IS_BUILD_NEEDED}" = "true" ]; then
-        docker_compose_build
-    fi
+    #if [ "${IS_BUILD_NEEDED}" = "true" ]; then
+    #    docker_compose_build
+    #fi
 }
 
 function start_script_with_docker_health_check {
@@ -180,7 +194,7 @@ function finish_script {
 
 function finish_script_success {
     print_dashed_line_with_text "${SCRIPT_NAME} Finished!"
-    exit 0
+    exit ${EXIT_CODE_SUCCESS}
 }
 
 function finish_script_fail {
@@ -190,5 +204,5 @@ function finish_script_fail {
         print_red_text "${1}"
         print_dashed_line_with_text "${SCRIPT_NAME} Failed!"
     fi
-    exit 199
+    exit ${EXIT_CODE_FAILED}
 }

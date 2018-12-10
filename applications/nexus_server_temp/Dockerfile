@@ -17,4 +17,4 @@ RUN apk add --no-cache bash \
 EXPOSE 5672/tcp 15672/tcp
 
 #CMD ["python3", "/quasar/applications/nexus_server/receive.py"]
-CMD ["python3", "/quasar/applications/nexus_server_temp/receive.py"]
+CMD ["python3", "/quasar_source/applications/nexus_server_temp/receive.py"]

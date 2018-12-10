@@ -47,9 +47,7 @@ module.exports = {
         // Engine cache. ----------------------------------------------------------------------------
         //    {integers}
         "QECACHEI_WIDTH_INNER"         : false,
-        "QECACHEI_WIDTH_OUTER"         : false,
         "QECACHEI_HEIGHT_INNER"        : false,
-        "QECACHEI_HEIGHT_OUTER"        : false,
         "QECACHEI_FRAME_COUNTER"       : false,
         //    {floats}
         "QECACHEF_FOV"                 : false,

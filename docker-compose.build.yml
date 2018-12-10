@@ -10,14 +10,14 @@ services:
       context: .
       dockerfile: ./applications/code_manager/Dockerfile
     environment:
-      - PYTHONPATH=:/quasar
-      - CODE_BUILDER_PATH_DB=/quasar/generated_output/local/code_manager/db.sqlite
-      - CODE_BUILDER_PATH_OUTPUT=/quasar/generated_output/web_assets/
+      - PYTHONPATH=:/quasar_source
+      - CODE_BUILDER_PATH_DB=/quasar_source/generated_output/local/code_manager/db.sqlite
+      - CODE_BUILDER_PATH_OUTPUT=/quasar_source/generated_output/web_assets/
       - CODE_BUILDER_PATH_VOLUME=/v/
       - LD_LIBRARY_PATH=/usr/lib/libamqpcpp.so.3.1
     tty: true
     volumes:
-      - ./:/quasar
+      - ./:/quasar_source
       - nexus_volume:/v
 
 networks:

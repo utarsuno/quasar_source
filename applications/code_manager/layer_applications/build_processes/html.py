@@ -13,7 +13,7 @@ class BuildProcessHTML(BuildProcessStepSimpleAndIsolated):
 	"""Represents the build process steps for creating HTML files."""
 
 	def __init__(self, domain):
-		super().__init__(domain, CodeDirectory('/quasar/assets/html', base_directory=True), 'html', ['min', 'gz'])
+		super().__init__(domain, CodeDirectory('/quasar_source/assets/html', base_directory=True), 'html', ['min', 'gz'])
 		self.minifies = True
 		self.gzips    = True
 

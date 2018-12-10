@@ -36,20 +36,18 @@ RUN apk add --no-cache libc-dev \
  && apk add --no-cache bash \
  && apk add --no-cache bash-completion
 
-# Build websockets C++ files.
-#COPY ./scripts/docker/build_process_steps/amqp.sh /var/cache/amqp.sh
-#RUN bash /var/cache/amqp.sh
 
-# Build babel-minify (for js minification) and build shader builders.
-COPY ./scripts/docker/build_process_steps/babel_minify.sh /var/cache/babel_minify.sh
-COPY ./scripts/docker/build_process_steps/shaders.sh /var/cache/shaders.sh
+# Babel minify.
+RUN cd /usr/lib \
+  && npm install babel-minify --save-dev \
+  # Shaders.
+  && cd /usr/lib \
+  && npm install glslify \
+  && npm install glsl-film-grain \
+  && npm install glsl-blend-soft-light \
+  # Cleanup steps.
+  && rm -rf /var/cache/apk/* \
+  && rm -rf /root/.cache/pip/*
 
-RUN bash /var/cache/babel_minify.sh \
- && bash /var/cache/shaders.sh \
- # Cleanup steps.
- && rm -rf /var/cache/apk/* \
- && rm -rf /root/.cache/pip/* \
- && rm /var/cache/babel_minify.sh \
- && rm /var/cache/shaders.sh
 
-CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_build_process.py"]
+CMD ["python3", "/quasar_source/applications/code_manager/layer_applications/nexus_local_build_process.py"]

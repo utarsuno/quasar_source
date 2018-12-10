@@ -17,7 +17,7 @@ class BuildProcessNexusCourier(BuildProcessStep):
 
 	def step_0x0(self):
 		"""The first step."""
-		self.web_server = CodeDirectory('/quasar/applications/nexus_courier', base_directory=True)
+		self.web_server = CodeDirectory('/quasar_source/applications/nexus_courier', base_directory=True)
 		self.web_server.add_extensions_to_ignore(['py'])
 		self.web_server.add_extensions_to_match(['cpp', 'h'])
 

@@ -19,9 +19,10 @@ Object.assign($_QE.prototype, {
             //l('ondragover event');
             return false;
         };
+
         document.documentElement.ondragend = function() {
             //l('ondragend event');
-            return false;
+            //return false;
         };
 
         document.documentElement.ondrop = function(event) {

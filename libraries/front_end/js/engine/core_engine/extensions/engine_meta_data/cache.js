@@ -3,7 +3,7 @@
 
 Object.assign($_QE.prototype, {
 
-    _cachei: new Uint32Array(5),
+    _cachei: new Uint32Array(3),
     _cachef: new Float64Array(13),
 
     // Cached references.
@@ -32,10 +32,6 @@ Object.assign($_QE.prototype, {
         this._clear_frames();
     },
 
-    set_width: function(w) {
-        this._cachei[QECACHEI_WIDTH_INNER] = w;
-    },
-
     get_width: function() {
         return this._cachei[QECACHEI_WIDTH_INNER];
     },
@@ -50,10 +46,6 @@ Object.assign($_QE.prototype, {
 
     get_height: function() {
         return this._cachei[QECACHEI_HEIGHT_INNER];
-    },
-
-    set_height: function(h) {
-        this._cachei[QECACHEI_HEIGHT_INNER] = h;
     },
 
     // TEMPORARY LOCATION:

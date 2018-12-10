@@ -78,6 +78,7 @@ Object.assign(
             //this.__c3 = this.create_youtube_video('1280px', '720px', new THREE.Vector3(5000, 1024, 800), new THREE.Vector3(0, 1024, 800), url);
             //QE.css_scene.add(this.__c3);
 
+            /*
             this.video = new $_QE.prototype.FloatingCSSWall({
                 ARG_WIDTH                 : 1280,
                 ARG_HEIGHT                : 720,
@@ -87,6 +88,7 @@ Object.assign(
                 ARG_CREATE_AND_ADD_TO_ROOT: this,
                 ARG_CSS_VIDEO             : true,
             });
+            */
 
             /*
             this.website = new $_QE.prototype.FloatingCSSWall({

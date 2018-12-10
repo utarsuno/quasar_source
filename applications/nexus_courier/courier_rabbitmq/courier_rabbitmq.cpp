@@ -47,8 +47,6 @@ void CourierRabbitMQ::run_rabbitmq() {
     this->channel = & channel;
     //
 
-    // TEMPORARY EDIT TO FORCE BUILD!
-
     /*
     // create a temporary queue
     channel.declareQueue("queue_nexus_courier", AMQP::autodelete + AMQP::durable).onSuccess([&connection](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
@@ -62,11 +60,9 @@ void CourierRabbitMQ::run_rabbitmq() {
     */
 
     channel.consume(this->queue_name, AMQP::noack)
-    .onReceived([](const AMQP::Message &msg, uint64_t tag, bool redelivered) {
-            //std::cout << "Received: " << msg.body() << std::endl;
-            printf("The message is {%.*s}\n", msg.bodySize(), msg.body());
-
-            // TODO: Send the message to NexusServer!!
+    .onReceived([this](const AMQP::Message &msg, uint64_t tag, bool redelivered) {
+            printf("The message is {%.*s}\n", (int) msg.bodySize(), msg.body());
+            this->websockets->broadcast_message(msg.body(), msg.bodySize());
         }
     )
     .onError([](const char * message) {

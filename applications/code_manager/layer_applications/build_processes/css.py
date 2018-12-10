@@ -12,7 +12,7 @@ class BuildProcessCSS(BuildProcessStepSimpleAndIsolated):
 	"""Represents the build process steps for creating CSS files."""
 
 	def __init__(self, domain):
-		super().__init__(domain, CodeDirectory('/quasar/assets/css', base_directory=True), 'css', ['min', 'gz'])
+		super().__init__(domain, CodeDirectory('/quasar_source/assets/css', base_directory=True), 'css', ['min', 'gz'])
 		self.minifies = True
 		self.gzips    = False
 

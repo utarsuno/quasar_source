@@ -22,7 +22,7 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 	def step_0x0(self):
 		"""The first step."""
 
-		self.js_libs = CodeDirectory('/quasar/libraries/front_end/js/third_party/three_js', base_directory=True)
+		self.js_libs = CodeDirectory('/quasar_source/libraries/front_end/js/third_party/three_js', base_directory=True)
 		self.js_libs.add_extensions_to_ignore(['min', 'gz'])
 		self.js_libs.add_extension_to_match('js')
 
@@ -57,7 +57,7 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 		"""Create the combined library file."""
 		files               = self.js_libs.get_all_files()
 
-		library_path        = '/quasar/libraries/front_end/js/third_party/three_js/three.min.js'
+		library_path        = '/quasar_source/libraries/front_end/js/third_party/three_js/three.min.js'
 		library_destination = self.domain.path_output + 'three_js.min.js'
 
 		ufo.file_op_copy(

@@ -61,7 +61,7 @@ class JavascriptManager(object):
 
 		self._add_paths('inheritable_features/dynamic'               , ['feature_animation_step'])
 		self._add_paths('inheritable_features/dynamic/attachments'   , ['feature_row', 'feature_title_bar'])
-		self._add_paths('inheritable_features/dynamic/interactions'  , ['feature_button', 'feature_interactive', 'feature_lookable', 'feature_typing'])
+		self._add_paths('inheritable_features/dynamic/interactions'  , ['feature_button', 'feature_interactive', 'feature_lookable', 'feature_typing', 'feature_only_moveable'])
 
 		# ----------------------------------------------------------------------------------------------------------------
 		self._add_paths('elements/base', ['element'])
@@ -91,7 +91,7 @@ class JavascriptManager(object):
 		self._add_paths('elements/discrete/2d/icon', ['e_icon', 'e_icon_button'])
 		self._add_paths('elements/discrete/2d'     , ['checkbox'])
 		self._add_paths('elements/discrete/3d'     , ['text_3d'])
-		self._add_paths('elements/discrete/wall'   , ['confirmation_prompt', 'floating_picture'])
+		self._add_paths('elements/discrete/wall'   , ['confirmation_prompt', 'floating_picture', 'floating_todo_list'])
 		#
 
 		# HUDs.
@@ -103,7 +103,7 @@ class JavascriptManager(object):
 		self._add_paths('player/flashlight', ['flashlight'])
 		self._add_paths('player/menu'      , ['menu_abstract'])
 		self._add_paths('player/menu/row'  , ['action_row', 'action_create', 'action_close', 'action_fullscreen', 'action_teleport'])
-		self._add_paths('player/menu'      , ['menu_teleport', 'menu'])
+		self._add_paths('player/menu'      , ['menu_teleport', 'menu_create', 'menu'])
 
 		# Worlds.
 		self._add_paths('worlds/world'                   , ['world_base'])

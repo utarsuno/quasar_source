@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-# Location of this script.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-# Load utility functions.
-source ${DIR}/../../scripts/utilities/script_utilities.sh
-source ${DIR}/../../scripts/utilities/docker_utilities.sh
+# Path location to this script and the project base.
+PATH_SELF="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+PATH_ROOT=${PATH_SELF}/../../
+
+# Load script libraries needed.
+source ${PATH_ROOT}/scripts/_pre_process/utilities_general.sh
+source ${PATH_ROOT}/scripts/_pre_process/utilities_docker.sh
+
 # Go to project base directory.
-cd ${DIR}/../..;
+cd_base
 
 # Script Variables ---------------------------------------------------------------------------
 SCRIPT_NAME="Run Nexus Local"

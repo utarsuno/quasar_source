@@ -68,9 +68,8 @@ void CourierWebsocket::run_websockets() {
 
 ClientInstance * CourierWebsocket::get_client_instance(uWS::WebSocket<uWS::SERVER> * ws) {
     // First check if any client instance is dead.
-    int c;
     if (this->number_of_connected_clients != 0 && this->clients.size() != this->number_of_connected_clients) {
-        for (c = 0; c < this->clients.size(); c++) {
+        for (int c = 0; c < this->clients.size(); c++) {
             if (!this->clients[c]->is_alive()) {
                 this->clients[c]->initialize(ws, this->clients[c]->get_id(), this->clients[c]);
                 return this->clients[c];
@@ -93,7 +92,7 @@ void CourierWebsocket::on_connection(uWS::WebSocket<uWS::SERVER> * ws) {
 }
 
 void CourierWebsocket::on_disconnection(uWS::WebSocket<uWS::SERVER> * ws) {
-    printf("CLIENT DISCONNECTED {%lu}\n", ((ClientInstance *) ws->getUserData())->get_id());
+    printf("CLIENT DISCONNECTED {%d}\n", ((ClientInstance *) ws->getUserData())->get_id());
     ClientInstance * client = (ClientInstance *) ws->getUserData();
     client->kill();
     this->number_of_connected_clients--;
@@ -102,7 +101,17 @@ void CourierWebsocket::on_disconnection(uWS::WebSocket<uWS::SERVER> * ws) {
 void CourierWebsocket::on_message(uWS::WebSocket<uWS::SERVER> *ws, char *message, size_t length) {
     printf("SERVER GOT A MESSAGE!\n");
     //printf("THE CLIENT IS {%d}\n", get_client_id_from_websocket(ws));
-    printf("The message is {%.*s}\n", length, message);
+    printf("The message is {%.*s}\n", (int) length, message);
     this->rabbitmq->forward_message(message, length);
+}
 
+
+void CourierWebsocket::broadcast_message(const char * message, size_t length) {
+    for (int c = 0; c < this->number_of_connected_clients; c++) {
+        printf("Is client alive?");
+        if (this->clients[c]->is_alive()) {
+            printf("sending message to an alive client!");
+            this->clients[c]->send_message(message, length);
+        }
+    }
 }

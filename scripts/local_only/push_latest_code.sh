@@ -2,11 +2,11 @@
 
 # Path location to this script and the project base.
 PATH_SELF="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-PATH_ROOT=${PATH_SELF}/../
+PATH_ROOT=${PATH_SELF}/../../
 
 # Load script libraries needed.
-source ${PATH_SELF}/_pre_process/utilities_general.sh
-source ${PATH_SELF}/_pre_process/utilities_docker.sh
+source ${PATH_ROOT}/scripts/_pre_process/utilities_general.sh
+source ${PATH_ROOT}/scripts/_pre_process/utilities_docker.sh
 
 cd_base
 

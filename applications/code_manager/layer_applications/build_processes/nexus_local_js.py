@@ -23,7 +23,7 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 		"""The first step."""
 
 		# Shaders.
-		self.shaders = CodeDirectory('/quasar/assets/shaders/', base_directory=True)
+		self.shaders = CodeDirectory('/quasar_source/assets/shaders/', base_directory=True)
 		self.shaders.add_extensions_to_match(['frag', 'vert'])
 		self.shaders.add_extension_to_ignore('md')
 

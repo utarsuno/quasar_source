@@ -147,6 +147,16 @@ $_QE.prototype.LinkedListBase.prototype = {
         return this._length_negative;
     },
 
+    get_element_by_position: function(position) {
+        let n = this._node_head;
+        while (n != null) {
+            if (n._position == position) {
+                return n._object;
+            }
+            n = n._node_next;
+        }
+    },
+
     get_node_from_object: function(object) {
         let n;
         switch (this._length) {
