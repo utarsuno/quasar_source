@@ -23,7 +23,7 @@ HOST_SOURCE_CODE_PATH="/Users/utarsuno/git_repos/quasar_source"
 start_script
 
 python3 ${PATH_SCRIPT_OPERATIONS_GIT} 'c';
-
+-
 WORKTREE=${HOST_SOURCE_CODE_PATH}
 CHANGED=$(git --work-tree=${WORKTREE} status --porcelain)
 

@@ -22,7 +22,7 @@ Object.assign($_QE.prototype, {
 
         document.documentElement.ondragend = function() {
             //l('ondragend event');
-            //return false;
+            return false;
         };
 
         document.documentElement.ondrop = function(event) {
@@ -54,6 +54,8 @@ Object.assign($_QE.prototype, {
         // Create a floating picture for image files.
         if (this._ei_file_current.type == 'image/webp' || this._ei_file_current.type == 'image/png' || this._ei_file_current.type == 'image/jpeg') {
             this.manager_world.current_world.handle_image_upload(event.target.result, this._ei_queue_file, this._ei_file_current.name);
+        } else {
+            this.log_warning('Invalid file format {' + this._ei_file_current.type + '}', this._ei_file_current);
         }
 
         // TODO: Other file type support.

@@ -35,7 +35,7 @@ Object.assign(
 
         _on_enter_event: function() {
             if (this.get_text_length_without_whitespaces() != 0) {
-                this.application.parse_user_input_from_hud(this.get_text_and_clear());
+                QE.manager_web_sockets.parse_user_input_from_hud(this.get_text_and_clear());
             }
             this.hide();
             QE.player.set_state(PLAYER_STATE_FULL_CONTROL);

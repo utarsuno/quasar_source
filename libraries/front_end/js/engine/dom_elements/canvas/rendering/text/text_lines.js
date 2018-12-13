@@ -81,7 +81,11 @@ Object.assign(
 
         add_message: function(message, color) {
             this.shift_rows_up();
-            this.set_bottom_row(message, color);
+            if (color != null) {
+                this.set_bottom_row(message, color);
+            } else {
+                this.set_bottom_row(message, QE.COLOR_RGB_GREEN_LIGHT);
+            }
         },
 
     }

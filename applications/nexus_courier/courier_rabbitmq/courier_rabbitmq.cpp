@@ -4,7 +4,8 @@
  |__) |  | |__) |    | /  `
  |    \__/ |__) |___ | \__, */
 
-CourierRabbitMQ::CourierRabbitMQ(std::string connection_address, std::string queue_name) {
+CourierRabbitMQ::CourierRabbitMQ(std::string connection_address, std::string queue_name, const bool debug_on) {
+    this->debug_on           = debug_on;
     this->connection_address = connection_address;
     this->queue_name         = queue_name;
 }
@@ -20,9 +21,10 @@ std::thread CourierRabbitMQ::start_service() {
 }
 
 void CourierRabbitMQ::forward_message(char * message, size_t length) {
-    printf("NEED TO FORWARD MESSAGE {%.*s}\n", length, message);
+    if (this->debug_on) {
+        printf("Nexus rabbit --> forwarding --> {%.*s}\n", length, message);
+    }
     this->channel->publish("exchange_nexus_server", "routing_key", message, length);
-    printf("FORWARDED MESSAGE!\n");
 }
 
 
@@ -61,8 +63,10 @@ void CourierRabbitMQ::run_rabbitmq() {
 
     channel.consume(this->queue_name, AMQP::noack)
     .onReceived([this](const AMQP::Message &msg, uint64_t tag, bool redelivered) {
-            printf("The message is {%.*s}\n", (int) msg.bodySize(), msg.body());
-            this->websockets->broadcast_message(msg.body(), msg.bodySize());
+            if (this->debug_on) {
+                printf("RabbitMQ message is {%.*s}\n", (int) msg.bodySize(), msg.body());
+            }
+            //this->websockets->broadcast_message(msg.body(), msg.bodySize());
         }
     )
     .onError([](const char * message) {

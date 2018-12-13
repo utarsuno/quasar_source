@@ -26,7 +26,9 @@ g++ -std=c++11 \
     -shared -fPIC -pie \
     Extensions.cpp Group.cpp Networking.cpp Hub.cpp Node.cpp WebSocket.cpp HTTPSocket.cpp Socket.cpp Epoll.cpp \
     ${Q_NEXUS}nexus_courier.cpp \
-    ${Q_WEBSOCKET}client_instance.cpp \
+    ${Q_WEBSOCKET}message_instance.cpp \
+    ${Q_WEBSOCKET}session_instance.cpp \
+    ${Q_WEBSOCKET}user_instance.cpp \
     ${Q_WEBSOCKET}courier_websocket.cpp \
     ${Q_RABBITMQ}courier_rabbitmq.cpp \
     -o /quasar_source/generated_output/nexus_courier/nexus_courier \

@@ -7,11 +7,13 @@ $_QE.prototype.perform_global_save = function() {
     for (r = 0; r < roots.length; r++) {
         let e = roots[r];
         if (e._global_id != null) {
+            /*
             let data = e.get_save_data();
             QE.manager_web_sockets.send_request({
                 _WEB_SOCKET_KEY_TYPE: _WEB_SOCKET_TYPE_DATA_UPDATE,
                 _WEB_SOCKET_KEY_DATA: data
             });
+            */
         }
     }
 };

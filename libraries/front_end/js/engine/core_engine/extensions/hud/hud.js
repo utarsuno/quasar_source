@@ -10,7 +10,7 @@ Object.assign($_QE.prototype,
         },
 
         hud_update: function(delta) {
-            this.hud_debug.content_update();
+            this.hud_debug.content_update(delta);
             this.manager_world.player_cursor.update();
 
             this._update_pause_menu(delta);

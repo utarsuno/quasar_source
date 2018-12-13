@@ -72,7 +72,6 @@ class JavascriptManagerNexusLocal(JavascriptManager):
 		# Add js files needed.
 		self.js_files_needed.append('nexus/nexus_local')
 		self.js_files_needed.append('world/world_dev_tools')
-		self.js_files_needed.append('web_socket_requests/message_handler')
 		self.js_files_needed.append('models/floating_terminal')
 
 	def load_all_content(self):

@@ -4,9 +4,15 @@
  |__) |  | |__) |    | /  `
  |    \__/ |__) |___ | \__, */
 
-CourierWebsocket::CourierWebsocket(int port_to_listen_on) {
-    this->number_of_connected_clients = 0;
-    this->port_to_listen_on           = port_to_listen_on;
+CourierWebsocket::CourierWebsocket(const int port_to_listen_on, const bool debug_on) {
+    this->number_of_connected_sessions = 0;
+    this->debug_on                     = debug_on;
+    this->port_to_listen_on            = port_to_listen_on;
+}
+
+CourierWebsocket::~CourierWebsocket() {
+    // TODO: Send exit message to all connected sessions first!
+    this->free_session_memory();
 }
 
 void CourierWebsocket::set_reference_rabbitmq(CourierRabbitMQ * rabbitmq) {
@@ -23,6 +29,11 @@ std::thread CourierWebsocket::start_service() {
  |__) |__) | \  /  /\   |  |__
  |    |  \ |  \/  /~~\  |  |___ */
 
+void CourierWebsocket::free_session_memory() {
+    // Clear nodes.
+    std::vector<SessionInstance *>().swap(this->sessions);
+}
+
 void CourierWebsocket::run_websockets() {
     uWS::Hub h;
 
@@ -32,9 +43,6 @@ void CourierWebsocket::run_websockets() {
         fflush(stdout);
     }, 1000, 1000);
 
-
-    printf("ECHO SERVER STARTED!!!\n");
-
     h.onError([](int port) {
         printf("SERVER HAD AN ERROR!! WITH PORT {%d}\n", port);
         fflush(stdout);
@@ -42,13 +50,7 @@ void CourierWebsocket::run_websockets() {
     });
 
     h.onMessage([&](uWS::WebSocket<uWS::SERVER> *ws, char *message, size_t length, uWS::OpCode opCode) {
-
-        //printf("SERVER GOT A MESSAGE!\n");
-        //printf("THE CLIENT IS {%d}\n", get_client_id_from_websocket(ws));
-        //printf("The message is {%.*s}\n", length, message);
-        this->on_message(ws, message, length);
-        fflush(stdout);
-        //ws->send(message, length, opCode);
+        this->on_message(((SessionInstance *) ws->getUserData()), message, length);
     });
 
     h.onConnection([&](uWS::WebSocket<uWS::SERVER> *ws, uWS::HttpRequest req) {
@@ -56,7 +58,8 @@ void CourierWebsocket::run_websockets() {
     });
 
     h.onDisconnection([&](uWS::WebSocket<uWS::SERVER> *ws, int code, char *message, size_t length) {
-        this->on_disconnection(ws);
+        //this->on_disconnection(ws);
+        this->on_disconnection(((SessionInstance *) ws->getUserData()));
     });
 
     // Testing out ping.
@@ -66,52 +69,99 @@ void CourierWebsocket::run_websockets() {
     }
 }
 
-ClientInstance * CourierWebsocket::get_client_instance(uWS::WebSocket<uWS::SERVER> * ws) {
-    // First check if any client instance is dead.
-    if (this->number_of_connected_clients != 0 && this->clients.size() != this->number_of_connected_clients) {
-        for (int c = 0; c < this->clients.size(); c++) {
-            if (!this->clients[c]->is_alive()) {
-                this->clients[c]->initialize(ws, this->clients[c]->get_id(), this->clients[c]);
-                return this->clients[c];
+SessionInstance * CourierWebsocket::get_session_instance(uWS::WebSocket<uWS::SERVER> * ws) {
+    // First check if any session instance is dead.
+    if (this->sessions.size() > this->number_of_connected_sessions) {
+        for (int c = 0; c < this->sessions.size(); c++) {
+            if (!this->sessions[c]->is_alive()) {
+                this->sessions[c]->initialize(ws);
+                return this->sessions[c];
             }
         }
     }
-    // No dead clients so return a new one.
-    ClientInstance * client = new ClientInstance();
-    client->initialize(ws, this->clients.size(), client);
-    this->clients.push_back(client);
-    return client;
+    // No dead sessions so return a new one.
+    SessionInstance * session = new SessionInstance((unsigned char) this->sessions.size() + 1);
+    session->initialize(ws);
+    this->sessions.push_back(session);
+    return session;
 }
 
 void CourierWebsocket::on_connection(uWS::WebSocket<uWS::SERVER> * ws) {
-    ClientInstance * client = this->get_client_instance(ws);
-    this->number_of_connected_clients++;
-    printf("NUMBER OF CLIENT OBJECTS {%ld}\n", this->clients.size());
-    printf("NUMBER OF CLIENTS CONNECTED {%ld}\n", this->number_of_connected_clients);
+    SessionInstance * session = this->get_session_instance(ws);
+    this->number_of_connected_sessions++;
+    if (this->debug_on) {
+        printf("{%d} connected sessions, {%d} session objects\n", (int) this->number_of_connected_sessions, (int) this->sessions.size());
+    }
     fflush(stdout);
+    session->on_connection();
 }
 
-void CourierWebsocket::on_disconnection(uWS::WebSocket<uWS::SERVER> * ws) {
-    printf("CLIENT DISCONNECTED {%d}\n", ((ClientInstance *) ws->getUserData())->get_id());
-    ClientInstance * client = (ClientInstance *) ws->getUserData();
-    client->kill();
-    this->number_of_connected_clients--;
+void CourierWebsocket::on_disconnection(SessionInstance * session) {
+    if (this->debug_on) {
+        printf("Session{%d} disconnected!\n", session->get_session_id());
+    }
+    session->kill();
+    this->number_of_connected_sessions--;
 }
 
-void CourierWebsocket::on_message(uWS::WebSocket<uWS::SERVER> *ws, char *message, size_t length) {
-    printf("SERVER GOT A MESSAGE!\n");
-    //printf("THE CLIENT IS {%d}\n", get_client_id_from_websocket(ws));
-    printf("The message is {%.*s}\n", (int) length, message);
-    this->rabbitmq->forward_message(message, length);
-}
+void CourierWebsocket::on_message(SessionInstance * session, char *message, size_t length) {
+    if (this->debug_on) {
+        printf("{%d} sent message %.*s\n", session->get_session_id(), (int) length, message);
+    }
 
+    if (message[0] & 1 == 0) {
+        session->on_reply(message, length);
+    } else {
+        if (message[0] == WS_TYPE_GLOBAL_CHAT) {
+            this->broadcast_message(message, length);
+        }
+        session->send_reply(message, length);
+    }
+
+    for (int b = 0; b < length; b++) {
+        printf("%d\n", (int) (message[b]));
+    }
+
+    // TEMP;
+    return;
+
+    /*
+    int command;
+    if (strstr(message, "\"t\":\"m0\"") != NULL) {
+        command = 0;
+    } else {
+        command = -1;
+    }
+
+    if (this->debug_on) {
+        printf("The command was {%d}\n", command);
+    }
+
+    switch(command) {
+    case 0:
+        // Chat message so broadcast it to all.
+        this->rabbitmq->forward_message(message, length);
+        break;
+    default:
+        printf("Invalid command! {%d}\n", command);
+        // TODO: Send error message back.
+        break;
+    }
+    */
+}
 
 void CourierWebsocket::broadcast_message(const char * message, size_t length) {
-    for (int c = 0; c < this->number_of_connected_clients; c++) {
-        printf("Is client alive?");
-        if (this->clients[c]->is_alive()) {
-            printf("sending message to an alive client!");
-            this->clients[c]->send_message(message, length);
+    for (int s = 0; s < this->number_of_connected_sessions; s++) {
+        if (this->sessions[s]->is_alive()) {
+            this->sessions[s]->send_message(message, length);
+        }
+    }
+}
+
+void CourierWebsocket::broadcast_message(const char * message, size_t length, const char ignore_session_id) {
+    for (int s = 0; s < this->number_of_connected_sessions; s++) {
+        if (this->sessions[s]->is_alive() && this->sessions[s]->get_session_id() != ignore_session_id) {
+            this->sessions[s]->send_message(message, length);
         }
     }
 }

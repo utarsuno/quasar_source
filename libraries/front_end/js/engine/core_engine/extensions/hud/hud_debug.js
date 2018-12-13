@@ -6,12 +6,15 @@ Object.assign(
     $_QE.prototype.HUDDebug.prototype,
     $_QE.prototype.HUDTextLines.prototype,
     {
-        _cache_debug_ints     : new Uint32Array(1 + 3 + 2),
+        _cache_debug_ints     : new Uint32Array(1 + 3 + 2 + 1),
         _cache_debug_floats   : new Float32Array(6),
         _cache_player_position: new THREE.Vector3(0, 0, 0),
         _cache_player_normal  : new THREE.Vector3(0, 0, 0),
 
         __init__: function(engine) {
+            this._elapsed_delta                = 0;
+            this._query_get_number_of_sessions = null;
+
             this.engine                   = engine;
             this._reference_performance   = window.performance;
             this._reference_player        = this.engine.player;
@@ -30,7 +33,7 @@ Object.assign(
             this._hud_int(0, current_frame_count, 0, 4);
         },
 
-        content_update: function() {
+        content_update: function(delta) {
             // Engine.
             if (this._hud_int(1, this.engine.renderer.info.memory.geometries, 0) ||
                 this._hud_int(2, this.engine.renderer.info.memory.textures, 0) ||
@@ -80,6 +83,9 @@ Object.assign(
                         this._cache_debug_floats[5].toFixed(2).toString() + ')'
                 );
             }
+
+            // Connected sessions.
+
         },
 
         _hud_int: function(position, value, min_delta, row) {

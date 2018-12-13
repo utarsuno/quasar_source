@@ -32,7 +32,7 @@ class JavascriptManager(object):
 	def _add_files_engine(self):
 		"""Adds the JS files needed for the overall engine."""
 		# Global pre-processes.
-		self._add_paths('core_global_pre_processes', ['pp_globals', 'pp_arguments', 'pp_engine', 'pp_assets', 'pp_dom_elements', 'pp_elements', 'pp_inputs', 'pp_player', 'pp_shaders', 'pp_singleton', 'pp_three_js', 'pp_time'])
+		self._add_paths('core_global_pre_processes', ['pp_globals', 'pp_arguments', 'pp_engine', 'pp_assets', 'pp_dom_elements', 'pp_elements', 'pp_inputs', 'pp_player', 'pp_shaders', 'pp_singleton', 'pp_three_js', 'pp_time', 'pp_websockets'])
 
 		# Main engine.
 		self._add_js_file('core_engine/engine')
@@ -126,6 +126,9 @@ class JavascriptManager(object):
 		# Assets.
 		self._add_paths('asset_management'              , ['asset_manager', 'asset_batch', 'asset_file'])
 
+		# Web workers.
+		self._add_paths('web_workers', ['bridged-worker'])
+
 		# Websockets.
-		self._add_paths('web_sockets', ['web_socket_manager', 'web_socket_sessions', 'request_buffer'])
+		self._add_paths('web_sockets', ['web_socket_manager'])
 

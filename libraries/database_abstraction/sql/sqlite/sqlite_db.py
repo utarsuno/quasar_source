@@ -45,14 +45,6 @@ class SQLiteDB(object):
 				return t
 		return None
 
-	def ensure_many_to_many(self, base_table, linked_table):
-		"""Ensure a many-to-many relationship table exists for the provided tables."""
-		table = table_abstraction.TableAbstraction(base_table.name + '_to_' + linked_table.name)
-		table.add_column_foreign_key(base_table.primary_key)
-		table.add_column_foreign_key(linked_table.primary_key)
-		self.add_table(table)
-		table.create()
-
 	def create_tables(self):
 		"""Loads the tables into memory."""
 		for t in self._tables:
@@ -60,7 +52,7 @@ class SQLiteDB(object):
 			many_to_many = t.many_to_many
 			if many_to_many is not None:
 				for mtm in many_to_many:
-					self.ensure_many_to_many(t, mtm)
+					self._ensure_many_to_many(t, mtm)
 
 	def execute_query(self, query):
 		"""Executes a query."""
@@ -93,4 +85,14 @@ class SQLiteDB(object):
 		#	return results[0]
 
 		return results
+
+	# ----------------------------------------------------------------------------------------------------
+
+	def _ensure_many_to_many(self, base_table, linked_table):
+		"""Ensure a many-to-many relationship table exists for the provided tables."""
+		table = table_abstraction.TableAbstraction(base_table.name + '_to_' + linked_table.name)
+		table.add_column_foreign_key(base_table.primary_key)
+		table.add_column_foreign_key(linked_table.primary_key)
+		self.add_table(table)
+		table.create()
 
