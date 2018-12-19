@@ -15,7 +15,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
         this.encoder    = new TextEncoder();
         this.decoder    = new TextDecoder();
 
-        /*
+
         this.check_endian = function() {
             // From : https://stackoverflow.com/questions/7869752/javascript-typed-arrays-and-endianness
             let arrayBuffer = new ArrayBuffer(2);
@@ -32,7 +32,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
         };
 
         this.is_little_endian = this.check_endian();
-        */
+
 
         /*    ___          ___    ___  __
          |  |  |  | |    |  |  | |__  /__`
@@ -113,7 +113,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
         };
 
         this._send_reply = function(message_type, message_id) {
-            let message = new Uint8Array(4);
+            let message = new Uint16Array(4);
             message[0]  = message_type;
             message[1]  = message_id;
             message[2]  = this.session_values[WS_ID_SESSION];

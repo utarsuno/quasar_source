@@ -18,14 +18,6 @@ const _WEB_SOCKET_KEY_ID      = 'm';  // #pre-process_global_constant
 const _WEB_SOCKET_KEY_SUCCESS = 's';  // #pre-process_global_constant
 const _WEB_SOCKET_KEY_DATA    = 'd';  // #pre-process_global_constant
 
-// Server response values.
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 1; // #pre-process_global_constant
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 0; // #pre-process_global_constant
-
-const _RQ_INDEX_FREE_TO_USE = 0; // #pre-process_global_constant
-const _RQ_INDEX_DATA        = 1; // #pre-process_global_constant
-const _RQ_INDEX_CALLBACK    = 2; // #pre-process_global_constant
-
 // Message types.
 const SERVER_MESSAGE_TYPE_CHAT             = 'm0'; // #pre-process_global_constant
 const SERVER_MESSAGE_TYPE_COMMAND          = 'm1'; // #pre-process_global_constant

@@ -5,18 +5,18 @@
 
 class MessageInstance {
     public:
-        MessageInstance(const unsigned char mID);
-        bool           is_alive();
-        bool           is_resolved();
-        unsigned char  get_message_type();
-        unsigned char  get_message_id();
-        void           set(const unsigned char message_type);
-        void           finish();
+        MessageInstance(const unsigned short int mID);
+        bool               is_alive();
+        bool               is_resolved();
+        unsigned short int get_type();
+        unsigned short int get_id();
+        void               set(const unsigned short int message_type);
+        void               finish();
     private:
-        bool          alive;
-        bool          resolved;
-        unsigned char mID;
-        unsigned char type;
+        bool               alive;
+        bool               resolved;
+        unsigned short int mID;
+        unsigned short int type;
 };
 
 #endif

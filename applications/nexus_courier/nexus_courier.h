@@ -18,6 +18,8 @@
 // Websockets
 #include "/quasar_source/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 
+// Global.
+#define INVALID_ID                1337
 // Server to client.
 #define WS_TYPE_ESTABLISH_SESSION 2
 #define WS_TYPE_SERVER_MESSAGE    4

@@ -6,12 +6,14 @@
 class UserInstance {
     public:
         UserInstance();
-        unsigned char get_user_id();
-        std::string   get_username();
-        void          kill();
+        void               kill();
+        bool               is_logged_in();
+        unsigned short int get_id();
+        std::string        get_username();
     private:
-        unsigned char user_id;
-        std::string   username;
+        unsigned short int user_id;
+        bool               logged_in;
+        std::string        username;
 };
 
 #endif

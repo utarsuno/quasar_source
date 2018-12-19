@@ -4,7 +4,7 @@
  |__) |  | |__) |    | /  `
  |    \__/ |__) |___ | \__, */
 
-CourierWebsocket::CourierWebsocket(const int port_to_listen_on, const bool debug_on) {
+CourierWebsocket::CourierWebsocket(const unsigned int port_to_listen_on, const bool debug_on) {
     this->number_of_connected_sessions = 0;
     this->debug_on                     = debug_on;
     this->port_to_listen_on            = port_to_listen_on;
@@ -92,34 +92,36 @@ void CourierWebsocket::on_connection(uWS::WebSocket<uWS::SERVER> * ws) {
     if (this->debug_on) {
         printf("{%d} connected sessions, {%d} session objects\n", (int) this->number_of_connected_sessions, (int) this->sessions.size());
     }
-    fflush(stdout);
     session->on_connection();
 }
 
 void CourierWebsocket::on_disconnection(SessionInstance * session) {
     if (this->debug_on) {
-        printf("Session{%d} disconnected!\n", session->get_session_id());
+        printf("Session{%d} disconnected!\n", session->get_id());
     }
     session->kill();
     this->number_of_connected_sessions--;
 }
 
-void CourierWebsocket::on_message(SessionInstance * session, char *message, size_t length) {
+void CourierWebsocket::on_message(SessionInstance * session, char * message, size_t length) {
     if (this->debug_on) {
-        printf("{%d} sent message %.*s\n", session->get_session_id(), (int) length, message);
+        printf("{%d} sent message %.*s\n", session->get_id(), (int) length, message);
     }
 
     if (message[0] & 1 == 0) {
         session->on_reply(message, length);
     } else {
         if (message[0] == WS_TYPE_GLOBAL_CHAT) {
-            this->broadcast_message(message, length);
+            this->broadcast_message(message, length, session->get_id());
         }
         session->send_reply(message, length);
     }
 
     for (int b = 0; b < length; b++) {
-        printf("%d\n", (int) (message[b]));
+        printf("%d ", (int) (message[b]));
+    }
+    if (length > 0) {
+        printf("\n");
     }
 
     // TEMP;
@@ -158,9 +160,9 @@ void CourierWebsocket::broadcast_message(const char * message, size_t length) {
     }
 }
 
-void CourierWebsocket::broadcast_message(const char * message, size_t length, const char ignore_session_id) {
+void CourierWebsocket::broadcast_message(const char * message, size_t length, const unsigned short int ignore_session_id) {
     for (int s = 0; s < this->number_of_connected_sessions; s++) {
-        if (this->sessions[s]->is_alive() && this->sessions[s]->get_session_id() != ignore_session_id) {
+        if (this->sessions[s]->is_alive() && this->sessions[s]->get_id() != ignore_session_id) {
             this->sessions[s]->send_message(message, length);
         }
     }

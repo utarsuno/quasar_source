@@ -1,8 +1,8 @@
 #include "session_instance.h"
 
-SessionInstance::SessionInstance(unsigned char session_id) {
+SessionInstance::SessionInstance(const unsigned short int id) {
     this->user_instance       = new UserInstance();
-    this->session_id          = session_id;
+    this->id                  = id;
     this->session_established = false;
 }
 
@@ -17,17 +17,25 @@ void SessionInstance::initialize(uWS::WebSocket<uWS::SERVER> * ws) {
     this->ws->setUserData(this);
 }
 
+bool SessionInstance::is_alive() {
+    return this->alive;
+}
+
+unsigned short int SessionInstance::get_id() {
+    return this->id;
+}
+
 void SessionInstance::on_reply(const char * message, size_t length) {
-    this->finish_message_instance(message[1]);
+    this->finish_message_instance(message[0], message[1]);
 }
 
 void SessionInstance::on_connection() {
     MessageInstance * request = this->get_message_instance(WS_TYPE_ESTABLISH_SESSION);
-    const unsigned char mid   = request->get_message_id();
+    //const unsigned char mid   = request->get_message_id();
     const char m[3]  = {
-        request->get_message_type(),
-        request->get_message_id(),
-        this->session_id
+        request->get_type(),
+        request->get_id(),
+        this->id
     };
     /*
     (mid>>24) & 0xFF,
@@ -40,14 +48,6 @@ void SessionInstance::on_connection() {
     fflush(stdout);
 }
 
-bool SessionInstance::is_alive() {
-    return this->alive;
-}
-
-unsigned char SessionInstance::get_session_id() {
-    return this->session_id;
-}
-
 void SessionInstance::kill() {
     this->alive               = false;
     this->session_established = false;
@@ -56,7 +56,7 @@ void SessionInstance::kill() {
 }
 
 void SessionInstance::send_reply(const char * message, size_t length) {
-
+    this->finish_message_instance(message[0], message[1]);
 }
 
 void SessionInstance::send_message(const char * message, size_t length) {
@@ -68,30 +68,62 @@ void SessionInstance::send_message(const char * message, size_t length) {
  |    |  \ |  \/  /~~\  |  |___*/
 
 void SessionInstance::send_server_string(const char * text, size_t length) {
-    const char m[3] = {
+    /*
+    const char h[4] = {
         WS_TYPE_SERVER_MESSAGE,
         0,
-        this->session_id
+        this->id,
+        0
     };
+    */
+
+    // Conversion from : http://forums.devshed.com/programming/490205-unsigned-short-int-char-array-post1934862.html
+
+
+    /*char m[4 + length];
+    m[0] = WS_TYPE_SERVER_MESSAGE;
+    m[1] = 0;
+    m[2] = this->id;
+    m[3] = 0;*/
+    char m[8 + length];
+    unsigned short temp;
+    m[0] = (unsigned char) WS_TYPE_SERVER_MESSAGE & 0x0ff; // Mask off upper bits.
+    temp = WS_TYPE_SERVER_MESSAGE & 0xf0;                  // Mask off lower bits.
+    m[1] = (unsigned char) (temp >> 8);                    // Shift the high bits into lower range.
+    m[2] = (unsigned char) INVALID_ID & 0x0ff;
+    temp = INVALID_ID & 0xff00;
+    m[3] = (unsigned char) (temp >> 8);
+    m[4] = (unsigned char) this->id & 0x0ff;
+    temp = this->id & 0xff00;
+    m[5] = (unsigned char) (temp >> 8);
+    m[6] = (unsigned char) INVALID_ID & 0x0ff;
+    temp = INVALID_ID & 0xff00;
+    m[7] = (unsigned char) (temp >> 8);
+    for (int i = 0; i < length; i++) {
+        m[8 + i] = text[i];
+    }
+    size_t l = 8 + length;
+    printf("Sending session established message!\n");
+    this->send_binary(m, l);
 }
 
-void SessionInstance::finish_message_instance(const char message_type, const char message_id) {
+void SessionInstance::finish_message_instance(const unsigned short int message_type, const unsigned short int message_id) {
     for (int m = 0; m < this->request_buffer.size(); m++) {
-        if (this->request_buffer[m].get_message_id() == message_id && this->request_buffer[m].is_alive()) {
-            this->request_buffer[m].finish();
+        if (this->request_buffer[m]->get_id() == message_id && this->request_buffer[m]->is_alive()) {
+            this->request_buffer[m]->finish();
             if (message_type == WS_TYPE_ESTABLISH_SESSION) {
-                this->send_server_string("Session established!");
+                this->send_server_string("Session established!", std::strlen("Session established!"));
             }
         }
     }
 }
 
 void SessionInstance::send_binary(const char * message, size_t length) {
-    //this->ws->send(message, length, uWS::OpCode::TEXT);
-    this->ws->send(message, length, uWS::OpCode::BINARY);
+    //printf("Sending binary message!\n");
+    this->ws->send(message, length, uWS::OpCode::BINARY); //uWS::OpCode::TEXT
 }
 
-MessageInstance * SessionInstance::get_message_instance(const unsigned char message_type) {
+MessageInstance * SessionInstance::get_message_instance(const unsigned short int message_type) {
     // First check if any message instance is dead.
     if (this->request_buffer.size() > this->number_of_alive_requests) {
         for (int r = 0; r < this->request_buffer.size(); r++) {
