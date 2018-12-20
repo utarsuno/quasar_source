@@ -4,6 +4,26 @@ $_QE.prototype.WebSocketManager = function(engine) {
     this._engine = engine;
     this._engine.flag_set_off(QEFLAG_STATE_WEB_SOCKET_CONNECTED);
 
+    // TODO: Organize/optimize
+    this.check_endian = function() {
+        // From : https://stackoverflow.com/questions/7869752/javascript-typed-arrays-and-endianness
+        let arrayBuffer = new ArrayBuffer(2);
+        let uint8Array  = new Uint8Array(arrayBuffer);
+        let uint16array = new Uint16Array(arrayBuffer);
+        uint8Array[0]   = 0xAA; // set first byte
+        uint8Array[1]   = 0xBB; // set second byte
+        if (uint16array[0] === 0xBBAA) {
+            return true;
+        }
+        if(uint16array[0] === 0xAABB) {
+            return false;
+        }
+    };
+
+    if (!this.check_endian()) {
+        QE.log_error('Client is not little endian. TODO: handle big endian!');
+    }
+
     let worker_web_socket_connection = function() {
         'use strict';
 
@@ -14,24 +34,6 @@ $_QE.prototype.WebSocketManager = function(engine) {
         this.buffer     = [];
         this.encoder    = new TextEncoder();
         this.decoder    = new TextDecoder();
-
-
-        this.check_endian = function() {
-            // From : https://stackoverflow.com/questions/7869752/javascript-typed-arrays-and-endianness
-            let arrayBuffer = new ArrayBuffer(2);
-            let uint8Array  = new Uint8Array(arrayBuffer);
-            let uint16array = new Uint16Array(arrayBuffer);
-            uint8Array[0]   = 0xAA; // set first byte
-            uint8Array[1]   = 0xBB; // set second byte
-            if (uint16array[0] === 0xBBAA) {
-                return true;
-            }
-            if(uint16array[0] === 0xAABB) {
-                return false;
-            }
-        };
-
-        this.is_little_endian = this.check_endian();
 
 
         /*    ___          ___    ___  __

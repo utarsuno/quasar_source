@@ -17,7 +17,7 @@ public:
     std::thread start_service();
 
     void broadcast_message(const char * message, size_t length);
-    void broadcast_message(const char * message, size_t length, const unsigned short int ignore_session_id);
+    void broadcast_message(const char * message, size_t length, const unsigned short ignore_session_id);
 private:
     int               port_to_listen_on;
     bool              debug_on;

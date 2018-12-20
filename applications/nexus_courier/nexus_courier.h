@@ -20,6 +20,7 @@
 
 // Global.
 #define INVALID_ID                1337
+
 // Server to client.
 #define WS_TYPE_ESTABLISH_SESSION 2
 #define WS_TYPE_SERVER_MESSAGE    4
@@ -43,6 +44,17 @@ int number_of_digits(T number)
     }
     return digits;
 }
+*/
+
+/*
+struct NetworkMessage {
+    unsigned short id_message_type;
+    unsigned short id_message;
+    unsigned short id_session;
+    unsigned short id_user;
+    char         * buffer;
+    unsigned int   buffer_length;
+};
 */
 
 // Custom

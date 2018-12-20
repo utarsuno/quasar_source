@@ -160,7 +160,7 @@ void CourierWebsocket::broadcast_message(const char * message, size_t length) {
     }
 }
 
-void CourierWebsocket::broadcast_message(const char * message, size_t length, const unsigned short int ignore_session_id) {
+void CourierWebsocket::broadcast_message(const char * message, size_t length, const unsigned short ignore_session_id) {
     for (int s = 0; s < this->number_of_connected_sessions; s++) {
         if (this->sessions[s]->is_alive() && this->sessions[s]->get_id() != ignore_session_id) {
             this->sessions[s]->send_message(message, length);

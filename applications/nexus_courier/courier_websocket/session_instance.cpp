@@ -1,6 +1,6 @@
 #include "session_instance.h"
 
-SessionInstance::SessionInstance(const unsigned short int id) {
+SessionInstance::SessionInstance(const unsigned short id) {
     this->user_instance       = new UserInstance();
     this->id                  = id;
     this->session_established = false;
@@ -21,7 +21,7 @@ bool SessionInstance::is_alive() {
     return this->alive;
 }
 
-unsigned short int SessionInstance::get_id() {
+unsigned short SessionInstance::get_id() {
     return this->id;
 }
 
@@ -85,11 +85,14 @@ void SessionInstance::send_server_string(const char * text, size_t length) {
     m[1] = 0;
     m[2] = this->id;
     m[3] = 0;*/
+    // TODO: Abstract this process out!
     char m[8 + length];
     unsigned short temp;
     m[0] = (unsigned char) WS_TYPE_SERVER_MESSAGE & 0x0ff; // Mask off upper bits.
     temp = WS_TYPE_SERVER_MESSAGE & 0xf0;                  // Mask off lower bits.
     m[1] = (unsigned char) (temp >> 8);                    // Shift the high bits into lower range.
+
+
     m[2] = (unsigned char) INVALID_ID & 0x0ff;
     temp = INVALID_ID & 0xff00;
     m[3] = (unsigned char) (temp >> 8);
@@ -107,7 +110,7 @@ void SessionInstance::send_server_string(const char * text, size_t length) {
     this->send_binary(m, l);
 }
 
-void SessionInstance::finish_message_instance(const unsigned short int message_type, const unsigned short int message_id) {
+void SessionInstance::finish_message_instance(const unsigned short message_type, const unsigned short message_id) {
     for (int m = 0; m < this->request_buffer.size(); m++) {
         if (this->request_buffer[m]->get_id() == message_id && this->request_buffer[m]->is_alive()) {
             this->request_buffer[m]->finish();
@@ -123,7 +126,7 @@ void SessionInstance::send_binary(const char * message, size_t length) {
     this->ws->send(message, length, uWS::OpCode::BINARY); //uWS::OpCode::TEXT
 }
 
-MessageInstance * SessionInstance::get_message_instance(const unsigned short int message_type) {
+MessageInstance * SessionInstance::get_message_instance(const unsigned short message_type) {
     // First check if any message instance is dead.
     if (this->request_buffer.size() > this->number_of_alive_requests) {
         for (int r = 0; r < this->request_buffer.size(); r++) {
