@@ -32,7 +32,7 @@ void SessionInstance::on_reply(const char * message, size_t length) {
 void SessionInstance::on_connection() {
     MessageInstance * request = this->get_message_instance(WS_TYPE_ESTABLISH_SESSION);
     //const unsigned char mid   = request->get_message_id();
-    const char m[3]  = {
+    const char m[3] = {
         request->get_type(),
         request->get_id(),
         this->id
@@ -93,14 +93,14 @@ void SessionInstance::send_server_string(const char * text, size_t length) {
     m[1] = (unsigned char) (temp >> 8);                    // Shift the high bits into lower range.
 
 
-    m[2] = (unsigned char) INVALID_ID & 0x0ff;
-    temp = INVALID_ID & 0xff00;
+    m[2] = (unsigned char) WS_ID_INVALID & 0x0ff;
+    temp = WS_ID_INVALID & 0xff00;
     m[3] = (unsigned char) (temp >> 8);
     m[4] = (unsigned char) this->id & 0x0ff;
     temp = this->id & 0xff00;
     m[5] = (unsigned char) (temp >> 8);
-    m[6] = (unsigned char) INVALID_ID & 0x0ff;
-    temp = INVALID_ID & 0xff00;
+    m[6] = (unsigned char) WS_ID_INVALID & 0x0ff;
+    temp = WS_ID_INVALID & 0xff00;
     m[7] = (unsigned char) (temp >> 8);
     for (int i = 0; i < length; i++) {
         m[8 + i] = text[i];

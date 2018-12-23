@@ -38,6 +38,9 @@ elif [ ${BUILD_PROCESS_RESULT_CODE} -eq 0 ]; then
     elif [ "${IS_BUILD_NEEDED}" = "nexus_courier" ]; then
         cd_base
         docker-compose -f ${DOCKER_COMPOSE_FILE} build nexus_courier
+    elif [ "${IS_BUILD_NEEDED}" = "nexus_db" ]; then
+        cd_base
+        docker-compose -f ${DOCKER_COMPOSE_FILE} build nexus_db
     fi
 
     docker_compose_up

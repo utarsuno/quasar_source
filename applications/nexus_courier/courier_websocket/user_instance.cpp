@@ -5,7 +5,7 @@ UserInstance::UserInstance() {
 }
 
 void UserInstance::kill() {
-    this->user_id   = INVALID_ID;
+    this->user_id   = WS_ID_INVALID;
     this->username  = "";
     this->logged_in = false;
 }

@@ -12,7 +12,9 @@ CourierWebsocket::CourierWebsocket(const unsigned int port_to_listen_on, const b
 
 CourierWebsocket::~CourierWebsocket() {
     // TODO: Send exit message to all connected sessions first!
-    this->free_session_memory();
+    // TODO: Save any changes to database.
+    // Clear nodes.
+    std::vector<SessionInstance *>().swap(this->sessions);
 }
 
 void CourierWebsocket::set_reference_rabbitmq(CourierRabbitMQ * rabbitmq) {
@@ -28,11 +30,6 @@ std::thread CourierWebsocket::start_service() {
 /*__   __              ___  ___
  |__) |__) | \  /  /\   |  |__
  |    |  \ |  \/  /~~\  |  |___ */
-
-void CourierWebsocket::free_session_memory() {
-    // Clear nodes.
-    std::vector<SessionInstance *>().swap(this->sessions);
-}
 
 void CourierWebsocket::run_websockets() {
     uWS::Hub h;

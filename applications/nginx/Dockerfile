@@ -142,7 +142,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 #COPY nginx.conf /etc/nginx/nginx.conf
 #COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
-COPY ./applications/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./applications/nginx/nginx.nginx /etc/nginx/nginx.conf
 
 RUN apk add --no-cache bash \
  && apk add --no-cache bash-completion \

@@ -7,10 +7,13 @@ services:
 
   # Serves static content and forwards requests to servers.
   nginx:
-    #container_name: nginx
+    #hostname: nginx
     build:
       context: .
       dockerfile: ./applications/nginx/Dockerfile
+    environment:
+      _SERVICE_NAME: "nginx"
+    #container_name: nginx
     tty: true
     ports:
       - "80:80"
@@ -22,14 +25,16 @@ services:
 
   # RabbitMQ broker.
   rabbit_manager:
-    #container_name: rabbit_manager
+    #hostname: rabbit_manager
     build:
       context: .
       dockerfile: ./applications/rabbitmq_manager/Dockerfile
-    tty: true
     environment:
+      _SERVICE_NAME: "rabbit_manager"
       RABBITMQ_ERLANG_COOKIE: "secret string"
       RABBITMQ_NODENAME: rabbit_manager
+    tty: true
+    #container_name: rabbit_manager
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
@@ -39,18 +44,19 @@ services:
       - "25672:25672"
 
   rabbit2:
-    #container_name: rabbit2
+    hostname: rabbit2
     build:
       context: .
       dockerfile: ./applications/nexus_server/Dockerfile
+    environment:
+      SERVICE_NAME: "rabbit2"
+      PYTHONPATH: ":/quasar_source"
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: rabbit2
     tty: true
-    hostname: rabbit2
+    #container_name: rabbit2
     depends_on:
       - rabbit_manager
-    environment:
-      - PYTHONPATH=:/quasar_source
-      - RABBITMQ_ERLANG_COOKIE="secret string"
-      - RABBITMQ_NODENAME=rabbit2
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
@@ -60,16 +66,17 @@ services:
       - nexus_volume:/v
 
   nexus_courier:
-    #container_name: nexus_courier
+    hostname: nexus_courier
     build:
       context: .
       dockerfile: ./applications/nexus_courier/Dockerfile
     environment:
-      - PYTHONPATH=:/quasar_source
-      - RABBITMQ_ERLANG_COOKIE="secret string"
-      - RABBITMQ_NODENAME=nexus_courier
+      _SERVICE_NAME: "nexus_courier"
+      PYTHONPATH: ":/quasar_source"
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: "nexus_courier"
+    #container_name: nexus_courier
     tty: true
-    hostname: nexus_courier
     depends_on:
       - rabbit_manager
     volumes:
@@ -79,6 +86,56 @@ services:
       - ./libraries:/quasar_source/libraries
       - ./scripts:/quasar_source/scripts
       - ./generated_output/nexus_courier:/quasar_source/generated_output/nexus_courier
+
+  nexus_db:
+    hostname: nexus_db
+    build:
+      context: .
+      dockerfile: ./applications/nexus_db/Dockerfile
+    environment:
+      _SERVICE_NAME: "nexus_db"
+      PYTHONPATH: ":/quasar_source"
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: "nexus_db"
+    tty: true
+    depends_on:
+      - rabbit_manager
+    volumes:
+      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
+      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
+      - ./applications/nexus_db:/quasar_source/applications/nexus_db
+      - ./libraries:/quasar_source/libraries
+      - ./scripts:/quasar_source/scripts
+      - nexus_volume:/v
+
+  mysql_server:
+    hostname: mysql_server
+    build:
+      context: .
+      dockerfile: ./applications/mysql_server/Dockerfile
+    environment:
+      _SERVICE_NAME: "mysql_server"
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      PYTHONPATH: "/quasar_source"
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: "nexus_courier"
+    #image: mysql
+    #container_name: mysql_server
+    #command: mysqld --user=root --verbose
+    tty: true
+    depends_on:
+      - rabbit_manager
+    volumes:
+      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
+      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
+    #  - ./applications/mysql_server/dbcreation.sql:/tmp/dbcreation.sql
+    #  - ./applications/mysql_server/import.sh:/tmp/import.sh
+    ports:
+      - "3306:3306"
 
 networks:
   default:

@@ -69,6 +69,8 @@ function __init__ {
             ;;
         nexus_courier)
             ;;
+        nexus_db)
+            ;;
         code_manager)
             ;;
         false)

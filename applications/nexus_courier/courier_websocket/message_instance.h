@@ -8,15 +8,15 @@ class MessageInstance {
         MessageInstance(const unsigned short mID);
         bool           is_alive();
         bool           is_resolved();
-        unsigned short get_type();
+        unsigned char  get_type();
         unsigned short get_id();
-        void           set(const unsigned short message_type);
+        void           set(const unsigned char message_type);
         void           finish();
     private:
         bool           alive;
         bool           resolved;
         unsigned short mID;
-        unsigned short type;
+        unsigned char  type;
         char *         buffer;
         unsigned int   buffer_length;
 };

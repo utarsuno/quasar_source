@@ -29,8 +29,6 @@ private:
     unsigned char number_of_connected_sessions;
     SessionInstance * get_session_instance(uWS::WebSocket<uWS::SERVER> * ws);
 
-    void free_session_memory();
-
     void on_connection(uWS::WebSocket<uWS::SERVER> *ws);
     void on_disconnection(SessionInstance * session);
     void on_message(SessionInstance * session, char *message, size_t length);

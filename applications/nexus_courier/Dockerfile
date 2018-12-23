@@ -22,8 +22,8 @@ RUN apk update && apk upgrade \
 
 COPY ./generated_output/third_party_libraries/AMQP_CPP_3_1_0 /quasar_source/generated_output/third_party_libraries/AMQP_CPP_3_1_0
 RUN cd /quasar_source/generated_output/third_party_libraries/AMQP_CPP_3_1_0 \
-    && make \
-    && make install
+ && make \
+ && make install
 
 COPY ./libraries/pre_compiled/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 

@@ -18,11 +18,11 @@ unsigned short MessageInstance::get_type() {
     return this->type;
 }
 
-unsigned short MessageInstance::get_id() {
+unsigned char MessageInstance::get_id() {
     return this->mID;
 }
 
-void MessageInstance::set(const unsigned short message_type) {
+void MessageInstance::set(const unsigned char message_type) {
     this->alive    = true;
     this->resolved = false;
     this->type     = message_type;

@@ -19,7 +19,16 @@
 #include "/quasar_source/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 
 // Global.
-#define INVALID_ID                1337
+#define WS_ID_INVALID             1337
+//
+// Current message sizes.
+// message_type --> 1 byte
+// message_id   --> 2 byte
+// session_id   --> 2 byte
+// user_id      --> 2 byte
+// data_header  --> 2 bytes
+// data         --> n bytes
+//
 
 // Server to client.
 #define WS_TYPE_ESTABLISH_SESSION 2

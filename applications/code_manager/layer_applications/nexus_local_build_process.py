@@ -53,7 +53,7 @@ class NexusLocalBuildProcess(object):
 			[BuildProcessVolumeAssets],
 			[BuildProcessJSIndependentLibraries],
 			[BuildProcessJSNexusLocal],
-			[BuildProcessNexusCourier, db_domain.DOMAIN_BUILD_FE],
+			[BuildProcessNexusCourier, db_domain.DOMAIN_BUILD_FE]
 		]
 
 		self.build_steps = []

@@ -40,6 +40,13 @@
       "durable":true,
       "auto_delete":true,
       "arguments":{}
+    },
+    {
+      "name":"queue_nexus_db",
+      "vhost":"/",
+      "durable":true,
+      "auto_delete":true,
+      "arguments":{}
     }
   ],
   "exchanges":[
@@ -54,6 +61,15 @@
     },
     {
       "name":"exchange_nexus_server",
+      "vhost":"/",
+      "type":"topic",
+      "durable":true,
+      "auto_delete":false,
+      "internal":false,
+      "arguments":{}
+    },
+    {
+      "name":"exchange_nexus_db",
       "vhost":"/",
       "type":"topic",
       "durable":true,
@@ -75,6 +91,14 @@
       "source":"exchange_nexus_server",
       "vhost":"/",
       "destination":"queue_nexus_server",
+      "destination_type":"queue",
+      "routing_key":"routing_key",
+      "arguments":{}
+    },
+    {
+      "source":"exchange_nexus_db",
+      "vhost":"/",
+      "destination":"queue_nexus_db",
       "destination_type":"queue",
       "routing_key":"routing_key",
       "arguments":{}

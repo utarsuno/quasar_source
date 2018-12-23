@@ -182,6 +182,7 @@ class DBDomain(Flags):
 	#
 	def get_exit_code_needed(self) -> int:
 		"""Returns the exit code needed."""
+		# TODO: Abstract this process out!
 		if self.flag_does_exist(DOMAIN_FLAG_NEXUS_COURIER_UPDATED) and self.flag_get(DOMAIN_FLAG_NEXUS_COURIER_UPDATED):
 			return DOMAIN_EXIT_CODE_SUCCESS_BUILD_NEXUS_LOCAL
 		else:
