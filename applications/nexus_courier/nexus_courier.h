@@ -4,8 +4,11 @@
 // C++
 #include <thread>
 #include <stdio.h>
+#include <stdlib.h> // Needed for atoi.
+#include <cstdlib>  // Needed for getenv
 //#include <sstream>
 #include <string>
+#include <string.h>
 #include <iostream>
 #include <chrono>
 #include <cstdint>
@@ -19,7 +22,12 @@
 #include "/quasar_source/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 
 // Global.
-#define WS_ID_INVALID             1337
+#define EXIT_CODE_SUCCESS                13
+#define EXIT_CODE_FAILED                 199
+#define EXIT_CODE_PORT_ERROR             198
+#define EXIT_CODE_INVALID_MESSAGE_HEADER 197
+//
+#define WS_ID_INVALID     1337
 //
 // Current message sizes.
 // message_type --> 1 byte
@@ -34,8 +42,8 @@
 #define WS_TYPE_ESTABLISH_SESSION 2
 #define WS_TYPE_SERVER_MESSAGE    4
 // Client to server.
-#define WS_TYPE_GET_NUM_SESSIONS  1
-#define WS_TYPE_GLOBAL_CHAT       3
+#define WS_TYPE_GLOBAL_CHAT       1
+#define WS_TYPE_GET_NUM_SESSIONS  3
 // Keys.
 #define WS_DATA_KEY_INT           0
 #define WS_DATA_KEY_TEXT          1
@@ -76,11 +84,10 @@ struct NetworkMessage {
 
 class NexusCourier {
 public:
-    NexusCourier();
-    NexusCourier(const bool debug_on);
+    //NexusCourier(const bool debug_on);
+    NexusCourier(const bool debug_on, const unsigned int websocket_port, const char * rabbitmq_host, const char * rabbitmq_queue);
     ~NexusCourier();
-    void start();
-    void wait_for_completion();
+    void run_all_threads();
 private:
     bool               debug_on;
     CourierRabbitMQ  * rabbitmq;

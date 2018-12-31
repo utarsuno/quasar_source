@@ -10,12 +10,12 @@ class CourierRabbitMQ;
 
 class CourierWebsocket {
 public:
+    // OOP / Init
     CourierWebsocket(const unsigned int port_to_listen_on, const bool debug_on);
     ~CourierWebsocket();
-
     void set_reference_rabbitmq(CourierRabbitMQ * rabbitmq);
+    // Public
     std::thread start_service();
-
     void broadcast_message(const char * message, size_t length);
     void broadcast_message(const char * message, size_t length, const unsigned short ignore_session_id);
 private:

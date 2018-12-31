@@ -8,19 +8,25 @@ class MessageInstance;
 
 class SessionInstance {
     public:
+        // OOP
         SessionInstance(unsigned short id);
         ~SessionInstance();
         void           initialize(uWS::WebSocket<uWS::SERVER> * ws);
         void           kill();
         void           on_connection();
-        bool           is_alive();
-        void           send_reply(const char * message, size_t length);
-        void           send_message(const char * message, size_t length);
-        void           on_reply(const char * message, size_t length);
+        void           send_reply(const char * buffer, size_t length);
+        // Functionality
+        void           handle_response(char * message, size_t length);
+        void           forward_message(const char * buffer, size_t length);
+        void           send_with_confirmation(const unsigned char message_type, const char * buffer, size_t length);
+        // Getters
         unsigned short get_id();
+        unsigned short get_user_id();
+        bool           is_alive();
     private:
         bool                             alive;
         bool                             session_established;
+        unsigned int                     number_of_invalid_requests_made;
         uWS::WebSocket<uWS::SERVER>    * ws;
         unsigned short                   id;
         UserInstance                   * user_instance;

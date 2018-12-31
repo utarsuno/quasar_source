@@ -72,9 +72,15 @@ services:
       dockerfile: ./applications/nexus_courier/Dockerfile
     environment:
       _SERVICE_NAME: "nexus_courier"
+      #
       PYTHONPATH: ":/quasar_source"
       RABBITMQ_ERLANG_COOKIE: "secret string"
       RABBITMQ_NODENAME: "nexus_courier"
+      #
+      NC_ARG_RABBIT_HOST: "amqp://guest:guest@rabbit_manager/"
+      NC_ARG_RABBIT_QUEUE: "queue_nexus_courier"
+      NC_ARG_DEBUG_ON: "true"
+      NC_ARG_WEBSOCKET_PORT: "3001"
     #container_name: nexus_courier
     tty: true
     depends_on:

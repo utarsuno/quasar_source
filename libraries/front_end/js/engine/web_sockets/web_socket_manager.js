@@ -28,17 +28,59 @@ $_QE.prototype.WebSocketManager = function(engine) {
         'use strict';
 
         let self            = this;
-        this.session_values = new Uint8Array(2);
+        //this.session_values = new Uint8Array(2);
 
-        this.session_id    = 0;
-        this.buffer     = [];
-        this.encoder    = new TextEncoder();
-        this.decoder    = new TextDecoder();
+        this.session_id     = 1337;
+        this.user_id        = 1337;
+        this.buffer         = [];
+        this.encoder        = new TextEncoder();
+        this.decoder        = new TextDecoder();
 
 
         /*    ___          ___    ___  __
          |  |  |  | |    |  |  | |__  /__`
          \__/  |  | |___ |  |  | |___ .__/ */
+
+        /* utf.js - UTF-8 <=> UTF-16 convertion
+         *
+         * Copyright (C) 1999 Masanao Izumo <iz@onicos.co.jp>
+         * Version: 1.0
+         * LastModified: Dec 25 1999
+         * This library is free.  You can redistribute it and/or modify it.
+         */
+        this.Utf8ArrayToStr = function(array) {
+            var out, i, len, c;
+            var char2, char3;
+
+            out = '';
+            len = array.length;
+            i = 0;
+            while (i < len) {
+                c = array[i++];
+                switch (c >> 4)
+                {
+                case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+                // 0xxxxxxx
+                    out += String.fromCharCode(c);
+                    break;
+                case 12: case 13:
+                // 110x xxxx   10xx xxxx
+                    char2 = array[i++];
+                    out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+                    break;
+                case 14:
+                // 1110 xxxx  10xx xxxx  10xx xxxx
+                    char2 = array[i++];
+                    char3 = array[i++];
+                    out += String.fromCharCode(((c & 0x0F) << 12) |
+                                           ((char2 & 0x3F) << 6) |
+                                           ((char3 & 0x3F) << 0));
+                    break;
+                }
+            }
+            return out;
+        };
+
         this._set_outbound_buffer_type_and_id = function(buf, type, mID) {
             buf[0] = type;
             buf[1] = (mID >> 24) & 255;
@@ -70,6 +112,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
             return buf;
         };
 
+        /*
         this._add_to_buffer = function(message_type) {
             let b;
             let buf;
@@ -90,10 +133,50 @@ $_QE.prototype.WebSocketManager = function(engine) {
             buf[2] = message_type;
             this.buffer.push(buf);
             return this.buffer.length - 1;
+        };*/
+
+        this._add_to_buffer = function(message_type) {
+            let b;
+            let buf;
+            for (b = 0; b < this.buffer.length; b++) {
+                buf = this.buffer[b];
+                // Is buffer dead? (available to be allocated)
+                if (buf[0] == 0) {
+                    buf[0] = 1;
+                    buf[2] = message_type;
+                    // Return the buffer ID.
+                    return buf[1];
+                }
+            }
+            // Add new buffer slot.
+            buf    = new Uint16Array(3);
+            buf[0] = 1;
+            buf[1] = this.buffer.length - 1;
+            buf[2] = message_type;
+            this.buffer.push(buf);
+            return this.buffer.length - 1;
         };
 
         this._create_data_packet_string = function(text) {
-            return this._append_data_header(WS_DATA_KEY_TEXT, this.encoder.encode(text));
+            //return this._append_data_header(WS_DATA_KEY_TEXT, this.encoder.encode(text));
+            //return this.encoder.encode(text);
+
+            return new Uint16Array(this.encoder.encode(text).buffer);
+
+            /*
+            let offset = 0;
+            let buf;
+            // Reserve 32 bits to identify length of the content.
+            // Additional 8 bits for data type header.
+            buf     = new Uint8Array(content.length + 4 + 1);
+            let len = content.length;
+            buf[0]  = data_type;
+            buf[1]  = (len >> 24) & 255;
+            buf[2]  = (len >> 16) & 255;
+            buf[3]  = (len >> 8) & 255;
+            buf[4]  = len & 255;
+            offset  = 5;
+            */
         };
 
         /*__   __   ___  __       ___    __        __
@@ -101,12 +184,17 @@ $_QE.prototype.WebSocketManager = function(engine) {
          \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/*/
 
         this._send_message = function(message_type, content) {
+            // TODO:
             let buffer_id = this._add_to_buffer(message_type);
-            let message   = new Uint8Array(content.length + 4);
+            //
+            //let message   = new Uint8Array(content.length + 4);
+            let message   = new Uint16Array(content.length + 4);
             message[0]    = message_type;
             message[1]    = buffer_id;
-            message[2]    = this.session_values[WS_ID_SESSION];
-            message[3]    = this.session_values[WS_ID_USER];
+            message[2]    = self.session_id;
+            message[3]    = self.user_id;
+            //message[2]    = this.session_values[WS_ID_SESSION];
+            //message[3]    = this.session_values[WS_ID_USER];
             let b;
             for (b = 0; b < content.length; b++) {
                 message[b + 4] = content[b];
@@ -116,11 +204,11 @@ $_QE.prototype.WebSocketManager = function(engine) {
 
         this._send_reply = function(message_type, message_id) {
             let message = new Uint16Array(4);
-            message[0]  = message_type;
-            message[1]  = message_id;
-            message[2]  = this.session_values[WS_ID_SESSION];
-            message[3]  = this.session_values[WS_ID_USER];
-            this.socket.send(message.buffer);
+            message[0] = message_type;
+            message[1] = message_id;
+            message[2] = self.session_id;
+            message[3] = self.user_id;
+            self.socket.send(message.buffer);
         };
 
         this.send_global_chat = function(message) {
@@ -141,18 +229,33 @@ $_QE.prototype.WebSocketManager = function(engine) {
                 self.main._on_message(m);
             }
             */
+
+            /*
             let data         = new DataView(message.data);
-            let message_type = data.getInt8(0);
-            let message_id   = data.getInt8(1);
-            let session_id   = data.getInt8(2);
-            //let user_id      = data.getInt8(3);
+            let message_type = data.getInt16(0);
+            let message_id   = data.getInt16(1);
+            let session_id   = data.getInt16(2);
+            let user_id      = data.getInt16(3);
+            */
+
+            let data         = new Uint16Array(message.data);
+            let message_type = data[0];
+            let message_id   = data[1];
+            let session_id   = data[2];
+            let user_id      = data[3];
 
             self.main._on_network_log('Got the following message {' + data.toString() + '}');
             self.main._on_network_log(data);
 
             if (message_type == WS_TYPE_ESTABLISH_SESSION) {
-                self.session_values[WS_ID_SESSION] = session_id;
-                self._send_reply.bind(self)(message_type, message_id);
+                //self.session_values[WS_ID_SESSION] = session_id;
+                self.session_id = session_id;
+                self._send_reply(message_type, message_id);
+            } else if (message_type == WS_TYPE_SERVER_MESSAGE) {
+                let buffer = data.slice(4);
+                self.main._on_network_log(buffer);
+                self.main._on_network_log(self.decoder.decode(buffer));
+                self.main._on_server_message(self.decoder.decode(buffer));
             }
 
         };
@@ -177,8 +280,8 @@ $_QE.prototype.WebSocketManager = function(engine) {
     this.thread_web_socket_connection = this._engine.FactoryBridgedWorker(
         worker_web_socket_connection,
         ['send_global_chat'],
-        ['_on_message', '_on_error', '_on_open', '_on_close', '_on_network_log'],
-        [this._on_message.bind(this), this._on_error.bind(this), this._on_open.bind(this), this._on_close.bind(this), this._on_network_log.bind(this)]
+        ['_on_message', '_on_error', '_on_open', '_on_close', '_on_network_log', '_on_server_message'],
+        [this._on_message.bind(this), this._on_error.bind(this), this._on_open.bind(this), this._on_close.bind(this), this._on_network_log.bind(this), this._on_server_message.bind(this)]
     );
 };
 
@@ -198,14 +301,10 @@ $_QE.prototype.WebSocketManager.prototype = {
         //else --> this.send_request_chat(user_input);
 
         this.thread_web_socket_connection.send_global_chat(user_input);
-        //this._send_chat_message(user_input);
     },
 
-    _send_chat_message: function(message) {
-        this._send_message({
-            _WEB_SOCKET_KEY_TYPE: SERVER_MESSAGE_TYPE_CHAT,
-            _WEB_SOCKET_KEY_DATA: message
-        });
+    _on_server_message: function(message) {
+        this._engine.hud_chat.add_message(message);
     },
 
     _on_network_log: function(message) {
@@ -236,10 +335,6 @@ $_QE.prototype.WebSocketManager.prototype = {
         l('TODO: SEnd message');
         l(json_data);
         //this.thread_web_socket_connection.send_message(json_data);
-    },
-
-    get_server_response_to: function(json_data) {
-
     },
 
     //

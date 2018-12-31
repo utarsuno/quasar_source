@@ -1,9 +1,9 @@
 #include <courier_rabbitmq.h>
 
-/*__        __          __
- |__) |  | |__) |    | /  `
- |    \__/ |__) |___ | \__, */
 
+/*__   __   __
+ /  \ /  \ |__)
+ \__/ \__/ |   */
 CourierRabbitMQ::CourierRabbitMQ(std::string connection_address, std::string queue_name, const bool debug_on) {
     this->debug_on           = debug_on;
     this->connection_address = connection_address;
@@ -13,6 +13,10 @@ CourierRabbitMQ::CourierRabbitMQ(std::string connection_address, std::string que
 void CourierRabbitMQ::set_reference_websockets(CourierWebsocket * websockets) {
     this->websockets = websockets;
 }
+
+/*__        __          __
+ |__) |  | |__) |    | /  `
+ |    \__/ |__) |___ | \__, */
 
 std::thread CourierRabbitMQ::start_service() {
     return std::thread( [this] {

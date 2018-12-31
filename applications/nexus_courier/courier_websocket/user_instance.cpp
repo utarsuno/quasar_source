@@ -1,9 +1,15 @@
 #include "user_instance.h"
 
+/*__   __   __
+ /  \ /  \ |__)
+ \__/ \__/ |    */
 UserInstance::UserInstance() {
     this->kill();
 }
 
+/*__        __          __
+ |__) |  | |__) |    | /  `
+ |    \__/ |__) |___ | \__,*/
 void UserInstance::kill() {
     this->user_id   = WS_ID_INVALID;
     this->username  = "";

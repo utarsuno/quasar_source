@@ -15,7 +15,7 @@ class CourierRabbitMQ {
 
         void forward_message(char * message, size_t length);
     private:
-        bool         debug_on;
+        bool               debug_on;
         CourierWebsocket * websockets;
         std::string        connection_address;
         std::string        queue_name;
