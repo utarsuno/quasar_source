@@ -1,36 +1,43 @@
 #include "session_instance.h"
 
+/*            ___  __    ___  ___       __   ___
+ | |\ | |__| |__  |__) |  |  |__  |\ | /  ` |__
+ | | \| |  | |___ |  \ |  |  |___ | \| \__, |___*/
+void * SessionInstance::get_and_create_new_entity_object() {
+    MessageInstance * message_instance = new MessageInstance(this->get_pool_size(), this);
+    return (void *) message_instance;
+}
+
+void SessionInstance::on_born() {
+    this->session_established             = false;
+    this->number_of_invalid_requests_made = 0;
+}
+
+void SessionInstance::on_killed() {
+    this->user_instance->kill();
+    this->pool_clear_all();
+    this->on_born();
+}
+
+void SessionInstance::on_completion() {
+}
+
 /*__   __   __
  /  \ /  \ |__)
  \__/ \__/ |   */
-SessionInstance::SessionInstance(const unsigned short id) {
-    this->user_instance                   = new UserInstance();
-    this->id                              = id;
-    this->session_established             = false;
-    this->number_of_invalid_requests_made = 0;
+SessionInstance::SessionInstance(const unsigned short id) : MemoryPoolObject(), MemoryPool() {
+    this->user_instance = new UserInstance();
+    this->id            = id;
+    this->on_born();
 }
 
 SessionInstance::~SessionInstance() {
     delete this->user_instance;
-    this->free_messages();
 }
 
-void SessionInstance::initialize(uWS::WebSocket<uWS::SERVER> * ws) {
-    this->alive = true;
-    this->ws    = ws;
+void SessionInstance::set(uWS::WebSocket<uWS::SERVER> * ws) {
+    this->ws = ws;
     this->ws->setUserData(this);
-}
-
-void SessionInstance::kill() {
-    this->alive                           = false;
-    this->session_established             = false;
-    this->number_of_invalid_requests_made = 0;
-    this->user_instance->kill();
-    this->free_messages();
-}
-
-bool SessionInstance::is_alive() {
-    return this->alive;
 }
 
 unsigned short SessionInstance::get_user_id() {
@@ -46,13 +53,6 @@ unsigned short SessionInstance::get_id() {
 void SessionInstance::on_connection() {
     MessageInstance * request = this->get_message_instance(WS_TYPE_ESTABLISH_SESSION);
     request->send();
-
-    printf("Sent on connection message!\n");
-    fflush(stdout);
-}
-
-void SessionInstance::send_reply(const char * message, size_t length) {
-    this->finish_message_instance(message[0], message[1]);
 }
 
 void SessionInstance::forward_message(const char * buffer, size_t length) {
@@ -75,103 +75,102 @@ void SessionInstance::handle_response(char * buffer, size_t length) {
 
     if (message_type % 2 == 0) {
         printf("Sending reply!\n");
-        this->finish_message_instance(message_type, message_id);
+        this->finish_message_instance(message_id);
     } else {
         if (message_type == WS_TYPE_GLOBAL_CHAT) {
 
             char * message = & buffer[8];
 
+            char mm[length + 1 - 8];
+            for (int m = 0; m < length - 8; m++) {
+                mm[m] = buffer[m + 8];
+            }
+            mm[length + 1 - 8] = EOF;
+
+            //char * message = buffer;
+
+            //std::string temp_str(message);
+            std::string temp_str(mm);
+
+            std::cout << "The message to send is {" << temp_str << "}\n";
+            printf("The message length is  {%d}\n", std::strlen(temp_str.c_str()));
+
+            /*
             size_t l = length - 8;
             if (l % 2 != 0) {
                 l -= 1;
-            }
+            }*/
 
-            //printf("The message {%s}\n", message);
 
             this->send_server_string("TODO: forward global chat!", std::strlen("TODO: forward global chat!"));
-            std::string global_chat_message = "[" + std::to_string(session_id) + "]: " + std::string(message);
-            this->send_server_string(global_chat_message.c_str(), l);
-            //"Session established!", std::strlen("Session established!")
+
+            //std::string global_chat_message = "[" + std::to_string(session_id) + "]: " + std::string(message);
+            std::string global_chat_message = "[" + std::to_string(session_id) + "]: " + temp_str;
+
+            //this->send_server_string(global_chat_message.c_str(), l);
+            this->send_server_string(global_chat_message.c_str(), std::strlen(global_chat_message.c_str()));
+
+            std::cout << "The message to send is {" << global_chat_message << "}\n";
+            printf("The message length is  {%d}\n", std::strlen(global_chat_message.c_str()));
+
         }
     }
 
-    //if (message_type % 2 != 0) {
-    //    this->finish_message_instance(message_type, message_id);
-    //} else {
         //if (message_type == WS_TYPE_GLOBAL_CHAT) {
             // this->session_instance->broadcast_message(message, length, this->session_instance()->get_id());
         //}
 
-    //}
-
     // TODO: Verify session ID matches!
-
-    /*
-    if (message[0] & 1 == 0) {
-        session->on_reply(message, length);
-    } else {
-        if (message[0] == WS_TYPE_GLOBAL_CHAT) {
-            this->broadcast_message(message, length, session->get_id());
-        }
-        session->send_reply(message, length);
-    }
-    */
 
     //this->rabbitmq->forward_message(message, length);
 }
 
-/*__   __              ___  ___
- |__) |__) | \  /  /\   |  |__
- |    |  \ |  \/  /~~\  |  |___*/
+void SessionInstance::set_session_to_established() {
+    this->session_established = true;
+}
+
 void SessionInstance::send_server_string(const char * text, size_t length) {
     MessageInstance * request = this->get_message_instance(WS_TYPE_SERVER_MESSAGE);
     request->add_text(text, length);
     request->send_without_response_needed();
 }
 
-void SessionInstance::finish_message_instance(const unsigned short message_type, const unsigned short message_id) {
-    for (int m = 0; m < this->request_buffer.size(); m++) {
-        if (this->request_buffer[m]->get_id() == message_id && this->request_buffer[m]->is_alive()) {
-            this->request_buffer[m]->finish();
-            if (message_type == WS_TYPE_ESTABLISH_SESSION) {
-                this->session_established = true;
-                this->send_server_string("Session established!", std::strlen("Session established!"));
+void SessionInstance::send_server_string(std::string text) {
+    this->send_server_string(text.c_str(), std::strlen(text.c_str()));
+}
+
+/*__   __              ___  ___
+ |__) |__) | \  /  /\   |  |__
+ |    |  \ |  \/  /~~\  |  |___*/
+void SessionInstance::finish_message_instance(const unsigned short message_id) {
+    int               pool_size        = this->get_pool_size();
+    MessageInstance * message_instance = NULL;
+    for (int m = 0; m < pool_size; m++) {
+
+        message_instance = (MessageInstance *) this->pool[m];
+
+        if (message_instance->get_id() == message_id && message_instance->is_alive()) {
+            if (message_instance->get_id() != WS_ID_INVALID) {
+                this->pool_complete_entity((void *) message_instance);
+            } else {
+                message_instance->complete();
             }
             break;
         }
+        /*
+        if (this->pool[m]->get_id() == message_id && this->pool[m]->is_alive()) {
+            if (this->pool[m]->get_id() != WS_ID_INVALID) {
+                this->pool_complete_entity((void *) this->pool[m]);
+            } else {
+                this->pool[m]->complete();
+            }
+            break;
+        }*/
     }
-}
-
-void SessionInstance::send_binary(const char * message, size_t length) {
-    //printf("Sending binary message!\n");
-    this->ws->send(message, length, uWS::OpCode::BINARY); //uWS::OpCode::TEXT
 }
 
 MessageInstance * SessionInstance::get_message_instance(const unsigned short message_type) {
-    // First check if any message instance is dead.
-    if (this->request_buffer.size() > this->number_of_alive_requests) {
-        for (int r = 0; r < this->request_buffer.size(); r++) {
-            if (!this->request_buffer[r]->is_alive()) {
-                this->request_buffer[r]->set(message_type);
-                return this->request_buffer[r];
-            }
-        }
-    }
-
-    printf("Creating new message instance object!\n");
-
-    // No dead messages so return a new one.
-    MessageInstance * message_instance = new MessageInstance((unsigned short) this->request_buffer.size(), this);
+    MessageInstance * message_instance = (MessageInstance *) this->get_pool_entity();
     message_instance->set(message_type);
-    this->request_buffer.push_back(message_instance);
     return message_instance;
-}
-
-void SessionInstance::free_messages() {
-    if (this->request_buffer.size() > 0) {
-        for (int r = 0; r < this->request_buffer.size(); r++) {
-            delete this->request_buffer[r];
-        }
-        this->request_buffer.clear();
-    }
 }

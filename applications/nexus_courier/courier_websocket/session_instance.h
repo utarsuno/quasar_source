@@ -5,38 +5,42 @@
 
 class UserInstance;
 class MessageInstance;
+class MemoryPoolObject;
+class MemoryPool;
 
-class SessionInstance {
+class SessionInstance : public MemoryPoolObject, MemoryPool {
     public:
+        void * get_and_create_new_entity_object();
+        void on_born();
+        void on_killed();
+        void on_completion();
         // OOP
         SessionInstance(unsigned short id);
         ~SessionInstance();
-        void           initialize(uWS::WebSocket<uWS::SERVER> * ws);
+        void           set(uWS::WebSocket<uWS::SERVER> * ws);
         void           kill();
         void           on_connection();
-        void           send_reply(const char * buffer, size_t length);
         // Functionality
+        void           send_server_string(const char * text, size_t length);
+        void           send_server_string(std::string text);
         void           handle_response(char * message, size_t length);
         void           forward_message(const char * buffer, size_t length);
         void           send_with_confirmation(const unsigned char message_type, const char * buffer, size_t length);
+        // Setters
+        void           set_session_to_established();
         // Getters
         unsigned short get_id();
         unsigned short get_user_id();
-        bool           is_alive();
     private:
-        bool                             alive;
-        bool                             session_established;
-        unsigned int                     number_of_invalid_requests_made;
-        uWS::WebSocket<uWS::SERVER>    * ws;
-        unsigned short                   id;
-        UserInstance                   * user_instance;
-        std::vector<MessageInstance *>   request_buffer;
-        unsigned short                   number_of_alive_requests;
-        void                             send_binary(const char * content, size_t length);
-        void                             send_server_string(const char * text, size_t length);
-        void                             finish_message_instance(const unsigned short message_type, const unsigned short message_id);
-        void                             free_messages();
-        MessageInstance                * get_message_instance(const unsigned short message_type);
+        // Fields
+        bool                          session_established;
+        unsigned int                  number_of_invalid_requests_made;
+        uWS::WebSocket<uWS::SERVER> * ws;
+        unsigned short                id;
+        UserInstance                * user_instance;
+        // Functionality
+        void                          finish_message_instance(const unsigned short message_id);
+        MessageInstance             * get_message_instance(const unsigned short message_type);
 };
 
 #endif

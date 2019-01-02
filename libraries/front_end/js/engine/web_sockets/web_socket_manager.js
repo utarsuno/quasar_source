@@ -193,8 +193,6 @@ $_QE.prototype.WebSocketManager = function(engine) {
             message[1]    = buffer_id;
             message[2]    = self.session_id;
             message[3]    = self.user_id;
-            //message[2]    = this.session_values[WS_ID_SESSION];
-            //message[3]    = this.session_values[WS_ID_USER];
             let b;
             for (b = 0; b < content.length; b++) {
                 message[b + 4] = content[b];
@@ -238,6 +236,10 @@ $_QE.prototype.WebSocketManager = function(engine) {
             let user_id      = data.getInt16(3);
             */
 
+            // TODO:
+            let headers = new Uint8Array(message.data.slice(0, 8));
+            //let data_raw = new
+
             let data         = new Uint16Array(message.data);
             let message_type = data[0];
             let message_id   = data[1];
@@ -248,7 +250,6 @@ $_QE.prototype.WebSocketManager = function(engine) {
             self.main._on_network_log(data);
 
             if (message_type == WS_TYPE_ESTABLISH_SESSION) {
-                //self.session_values[WS_ID_SESSION] = session_id;
                 self.session_id = session_id;
                 self._send_reply(message_type, message_id);
             } else if (message_type == WS_TYPE_SERVER_MESSAGE) {

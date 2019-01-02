@@ -26,14 +26,18 @@
 #define EXIT_CODE_FAILED                 199
 #define EXIT_CODE_PORT_ERROR             198
 #define EXIT_CODE_INVALID_MESSAGE_HEADER 197
+#define EXIT_CODE_REALLOC_FAILED         196
 //
-#define WS_ID_INVALID     1337
+#define WS_ID_INVALID 1337
+//
+#define NETWORK_MESSAGE_HEADER_SIZE                   8
+#define MEMORY_DEFAULT_ALLOCATION_SIZE_MESSAGE_BUFFER 32
 //
 // Current message sizes.
-// message_type --> 1 byte
-// message_id   --> 2 byte
-// session_id   --> 2 byte
-// user_id      --> 2 byte
+// message_type --> 2 bytes
+// message_id   --> 2 bytes
+// session_id   --> 2 bytes
+// user_id      --> 2 bytes
 // data_header  --> 2 bytes
 // data         --> n bytes
 //
@@ -48,33 +52,143 @@
 #define WS_DATA_KEY_INT           0
 #define WS_DATA_KEY_TEXT          1
 
-/*
-// Function from : https://stackoverflow.com/questions/1489830/efficient-way-to-determine-number-of-digits-in-an-integer
-template <class T>
-int number_of_digits(T number)
-{
-    int digits = 0;
-    if (number < 0) digits = 1; // remove this line if '-' counts as a digit
-    while (number) {
-        number /= 10;
-        digits++;
+class MemoryPoolObject {
+public:
+    // OOP
+    MemoryPoolObject() {
+        this->alive     = false;
+        this->completed = false;
     }
-    return digits;
-}
-*/
 
-/*
-struct NetworkMessage {
-    unsigned short id_message_type;
-    unsigned short id_message;
-    unsigned short id_session;
-    unsigned short id_user;
-    char         * buffer;
-    unsigned int   buffer_length;
+    // Events.
+    virtual void on_born() = 0;
+    virtual void on_killed() = 0;
+    virtual void on_completion() = 0;
+
+    // Functionality
+    void set_to_alive() {
+        this->alive     = true;
+        this->completed = false;
+        this->on_born();
+    }
+
+    // TODO: Change naming to kill
+    void kill() {
+        this->alive     = false;
+        this->completed = false;
+        this->on_killed();
+    }
+
+    void complete() {
+        this->completed = true;
+        this->on_completion();
+        this->kill();
+    }
+
+    // Getters
+    bool is_alive() {
+        return this->alive;
+    }
+
+    bool is_completed() {
+        return this->completed;
+    }
+private:
+    bool alive;
+    bool completed;
 };
-*/
+//
+
+//
+class MemoryPool {
+public:
+    // OOP
+    MemoryPool() {
+        this->number_alive = 0;
+        this->pool_size    = 0;
+    }
+
+    ~MemoryPool() {
+        this->pool_delete();
+    }
+
+    // Functionality
+    void * get_pool_entity() {
+        // Check if any entity is alive.
+        if (this->pool.size() > this->number_alive) {
+            int pool_size = this->pool.size();
+            for (int e = 0; e < pool_size; e++) {
+                if (!this->pool[e]->is_alive()) {
+                    this->pool[e]->set_to_alive();
+                    this->number_alive++;
+                    return this->pool[e];
+                }
+            }
+        }
+
+        // If this point is reached, then allocate memory for a new entity.
+        MemoryPoolObject * entity = (MemoryPoolObject *) this->get_and_create_new_entity_object();
+        entity->set_to_alive();
+        this->number_alive++;
+        this->pool_size++;
+        this->pool.push_back(entity);
+        return entity;
+    }
+
+    void pool_clear_entity(void * entity) {
+        this->number_alive--;
+        ((MemoryPoolObject *) entity)->kill();
+    }
+
+    void pool_complete_entity(void * entity) {
+        this->number_alive--;
+        ((MemoryPoolObject *) entity)->complete();
+    }
+
+    void pool_clear_all() {
+        this->number_alive = 0;
+        if (this->pool_size > 0) {
+            for (int e = 0; e < this->pool_size; e++) {
+                if (this->pool[e]->is_alive()) {
+                    this->pool[e]->kill();
+                }
+            }
+        }
+    }
+
+    void pool_delete() {
+        this->pool_clear_all();
+        this->pool_size = 0;
+        // Clear will take the following two steps:
+        // 1) Call de-constructor for each entity.
+        // 2) Set vector length to 0.
+        this->pool.clear();
+        // Just a suggestion to help run-time memory.
+        this->pool.shrink_to_fit();
+    }
+
+    // Getters
+    virtual void * get_and_create_new_entity_object() = 0;
+
+    unsigned int get_pool_size_active() {
+        return this->number_alive;
+    }
+
+    unsigned int get_pool_size() {
+        //return (unsigned int) this->pool.size();
+        return this->pool_size;
+    }
+
+    std::vector<MemoryPoolObject *> pool;
+private:
+    unsigned int number_alive;
+    unsigned int pool_size;
+
+};
 
 // Custom
+
+//
 #include "message_instance.h"
 #include "session_instance.h"
 #include "user_instance.h"

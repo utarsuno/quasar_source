@@ -5,11 +5,13 @@
 
 class SessionInstance;
 class CourierRabbitMQ;
+class MemoryPool;
 
 // "All event handlers are attached to a group and all sockets belong to exactly one group."
 
-class CourierWebsocket {
+class CourierWebsocket : public MemoryPool {
 public:
+    void * get_and_create_new_entity_object();
     // OOP / Init
     CourierWebsocket(const unsigned int port_to_listen_on, const bool debug_on);
     ~CourierWebsocket();
@@ -26,7 +28,6 @@ private:
     void run_websockets();
 
     std::vector<SessionInstance *> sessions;
-    unsigned char number_of_connected_sessions;
     SessionInstance * get_session_instance(uWS::WebSocket<uWS::SERVER> * ws);
 
     void on_connection(uWS::WebSocket<uWS::SERVER> *ws);

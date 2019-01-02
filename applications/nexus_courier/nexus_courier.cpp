@@ -56,10 +56,12 @@ int main(int argc, char * argv[]) {
         const unsigned int websocket_port = (unsigned int) atoi(std::getenv(NC_ARG_WEBSOCKET_PORT));
         const bool         debug_on       = (strcmp(std::getenv(NC_ARG_DEBUG_ON), "true")) == 0;
 
-        //printf("The websocket to use is {%d}\n", websocket_port);
-        //printf("Debug is on {%d}\n", (int) debug_on);
-        //printf("THE HOST IS {%s}\n", std::getenv("NC_ARG_RABBIT_HOST"));
-        //printf("THE QUEUE IS {%s}\n", std::getenv("NC_ARG_RABBIT_QUEUE"));
+        if (debug_on) {
+            printf("The websocket to use is {%d}\n", websocket_port);
+            printf("Debug is on {%d}\n", (int) debug_on);
+            printf("THE HOST IS {%s}\n", std::getenv(NC_ARG_RABBIT_HOST));
+            printf("THE QUEUE IS {%s}\n", std::getenv(NC_ARG_RABBIT_QUEUE));
+        }
 
         NexusCourier * nexus_courier = new NexusCourier(debug_on, websocket_port, std::getenv(NC_ARG_RABBIT_HOST), std::getenv(NC_ARG_RABBIT_QUEUE));
         nexus_courier->run_all_threads();
