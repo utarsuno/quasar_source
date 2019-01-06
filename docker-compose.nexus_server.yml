@@ -95,8 +95,8 @@ services:
 
 networks:
   default:
-    external:
-      name: nexus_network
+    external: true
+    name: nexus_network
 
 volumes:
   nexus_volume:
