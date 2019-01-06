@@ -78,16 +78,17 @@ http {
         root /;
 
         # Internal Docker DNS, cache only for 30s.
-        resolver 127.0.0.11 valid=30s;
+        # TODO: might not need this?
+        #resolver 127.0.0.11 valid=30s;
         ###
 
         #rewrite ^(.*)/$ $1/nl.min.html.gz;
 
-        #location /ws {
-        #    return 302 /ws/;
-        #}
-
         location /ws {
+            return 302 /ws/;
+        }
+
+        location /ws/ {
             #
             #set $upstream http://service-websocket;
             set $upstream nexus_courier:3001;
