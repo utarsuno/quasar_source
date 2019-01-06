@@ -9,8 +9,6 @@ worker_processes     auto;
 worker_rlimit_nofile 1048575;
 # Enable just-in-time compilation.
 pcre_jit             on;
-# Since 'reuseport' is being used, 'accept_mutex' should be set off.
-accept_mutex         off;
 #-------------------------------------------------------------------------------------------------------------------------
 events {
     # Max clients = 1024 * worker_processes
@@ -19,6 +17,8 @@ events {
     use                epoll;
     # Accept as many connections as possible, can flood worker connections if set too low.
     multi_accept       on;
+    # Since 'reuseport' is being used, 'accept_mutex' should be set off.
+    accept_mutex       off;
 }
 #-------------------------------------------------------------------------------------------------------------------------
 http {
