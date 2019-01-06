@@ -20,8 +20,6 @@ services:
       - "3000:3000"
     volumes:
       - nexus_volume:/v
-    networks:
-      - nexus_network
 
   # Manages automated jobs, builds, etc.
   jenkins:
@@ -36,8 +34,6 @@ services:
     volumes:
       - jenkins-log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
-    networks:
-      - nexus_network
 
   # RabbitMQ broker.
   rabbit_manager:
@@ -58,8 +54,6 @@ services:
       - "5672:5672"
       - "15672:15672"
       - "25672:25672"
-    networks:
-      - nexus_network
 
   # MySQL server, no custom logic attached, just the stand-alone server.
   mysql_server:
@@ -90,13 +84,11 @@ services:
     #  - ./applications/mysql_server/import.sh:/tmp/import.sh
     ports:
       - "3306:3306"
-    networks:
-      - nexus_network
 
 networks:
   default:
-    external: true
-    name: nexus_network
+    external:
+      name: nexus_network
 
 volumes:
   nexus_volume:
