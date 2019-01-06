@@ -152,4 +152,6 @@ RUN apk add --no-cache bash \
 
 STOPSIGNAL SIGTERM
 
-CMD ["nginx", "-g", "daemon off;"]
+# TODO: Daemon off is now set in the NGINX file. Delete this comment if confirmed working.
+#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx"]

@@ -44,6 +44,21 @@ module.exports = {
         "EMOJI_SLEEPING": false,
         "EMOJI_NERD"    : false,
 
+        // Network. ---------------------------------------------------------------------------------
+        "HEADER_INDEX_TYPE"            : false,
+        "HEADER_INDEX_MID"             : false,
+        "HEADER_INDEX_SID"             : false,
+        "HEADER_INDEX_UID"             : false,
+        "POOL_TYPE_SENT"               : false,
+        "POOL_TYPE_RECEIVED"           : false,
+        "WS_ID_INVALID"                : false,
+        "WS_TYPE_MESSAGE_BUNDLE"       : false,
+        "WS_TYPE_ESTABLISH_SESSION"    : false,
+        "WS_TYPE_SERVER_MESSAGE"       : false,
+        "WS_TYPE_GLOBAL_CHAT"          : false,
+        "WS_TYPE_GET_ALL_NETWORK_STATS": false,
+        "WS_TYPE_GET_NUM_SESSIONS"     : false,
+
         // Engine cache. ----------------------------------------------------------------------------
         //    {integers}
         "QECACHEI_WIDTH_INNER"         : false,

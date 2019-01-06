@@ -1,182 +1,171 @@
 'use strict';
 
 $_QE.prototype.WebSocketManager = function(engine) {
-    this._engine = engine;
-    this._engine.flag_set_off(QEFLAG_STATE_WEB_SOCKET_CONNECTED);
-
-    // TODO: Organize/optimize
-    this.check_endian = function() {
-        // From : https://stackoverflow.com/questions/7869752/javascript-typed-arrays-and-endianness
-        let arrayBuffer = new ArrayBuffer(2);
-        let uint8Array  = new Uint8Array(arrayBuffer);
-        let uint16array = new Uint16Array(arrayBuffer);
-        uint8Array[0]   = 0xAA; // set first byte
-        uint8Array[1]   = 0xBB; // set second byte
-        if (uint16array[0] === 0xBBAA) {
-            return true;
-        }
-        if(uint16array[0] === 0xAABB) {
-            return false;
-        }
-    };
-
-    if (!this.check_endian()) {
-        QE.log_error('Client is not little endian. TODO: handle big endian!');
-    }
+    this.__init__(engine);
 
     let worker_web_socket_connection = function() {
         'use strict';
 
-        let self            = this;
-        //this.session_values = new Uint8Array(2);
+        let MessageInstance = function() {
+            this.alive          = false;
+            // |2 bytes     |2 bytes   |2 bytes   |2 bytes|4 bytes        |
+            // |message_type|message_id|session_id|user_id|unix_time_stamp|
+            this.header          = new Uint16Array(4);
+            this.time_stamp      = new Uint32Array(1);
+            this.data_length_max = 10;
+            this.data_length     = 0;
+            this.data            = new Uint8Array(this.data_length_max);
+        };
 
-        this.session_id     = 1337;
-        this.user_id        = 1337;
-        this.buffer         = [];
-        this.encoder        = new TextEncoder();
-        this.decoder        = new TextDecoder();
+        MessageInstance.prototype = {
+            _set_packet_size_in_header: function(packet, packet_size) {
+                let header = new Uint16Array(1);
+                header[0]  = packet_size;
+                packet[0]  = header.buffer[0];
+                packet[1]  = header.buffer[1];
+            },
+            _copy_bytes_from_to: function(from, from_start, to, to_start, number_of_bytes) {
+                let b;
+                for (b = 0; b < number_of_bytes; b++) {
+                    to[to_start + b] = from[from_start + b];
+                }
+            },
+            add_packet_text: function(text) {
+                let t           = self.encoder.encode(text).buffer;
+                let packet      = new Uint8Array(2 + t.byteLength);
+                this._set_packet_size_in_header(packet, t.byteLength);
+                this._copy_bytes_from_to(t, 0, packet, 2, 2);
+                this._add_packet(packet, 2 + t.byteLength);
+            },
+            _add_packet: function(buffer_data, buffer_length) {
+                // TODO: Eventually optimize (no while loop too lol).
+                while (this.data_length + buffer_length >= this.data_length_max) {
+                    this.data_length_max *= 2;
+                    let new_data = new Uint8Array(this.data_length_max);
+                    this._copy_bytes_from_to(this.data, 0, new_data, 0, this.data_length);
+                    this.data = new_data;
+                }
+                this._copy_bytes_from_to(buffer_data, 0, this.data, this.data_length, buffer_length);
+                this.data_length += buffer_length;
+            },
+            set_type: function(type) {
+                this.header[HEADER_INDEX_TYPE] = type;
+            },
+            set_to_alive: function() {
+                this.alive = true;
+            },
+            kill: function() {
+                this.alive = false;
+            }
+        };
 
+        let MessageSendInstance = function() {
+            MessageInstance.call(this);
+        };
 
-        /*    ___          ___    ___  __
-         |  |  |  | |    |  |  | |__  /__`
-         \__/  |  | |___ |  |  | |___ .__/ */
-
-        /* utf.js - UTF-8 <=> UTF-16 convertion
-         *
-         * Copyright (C) 1999 Masanao Izumo <iz@onicos.co.jp>
-         * Version: 1.0
-         * LastModified: Dec 25 1999
-         * This library is free.  You can redistribute it and/or modify it.
-         */
-        this.Utf8ArrayToStr = function(array) {
-            var out, i, len, c;
-            var char2, char3;
-
-            out = '';
-            len = array.length;
-            i = 0;
-            while (i < len) {
-                c = array[i++];
-                switch (c >> 4)
-                {
-                case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
-                // 0xxxxxxx
-                    out += String.fromCharCode(c);
-                    break;
-                case 12: case 13:
-                // 110x xxxx   10xx xxxx
-                    char2 = array[i++];
-                    out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
-                    break;
-                case 14:
-                // 1110 xxxx  10xx xxxx  10xx xxxx
-                    char2 = array[i++];
-                    char3 = array[i++];
-                    out += String.fromCharCode(((c & 0x0F) << 12) |
-                                           ((char2 & 0x3F) << 6) |
-                                           ((char3 & 0x3F) << 0));
-                    break;
+        Object.assign(
+            MessageSendInstance.prototype,
+            MessageInstance.prototype,
+            {
+                set_data: function(data) {
+                    switch(this.header[HEADER_INDEX_TYPE]) {
+                    case WS_TYPE_GLOBAL_CHAT:
+                        this.add_packet_text(data);
+                        break;
+                    case WS_TYPE_GET_NUM_SESSIONS:
+                        break;
+                    default:
+                        self.main._on_network_log('INVALID DATA TYPE{' + this.header[HEADER_INDEX_TYPE] + '}!');
+                        break;
+                    }
                 }
             }
-            return out;
+        );
+
+        let MessageReceiveInstance = function() {
+            MessageInstance.call(this);
         };
 
-        this._set_outbound_buffer_type_and_id = function(buf, type, mID) {
-            buf[0] = type;
-            buf[1] = (mID >> 24) & 255;
-            buf[2] = (mID >> 16) & 255;
-            buf[3] = (mID >> 8)  & 255;
-            buf[4] = mID         & 255;
-            return buf;
-        };
+        Object.assign(
+            MessageReceiveInstance.prototype,
+            MessageInstance.prototype,
+            {
+                _handle_establish_session: function() {
 
-        this._append_data_header = function(data_type, content) {
-            let offset = 0;
-            let buf;
-            if (data_type == WS_DATA_KEY_TEXT) {
-                // Reserve 32 bits to identify length of the content.
-                // Additional 8 bits for data type header.
-                buf     = new Uint8Array(content.length + 4 + 1);
-                let len = content.length;
-                buf[0]  = data_type;
-                buf[1]  = (len >> 24) & 255;
-                buf[2]  = (len >> 16) & 255;
-                buf[3]  = (len >> 8) & 255;
-                buf[4]  = len & 255;
-                offset  = 5;
-            }
-            let p;
-            for (p = 0; p < content.length; p++) {
-                buf[p + offset] = content[p];
-            }
-            return buf;
-        };
+                },
 
-        /*
-        this._add_to_buffer = function(message_type) {
-            let b;
-            let buf;
-            for (b = 0; b < this.buffer.length; b++) {
-                buf = this.buffer[b];
-                // Is buffer dead? (available to be allocated)
-                if (buf[0] == 0) {
-                    buf[0] = 1;
-                    buf[2] = message_type;
-                    // Return the buffer ID.
-                    return buf[1];
+                handle_response: function(message_data_as_uint8array) {
+                    this._parse_binary_packet_data(message_data_as_uint8array);
+
+                    let message_type = this.header[HEADER_INDEX_TYPE];
+
+                    switch (message_type) {
+                    case WS_TYPE_ESTABLISH_SESSION:
+                        self.main._on_network_log('TODO: Establish message!');
+                        self.session_id = this.header[HEADER_INDEX_SID];
+                        // TODO: Send a reply here!
+                        // self._send_reply(message_type, message_id);
+                        break;
+                    case WS_TYPE_SERVER_MESSAGE:
+                        self.main._on_network_log('TODO: Server message!');
+                        this._parse_data_as_string();
+                        self.main._on_network_log(this.data);
+                        self.main._on_network_log(self.decoder.decode(this.data));
+                        self.main._on_server_message(self.decoder.decode(this.data));
+                        break;
+                    default:
+                        self.main._on_error('Invalid message type of {' + message_type + '}!');
+                        break;
+                    }
+                },
+
+                _parse_binary_packet_data: function(message_data_as_uint8array) {
+                    let packet_length = message_data_as_uint8array.buffer.byteLength;
+                    //if (packet_length < 2 || packet_length == 3 || packet_length == 5 || packet_length == 7 || packet_length
+
+
+
+                    let headers                    = new Uint16Array(message_data_as_uint8array.buffer.slice(0, 8));
+                    this.header[HEADER_INDEX_TYPE] = headers[0];
+                    this.header[HEADER_INDEX_MID]  = headers[1];
+                    this.header[HEADER_INDEX_SID]  = headers[2];
+                    this.header[HEADER_INDEX_UID]  = headers[3];
+                    if (message_data_as_uint8array.byteLength > 8) {
+                        this.data = new Uint8Array(message_data_as_uint8array.buffer.slice(8));
+                    }
+                },
+
+                _parse_data_as_string: function() {
+                    // TODO: Do an error check that there are more bytes than just the headers!
                 }
             }
-            // Add new buffer slot.
-            buf    = new Uint8Array(3);
-            buf[0] = 1;
-            buf[1] = this.buffer.length - 1;
-            buf[2] = message_type;
-            this.buffer.push(buf);
-            return this.buffer.length - 1;
-        };*/
+        );
 
-        this._add_to_buffer = function(message_type) {
-            let b;
-            let buf;
-            for (b = 0; b < this.buffer.length; b++) {
-                buf = this.buffer[b];
-                // Is buffer dead? (available to be allocated)
-                if (buf[0] == 0) {
-                    buf[0] = 1;
-                    buf[2] = message_type;
-                    // Return the buffer ID.
-                    return buf[1];
-                }
-            }
-            // Add new buffer slot.
-            buf    = new Uint16Array(3);
-            buf[0] = 1;
-            buf[1] = this.buffer.length - 1;
-            buf[2] = message_type;
-            this.buffer.push(buf);
-            return this.buffer.length - 1;
+        let MessagePoolManager = function(pool_type) {
+            this._pool_type = pool_type;
+            this.pool       = [];
         };
 
-        this._create_data_packet_string = function(text) {
-            //return this._append_data_header(WS_DATA_KEY_TEXT, this.encoder.encode(text));
-            //return this.encoder.encode(text);
-
-            return new Uint16Array(this.encoder.encode(text).buffer);
-
-            /*
-            let offset = 0;
-            let buf;
-            // Reserve 32 bits to identify length of the content.
-            // Additional 8 bits for data type header.
-            buf     = new Uint8Array(content.length + 4 + 1);
-            let len = content.length;
-            buf[0]  = data_type;
-            buf[1]  = (len >> 24) & 255;
-            buf[2]  = (len >> 16) & 255;
-            buf[3]  = (len >> 8) & 255;
-            buf[4]  = len & 255;
-            offset  = 5;
-            */
+        MessagePoolManager.prototype = {
+            get_pool_object: function() {
+                let i;
+                for (i = 0; i < this.pool.length; i++) {
+                    if (!this.pool[i].alive) {
+                        this.pool[i].alive = true;
+                        return this.pool[i];
+                    }
+                }
+                // No empty pool slots, create a new slot.
+                let slot;
+                if (this._pool_type == POOL_TYPE_SENT) {
+                    slot = new MessageReceiveInstance();
+                } else {
+                    slot = new MessageSendInstance();
+                }
+                slot.alive = true;
+                this.pool.push(slot);
+                return slot;
+            },
         };
 
         /*__   __   ___  __       ___    __        __
@@ -210,55 +199,34 @@ $_QE.prototype.WebSocketManager = function(engine) {
         };
 
         this.send_global_chat = function(message) {
-            //self.socket.send(JSON.stringify(json_data));
-            self._send_message(WS_TYPE_GLOBAL_CHAT, self._create_data_packet_string(message));
+            //self._send_message(WS_TYPE_GLOBAL_CHAT, self._create_data_packet_string(message));
+            let m = self.pool_sent.get_pool_object();
+            m.set_type(WS_TYPE_GLOBAL_CHAT);
+            m.set_data(message);
+            m.send();
         };
-
 
         /*        ___               __  ___
          | |\ | |  |  |  /\  |    |  / |__
          | | \| |  |  | /~~\ |___ | /_ |___*/
+        let self               = this;
+        this.session_id        = WS_ID_INVALID;
+        this.user_id           = WS_ID_INVALID;
+        this.encoder           = new TextEncoder();
+        this.decoder           = new TextDecoder();
+        this.pool_sent         = new MessagePoolManager(POOL_TYPE_SENT);
+        this.pool_received     = new MessagePoolManager(POOL_TYPE_RECEIVED);
         this.socket            = new WebSocket('ws://localhost/ws/');
         this.socket.binaryType = 'arraybuffer';
         this.socket.onmessage  = function(message) {
+            let m = self.pool_received.get_pool_object();
+            m.handle_response(new Uint8Array(message.data));
             /*
-            let m = JSON.parse(message.data);
-            if (m != null) {
-                self.main._on_message(m);
-            }
-            */
-
-            /*
-            let data         = new DataView(message.data);
-            let message_type = data.getInt16(0);
-            let message_id   = data.getInt16(1);
-            let session_id   = data.getInt16(2);
-            let user_id      = data.getInt16(3);
-            */
-
-            // TODO:
-            let headers = new Uint8Array(message.data.slice(0, 8));
-            //let data_raw = new
-
-            let data         = new Uint16Array(message.data);
-            let message_type = data[0];
-            let message_id   = data[1];
-            let session_id   = data[2];
-            let user_id      = data[3];
-
+            self.main._on_network_log('The original data is {' + original_data.toString() + '}');
+            self.main._on_network_log('Got the following headers {' + headers.toString() + '}');
             self.main._on_network_log('Got the following message {' + data.toString() + '}');
             self.main._on_network_log(data);
-
-            if (message_type == WS_TYPE_ESTABLISH_SESSION) {
-                self.session_id = session_id;
-                self._send_reply(message_type, message_id);
-            } else if (message_type == WS_TYPE_SERVER_MESSAGE) {
-                let buffer = data.slice(4);
-                self.main._on_network_log(buffer);
-                self.main._on_network_log(self.decoder.decode(buffer));
-                self.main._on_server_message(self.decoder.decode(buffer));
-            }
-
+            */
         };
         this.socket.onerror = function(error) {
             self.main._on_error(error); //this.encoder.encode(error)
@@ -278,15 +246,26 @@ $_QE.prototype.WebSocketManager = function(engine) {
         }, 3000);
     };
 
+    // Link the main thread to this worker.
     this.thread_web_socket_connection = this._engine.FactoryBridgedWorker(
         worker_web_socket_connection,
+        // Main thread message to worker.
         ['send_global_chat'],
+        // Worker message to main thread.
         ['_on_message', '_on_error', '_on_open', '_on_close', '_on_network_log', '_on_server_message'],
         [this._on_message.bind(this), this._on_error.bind(this), this._on_open.bind(this), this._on_close.bind(this), this._on_network_log.bind(this), this._on_server_message.bind(this)]
     );
 };
 
 $_QE.prototype.WebSocketManager.prototype = {
+
+    __init__: function(engine) {
+        this._engine = engine;
+        this._engine.flag_set_off(QEFLAG_STATE_WEB_SOCKET_CONNECTED);
+        if (!this._check_endian()) {
+            QE.log_error('Client is not little endian. TODO: handle big endian!');
+        }
+    },
 
     update: function(delta) {
 
@@ -333,7 +312,7 @@ $_QE.prototype.WebSocketManager.prototype = {
     },
 
     _send_message: function(json_data) {
-        l('TODO: SEnd message');
+        l('TODO: Send message');
         l(json_data);
         //this.thread_web_socket_connection.send_message(json_data);
     },
@@ -343,4 +322,20 @@ $_QE.prototype.WebSocketManager.prototype = {
 
     },
     //
+
+    // ------------------------------------------------------------------------------------------------------
+    _check_endian: function() {
+        // From : https://stackoverflow.com/questions/7869752/javascript-typed-arrays-and-endianness
+        let arrayBuffer = new ArrayBuffer(2);
+        let uint8Array  = new Uint8Array(arrayBuffer);
+        let uint16array = new Uint16Array(arrayBuffer);
+        uint8Array[0]   = 0xAA; // set first byte
+        uint8Array[1]   = 0xBB; // set second byte
+        if (uint16array[0] === 0xBBAA) {
+            return true;
+        }
+        if(uint16array[0] === 0xAABB) {
+            return false;
+        }
+    }
 };

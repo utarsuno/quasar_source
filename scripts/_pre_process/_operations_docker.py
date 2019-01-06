@@ -8,8 +8,6 @@ from libraries.universal_code.system_abstraction.shell_command_runner import Bas
 from libraries.universal_code import output_coloring as oc
 import sys
 
-
-
 ARG_OPERATION_ENSURE_NETWORK       = 'n'
 ARG_OPERATION_ENSURE_VOLUME        = 'v'
 ARG_OPERATION_CONNECT_TO_CONTAINER = 'c'
@@ -62,7 +60,8 @@ class DockerFeatureVolume(DockerFeature):
 
 	def create_new_feature_instance(self):
 		"""Creates this particular feature."""
-		BashCommandRunner('docker volume create --name ' + self.name).run()
+		#BashCommandRunner('docker volume create --name ' + self.name).run()
+		BashCommandRunner('docker volume create --driver bridge --name ' + self.name).run()
 
 
 class DockerConnectToRunningContainer(object):

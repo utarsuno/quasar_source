@@ -1,0 +1,6 @@
+# Amazing documentation   : https://gist.github.com/denji/8359866
+# More good documentation : https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose
+# Start NGINX without upstream on: https://sandro-keil.de/blog/let-nginx-start-if-upstream-host-is-unavailable-or-down/
+
+
+
