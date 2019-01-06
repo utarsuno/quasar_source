@@ -1,31 +1,28 @@
-#-------------------------------------------------------------------------------------------------------------------------
-# Prevent Docker from thinking this process has stopped.
-daemon off;
-# Set the user to use.
 user nginx;
+
 # Set number of worker processes based off machine's CPU cores.
 worker_processes auto;
+
 # Set number of file descriptors that can be used by NGINX.
 worker_rlimit_nofile 1048575;
-#-------------------------------------------------------------------------------------------------------------------------
+
+#error_log /var/log/nginx/error.log warn;
+#pid       /var/run/nginx.pid;
+
 events {
     # Max clients = 1024 * worker_processes
     worker_connections  1024;
+
     # Optimized for serving many clients for each thread, esspecially for Linux.
     use epoll;
+
     # Accept as many connections as possible, can flood worker connections if set too low.
     multi_accept on;
 }
-#-------------------------------------------------------------------------------------------------------------------------
+
 http {
     include           /etc/nginx/mime.types;
     default_type      application/octet-stream;
-
-    # Needed headers for websockets and jenkins. -------------------------------------------------------------------------
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $host;
-    #---------------------------------------------------------------------------------------------------------------------
 
     # Don't buffer data sent, good for small data bursts in real time.
     tcp_nodelay       on;
@@ -41,21 +38,6 @@ http {
     open_file_cache_min_uses 2;
     open_file_cache_errors on;
     #
-
-    log_format cache_status '[$time_local] "$request"  $upstream_cache_status';
-
-    #access_log logs/cache.log cache_status;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"'
-                      'rt=$request_time uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
-
-    access_log  /v/nginx.log  main;
-    error_log   /v/nginx.errors warn;
-
-    access_log logs/nginx.log main;
-    error_log logs/error.log warn;
 
 
     gzip              off;
@@ -81,6 +63,9 @@ http {
     # allow the server to close connection on non responding client, this will free up memory
     reset_timedout_connection on;
 
+    proxy_cache_path /nginx_cache levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off;
+    proxy_cache_methods GET HEAD;
+
     #upstream service-websocket {
     #    server nexus_courier:3001;
     #}
@@ -91,6 +76,11 @@ http {
         #listen [::]:80 default_server;
         server_name quasarsource.com www.quasarsource.com;
         root /;
+
+        # Internal Docker DNS, cache only for 30s.
+        # TODO: might not need this?
+        #resolver 127.0.0.11 valid=30s;
+        ###
 
         #rewrite ^(.*)/$ $1/nl.min.html.gz;
 
@@ -109,17 +99,24 @@ http {
             #proxy_redirect     default;
             proxy_http_version 1.1;
             proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Host $host;
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header   X-Forwarded-Host $server_name;
             proxy_read_timeout 86400;
         }
 
-        location ^~ /jenkins {
+        location /jenkins {
             #
-            proxy_pass 10.1.3.46:8080;
-            #set $upstream jenkins:8080;
-            #proxy_pass $upstream;
+            #proxy_pass http://10.1.3.46:8080;
+            set $upstream jenkins:8080;
+            proxy_pass $upstream;
             #
+            proxy_set_header Host $host;
             proxy_set_header X-Forwarded_proto http;
+            #
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
             #
             #proxy_max_temp_file_size 0;
@@ -131,6 +128,10 @@ http {
             #proxy_busy_buffers_size    64k;
             #proxy_temp_file_write_size 64k;
             #
+
+            default_type application/octet-stream;
+
+            sendfile on;
 
             keepalive_timeout 65;
 
@@ -154,6 +155,18 @@ http {
         }
 
         location /v/ {
+            # https://www.nginx.com/blog/nginx-caching-guide/
+            proxy_cache my_cache;
+            #proxy_pass http://my_upstream;
+            proxy_cache_revalidate on;
+            proxy_cache_min_uses 1;
+            proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+            proxy_cache_background_update on;
+            proxy_cache_lock on;
+            proxy_cache_valid 200 302 10m;
+            proxy_cache_valid 404      1m;
+            #add_header X-Cache-Status $upstream_cache_status;
+
             proxy_ignore_headers Set-Cookie;
             proxy_hide_header Set-Cookie;
 
@@ -165,6 +178,12 @@ http {
         }
 
         location / {
+            proxy_cache my_cache;
+            proxy_cache_revalidate on;
+            proxy_cache_min_uses 1;
+            proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+            proxy_cache_background_update on;
+            #proxy_cache_lock on;
             add_header X-Cache-Status $upstream_cache_status;
 
             index nl.min.html;
@@ -173,5 +192,32 @@ http {
 
     }
 
-    include /etc/nginx/conf.d/*.conf;
+    #server {
+    #    listen 3001;
+    #    location / {
+    #        proxy_pass http://service-websocket;
+    #        proxy_redirect off;
+    #        proxy_http_version 1.1;
+    #        proxy_set_header Upgrade $http_upgrade;
+    #        proxy_set_header Host $host;
+    #        proxy_set_header X-Real-IP $remote_addr;
+    #        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #        proxy_set_header X-Forwarded-Host $server_name;
+    #    }
+    #}
+
+    log_format cache_status '[$time_local] "$request"  $upstream_cache_status';
+    #access_log logs/cache.log cache_status;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"'
+                      'rt=$request_time uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
+
+    access_log  /v/nginx.log  main;
+    error_log   /v/nginx.errors warn;
+
+    #error_log logs/error.log warn;
+    #include /etc/nginx/conf.d/*.conf;
+
 }
