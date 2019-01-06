@@ -14,7 +14,6 @@ services:
     environment:
       _SERVICE_NAME: "nginx"
     #container_name: nginx
-    tty: true
     ports:
       - "80:80"
       - "3000:3000"
