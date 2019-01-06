@@ -70,10 +70,9 @@ http {
     proxy_cache_path /nginx_cache levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off;
     proxy_cache_methods GET HEAD;
 
-    upstream service-websocket {
-        #server websocket:3001;
-        server nexus_courier:3001;
-    }
+    #upstream service-websocket {
+    #    server nexus_courier:3001;
+    #}
 
     server {
         #listen 80 default_server;
@@ -88,13 +87,14 @@ http {
 
         #rewrite ^(.*)/$ $1/nl.min.html.gz;
 
-        location /ws {
-            return 302 /ws/;
-        }
+        #location /ws {
+        #    return 302 /ws/;
+        #}
 
-        location /ws/ {
+        location /ws {
             #
-            set $upstream http://service-websocket;
+            #set $upstream http://service-websocket;
+            set $upstream nexus_courier:3001;
             #
             #proxy_pass         http://service-websocket;
             proxy_pass         $upstream;
