@@ -54,7 +54,7 @@ http {
     access_log  /v/nginx.log  main;
     error_log   /v/nginx.errors warn;
 
-    access_log logs/nginx.log main;
+    access_log logs/access.log main;
     error_log logs/error.log warn;
 
 
