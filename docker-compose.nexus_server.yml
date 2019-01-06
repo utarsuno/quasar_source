@@ -101,3 +101,8 @@ networks:
 volumes:
   nexus_volume:
     external: true
+  jenkins-log:
+    external: true
+  jenkins-data:
+    external: true
+
