@@ -33,7 +33,7 @@ class DockerFeature(object):
 
 	def is_feature_alive(self):
 		"""Checks if the feature is alive."""
-		success, details = BashCommandRunner('docker ' + self.feature_type + ' inspect ' + self.name, require_input = True).run()
+		success, details = BashCommandRunner('docker ' + self.feature_type + ' inspect ' + self.name, require_input=True).run()
 		return success
 
 	def create_new_feature_instance(self):
@@ -60,8 +60,8 @@ class DockerFeatureVolume(DockerFeature):
 
 	def create_new_feature_instance(self):
 		"""Creates this particular feature."""
-		#BashCommandRunner('docker volume create --name ' + self.name).run()
-		BashCommandRunner('docker volume create --driver bridge --name ' + self.name).run()
+		BashCommandRunner('docker volume create --name ' + self.name).run()
+		#BashCommandRunner('docker volume create --driver bridge --name ' + self.name).run()
 
 
 class DockerConnectToRunningContainer(object):

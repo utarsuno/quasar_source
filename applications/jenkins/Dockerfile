@@ -22,7 +22,8 @@ RUN /usr/local/bin/install-plugins.sh performance
 # TODO: Investigate later.
 #RUN /usr/local/bin/install-plugins.sh kubernetes
 
-COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
+#COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
+COPY ./applications/jenkins/executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
 
 USER root
 # Update then install Maven.
