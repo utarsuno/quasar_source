@@ -31,6 +31,7 @@ services:
       _SERVICE_NAME: "jenkins"
       JAVA_OPTS: "-Xmx3072m" # 3GB memory.
       JENKINS_OPTS: "--logfile=/var/log/jenkins/jenkins.log"
+    tty: true
     volumes:
       - jenkins-log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
