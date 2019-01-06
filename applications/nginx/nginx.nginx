@@ -6,7 +6,7 @@ worker_processes auto;
 # Set number of file descriptors that can be used by NGINX.
 worker_rlimit_nofile 1048575;
 
-#error_log /var/log/nginx/error.log warn;
+error_log /var/log/nginx/error.log warn;
 #pid       /var/run/nginx.pid;
 
 events {
@@ -213,7 +213,7 @@ http {
                       '"$http_user_agent" "$http_x_forwarded_for"'
                       'rt=$request_time uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
 
-    #access_log  /v/nginx.log  main;
+    access_log  /v/nginx.log  main;
 
     #error_log logs/error.log warn;
     #include /etc/nginx/conf.d/*.conf;
