@@ -6,7 +6,7 @@ worker_processes auto;
 # Set number of file descriptors that can be used by NGINX.
 worker_rlimit_nofile 1048575;
 
-error_log /var/log/nginx/error.log warn;
+#error_log /var/log/nginx/error.log warn;
 #pid       /var/run/nginx.pid;
 
 events {
