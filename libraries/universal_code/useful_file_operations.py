@@ -17,7 +17,7 @@ import glob
 # Needed for calculating the md5_checksum of files.
 import hashlib
 # Needed for running shell commands.
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.universal_code.system_abstraction import bash_interactive as bash
 # Needed for utility debugging calls. Such as termination on error with exception thrown.
 from libraries.universal_code import debugging as dbg
 # Used for copying files and other operations such as deleting directories.
@@ -138,7 +138,7 @@ def file_op_copy(path_source: str, path_destination: str) -> None:
 
 def file_op_create_gzip(path_source: str, path_destination=None) -> None:
 	"""Creates a gzipped version of the file."""
-	bash_command = BashCommandRunner(['gzip', '-f', '-k', '-9', path_source])
+	bash_command = bash.BashCommandRunner(['gzip', '-f', '-k', '-9', path_source])
 	bash_command.run()
 	if path_destination is not None:
 		os.rename(path_source + '.gz', path_destination)

@@ -4,12 +4,7 @@
 
 from libraries.universal_code.system_abstraction import bash_interactive as bi
 from libraries.universal_code import output_coloring as oc
-
 from libraries.universal_code.system_abstraction.python_shell_script import PythonShellScript
-
-ARG_CLEAN_GIT = 'c'
-ARG_NO_CHANGE = 'n'
-ARG_PUSH_CODE = 'p'
 
 
 class RemovedIgnoredButStagedFiles(bi.BashInteractive):
@@ -18,7 +13,8 @@ class RemovedIgnoredButStagedFiles(bi.BashInteractive):
 	def __init__(self):
 		super().__init__()
 
-		files_to_remove = self.get_bash_output_as_lines(['git', 'ls-files', '--ignored', '--exclude-standard'])
+		files_to_remove = bi.BashCommandRunner(['git', 'ls-files', '--ignored', '--exclude-standard']).run(get_as_lines=True)
+
 		if len(files_to_remove) == 0:
 			oc.print_green('GIT files clean c:')
 		else:
@@ -31,7 +27,7 @@ class RemovedIgnoredButStagedFiles(bi.BashInteractive):
 			output = p.run()
 			if output:
 				oc.print_data_with_red_dashes_at_start('un-staging file')
-				o = self.get_bash_output(['git', 'rm', '-r', '--cached', str(p)])
+				bi.BashCommandRunner(['git', 'rm', '-r', '--cached', str(p)]).run()
 
 
 class PushLatestChanges(bi.BashPromptInput):
@@ -42,10 +38,10 @@ class PushLatestChanges(bi.BashPromptInput):
 
 		user_input = self.run()
 
-		push_changes = bi.BashInteractive()
-		o = push_changes.get_bash_output(['git', 'add', '.'])
-		o = push_changes.get_bash_output(['git', 'commit', '-m', '"' + user_input + '"'])
-		o = push_changes.get_bash_output(['git', 'push'])
+		bi.BashCommandRunner(['git', 'add', '.']).\
+			add_command_to_run(['git', 'commit', '-m', '"' + user_input + '"']).\
+			add_command_to_run(['git', 'push']).run()
+
 		oc.print_green('Changes pushed!')
 
 
@@ -54,9 +50,9 @@ class GITOperations(PythonShellScript):
 
 	def __init__(self):
 		super().__init__()
-		self.add_argument_and_respective_procedure(ARG_PUSH_CODE, 'Pushes the latest local code changes (on current branch).', False, self._push_latest_changes)
-		self.add_argument_and_respective_procedure(ARG_CLEAN_GIT, 'Checks if there needs to be any files cleaned up from a git perspective.', False, self._remove_ignored_but_staged_files)
-		self.add_argument_and_respective_procedure(ARG_NO_CHANGE, 'Inform the user that there are no code changes present to push.', False, self._no_changes_to_push)
+		self.add_argument('p', 'Pushes the latest local code changes (on current branch).', self._push_latest_changes)
+		self.add_argument('c', 'Checks if there needs to be any files cleaned up from a git perspective.', self._remove_ignored_but_staged_files)
+		self.add_argument('n', 'Inform the user that there are no code changes present to push.', self._no_changes_to_push)
 
 	def _remove_ignored_but_staged_files(self):
 		"""Utility."""

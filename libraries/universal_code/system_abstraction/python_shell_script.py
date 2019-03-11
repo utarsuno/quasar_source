@@ -40,11 +40,14 @@ class PythonShellScript(object):
 		"""Sets if at least one argument is required."""
 		self._at_least_one_argument_required = is_required
 
-	def add_argument_and_respective_procedure(self, argument, description, required, procedure):
+	def add_argument(self, argument, description, procedure):
 		"""Adds an argument and the function to run if that argument is provided."""
-		self._arguments_to_operations[argument] = ScriptArgument(argument, description, procedure, required)
-		if required:
-			self._number_of_required_args += 1
+		self._arguments_to_operations[argument] = ScriptArgument(argument, description, procedure, False)
+
+	def add_required_argument(self, argument, description, procedure):
+		"""Adds a required argument and the function to run."""
+		self._arguments_to_operations[argument] = ScriptArgument(argument, description, procedure, True)
+		self._number_of_required_args += 1
 
 	def print_required_arguments(self):
 		"""Utility function."""

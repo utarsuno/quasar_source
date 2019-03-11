@@ -1,0 +1,210 @@
+#-------------------------------------------------------------------------------------------------------------------------
+# Prevent Docker from thinking this process has stopped.
+daemon               off;
+# Set the user to use.
+user                 nginx;
+# Set number of worker processes based off machine's CPU cores.
+worker_processes     auto;
+# Set number of file descriptors that can be used by NGINX.
+worker_rlimit_nofile 1048575;
+# Enable just-in-time compilation.
+pcre_jit             on;
+#-------------------------------------------------------------------------------------------------------------------------
+events {
+    # Max clients = 1024 * worker_processes
+    worker_connections 1024;
+    # Optimized for serving many clients for each thread, esspecially for Linux.
+    use                epoll;
+    # Accept as many connections as possible, can flood worker connections if set too low.
+    multi_accept       on;
+    # Since 'reuseport' is being used, 'accept_mutex' should be set off.
+    accept_mutex       off;
+}
+#-------------------------------------------------------------------------------------------------------------------------
+http {
+    include      /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Needed headers for websockets and jenkins. -------------------------------------------------------------------------
+    proxy_set_header X-Real-IP       $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host            $host;
+    #---------------------------------------------------------------------------------------------------------------------
+
+    # Don't buffer data sent, good for small data bursts in real time.
+    tcp_nodelay on;
+    # Send headers in one piece (better than sending one by one).
+    tcp_nopush  on;
+    # Copies data between on FD to another within kernel, faster than read() + write().
+    sendfile    on;
+
+    #
+    # Cache information about FDs, frequently accessed files can boost performance (values need to be fine tuned).
+    open_file_cache max=200000 inactive=90s;
+    open_file_cache_valid 180s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors on;
+    #
+
+    log_format cache_status '[$time_local] "$request"  $upstream_cache_status';
+
+    #access_log logs/cache.log cache_status;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"'
+                      'rt=$request_time uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
+
+    #access_log /v/nginx.log    main;
+    #error_log  /v/nginx.errors warn;
+
+    gzip              off;
+    gzip_static       on;
+    #gzip_disable      "msie6";
+    #gzip_vary         on;
+    #gzip_proxied      any;
+    #gzip_comp_level   6;
+    #gzip_buffers      16 8k;
+    #gzip_http_version 1.1;
+    #gzip_min_length   256;
+    #gzip_types        text/plain application/javascript text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
+
+    #client_body_buffer_size     10K;
+    #client_header_buffer_size   1k;
+    #client_max_body_size        8m;
+    #large_client_header_buffers 4 4k;
+
+    client_body_timeout   10;
+    client_header_timeout 10;
+    keepalive_timeout     15;
+    send_timeout          10;
+    # allow the server to close connection on non responding client, this will free up memory
+    reset_timedout_connection on;
+
+    #upstream service-websocket {
+        #server nexus_courier:3001;
+    #    server 10.1.3.46:3001;
+    #}
+
+    upstream service-jenkins {
+        server 10.1.3.46:8080;
+    }
+
+    upstream service-asset-server {
+        server 10.1.3.46:7999;
+    }
+
+    server {
+        #listen 80 default_server;
+        listen 80 reuseport;
+        #listen [::]:80 default_server;
+        server_name quasarsource.com www.quasarsource.com;
+        root /;
+
+        #rewrite ^(.*)/$ $1/nl.min.html.gz;
+
+
+        location /ws {
+            # 301 --> page has permanently moved to a new location.
+            # 302 --> page has only moved temporary.
+            return 302 /ws/;
+        }
+
+        location /ws/ {
+            #
+            #set $upstream http://service-websocket;
+            #set $upstream nexus_courier:3001;
+            #
+            #proxy_pass         http://service-websocket;
+            #proxy_pass         $upstream;
+
+            ##
+            #proxy_pass http://service-websocket;
+            ##
+
+            resolver 10.1.3.46 valid=30s;
+            set $upstream_websocket upstream_websocket;
+            proxy_pass http://$upstream_websocket:3001;
+
+            #
+            #proxy_redirect     default;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_read_timeout 86400;
+        }
+
+        location ^~ /service-asset-server {
+            proxy_pass http://service-asset-server;
+        }
+
+        location ^~ /jenkins {
+            #
+            #proxy_pass 10.1.3.46:8080;
+            #set $upstream jenkins:8080;
+            #proxy_pass $upstream;
+            #
+            proxy_request_buffering off;
+            proxy_set_header        X-Forwarded-Proto $scheme;
+            proxy_http_version 1.1;
+            proxy_pass http://service-jenkins;
+            proxy_set_header X-Forwarded_proto http;
+
+            #resolver 10.1.3.46 valid=30s;
+            #set $upstream_jenkins upstream_jenkins;
+            #proxy_pass http://$upstream_jenkins:8080;
+
+            add_header 'X-SSH-Endpoint' 'jenkins.domain.tld:50022' always;
+
+            #
+            #proxy_max_temp_file_size 0;
+            #proxy_connect_timeout      150;
+            #proxy_send_timeout         100;
+            #proxy_read_timeout         100;
+            #proxy_buffer_size          8k;
+            #proxy_buffers              4 32k;
+            #proxy_busy_buffers_size    64k;
+            #proxy_temp_file_write_size 64k;
+            #
+
+            keepalive_timeout 65;
+
+            client_max_body_size 300m;
+            client_body_buffer_size 128k;
+
+            gzip  on;
+            gzip_http_version 1.0;
+            gzip_comp_level 6;
+            gzip_min_length 0;
+            gzip_buffers 16 8k;
+            gzip_proxied any;
+            gzip_types text/plain text/css text/xml text/javascript application/xml application/xml+rss application/javascript application/json;
+            gzip_disable "MSIE [1-6]\.";
+            gzip_vary on;
+        }
+
+        location ^~ /v/nl.min.js {
+            expires -1;
+            add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        }
+
+        location /v/ {
+            proxy_ignore_headers Set-Cookie;
+            proxy_hide_header Set-Cookie;
+
+            expires 30d;
+            #add_header Pragma public;
+            add_header Cache-Control "public";
+
+            sendfile_max_chunk 1m;
+        }
+
+        location / {
+            add_header X-Cache-Status $upstream_cache_status;
+            index nl.min.html;
+            root /v/;
+        }
+
+    }
+
+    include /etc/nginx/conf.d/*.conf;
+}

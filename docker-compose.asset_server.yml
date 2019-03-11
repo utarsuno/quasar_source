@@ -1,0 +1,80 @@
+# The version of the Docker compose file format to use.
+version: '3.7'
+
+# TODO: Investigate into 'container_name', it breaks builds.
+
+services:
+
+  # Serves static content and forwards requests to servers.
+  dapp_nginx:
+    #hostname: nginx
+    build:
+      context: .
+      dockerfile: ./applications/nginx/Dockerfile
+    environment:
+      _SERVICE_NAME: "dapp_nginx"
+    #container_name: nginx
+    ports:
+      - "80:80"
+      - "3000:3000"
+    tty: true
+    volumes:
+      - nexus_volume:/v
+      - ./applications/nginx/nginx.nginx:/etc/nginx/nginx.conf
+
+  # Test.
+  asset_server:
+    build:
+      context: .
+      dockerfile: ./applications/asset_server/Dockerfile
+    environment:
+      _SERVICE_NAME: "asset_server"
+    tty: true
+    volumes:
+      - nexus_volume:/v
+
+  # Manages automated jobs, builds, etc.
+  jenkins:
+    #hostname: jenkins
+    build:
+      context: .
+      dockerfile: ./applications/jenkins/Dockerfile
+    environment:
+      _SERVICE_NAME: "jenkins"
+      JAVA_OPTS: "-Xmx3072m" # 3GB memory.
+      JENKINS_OPTS: "--logfile=/var/log/jenkins/jenkins.log"
+    tty: true
+    volumes:
+      - jenkins-log:/var/log/jenkins
+      - jenkins-data:/var/jenkins_home
+
+  # MySQL server, no custom logic attached, just the stand-alone server.
+  mysql_server:
+    hostname: mysql_server
+    build:
+      context: .
+      dockerfile: ./applications/mysql_server/Dockerfile
+    environment:
+      _SERVICE_NAME: "mysql_server"
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    tty: true
+    ports:
+      - "3306:3306"
+
+networks:
+  default:
+    external:
+      name: nexus_network
+
+volumes:
+  nexus_volume:
+    external: true
+  jenkins-log:
+    external: true
+  jenkins-data:
+    external: true
+

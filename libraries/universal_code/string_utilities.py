@@ -3,6 +3,19 @@
 """This module, string_utilities.py, contains a list of useful string related operations."""
 
 
+def str_parse_as_utf8(content) -> str:
+	"""Returns the provided content decoded as utf-8."""
+	return content.decode('utf-8')
+
+
+def str_get_as_list_without_ending_empty_line(content: str) -> list:
+	"""The provided string is split into lines """
+	lines = content.split('\n')
+	while len(lines[-1]) == 0 or lines[-1] == '\n':
+		lines = lines[:-1]
+	return lines
+
+
 def get_list_of_words_from_string(string) -> list:
 	"""Returns a list of strings that represent each sub-string separated by whitespaces in the original string."""
 	words = []

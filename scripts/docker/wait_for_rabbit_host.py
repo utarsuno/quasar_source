@@ -5,7 +5,6 @@ This module, wait_for_rabbit_host.py, will wait for the RabbitMQ-cluster host to
 Program exits with code(13) if the max connection attempts have been made.
 """
 
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 from libraries.universal_code import output_coloring as oc
 import requests as r
 from time import sleep

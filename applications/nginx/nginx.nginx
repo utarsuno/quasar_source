@@ -1,29 +1,24 @@
-#-------------------------------------------------------------------------------------------------------------------------
-# Prevent Docker from thinking this process has stopped.
-daemon               off;
-# Set the user to use.
-user                 nginx;
-# Set number of worker processes based off machine's CPU cores.
-worker_processes     auto;
-# Set number of file descriptors that can be used by NGINX.
-worker_rlimit_nofile 1048575;
-# Enable just-in-time compilation.
-pcre_jit             on;
-#-------------------------------------------------------------------------------------------------------------------------
+user nginx;
+
+worker_processes auto;
+
 events {
     # Max clients = 1024 * worker_processes
-    worker_connections 1024;
+    worker_connections  1024;
     # Optimized for serving many clients for each thread, esspecially for Linux.
-    use                epoll;
+    use epoll;
     # Accept as many connections as possible, can flood worker connections if set too low.
-    multi_accept       on;
-    # Since 'reuseport' is being used, 'accept_mutex' should be set off.
-    accept_mutex       off;
+    multi_accept on;
 }
-#-------------------------------------------------------------------------------------------------------------------------
+
 http {
-    include      /etc/nginx/mime.types;
-    default_type application/octet-stream;
+ 	access_log /dev/stdout;
+	access_log /dev/stdout;
+	#error_log /etc/nginx/logs/nginx-error.log;
+
+    #upstream docker-jenkins {
+    #    server jenkins:8080;
+    #}
 
     # Needed headers for websockets and jenkins. -------------------------------------------------------------------------
     proxy_set_header X-Real-IP       $remote_addr;
@@ -31,48 +26,21 @@ http {
     proxy_set_header Host            $host;
     #---------------------------------------------------------------------------------------------------------------------
 
+
+    include           /etc/nginx/mime.types;
+    default_type      application/octet-stream;
+
     # Don't buffer data sent, good for small data bursts in real time.
-    tcp_nodelay on;
+    tcp_nodelay       on;
     # Send headers in one piece (better than sending one by one).
-    tcp_nopush  on;
+    tcp_nopush        on;
     # Copies data between on FD to another within kernel, faster than read() + write().
-    sendfile    on;
+    sendfile          on;
 
-    #
-    # Cache information about FDs, frequently accessed files can boost performance (values need to be fine tuned).
-    open_file_cache max=200000 inactive=90s;
-    open_file_cache_valid 180s;
-    open_file_cache_min_uses 2;
-    open_file_cache_errors on;
-    #
-
-    log_format cache_status '[$time_local] "$request"  $upstream_cache_status';
-
-    #access_log logs/cache.log cache_status;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"'
-                      'rt=$request_time uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
-
-    #access_log /v/nginx.log    main;
-    #error_log  /v/nginx.errors warn;
-
-    gzip              off;
-    gzip_static       on;
-    #gzip_disable      "msie6";
-    #gzip_vary         on;
-    #gzip_proxied      any;
-    #gzip_comp_level   6;
-    #gzip_buffers      16 8k;
-    #gzip_http_version 1.1;
-    #gzip_min_length   256;
-    #gzip_types        text/plain application/javascript text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
-
-    #client_body_buffer_size     10K;
-    #client_header_buffer_size   1k;
-    #client_max_body_size        8m;
-    #large_client_header_buffers 4 4k;
+    #upstream service-jenkins {
+    #    server 10.1.3.46:8080;
+        #server jenkins:8080;
+    #}
 
     client_body_timeout   10;
     client_header_timeout 10;
@@ -81,68 +49,65 @@ http {
     # allow the server to close connection on non responding client, this will free up memory
     reset_timedout_connection on;
 
-    upstream service-websocket {
-        #server nexus_courier:3001;
-        server 10.1.3.46:3001;
-    }
-
-    upstream service-jenkins {
-        server 10.1.3.46:8080;
-    }
-
     server {
-        #listen 80 default_server;
+	    root /;
+
         listen 80 reuseport;
-        #listen [::]:80 default_server;
-        server_name quasarsource.com www.quasarsource.com;
-        root /;
+        #server_name quasarsource.com www.quasarsource.com;
+        server_name localhost;
 
-        #rewrite ^(.*)/$ $1/nl.min.html.gz;
+        #add_header 'Referrer-Policy' 'origin';
 
-        location /ws {
-            # 301 --> page has permanently moved to a new location.
-            # 302 --> page has only moved temporary.
-            return 302 /ws/;
-        }
+        location ^~ /jenkins/ {
+            #proxy_pass         http://docker-jenkins;
+            #proxy_pass http://jenkins:8080;
+            #proxy_pass http://service-jenkins/;
 
-        location /ws/ {
-            #
-            #set $upstream http://service-websocket;
-            #set $upstream nexus_courier:3001;
-            #
-            #proxy_pass         http://service-websocket;
-            #proxy_pass         $upstream;
-            proxy_pass http://service-websocket;
-            #
-            #proxy_redirect     default;
-            proxy_http_version 1.1;
-            proxy_set_header   Upgrade $http_upgrade;
-            proxy_read_timeout 86400;
-        }
-
-        location ^~ /jenkins {
-            #
-            #proxy_pass 10.1.3.46:8080;
             #set $upstream jenkins:8080;
             #proxy_pass $upstream;
-            #
+            proxy_pass http://jenkins:8080/jenkins/;
+
+            #####
             proxy_request_buffering off;
             proxy_set_header        X-Forwarded-Proto $scheme;
             proxy_http_version 1.1;
-            proxy_pass http://service-jenkins;
-            proxy_set_header X-Forwarded_proto http;
+            #proxy_set_header        X-Forwarded-Proto http;
             add_header 'X-SSH-Endpoint' 'jenkins.domain.tld:50022' always;
+            #####
 
+            # Sendfile provides no advantages when operating as a proxy
+            sendfile off;
+
+            #proxy_redirect off;
+
+            proxy_set_header Referer $http_referer;
+
+            #set $upstream jenkins:8080;
+            #proxy_pass $upstream;
             #
-            #proxy_max_temp_file_size 0;
-            #proxy_connect_timeout      150;
-            #proxy_send_timeout         100;
-            #proxy_read_timeout         100;
-            #proxy_buffer_size          8k;
-            #proxy_buffers              4 32k;
-            #proxy_busy_buffers_size    64k;
-            #proxy_temp_file_write_size 64k;
+            proxy_set_header Host $host;
+            #proxy_set_header        Host $host:$server_port;
+            #proxy_set_header Host $http_host;
+            #proxy_set_header X-Forwarded_proto http;
             #
+            proxy_set_header X-Real-IP $remote_addr;
+            #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-For $remote_addr;
+
+            #proxy_set_header X-Forwarded-Host $server_name;
+
+            proxy_max_temp_file_size 0;
+
+            proxy_connect_timeout      150;
+            proxy_send_timeout         100;
+            proxy_read_timeout         100;
+
+            proxy_buffer_size          8k;
+            proxy_buffers              4 32k;
+            proxy_busy_buffers_size    64k;
+            proxy_temp_file_write_size 64k;
+
+            default_type application/octet-stream;
 
             keepalive_timeout 65;
 
@@ -166,8 +131,8 @@ http {
         }
 
         location /v/ {
-            proxy_ignore_headers Set-Cookie;
-            proxy_hide_header Set-Cookie;
+            #proxy_ignore_headers Set-Cookie;
+            #proxy_hide_header Set-Cookie;
 
             expires 30d;
             #add_header Pragma public;
@@ -176,12 +141,25 @@ http {
             sendfile_max_chunk 1m;
         }
 
+        location /nginx_status {
+            # Turn on nginx stats
+            stub_status on;
+
+            # I do not need logs for stats
+            #access_log   off;
+
+            # Security: Only allow access from 192.168.1.100 IP #
+            #allow 192.168.1.100;
+
+            # Send rest of the world to /dev/null #
+            #deny all;
+       }
+
         location / {
             add_header X-Cache-Status $upstream_cache_status;
             index nl.min.html;
             root /v/;
         }
-
     }
 
     include /etc/nginx/conf.d/*.conf;

@@ -2,9 +2,7 @@
 
 """This module, build_step.py, represents a single build step in a build process."""
 
-from libraries.universal_code.time_abstraction.simple_timer import SimpleTimer
-from libraries.universal_code import output_coloring as oc
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.universal_code.system_abstraction import bash_interactive as bash
 import traceback
 
 
@@ -82,11 +80,7 @@ class BuildProcessStep(object):
 
 	def run_bash_step(self, bash_command, cwd=None):
 		"""Runs a bash command."""
-		if cwd is not None:
-			success, output = BashCommandRunner(bash_command).run(cwd=cwd)
-		else:
-			success, output = BashCommandRunner(bash_command).run()
-
+		success, output = bash.BashCommandRunner(bash_command).run(cwd = cwd)
 		if success:
 			return output
 		else:

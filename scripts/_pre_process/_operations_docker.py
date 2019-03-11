@@ -4,7 +4,7 @@
 
 from libraries.universal_code.system_abstraction import bash_interactive as bi
 from libraries.universal_code.system_abstraction.python_shell_script import PythonShellScript
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.universal_code.system_abstraction import bash_interactive as bash
 from libraries.universal_code import output_coloring as oc
 import sys
 
@@ -33,7 +33,7 @@ class DockerFeature(object):
 
 	def is_feature_alive(self):
 		"""Checks if the feature is alive."""
-		success, details = BashCommandRunner('docker ' + self.feature_type + ' inspect ' + self.name, require_input=True).run()
+		success, details = bash.BashCommandRunner('docker ' + self.feature_type + ' inspect ' + self.name, require_input=True).run()
 		return success
 
 	def create_new_feature_instance(self):
@@ -49,7 +49,7 @@ class DockerFeatureNetwork(DockerFeature):
 
 	def create_new_feature_instance(self):
 		"""Creates this particular feature."""
-		BashCommandRunner('docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 ' + self.name).run()
+		bash.BashCommandRunner('docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 ' + self.name).run()
 
 
 class DockerFeatureVolume(DockerFeature):
@@ -60,8 +60,7 @@ class DockerFeatureVolume(DockerFeature):
 
 	def create_new_feature_instance(self):
 		"""Creates this particular feature."""
-		BashCommandRunner('docker volume create --name ' + self.name).run()
-		#BashCommandRunner('docker volume create --driver bridge --name ' + self.name).run()
+		bash.BashCommandRunner('docker volume create --name ' + self.name).run()
 
 
 class DockerConnectToRunningContainer(object):
@@ -108,7 +107,7 @@ class DockerConnectToRunningContainer(object):
 
 	def run(self):
 		"""TODO:"""
-		output = BashCommandRunner(['docker', 'ps', '--no-trunc']).run(cwd=None, raise_exception=True, get_as_lines=True)
+		output = bash.BashCommandRunner(['docker', 'ps', '--no-trunc']).run(cwd=None, raise_exception=True, get_as_lines=True)
 
 		cols = self._parse_output(output)
 		if len(cols) == 0:
@@ -145,9 +144,9 @@ class DockerFeatureChecker(PythonShellScript):
 		network = DockerFeatureNetwork('nexus_network')
 		volume  = DockerFeatureVolume('nexus_volume')
 		connect = DockerConnectToRunningContainer()
-		self.add_argument_and_respective_procedure(ARG_OPERATION_ENSURE_NETWORK, 'Ensure default external network exists.', False, network.run)
-		self.add_argument_and_respective_procedure(ARG_OPERATION_ENSURE_VOLUME, 'Ensure default external volume exists.', False, volume.run)
-		self.add_argument_and_respective_procedure(ARG_OPERATION_CONNECT_TO_CONTAINER, 'Connect to a running Docker container.', False, connect.run)
+		self.add_argument(ARG_OPERATION_ENSURE_NETWORK, 'Ensure default external network exists.', network.run)
+		self.add_argument(ARG_OPERATION_ENSURE_VOLUME, 'Ensure default external volume exists.', volume.run)
+		self.add_argument(ARG_OPERATION_CONNECT_TO_CONTAINER, 'Connect to a running Docker container.', connect.run)
 		self.at_least_one_argument_required = True
 
 if __name__ == "__main__":

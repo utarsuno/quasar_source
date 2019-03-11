@@ -2,18 +2,19 @@
 
 """This module, test_network.py, is a quick test file."""
 
-from finance.data_related import data_scraper as ds
+#from finance.data_related import data_scraper as ds
 
-from universal_code import debugging as dbg
-from universal_code import output_coloring as oc
-from z_code_archive.finance.data_related import finance_database as fdb
+#from universal_code import debugging as dbg
+#from universal_code import output_coloring as oc
+import libraries.universal_code.output_coloring as oc
+#from z_code_archive.finance.data_related import finance_database as fdb
 
 '''__       ___
   |  \  /\   |   /\
   |__/ /~~\  |  /~~\ '''
-db = fdb.FinanceDatabase()
-db.health_check()
-all_data = db.get_all_vector_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
+#db = fdb.FinanceDatabase()
+#db.health_check()
+#all_data = db.get_all_vector_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 
 
 '''     ___ ___       __   __

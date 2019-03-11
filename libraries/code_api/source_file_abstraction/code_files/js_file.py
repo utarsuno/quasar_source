@@ -7,7 +7,7 @@
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files.code_file import *
 from jsmin import jsmin
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.universal_code.system_abstraction import bash_interactive as bash
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.universal_code import output_coloring as oc
 from libraries.universal_code import debugging as dbg
@@ -42,7 +42,7 @@ class LoadedJSFile(LoadedCodeFile):
 		# '--removeDebugger',
 		# '--removeConsole',
 
-		passed, output = BashCommandRunner([
+		passed, output = bash.BashCommandRunner([
 			'minify',
 			self.full_path,
 			'--mangle',

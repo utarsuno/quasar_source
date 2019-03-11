@@ -132,17 +132,13 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	\
 	# Bring in tzdata so users could set the timezones through the environment
 	# variables
-	&& apk add --no-cache tzdata # \
+	&& apk add --no-cache tzdata \
 	#\
 	# forward request and error logs to docker log collector
-	#&& ln -sf /dev/stdout /var/log/nginx/access.log \
-	#&& ln -sf /dev/stderr /var/log/nginx/error.log
+	&& ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 # ------------------------------------------------------------------------------------------------------------------------------
-#COPY nginx.conf /etc/nginx/nginx.conf
-#COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
-
-COPY ./applications/nginx/nginx.nginx /etc/nginx/nginx.conf
 
 RUN apk add --no-cache bash \
  #&& apk add --no-cache bash-completion \
@@ -152,4 +148,4 @@ RUN apk add --no-cache bash \
 
 STOPSIGNAL SIGTERM
 
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
