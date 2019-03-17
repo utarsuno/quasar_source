@@ -1,0 +1,23 @@
+# The version of the Docker compose file format to use.
+version: '3.7'
+
+
+services:
+
+  # Test.
+  asset_server:
+    build:
+      context: .
+      dockerfile: ./applications/asset_server/Dockerfile
+    environment:
+      _SERVICE_NAME: "asset_server"
+    tty: true
+    ports:
+      - "7999:7999"
+    volumes:
+      - nexus_volume:/v
+
+volumes:
+  nexus_volume:
+    external: true
+

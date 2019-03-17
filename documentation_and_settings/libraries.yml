@@ -1,0 +1,2 @@
+python:
+  git_abstraction: 'pip3 install gitpython'
