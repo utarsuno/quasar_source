@@ -6,6 +6,13 @@ from libraries.universal_code.system_abstraction.bash_interactive import BashInt
 
 
 session = BashInteractive()
+session.prompt_user_with_list(
+	'Select service to run.',
+	['jenkins', 'job scheduler']
+)
+
+session.run()
+
 
 
 

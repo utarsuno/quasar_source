@@ -154,6 +154,15 @@ class BashPromptInput(BashPrompt):
 			self.error('Invalid choice!')
 
 
+class BashPromptListSelectionChoice(object):
+	"""Represents a single choice in a bash prompt list."""
+
+	def __init__(self, number, name, description):
+		self._number      = number
+		self._name        = name
+		self._description = description
+
+
 class BashPromptListSelection(BashPrompt):
 	"""Represents a single list selection bash prompt."""
 
@@ -162,9 +171,9 @@ class BashPromptListSelection(BashPrompt):
 		self._choices         = []
 		self._initial_message = prompt_initial_message
 
-	def add_selection_choice(self, choice, description):
+	def add_selection_choice(self, selection_choice):
 		"""Adds a selection choice."""
-		self._choices.append([choice, description])
+		self._choices.append(selection_choice)
 
 	def __len__(self):
 		return len(self._choices)
@@ -194,6 +203,13 @@ class BashInteractive(object):
 
 	def __init__(self):
 		self.prompts = []
+
+	def prompt_user_with_list(self, prompt_text: str, choices: list):
+		"""Prompts the user for an action selection."""
+		list_prompt = BashPromptListSelection(prompt_text, prompt_text)
+		for i, choice in enumerate(choices):
+			list_prompt.add_selection_choice(BashPromptListSelectionChoice('0x' + str(i), prompt_text, choice))
+		self.prompts.append(BashPromptListSelection(prompt_text, prompt_text))
 
 	def raise_exception(self, message):
 		"""Raises an exception."""

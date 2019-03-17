@@ -24,6 +24,8 @@ from libraries.universal_code import debugging as dbg
 import shutil
 # Needed for compression.
 from PIL import Image
+# Needed for yaml.
+import yaml
 
 # GLOBAL TODO (s):
 # Add more safety checks on all functions.
@@ -265,6 +267,15 @@ def file_get_contents_as_string(path: str) -> list:
 	for l in lines:
 		text += l
 	return text
+
+
+def file_get_yaml_contents(path: str) -> dict:
+	"""Returns the contents of a yaml file."""
+	with open(path, 'r') as stream:
+		try:
+			return yaml.load(stream)
+		except yaml.YAMLError as exc:
+			print(exc)
 
 
 def file_get_sha256_checksm(path, block_size=65536):

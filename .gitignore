@@ -168,3 +168,7 @@ output_files_to_ignore/
 generated_output/
 depreciated/
 
+
+/documentation_and_settings/quasar_source.yml
+
+*.pyc

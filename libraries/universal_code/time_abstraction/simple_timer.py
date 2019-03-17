@@ -24,6 +24,6 @@ class SimpleTimer(object):
 
 	def __str__(self):
 		delta = self._end_time - self._start_time
-		if delta < 0.001:
+		if delta < 0.0001:
 			return '0s'
 		return str(self._end_time - self._start_time) + 's'
