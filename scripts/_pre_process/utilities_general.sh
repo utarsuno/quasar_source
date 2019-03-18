@@ -136,30 +136,3 @@ function print_line_in_between_dashed_lines {
     printf $1
     print_dash_line
 }
-
-#  __        ___  ___ ___         __        ___  __        __
-# /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    .
-# .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    .
-
-function terminate_if_sudo {
-    if [[ $EUID -eq 0 ]]; then
-        terminate_script "This script should not be ran as sudo!"
-    fi
-}
-function terminate_if_not_sudo {
-    if [ `id -u` != 0 ] ; then
-        terminate_script "This script requires root privileges to run."
-    fi
-}
-
-function terminate_if_ubuntu {
-    if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
-        terminate_script "This script should not be run on an ubuntu system."
-    fi
-}
-
-function terminate_if_not_ubuntu {
-    if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "This script should be run on an ubuntu system."
-    fi
-}

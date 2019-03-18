@@ -13,7 +13,7 @@ services:
       _SERVICE_NAME: "asset_server"
     tty: true
     ports:
-      - "7999:7999"
+      - "8080:8080"
     volumes:
       - nexus_volume:/v
 

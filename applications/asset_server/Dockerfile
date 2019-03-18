@@ -28,4 +28,4 @@ RUN apk --update add ca-certificates \
 
 #CMD ["python3", "/quasar_source/applications/code_manager/layer_applications/nexus_local_build_process.py"]
 #CMD ["sleep", "10000000"]
-CMD ["php7", "-S", "127.0.0.1:7999"]
+CMD ["php7", "-S", "0.0.0.0:8080"]

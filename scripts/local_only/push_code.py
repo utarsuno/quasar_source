@@ -7,16 +7,6 @@ Created     : 2019.04.17
 Environments: {DEV}
 '''
 
-'''
-from libraries.universal_code.system_abstraction.bash_interactive import BashInteractive
-session = BashInteractive()
-session.prompt_user_with_list(
-	'Select service to run.',
-	['jenkins', 'job scheduler']
-)
-session.run()
-'''
-
 from libraries.universal_code.scripting.interactive_script import InteractiveScript
 from libraries.universal_code.scripting.interactive_script import UserActionPrompt
 from libraries.universal_code.scripting.interactive_script import UserTextInputPrompt

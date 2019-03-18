@@ -19,7 +19,6 @@ class Developer(TraitName):
 		TraitName.__init__(self, dev_name)
 		self._mac       = configs['mac']
 		self._path      = configs['path']
-		self._git_actor = configs['git_actor']
 
 	def matches_mac(self, mac_address: int) -> bool:
 		"""Returns a boolean indicating if the provided mac address matches this dev."""
