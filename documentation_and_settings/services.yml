@@ -1,0 +1,15 @@
+service_bundles:
+  asset_server:
+    path: 'docker-compose.asset_server_only.yml'
+    services:
+      postgres_server:
+      asset_server:
+
+services:
+  postgres_server:
+    type      : 'db'
+    secrets   : []
+  asset_server:
+    type      : 'php'
+    secrets   : ['asset_server_db']
+

@@ -172,3 +172,14 @@ depreciated/
 /documentation_and_settings/quasar_source.yml
 
 *.pyc
+
+
+.DS_Store
+Thumbs.db
+npm-debug.log
+/bower_components
+/node_modules
+/vendor
+composer.phar
+composer.lock
+

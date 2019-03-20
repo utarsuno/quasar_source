@@ -132,17 +132,18 @@ class InteractiveScript(TraitName, TraitDebug, TraitConsolePrinting):
 
 		self._configs = LocalConfigurations()
 
-		self._timer = SimpleTimer()
+		self._timer_total   = SimpleTimer(auto_start=True)
+		self._timer_runtime = SimpleTimer()
 
 	def _start(self):
 		"""Runs before script logic."""
 		self.print_header('Script{' + self.name + '} started as ' + str(self._configs.local_dev))
-		self._timer.start()
+		self._timer_runtime.start()
 
 	def _end(self):
 		"""Runs after script logic."""
-		self._timer.stop()
-		self.print_header('Script{' + self.name + '} ended in {' + str(self._timer) + '}')
+		self._timer_runtime.stop()
+		self.print_header('Script{' + self.name + '} ended in {' + str(self._timer_total) + '}, ran for {' + str(self._timer_runtime) + '}')
 
 	@abc.abstractmethod
 	def _run(self, developer: Developer):
@@ -154,3 +155,10 @@ class InteractiveScript(TraitName, TraitDebug, TraitConsolePrinting):
 		self._start()
 		self._run(self._configs.local_dev)
 		self._end()
+
+	def get_prompt_response(self, prompt):
+		"""Runs a prompt and returns the response. Needed as a method in order to pause the timer during user input."""
+		self._timer_runtime.pause()
+		response = prompt.run()
+		self._timer_runtime.start()
+		return response

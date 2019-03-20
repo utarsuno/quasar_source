@@ -6,6 +6,7 @@ from libraries.universal_code.system_abstraction import bash_interactive as bi
 from libraries.universal_code.system_abstraction.python_shell_script import PythonShellScript
 from libraries.universal_code.system_abstraction import bash_interactive as bash
 from libraries.universal_code import output_coloring as oc
+from libraries.universal_code.common_traits.trait_name import TraitName
 import sys
 
 ARG_OPERATION_ENSURE_NETWORK       = 'n'
@@ -13,17 +14,16 @@ ARG_OPERATION_ENSURE_VOLUME        = 'v'
 ARG_OPERATION_CONNECT_TO_CONTAINER = 'c'
 
 
-class DockerFeature(object):
+class DockerFeature(TraitName):
 	"""Represents the state of a Docker feature (such as networks and volumes)."""
 
 	def __init__(self, name, feature_type):
-		self.name         = name
+		TraitName.__init__(self, name)
 		self.feature_type = feature_type
 		self.alive        = None
 
 	def run(self):
 		"""Runs the health check on this Docker feature."""
-		#print('TODO: Docker feature check on {' + self.name + '}')
 		self.alive = self.is_feature_alive()
 		if self.alive:
 			oc.print_data_with_red_dashes_at_start('The ' + self.feature_type + '{' + self.name + '} exists!')
@@ -152,3 +152,4 @@ class DockerFeatureChecker(PythonShellScript):
 if __name__ == "__main__":
 	script = DockerFeatureChecker()
 	script.run()
+

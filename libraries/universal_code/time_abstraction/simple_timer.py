@@ -9,21 +9,38 @@ class SimpleTimer(object):
 	"""A simple timer."""
 
 	def __init__(self, auto_start=False):
-		self._start_time = None
-		self._end_time   = None
+		self._running          = False
+		self._time_start       = None
+		self._time_end         = None
+		self._time_accumulated = 0.0
 		if auto_start:
 			self.start()
 
 	def start(self):
 		"""Starts the timer."""
-		self._start_time = time.time()
+		assert not self._running
+		self._time_start = time.time()
+		self._running    = True
 
 	def stop(self):
 		"""Ends the timer."""
-		self._end_time = time.time()
+		assert self._running
+		self._time_end = time.time()
+		self._running  = False
+
+	def pause(self):
+		"""Pause the timer."""
+		if self._running:
+			if self._time_end is None:
+				self.stop()
+			self._time_accumulated += self._time_end - self._time_start
+			self._running           = False
 
 	def __str__(self):
-		delta = self._end_time - self._start_time
-		if delta < 0.0001:
+		self.pause()
+		if self._time_accumulated < 0.0001:
 			return '0s'
-		return str(self._end_time - self._start_time) + 's'
+		return str(self._time_accumulated) + 's'
+
+
+

@@ -104,6 +104,20 @@ class ColorPrint(Node):
 		return self
 
 
+class PrintRed(ColorPrint):
+	"""Utility abstraction to ColorPrint to start off as red text."""
+	def __init__(self, text: str, bold: bool=False):
+		super().__init__()
+		self.red(text, bold)
+
+
+class PrintGreen(ColorPrint):
+	"""Utility abstraction to ColorPrint to start off as red text."""
+	def __init__(self, text: str, bold: bool=False):
+		super().__init__()
+		self.red(text, bold)
+
+
 def _print_ascii(text, color):
 	"""Utility function."""
 	t = _get_ascii_comment(text)

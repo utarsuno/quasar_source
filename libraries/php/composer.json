@@ -1,0 +1,13 @@
+{
+  "require": {
+    "symfony/yaml": "^4.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "universal_utilities\\": "universal_utilities/",
+      "database_abstractions\\": "database_abstractions/",
+      "domain\\": "domain/",
+      "services\\": "services/"
+    }
+  }
+}

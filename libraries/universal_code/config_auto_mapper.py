@@ -17,7 +17,7 @@ class Developer(TraitName):
 
 	def __init__(self, dev_name: str, configs: dict):
 		TraitName.__init__(self, dev_name)
-		self._mac       = configs['mac']
+		self._mac       = int(configs['mac'])
 		self._path      = configs['path']
 
 	def matches_mac(self, mac_address: int) -> bool:
@@ -31,6 +31,20 @@ class Developer(TraitName):
 	def get_base_path(self) -> str:
 		"""Returns the base path of the project."""
 		return self._path
+
+
+class Service(TraitName):
+	"""Represents a service (be it a full project, single job, single executable, etc."""
+
+	def __init__(self, service_name: str, configs: dict):
+		TraitName.__init__(self, service_name)
+
+
+class DockerService(Service):
+	"""Represents a docker service."""
+
+	def __init__(self, service_name: str, configs: dict):
+		super().__init__(service_name, configs)
 
 
 class LocalConfigurations(object):

@@ -23,9 +23,21 @@ RUN apk --update add ca-certificates \
 # && apk add --update php-mbstring@php \
 # && apk add --update php-you-extension-name-here@php
 
+#RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+RUN apk add --update php-mysqli@php
+
+RUN apk add --update php-pgsql@php
 
 
 
 #CMD ["python3", "/quasar_source/applications/code_manager/layer_applications/nexus_local_build_process.py"]
 #CMD ["sleep", "10000000"]
-CMD ["php7", "-S", "0.0.0.0:8080"]
+
+#CMD ["php7", "-S", "0.0.0.0:80"]
+
+
+
+
+CMD ["php7", "/quasar_source/libraries/php/db_test.php"]
+

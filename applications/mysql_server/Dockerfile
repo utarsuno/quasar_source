@@ -48,5 +48,5 @@ EXPOSE 3306 33060
 #CMD ["mysqld --host=127.0.0.1 -u root -p"]
 #CMD ["mysqld --host=127.0.0.1 -u root"]
 #CMD ["mysqld --skip-grant-tables"]
-CMD ["mysqld"]
+CMD ["mysqld --default-authentication-plugin=mysql_native_password"]
 

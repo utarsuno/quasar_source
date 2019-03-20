@@ -11,8 +11,8 @@ from libraries.universal_code.scripting.interactive_script import InteractiveScr
 from libraries.universal_code.scripting.interactive_script import UserActionPrompt
 from libraries.universal_code.scripting.interactive_script import UserTextInputPrompt
 from libraries.universal_code.config_auto_mapper import Developer
-from libraries.universal_code import output_coloring as oc
-
+from libraries.universal_code.output_coloring import PrintRed
+from libraries.universal_code.output_coloring import PrintGreen
 from git import Repo
 
 
@@ -39,9 +39,9 @@ class PushCode(InteractiveScript):
 			origin = repo.remote(name='origin')
 			origin.push()
 		except:
-			self.print_line(oc.ColorPrint().red('Some error occurred while pushing the code!', bold = True))
+			self.print_line(PrintRed('Some error occurred while pushing the code!', bold=True))
 		finally:
-			self.print_line(oc.ColorPrint().green('Code push from script succeeded!', bold=True))
+			self.print_line(PrintGreen('Code push from script succeeded!', bold=True))
 
 	def _run(self, developer: Developer):
 		self._parse_current_state(developer.get_base_path())
@@ -52,20 +52,18 @@ class PushCode(InteractiveScript):
 			prompt.add_choice('Exit', 'Terminates this script.')
 
 			# Result will be the choice as an array ex: ['Exit', 'Terminates this script']
-			result = prompt.run()
-			action = result[0]
+			action = self.get_prompt_response(prompt)[0]
 
 			if action == 'Exit':
-				self.print_line(oc.ColorPrint().red('Program terminating.'))
+				self.print_line(PrintRed('Program terminating.'))
 			elif action == 'Push changes':
-				message_prompt = UserTextInputPrompt('Enter a commit message: ')
-				result         = message_prompt.run()
-				self._push_code(result, developer)
+				self._push_code(self.get_prompt_response(UserTextInputPrompt('Enter a commit message: ')), developer)
 		else:
-			self.print_line(oc.ColorPrint().green('There are no code changes to push =)'))
+			self.print_line(PrintGreen('There are no code changes to push =)'))
 
 
 if __name__ == "__main__":
 	script = PushCode()
 	script.run()
+
 

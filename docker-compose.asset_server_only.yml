@@ -1,7 +1,6 @@
 # The version of the Docker compose file format to use.
 version: '3.7'
 
-
 services:
 
   # Test.
@@ -13,11 +12,45 @@ services:
       _SERVICE_NAME: "asset_server"
     tty: true
     ports:
-      - "8080:8080"
+      - "80:80"
     volumes:
       - nexus_volume:/v
+      - ./:/quasar_source
+
+  postgres_server:
+    image: postgres
+    tty: true
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_DB: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+    volumes:
+      - /Users/utarsuno/git_repos/quasar_source/generated_output/postgres:/var/lib/postgresql/data
+
+
+  # MySQL server, no custom logic attached, just the stand-alone server.
+  #mysql_server:
+  #  image: mysql
+  #  command: mysqld --default-authentication-plugin=mysql_native_password
+  #  hostname: mysql_server
+    #build:
+    #  context: .
+    #  dockerfile: ./applications/mysql_server/Dockerfile
+  #  environment:
+  #    _SERVICE_NAME: "mysql_server"
+  #    MYSQL_DATABASE: "test"
+      #MYSQL_USER: "test"
+      #MYSQL_PASSWORD: "test"
+  #    MYSQL_ROOT_PASSWORD: "root"
+  #    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  #  tty: true
+  #  ports:
+  #    - "3306:3306"
+  #  volumes:
+  #    - mysql_data:/var/lib/mysql
 
 volumes:
   nexus_volume:
     external: true
+  postgres_data:
 
