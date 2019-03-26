@@ -1,9 +1,10 @@
-# The version of the Docker compose file format to use.
+# {'Compose file format': 3.7, 'Docker Engine release': 18.06.0*} (0x0)
 version: '3.7'
 
-# TODO: Investigate into 'container_name', it breaks builds.
-
+# Services collectively make up a distributed application. (0x1)
 services:
+
+  # TODO: Investigate into 'container_name', it breaks builds.
 
   # Serves static content and forwards requests to servers.
   dapp_nginx:

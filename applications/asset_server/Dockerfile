@@ -6,7 +6,6 @@ RUN apk update \
  && apk add --no-cache bash-completion
 
 # && apk add --no-cache php7 \
-# && apk add --no-cache php7-fpm \
 # && apk add --no-cache php7-opcache \
 # && apk add --no-cache php7-gd \
 # && apk add --no-cache php7-msqli \
@@ -18,26 +17,17 @@ ADD https://php.codecasts.rocks/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.
 
 RUN apk --update add ca-certificates \
  && echo "@php https://php.codecasts.rocks/v3.8/php-7.3" >> /etc/apk/repositories \
- && apk add --update php@php
+ && apk add --update php@php \
+ && apk add --update php-pdo@php \
+ && apk add --update php-pgsql@php \
+ && apk add --update php-fpm@php
 
-# && apk add --update php-mbstring@php \
-# && apk add --update php-you-extension-name-here@php
-
-#RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-
-RUN apk add --update php-mysqli@php
-
-RUN apk add --update php-pgsql@php
+#RUN apk add --update php-mysqli@php \
 
 
-
-#CMD ["python3", "/quasar_source/applications/code_manager/layer_applications/nexus_local_build_process.py"]
 #CMD ["sleep", "10000000"]
 
 #CMD ["php7", "-S", "0.0.0.0:80"]
-
-
-
 
 CMD ["php7", "/quasar_source/libraries/php/db_test.php"]
 

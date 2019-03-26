@@ -8,20 +8,19 @@
 
 require_once 'vendor/autoload.php';
 
-use domain\AssetServerDB;
-use universal_utilities\LocalConfigurations;
+use QuasarSource\Domain\AssetServerDB;
+use QuasarSource\Domain\CodeManager;
 
 
-$configs  = new LocalConfigurations();
-$asset_db = new AssetServerDB($configs);
+#$asset_db = new AssetServerDB();
 
+$manager = new CodeManager();
 
-
+#echo 'DB_test ran!' . PHP_EOL;
 
 
 #$localIP = gethostbyname(trim(exec("hostname")));
 #var_dump($localIP);
-
 
 
 

@@ -1,13 +1,12 @@
 {
   "require": {
-    "symfony/yaml": "^4.2"
+    "symfony/yaml": "4.2.4",
+    "doctrine/orm": "2.6.3",
+    "symfony/debug": "4.2.4"
   },
   "autoload": {
     "psr-4": {
-      "universal_utilities\\": "universal_utilities/",
-      "database_abstractions\\": "database_abstractions/",
-      "domain\\": "domain/",
-      "services\\": "services/"
+      "QuasarSource\\": "src/"
     }
   }
 }

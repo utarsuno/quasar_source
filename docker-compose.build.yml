@@ -1,6 +1,7 @@
-# The version of the Docker compose file format to use.
+# {'Compose file format': 3.7, 'Docker Engine release': 18.06.0*} (0x0)
 version: '3.7'
 
+# Services collectively make up a distributed application. (0x1)
 services:
 
   # Builds projects and maintains developer's local environment.

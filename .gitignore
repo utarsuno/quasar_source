@@ -174,7 +174,6 @@ depreciated/
 *.pyc
 
 
-.DS_Store
 Thumbs.db
 npm-debug.log
 /bower_components
@@ -182,4 +181,6 @@ npm-debug.log
 /vendor
 composer.phar
 composer.lock
+
+*.hide_this
 
