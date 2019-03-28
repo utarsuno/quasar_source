@@ -38,6 +38,10 @@ abstract class FileUtilities {
         }
     }
 
+    public static function file_op_set_contents(string $path, string $contents) : void {
+        file_put_contents($path, $contents, LOCK_EX);
+    }
+
     public static function get_contents_as_list(string $path) : array {
         $file_lines = [];
         $lines = file($path);

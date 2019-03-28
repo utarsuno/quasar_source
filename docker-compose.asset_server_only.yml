@@ -7,26 +7,26 @@ services:
   # Test.
   asset_server:
     build:
-      context: .
-      dockerfile: ./applications/asset_server/Dockerfile
-    environment:
-      _SERVICE_NAME: "asset_server"
-    tty: true
+      context: '.'
+      dockerfile: './applications/asset_server/Dockerfile'
     ports:
-      - "80:80"
+      - '80:80'
     volumes:
-      - nexus_volume:/v
-      - ./:/quasar_source
+      - 'nexus_volume:/v'
+      - './:/quasar_source'
+    environment:
+      _SERVICE_NAME: 'asset_server'
+    tty: true
 
   postgres_server:
     image: postgres
-    tty: true
+    volumes:
+      - '/Users/utarsuno/git_repos/quasar_source/generated_output/postgres:/var/lib/postgresql/data'
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'postgres'
       POSTGRES_PASSWORD: 'password'
-    volumes:
-      - /Users/utarsuno/git_repos/quasar_source/generated_output/postgres:/var/lib/postgresql/data
+    tty: true
 
 volumes:
   nexus_volume:

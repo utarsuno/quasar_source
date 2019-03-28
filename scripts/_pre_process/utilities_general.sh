@@ -54,26 +54,11 @@ DASHED_LINE="-------------------------------------------------------------------
 # |__  |  | |\ | /  `  |  | /  \ |\ | /__`
 # |    \__/ | \| \__,  |  | \__/ | \| .__/
 
-function print_green_text {
-    if [ -z "$1" ]; then
-       terminate_script "The function 'print_green_text' requires a parameter.\n"
-    fi
-    printf "${FG_GREEN}${FS_REG}${1}${RESET_ALL}\n"
-}
-
 function print_red_text {
     if [ -x "$1" ]; then
         terminate_script "The function 'print_red_text' requires a parameter.\n"
     fi
     printf "${FG_RED}${FS_REG}${1}${RESET_ALL}\n"
-}
-
-function print_dotted_line {
-    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
-}
-
-function print_dotted_line_green {
-    printf "${FG_GREEN}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
 }
 
 function print_red_dotted_line {
@@ -82,13 +67,6 @@ function print_red_dotted_line {
 
 function print_dash_line {
     printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}\n"
-}
-
-function print_script_text {
-    if [ -z "$1" ]; then
-       terminate_script "The function 'print_script_text' requires a parameter.\n"
-    fi
-    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}\n"
 }
 
 function terminate_script {

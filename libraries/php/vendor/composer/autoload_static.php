@@ -7,19 +7,23 @@ namespace Composer\Autoload;
 class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
 {
     public static $files = array (
+        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Bridge\\PhpUnit\\' => 23,
         ),
         'Q' => 
         array (
@@ -47,6 +51,10 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Polyfill\\Iconv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
@@ -67,9 +75,14 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Symfony\\Bridge\\PhpUnit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/phpunit-bridge',
+        ),
         'QuasarSource\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+            1 => __DIR__ . '/../..' . '/../../quality_assurance/php',
         ),
         'Psr\\Log\\' => 
         array (
@@ -929,6 +942,27 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'QuasarSource\\Utilities\\LocalConfigurations' => __DIR__ . '/../..' . '/src/universal_utilities/LocalConfigurations.php',
         'QuasarSource\\Utilities\\SimpleTimer' => __DIR__ . '/../..' . '/src/universal_utilities/SimpleTimer.php',
         'QuasarSource\\Utilities\\StringUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/StringUtilities.php',
+        'QuasarSource\\Utilities\\StringUtilitiesTest' => __DIR__ . '/../..' . '/../../quality_assurance/php/universal_utilities/StringUtilitiesTest.php',
+        'Symfony\\Bridge\\PhpUnit\\ClockMock' => __DIR__ . '/..' . '/symfony/phpunit-bridge/ClockMock.php',
+        'Symfony\\Bridge\\PhpUnit\\CoverageListener' => __DIR__ . '/..' . '/symfony/phpunit-bridge/CoverageListener.php',
+        'Symfony\\Bridge\\PhpUnit\\DeprecationErrorHandler' => __DIR__ . '/..' . '/symfony/phpunit-bridge/DeprecationErrorHandler.php',
+        'Symfony\\Bridge\\PhpUnit\\DnsMock' => __DIR__ . '/..' . '/symfony/phpunit-bridge/DnsMock.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV5' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CommandForV5.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV6' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CommandForV6.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CoverageListenerForV5' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CoverageListenerForV5.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CoverageListenerForV6' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CoverageListenerForV6.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CoverageListenerForV7' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CoverageListenerForV7.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\CoverageListenerTrait' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/CoverageListenerTrait.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV5' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/SymfonyTestsListenerForV5.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV6' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/SymfonyTestsListenerForV6.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/SymfonyTestsListenerForV7.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerTrait' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/SymfonyTestsListenerTrait.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\TestRunnerForV5' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/TestRunnerForV5.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\TestRunnerForV6' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/TestRunnerForV6.php',
+        'Symfony\\Bridge\\PhpUnit\\Legacy\\TestRunnerForV7' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/TestRunnerForV7.php',
+        'Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener' => __DIR__ . '/..' . '/symfony/phpunit-bridge/SymfonyTestsListener.php',
+        'Symfony\\Bridge\\PhpUnit\\TextUI\\Command' => __DIR__ . '/..' . '/symfony/phpunit-bridge/TextUI/Command.php',
+        'Symfony\\Bridge\\PhpUnit\\TextUI\\TestRunner' => __DIR__ . '/..' . '/symfony/phpunit-bridge/TextUI/TestRunner.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface' => __DIR__ . '/..' . '/symfony/console/CommandLoader/CommandLoaderInterface.php',
         'Symfony\\Component\\Console\\CommandLoader\\ContainerCommandLoader' => __DIR__ . '/..' . '/symfony/console/CommandLoader/ContainerCommandLoader.php',
@@ -1060,6 +1094,7 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'Symfony\\Contracts\\Translation\\TranslatorInterface' => __DIR__ . '/..' . '/symfony/contracts/Translation/TranslatorInterface.php',
         'Symfony\\Contracts\\Translation\\TranslatorTrait' => __DIR__ . '/..' . '/symfony/contracts/Translation/TranslatorTrait.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+        'Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill-iconv/Iconv.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
     );
 

@@ -1,12 +1,14 @@
 {
   "require": {
-    "symfony/yaml": "4.2.4",
-    "doctrine/orm": "2.6.3",
-    "symfony/debug": "4.2.4"
+    "symfony/yaml"          : "4.2.4",
+    "doctrine/orm"          : "2.6.3",
+    "symfony/debug"         : "4.2.4",
+    "symfony/phpunit-bridge": "4.2.4",
+    "symfony/polyfill-iconv": "^1.11"
   },
   "autoload": {
     "psr-4": {
-      "QuasarSource\\": "src/"
+      "QuasarSource\\": ["src/", "./../../quality_assurance/php"]
     }
   }
 }

@@ -14,6 +14,7 @@ use QuasarSource\CodeAbstractions\CodeAbstractions\LineOfCode;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
 use QuasarSource\Utilities\EchoUtilities as L;
 use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\FileUtilities as UFO;
 require_once '/quasar_source/libraries/php/autoload.php';
 
 
@@ -47,16 +48,15 @@ class FileDockerCompose extends FileYAML {
         $segments->add_empty_line(true);
         $segments->add_line("version: '3.7'", true);
         $segments->add_comment("# {'Compose file format': 3.7, 'Docker Engine release': 18.06.0*} (0x0)", true);
-
-
-        $lines = $segments->get_segments();
+        
+        $lines     = $segments->get_segments();
         $file_text = '';
         foreach ($lines as $line) {
             $file_text .= $line;
         }
         #echo $file_text;
 
-        file_put_contents($this->get_path_full(), $file_text, LOCK_EX);
+        UFO::file_op_set_contents($this->get_path_full(), $file_text);
     }
 
     public function clean() : void {
@@ -66,8 +66,6 @@ class FileDockerCompose extends FileYAML {
 
         $code_segments = $this->temp_get_parsed_lines($lines);
         $this->perform_clean($code_segments);
-
-
 
         //die();
     }

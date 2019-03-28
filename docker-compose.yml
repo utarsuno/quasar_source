@@ -37,10 +37,10 @@ services:
     tty: true
     #container_name: rabbit_manager
     volumes:
-      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
+      - './applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config'
+      - './applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json'
     ports:
-      - "5672:5672"
+      - '5672:5672'
       - "15672:15672"
       - "25672:25672"
 
