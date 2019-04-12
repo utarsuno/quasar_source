@@ -37,7 +37,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
     singleton_remove: function(singleton) {
         let s;
         for (s = 0; s < this.singletons.length; s++) {
-            if (this.singletons[s] == singleton) {
+            if (this.singletons[s] === singleton) {
                 singleton.flag_set_off(EFLAG_IS_SINGLETON);
                 this.singletons.splice(s, 1);
                 return;

@@ -31,14 +31,14 @@ Object.assign(
         },
 
         set_canvas_width: function(w) {
-            if (this._canvas_width != w) {
+            if (this._canvas_width !== w) {
                 this._element.width = w;
                 this._canvas_width  = w;
             }
         },
 
         set_canvas_height: function(h) {
-            if (this._canvas_height != h) {
+            if (this._canvas_height !== h) {
                 this._element.height = h;
                 this._canvas_height  = h;
             }
@@ -56,10 +56,10 @@ Object.assign(
                 // Default font.
                 font = QE.FONT_ARIAL_16;
             }
-            if (this.font == null || (this.font != null && this.font != font)) {
+            if (this.font == null || (this.font != null && this.font !== font)) {
                 this.font = font;
             }
-            if (this._context.font != this.font.font_as_string) {
+            if (this._context.font !== this.font.font_as_string) {
                 this._context.font = this.font.font_as_string;
             }
         },

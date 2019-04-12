@@ -25,18 +25,18 @@ $_QE.prototype.CanvasRenderer.prototype = {
     },
 
     _set_font: function(font) {
-        if (this.font != font) {
+        if (this.font !== font) {
             this.font = font;
         }
         if (this._context != null) {
-            if (this._context.font != font.font_as_string) {
+            if (this._context.font !== font.font_as_string) {
                 this._context.font = font.font_as_string;
             }
         }
     },
 
     _set_text_alignment: function(text_alignment) {
-        if (this._text_alignment != text_alignment) {
+        if (this._text_alignment !== text_alignment) {
             this._text_alignment = text_alignment;
             switch (this._text_alignment) {
             case TEXT_ALIGNMENT_START:
@@ -54,7 +54,7 @@ $_QE.prototype.CanvasRenderer.prototype = {
     },
 
     _set_color: function(c) {
-        if (this._current_fill_color != c && c != null) {
+        if (this._current_fill_color !== c && c != null) {
             this._current_fill_color = c;
             this._context.fillStyle = c;
         }
@@ -65,7 +65,7 @@ $_QE.prototype.CanvasRenderer.prototype = {
     },
 
     _set_render_color: function(c) {
-        if (c != null & (this._context.fillStyle != null && this._context.fillStyle != c)) {
+        if (c != null & (this._context.fillStyle != null && this._context.fillStyle !== c)) {
             this._context.fillStyle = c;
         }
     },

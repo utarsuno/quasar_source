@@ -27,7 +27,7 @@ Object.assign($_QE.prototype, {
 
         document.documentElement.ondrop = function(event) {
             event.preventDefault();
-            if (event.dataTransfer.files.length == 1) {
+            if (event.dataTransfer.files.length === 1) {
                 self._engine_on_local_file_upload_start.bind(self, event.dataTransfer.files[0], event)();
             } else {
                 let f;
@@ -40,7 +40,7 @@ Object.assign($_QE.prototype, {
     },
 
     _engine_on_local_file_upload_start: function(file, event) {
-        if (this._ei_file_current == null || (file != null && file == this._ei_file_current)) {
+        if (this._ei_file_current == null || (file != null && file === this._ei_file_current)) {
             this._ei_file_current = file;
             this._ei_file_event   = event;
             this._ei_file_reader.readAsDataURL(file);
@@ -52,7 +52,7 @@ Object.assign($_QE.prototype, {
 
     _engine_on_local_file_upload_finish: function(event) {
         // Create a floating picture for image files.
-        if (this._ei_file_current.type == 'image/webp' || this._ei_file_current.type == 'image/png' || this._ei_file_current.type == 'image/jpeg') {
+        if (this._ei_file_current.type === 'image/webp' || this._ei_file_current.type === 'image/png' || this._ei_file_current.type === 'image/jpeg') {
             this.manager_world.current_world.handle_image_upload(event.target.result, this._ei_queue_file, this._ei_file_current.name);
         } else {
             this.log_warning('Invalid file format {' + this._ei_file_current.type + '}', this._ei_file_current);
@@ -61,7 +61,7 @@ Object.assign($_QE.prototype, {
         // TODO: Other file type support.
 
         // Check if queue is empty or next file needed to be loaded.
-        if (this._ei_queue_file.length != 0) {
+        if (this._ei_queue_file.length !== 0) {
             this._ei_file_current = this._ei_queue_file.pop();
             this._ei_file_event   = this._ei_queue_event.pop();
             this._engine_on_local_file_upload_start(this._ei_file_current, this._ei_file_event);

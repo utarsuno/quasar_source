@@ -157,7 +157,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
                 }
                 // No empty pool slots, create a new slot.
                 let slot;
-                if (this._pool_type == POOL_TYPE_SENT) {
+                if (this._pool_type === POOL_TYPE_SENT) {
                     slot = new MessageReceiveInstance();
                 } else {
                     slot = new MessageSendInstance();
@@ -240,7 +240,7 @@ $_QE.prototype.WebSocketManager = function(engine) {
 
         // Solution from: https://stackoverflow.com/questions/25779831/how-to-catch-websocket-connection-to-ws-xxxnn-failed-connection-closed-be
         setTimeout(function () {
-            if (self.socket.readyState != 1) {
+            if (self.socket.readyState !== 1) {
                 self.main._on_error('Websocket did not connect to server within 3 seconds.');
             }
         }, 3000);

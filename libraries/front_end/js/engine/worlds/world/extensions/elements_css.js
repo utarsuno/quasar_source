@@ -33,7 +33,7 @@ Object.assign($_QE.prototype.World.prototype, {
     remove_from_elements_css: function(element) {
         let i;
         for (i = 0; i < this.elements_css.length; i++) {
-            if (this.elements_css[i] == element) {
+            if (this.elements_css[i] === element) {
                 this.elements_css[i].flag_set_off(EFLAG_IS_IN_ELEMENTS_ROOT);
                 this.elements_css.splice(i, 1);
                 return;
@@ -45,7 +45,7 @@ Object.assign($_QE.prototype.World.prototype, {
     _add_element_to_css_if_needed: function(element) {
         let e;
         for (e = 0; e < this.elements_css.length; e++) {
-            if (this.elements_css[e] == element) {
+            if (this.elements_css[e] === element) {
                 return;
             }
         }

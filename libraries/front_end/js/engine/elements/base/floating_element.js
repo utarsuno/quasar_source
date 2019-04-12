@@ -165,7 +165,7 @@ Object.assign(
         },
 
         fully_destroy_self: function() {
-            if (this.attachments.length != 0) {
+            if (this.attachments.length !== 0) {
                 let a;
                 for (a = 0; a < this.attachments.length; a++) {
                     this.attachments[a].fully_destroy_self();

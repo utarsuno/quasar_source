@@ -4,12 +4,12 @@ Object.assign($_QE.prototype.World.prototype, {
 
     key_down_event_for_interactive_objects: function(event) {
         if (this.currently_looked_at_object != null) {
-            if (event.keyCode == KEY_CODE__TAB && this.currently_looked_at_object.flag_is_off(EFLAG_IS_ENGAGED)) {
+            if (event.keyCode === KEY_CODE__TAB && this.currently_looked_at_object.flag_is_off(EFLAG_IS_ENGAGED)) {
                 this.tab_to_next_interactive_object();
             } else if (this.currently_looked_at_object.flag_is_on(EFLAG_IS_ENGAGED) || this.currently_looked_at_object.flag_is_off(EFLAG_IS_INPUT_PARSEABLE_WITHOUT_ENGAGED_STATE)) {
                 this.currently_looked_at_object.parse_key_event(event);
             }
-        } else if (event.keyCode == KEY_CODE__TAB) {
+        } else if (event.keyCode === KEY_CODE__TAB) {
             this.tab_to_previous_tab_target();
         }
     },

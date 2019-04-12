@@ -12,7 +12,7 @@ $_QE.prototype.TimeInstance.prototype = {
         this.day          = this.d.getDay();
         this.day_of_month = this.d.getUTCDate();
         this.hours        = this.d.getHours();
-        if (this.hours == 0) {
+        if (this.hours === 0) {
             this.hours = '00';
         } else if (this.hours < 10) {
             this.hours = '0' + this.hours.toString();
@@ -20,7 +20,7 @@ $_QE.prototype.TimeInstance.prototype = {
             this.hours = this.hours.toString();
         }
         this.minutes = this.d.getMinutes();
-        if (this.minutes == 0) {
+        if (this.minutes === 0) {
             this.minutes = '00';
         } else if (this.minutes < 10) {
             this.minutes = '0' + this.minutes.toString();
@@ -28,7 +28,7 @@ $_QE.prototype.TimeInstance.prototype = {
             this.minutes = this.minutes.toString();
         }
         this.seconds = this.d.getSeconds();
-        if (this.seconds == 0) {
+        if (this.seconds === 0) {
             this.seconds = '00';
         } else if (this.seconds < 10) {
             this.seconds = '0' + this.seconds.toString();

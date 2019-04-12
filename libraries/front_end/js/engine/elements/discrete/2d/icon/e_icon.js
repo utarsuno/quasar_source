@@ -13,7 +13,7 @@ Object.assign(
 
             this.__init__floating_element();
             if (args[ARG_COLOR_FOREGROUND] == null) {
-                args[ARG_COLOR_FOREGROUUND] = QE.COLOR_GREEN;
+                args[ARG_COLOR_FOREGROUND] = QE.COLOR_GREEN;
             }
             this._parse_arguments_color(args);
             this.set_dimensions(args[ARG_SIZE], args[ARG_SIZE]);
@@ -31,10 +31,6 @@ Object.assign(
             this.current_foreground_color_changed();
         },
 
-        //create: function() {
-        //    this._create_floating_icon();
-        //},
-
         /*__   __        __   __      __   __   ___  __       ___    __        __
          /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
          \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
@@ -43,7 +39,7 @@ Object.assign(
         },
 
         switch_icon: function(icon) {
-            if (this.icon_type != icon) {
+            if (this.icon_type !== icon) {
                 this.shader_material.set_icon(icon);
                 this.icon_type = icon;
             }

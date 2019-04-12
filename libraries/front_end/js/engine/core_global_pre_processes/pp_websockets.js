@@ -27,6 +27,7 @@ const WS_TYPE_GET_ALL_NETWORK_STATS = 5;     // #pre-process_global_constant
 const WS_DATA_KEY_INT          = 0; // #pre-process_global_constant
 const WS_DATA_KEY_TEXT         = 1; // #pre-process_global_constant
 
+
 const _WEB_SOCKET_KEY_TYPE    = 't';  // #pre-process_global_constant
 const _WEB_SOCKET_KEY_ID      = 'm';  // #pre-process_global_constant
 const _WEB_SOCKET_KEY_SUCCESS = 's';  // #pre-process_global_constant

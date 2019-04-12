@@ -52,25 +52,25 @@ Object.assign(
         _add_wall: function(x, y, direction) {
             let mesh = this._cache_mesh_wall.clone();
             let m    = null;
-            if (direction == 'left') {
+            if (direction === 'left') {
                 mesh.lookAt(1, 0, 0);
                 mesh.position.set(x * this.tile_size - this.tile_size / 2, this.tile_size / 2, y * this.tile_size);
                 mesh.updateMatrix();
                 mesh.updateMatrixWorld();
                 m = mesh.matrix;
-            } else if (direction == 'right') {
+            } else if (direction === 'right') {
                 mesh.lookAt(-1, 0, 0);
                 mesh.position.set(x * this.tile_size + this.tile_size / 2, this.tile_size / 2, y * this.tile_size);
                 mesh.updateMatrix();
                 mesh.updateMatrixWorld();
                 m = mesh.matrix;
-            } else if (direction == 'forward') {
+            } else if (direction === 'forward') {
                 mesh.lookAt(0, 0, -1);
                 mesh.position.set(x * this.tile_size, this.tile_size / 2, y * this.tile_size + this.tile_size / 2);
                 mesh.updateMatrix();
                 mesh.updateMatrixWorld();
                 m = mesh.matrix;
-            } else if (direction == 'backward') {
+            } else if (direction === 'backward') {
                 mesh.lookAt(0, 0, 1);
                 mesh.position.set(x * this.tile_size, this.tile_size / 2, y * this.tile_size - this.tile_size / 2);
                 mesh.updateMatrix();

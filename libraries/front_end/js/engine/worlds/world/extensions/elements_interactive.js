@@ -41,7 +41,7 @@ Object.assign($_QE.prototype.World.prototype, {
             raycaster.intersectObject(this.elements_interactive[i].get_object(), true, this._intersections);
 
             // Only check the first result returned as they are already sorted by distance.
-            if (this._intersections.length != 0 &&
+            if (this._intersections.length !== 0 &&
                 this._intersections[0].distance < max_distance &&
                 this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null
             ) {
@@ -60,7 +60,7 @@ Object.assign($_QE.prototype.World.prototype, {
         }
 
         // Faster than '.length = 0'
-        if (this._intersections.length != 0) {
+        if (this._intersections.length !== 0) {
             this._intersections = [];
         }
 
@@ -75,7 +75,7 @@ Object.assign($_QE.prototype.World.prototype, {
         } else {
             if (this.currently_looked_at_object == null) {
                 this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
-            } else if (this.currently_looked_at_object != intersected_element) {
+            } else if (this.currently_looked_at_object !== intersected_element) {
                 this.look_away_from_currently_looked_at_object();
                 this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
             }
@@ -85,7 +85,7 @@ Object.assign($_QE.prototype.World.prototype, {
     remove_from_elements_interactive: function(element) {
         let i;
         for (i = 0; i < this.elements_interactive.length; i++) {
-            if (this.elements_interactive[i] == element) {
+            if (this.elements_interactive[i] === element) {
                 element.flag_set_off(EFLAG_IS_IN_ELEMENTS_INTERACTIVE);
                 this.elements_interactive.splice(i, 1);
                 return;
@@ -103,7 +103,7 @@ Object.assign($_QE.prototype.World.prototype, {
     _add_element_to_interactive_if_needed: function(element) {
         let e;
         for (e = 0; e < this.elements_interactive.length; e++) {
-            if (this.elements_interactive[e] == element) {
+            if (this.elements_interactive[e] === element) {
                 return;
             }
         }

@@ -61,23 +61,13 @@ function print_red_text {
     printf "${FG_RED}${FS_REG}${1}${RESET_ALL}\n"
 }
 
-function print_red_dotted_line {
-    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
-}
-
-function print_dash_line {
-    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}\n"
-}
-
 function terminate_script {
-    print_red_dotted_line
     if [ -z "$1" ]; then
         printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}\n"
     else
         printf "${FG_RED}${FS_UL}${1}${RESET_ALL}\n\n"
         printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}\n"
     fi
-    print_red_dotted_line
     exit
 }
 
@@ -110,7 +100,7 @@ function print_line_in_between_dashed_lines {
     if [ -z "$1" ]; then
         printf "The function 'print_line_in_between_dashed_lines' has to have an argument passed into it. The program will now terminate as most likely a programmer error has occurred lol.\n"
     fi
-    print_dash_line
+    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}\n"
     printf $1
-    print_dash_line
+    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}\n"
 }

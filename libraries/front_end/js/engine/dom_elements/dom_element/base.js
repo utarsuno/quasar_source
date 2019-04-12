@@ -58,21 +58,21 @@ Object.assign($_QE.prototype.DomElement.prototype, {
     },
 
     dom_element_set_background_color: function(color) {
-        if (this._element_background_color != color) {
+        if (this._element_background_color !== color) {
             this._element_background_color      = color;
             this._element.style.backgroundColor = color;
         }
     },
 
     dom_element_set_foreground_color: function(color) {
-        if (this._element_foreground_color != color) {
+        if (this._element_foreground_color !== color) {
             this._element_foreground_color = color;
             this._element.style.color      = color;
         }
     },
 
     dom_element_set_border_color: function(color) {
-        if (this._element_border_color != color) {
+        if (this._element_border_color !== color) {
             this._element_border_color      = color;
             this._element.style.borderColor = color;
         }
@@ -87,17 +87,17 @@ Object.assign($_QE.prototype.DomElement.prototype, {
     },
 
     dom_element_set_offset_y: function(offset_y) {
-        this._element_is_transformed = offset_y != 0;
+        this._element_is_transformed = offset_y !== 0;
         this._element.style.transform = 'translateY(' + offset_y.toString() + 'px)';
     },
 
     dom_element_set_offset_x: function(offset_x) {
-        this._element_is_transformed = offset_x != 0;
+        this._element_is_transformed = offset_x !== 0;
         this._element.style.transform = 'translateX(' + offset_x.toString() + 'px)';
     },
 
     dom_element_set_offset_xy: function(offset_x, offset_y) {
-        this._element_is_transformed = (offset_x != 0) || (offset_y != 0);
+        this._element_is_transformed = (offset_x !== 0) || (offset_y !== 0);
         this._element.style.transform = 'translate(' + offset_x.toString() + 'px,' + offset_y.toString() + 'px)';
     },
 

@@ -109,7 +109,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
     _remove_element_if_needed: function(element) {
         if (element.flag_is_on(EFLAG_IS_IN_WORLD)) {
-            if (element.world == this) {
+            if (element.world === this) {
                 this._remove_element(element);
             } else if (element.world != null) {
                 element.world._remove_element(element);

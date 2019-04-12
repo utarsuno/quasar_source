@@ -1,0 +1,15 @@
+non_coding_task:
+  - 'add more PHPStorm plugins'
+
+todos:
+  - 'completly re-do JS build, make sure to enforce a very strict/formal build process'
+  - 'add many more JS linters/checkers/tools/libs, standards, etc'
+
+big_tasks:
+  - 'migrate CodeManager fully from Python to PHP (easier to organize it there)'
+
+
+
+
+
+

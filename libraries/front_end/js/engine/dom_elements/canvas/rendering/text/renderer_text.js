@@ -9,7 +9,7 @@ Object.assign(
         __init__renderer_text: function(args) {
             this.__init__canvas_renderer(TEXT_ALIGNMENT_START);
 
-            if (args[ARG_NUMBER_OF_ROWS] != -1) {
+            if (args[ARG_NUMBER_OF_ROWS] !== -1) {
                 this.rows = [];
             }
 
@@ -19,7 +19,7 @@ Object.assign(
         },
 
         __init__visible_rows: function(number_of_visible_rows, width) {
-            if (number_of_visible_rows == -1) {
+            if (number_of_visible_rows === -1) {
                 this.set_dimensions(width, this.font.height);
                 this.row = new $_QE.prototype.VisibleRow(0, this);
             } else {

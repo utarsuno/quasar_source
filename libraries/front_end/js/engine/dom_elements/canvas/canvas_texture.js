@@ -27,7 +27,7 @@ Object.assign(
             this.texture.anisotropy = QE.renderer.capabilities.getMaxAnisotropy();
 
             // Investigate this?
-            if (this.height != this._canvas_height || this.width != this._canvas_width) {
+            if (this.height !== this._canvas_height || this.width !== this._canvas_width) {
                 l('Investigate this! {' + this.height + '} {' + this._canvas_height + '} {' + this.width + '} {' + this._canvas_width + '}');
                 this.texture.repeat.set(this.width / this._canvas_width, this.height / this._canvas_height);
                 this.texture.offset.y = 1.0 - (this.height / this._canvas_height);
