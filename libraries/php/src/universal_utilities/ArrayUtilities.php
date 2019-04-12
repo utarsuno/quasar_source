@@ -13,7 +13,7 @@ require_once '/quasar_source/libraries/php/autoload.php';
 class ArrayUtilities {
 
     public static function remove_first_n(array & $array, int $number_to_remove) : void {
-        if ($number_to_remove <= 0 || count($array) === 0) {
+        if ($number_to_remove <= 0 || !isset($array)) {
             return;
         }
         $array = array_slice($array, $number_to_remove);

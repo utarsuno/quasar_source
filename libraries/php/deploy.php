@@ -70,6 +70,27 @@ task('run_all_tests', function() {
     run("$_run php $path_php_unit -c $path_php_unit_configs");
 })->desc('Run all PHP unit tests.');
 
+
+
+
+/*
+TODOs: Docker related builds and operations
+
+echo "Removing un-used networks."
+echo 'y' | docker network prune
+
+echo "Removing un-used volumes."
+echo 'y' | docker volume prine
+
+echo "Removing un-used images."
+echo 'y' | docker image prine
+
+echo "Removing stopped containers."
+docker ps -aq --no-trunc -f status=exited | xargs docker rm
+ */
+
+
+
 // Project name
 //set('application', 'my_project');
 
