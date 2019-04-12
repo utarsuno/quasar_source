@@ -7,48 +7,92 @@
  */
 
 namespace QuasarSource\Utilities;
-use QuasarSource\Utilities\StringUtilities as STR;
-use PHPUnit\Framework\TestCase;
 require_once '/quasar_source/libraries/php/autoload.php';
+use QuasarSource\QualityAssurance\FileTestSuite;
+use QuasarSource\Utilities\StringUtilities as STR;
 
 
-class StringUtilitiesTest extends TestCase
-{
+class StringUtilitiesTest extends FileTestSuite {
+
+    protected $class_to_test = STR::class;
+
+    public function test_get_matches_removed() : void {
+        $this->assert_equals_scenarios(
+            'get_matches_removed',
+            [
+                # Expected Result, To search, To Remove.
+                ['hello ', 'hello world', 'world'],
+                ['expected_output', 'expectedto_remove_output', 'to_remove'],
+                ['', '', ''],
+                ['', ' ', ' ']
+            ]
+        );
+    }
 
     public function test_contains() : void {
-        $this->assertTrue(STR::contains('abc', 'a'));
-        $this->assertTrue(STR::contains('abc', 'b'));
-        $this->assertTrue(STR::contains('abc', 'c'));
-        $this->assertTrue(STR::contains('abc', 'ab'));
-        $this->assertTrue(STR::contains('abc', 'bc'));
-        $this->assertTrue(STR::contains('abc', 'abc'));
-        $this->assertTrue(STR::contains('ABCDMabcQRST', 'abc'));
-        $this->assertFalse(STR::contains('Abc', 'abc'));
-        $this->assertFalse(STR::contains('abc', 'd'));
-        $this->assertFalse(STR::contains('abc', ''));
+        $this->assert_positive_and_negative_scenarios(
+            'contains',
+            [
+                # Positive scenarios.
+                [' ', ' '],
+                ['abc', 'a'],
+                ['abc', 'b'],
+                ['abc', 'c'],
+                ['abc', 'ab'],
+                ['abc', 'bc'],
+                ['abc', 'abc'],
+                ['ACDMabcQRST', 'abc'],
+            ],
+            [
+                # Negative scenarios.
+                ['Abc', 'abc'],
+                ['abc', 'd'],
+                ['abc ', ''],
+                ['abc', ' '],
+                ['', ''],
+                [' ', ''],
+                [' ', ''],
+            ]
+        );
     }
 
     public function test_starts_with() : void {
-        $this->assertTrue(STR::starts_with('abc', 'a'));
-        $this->assertTrue(STR::starts_with('abc', 'ab'));
-        $this->assertTrue(STR::starts_with('abc', 'abc'));
-        $this->assertTrue(STR::starts_with(' abc', ' '));
-        $this->assertTrue(STR::starts_with(' ', ' '));
-        $this->assertFalse(STR::starts_with('abc', 'b'));
-        $this->assertFalse(STR::starts_with('abc', ''));
-        $this->assertFalse(STR::starts_with(' ', ''));
-        $this->assertFalse(STR::starts_with('', ''));
+        $this->assert_positive_and_negative_scenarios(
+            'starts_with',
+            [
+                ['abc', 'a'],
+                ['abc', 'ab'],
+                ['abc', 'abc'],
+                [' abc ', ' '],
+                [' ', ' '],
+            ],
+            [
+                ['abc', 'b'],
+                ['abc', ''],
+                ['abc ', ' '],
+                [' ', ''],
+                ['', ''],
+                ['', ' '],
+            ]
+        );
     }
 
     public function test_ends_with() : void {
-        $this->assertTrue(STR::ends_with('abc', 'c'));
-        $this->assertTrue(STR::ends_with('abc', 'bc'));
-        $this->assertTrue(STR::ends_with('abc', 'abc'));
-        $this->assertTrue(STR::ends_with('abc ', ' '));
-        $this->assertFalse(STR::ends_with('abc', ''));
-        $this->assertFalse(STR::ends_with('abc ', ''));
-        $this->assertFalse(STR::ends_with('', ''));
-        $this->assertFalse(STR::ends_with(' ', ''));
+        $this->assert_positive_and_negative_scenarios(
+            'ends_with',
+            [
+                ['abc', 'c'],
+                ['abc', 'bc'],
+                ['abc', 'abc'],
+                ['abc ', ' '],
+            ],
+            [
+                ['abc', ''],
+                ['abc', ' '],
+                ['', ''],
+                [' ', ''],
+            ]
+        );
     }
 
 }

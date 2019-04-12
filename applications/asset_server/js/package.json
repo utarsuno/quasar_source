@@ -1,0 +1,14 @@
+{
+  "name": "asset_server_temp",
+  "version": "1.0.0",
+  "description": "asset_server_temp_description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csso": "^3.5.1"
+  }
+}

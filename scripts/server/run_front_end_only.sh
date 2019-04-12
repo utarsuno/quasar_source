@@ -16,7 +16,7 @@ SCRIPT_NAME="Run Nexus Local"
 IS_RUNNING="$(docker ps | grep quasar_source_front_end)"
 # --------------------------------------------------------------------------------------------
 
-start_script
+echo "${SCRIPT_NAME} Started"
 
 if [ -z "${IS_RUNNING}" ]; then
   echo "Nexus Local is spawning!"

@@ -1,14 +1,34 @@
 {
+  "name": "quasar_source_php/quasar_source",
+  "description": "Various utilities in PHP used in Quasar Source.",
+  "type": "library",
+  "homepage": "https://github.com/utarsuno/quasar_source",
   "require": {
-    "symfony/yaml"          : "4.2.4",
-    "doctrine/orm"          : "2.6.3",
-    "symfony/debug"         : "4.2.4",
-    "symfony/phpunit-bridge": "4.2.4",
-    "symfony/polyfill-iconv": "^1.11"
+    "php"                   : "7.3.*",
+    "symfony/yaml"          : "~4.2",
+    "symfony/debug"         : "~4.2",
+    "symfony/phpunit-bridge": "~4.2",
+    "symfony/polyfill-iconv": "~1.11",
+    "doctrine/orm"          : "~2.6",
+    "doctrine/dbal"         : "^2.9"
   },
   "autoload": {
     "psr-4": {
-      "QuasarSource\\": ["src/", "./../../quality_assurance/php"]
+      "ProjectRoot\\": "",
+      "QuasarSource\\": "src/"
     }
-  }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ProjectRoot\\": "",
+      "QuasarSource\\": ["src/", "../../quality_assurance/php"]
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Uladzislau Tarsunou",
+      "role": "owner"
+    }
+  ]
 }

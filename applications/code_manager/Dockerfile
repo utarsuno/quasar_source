@@ -41,7 +41,7 @@ RUN apk add --no-cache libc-dev \
 RUN cd /usr/lib \
   && npm install babel-minify --save-dev \
   # Shaders.
-  && cd /usr/lib \
+#  && cd /usr/lib \
   && npm install glslify \
   && npm install glsl-film-grain \
   && npm install glsl-blend-soft-light \

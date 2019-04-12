@@ -1,9 +1,0 @@
-- convert majority of bash scripts into Python scripts, same functionality, easier to quickly change.
-- 'code_manager' should be converted to PHP, the more strict OOP features will make for far better organization.
-
-
-
-
-
-
-

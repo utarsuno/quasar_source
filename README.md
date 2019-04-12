@@ -1,4 +1,7 @@
 ## Development Screenshots
+
+Note: back-end going through full refactor, front-end work paused atm
+
 November 2018
 ![alt_text](https://i.imgur.com/r0Hsbc3.jpg)
 ---

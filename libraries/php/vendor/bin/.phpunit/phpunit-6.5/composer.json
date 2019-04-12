@@ -88,7 +88,7 @@
     "repositories": {
         "phpunit-bridge": {
             "type": "path",
-            "url": "/Users/utarsuno/git_repos/quasar_source/libraries/php/vendor/symfony/phpunit-bridge"
+            "url": "/quasar_source/libraries/php/vendor/symfony/phpunit-bridge"
         }
     }
 }

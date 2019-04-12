@@ -16,6 +16,7 @@ return array(
     'Symfony\\Bridge\\PhpUnit\\' => array($vendorDir . '/symfony/phpunit-bridge'),
     'QuasarSource\\' => array($baseDir . '/src', $baseDir . '/../../quality_assurance/php'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'ProjectRoot\\' => array($baseDir . '/'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib/Doctrine/ORM'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL'),

@@ -53,6 +53,8 @@ docker:
       - 'docker volume prune'
     total_size_used:
       - 'docker system df'
+    examples:
+      - 'docker-compose -f docker-compose.asset_server_only.yml up -d postgres_server'
 
 bash_commands:
 

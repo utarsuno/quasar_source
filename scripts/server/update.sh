@@ -15,7 +15,7 @@ cd_base
 SCRIPT_NAME="Update Server Code"
 # --------------------------------------------------------------------------------------------
 
-start_script
+echo "${SCRIPT_NAME} Started"
 
 git clean -f -d
 git fetch

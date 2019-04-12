@@ -25,12 +25,15 @@ class CodeManager {
 
         $directory = FileManager::get_base_directory();
 
+        /*
         $files = $directory->get_local_files_of_type(FileDockerCompose::class);
-
         foreach ($files as $file) {
             $file->clean();
             echo $file . PHP_EOL;
         }
+        */
+
+
 
     }
 

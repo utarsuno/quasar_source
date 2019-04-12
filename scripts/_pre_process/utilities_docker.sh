@@ -165,10 +165,6 @@ function docker_compose_down {
     docker-compose -f ${DOCKER_COMPOSE_FILE} down;
 }
 
-function start_script {
-    print_dashed_line_with_text "${SCRIPT_NAME} Started"
-}
-
 function docker_health_check {
     # ARG_OPERATION_ENSURE_NETWORK = 'n'
     # ARG_OPERATION_ENSURE_VOLUME  = 'v'
@@ -181,7 +177,7 @@ function docker_health_check {
 }
 
 function start_script_with_docker_health_check {
-    start_script
+    echo "${SCRIPT_NAME} Started"
     docker_health_check
 }
 

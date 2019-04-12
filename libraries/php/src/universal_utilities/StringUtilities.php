@@ -12,6 +12,24 @@ require_once '/quasar_source/libraries/php/autoload.php';
 
 class StringUtilities {
 
+    /**
+     * Returns a string having the contents of the first string with any occurrences of secondary string provided removed.
+     *
+     * @param string $base  < The string to base contents off of. >
+     * @param string $match < The string to find occurrences of.  >
+     * @return string       < A new string.                       >
+     */
+    public static function get_matches_removed(string $base, string $match) : string {
+        return str_replace($match, '', $base);
+    }
+
+    /**
+     * Checks if provided string has any occurrences of the secondary string provided.
+     *
+     * @param string $base  < The string to search.     >
+     * @param string $match < The string to search for. >
+     * @return bool         < True if contained.        >
+     */
     public static function contains(string $base, string $match) : bool {
         if ($match === '') {
             return false;
@@ -31,21 +49,6 @@ class StringUtilities {
             return false;
         }
         return substr($base, -strlen($end)) === $end;
-    }
-
-    public static function get_matches_removed(string $base, string $match) : string {
-        return str_replace($match, '', $base);
-    }
-
-    public static function get_enclosed_in(string $base, string $enclosing_character) : string {
-        $string = $base;
-        if (!self::starts_with($string, $enclosing_character)) {
-            $string = $enclosing_character . $string;
-        }
-        if (!self::ends_with($string, $enclosing_character)) {
-            $string .= $enclosing_character;
-        }
-        return $string;
     }
 
 }

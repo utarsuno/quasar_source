@@ -15,29 +15,29 @@ cd_base
 SCRIPT_NAME="Docker clean up"
 # --------------------------------------------------------------------------------------------
 
-start_script
+echo "${SCRIPT_NAME} Started"
 
-print_dashed_line_with_text "Removing un-used networks."
+echo "Removing un-used networks."
 echo 'y' | docker network prune
 echo ''
-print_dashed_line_with_text "Un-used networks removed."
+echo "Un-used networks removed."
 
 
-print_dashed_line_with_text "Removing un-used volumes."
+echo "Removing un-used volumes."
 echo 'y' | docker volume prine
 echo ''
-print_dashed_line_with_text "Un-used volumes removed."
+echo "Un-used volumes removed."
 
 
-print_dashed_line_with_text "Removing un-used images."
+echo "Removing un-used images."
 echo 'y' | docker image prine
 echo ''
-print_dashed_line_with_text "Un-used images removed."
+echo "Un-used images removed."
 
 
-print_dashed_line_with_text "Removing stopped containers."
+echo "Removing stopped containers."
 docker ps -aq --no-trunc -f status=exited | xargs docker rm
-print_dashed_line_with_text "Removed stopped containers."
+echo "Removed stopped containers."
 
 finish_script_success
 

@@ -12,7 +12,7 @@ cd_base
 
 SCRIPT_NAME="Front End Only"
 
-start_script
+echo "${SCRIPT_NAME} Started"
 
 sudo rm ./generated_output/local/code_manager/db.sqlite
 

@@ -99,7 +99,7 @@ class DirectoryInstance extends FileAbstraction {
             $path_full = $this->get_path_full();
             $path_files = [];
             $path_directories = [];
-            UFO::get_all_paths_in_directory($path_full, $use_recursion, $path_files, $path_directories);
+            UFO::directory_get_all_contents($path_full, $use_recursion, $path_files, $path_directories);
 
             foreach ($path_files as $path) {
                 $p = STR::get_matches_removed($path, $path_full);

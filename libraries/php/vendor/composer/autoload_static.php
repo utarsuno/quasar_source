@@ -32,6 +32,7 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'ProjectRoot\\' => 12,
         ),
         'D' => 
         array (
@@ -87,6 +88,10 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'ProjectRoot\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
         'Doctrine\\ORM\\' => 
         array (
@@ -930,12 +935,15 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'QuasarSource\\DatabaseAbstractions\\Postgres\\PostgreSQLDoctrine' => __DIR__ . '/../..' . '/src/database_abstractions/postgres/PostgreSQLDoctrine.php',
         'QuasarSource\\Domain\\AssetServerDB' => __DIR__ . '/../..' . '/src/domain/AssetServerDB.php',
         'QuasarSource\\Domain\\CodeManager' => __DIR__ . '/../..' . '/src/domain/CodeManager.php',
+        'QuasarSource\\Domain\\Entities\\EntityFile' => __DIR__ . '/../..' . '/src/domain/entities/EntityFile.php',
+        'QuasarSource\\QualityAssurance\\FileTestSuite' => __DIR__ . '/../..' . '/../../quality_assurance/php/FileTestSuite.php',
         'QuasarSource\\Traits\\PatternParentChild\\InterfacePatternChild' => __DIR__ . '/../..' . '/src/traits/pattern_parent_child/InterfacePatternChild.php',
         'QuasarSource\\Traits\\PatternParentChild\\TraitPatternChild' => __DIR__ . '/../..' . '/src/traits/pattern_parent_child/TraitPatternChild.php',
         'QuasarSource\\Traits\\PatternParentChild\\TraitPatternParent' => __DIR__ . '/../..' . '/src/traits/pattern_parent_child/TraitPatternParent.php',
         'QuasarSource\\Traits\\PatternParentChild\\TraitPatternParentAndChild' => __DIR__ . '/../..' . '/src/traits/pattern_parent_child/TraitPatternParentAndChild.php',
         'QuasarSource\\Traits\\TraitPatternName' => __DIR__ . '/../..' . '/src/traits/TraitPatternName.php',
         'QuasarSource\\Utilities\\ArrayUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/ArrayUtilities.php',
+        'QuasarSource\\Utilities\\ArrayUtilitiesTest' => __DIR__ . '/../..' . '/../../quality_assurance/php/universal_utilities/ArrayUtilitiesTest.php',
         'QuasarSource\\Utilities\\EchoUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/EchoUtilities.php',
         'QuasarSource\\Utilities\\ExceptionUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/ExceptionUtilities.php',
         'QuasarSource\\Utilities\\FileUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/FileUtilities.php',
@@ -943,6 +951,7 @@ class ComposerStaticInit1775a5c3f03fb6bfde410a20172ffd68
         'QuasarSource\\Utilities\\SimpleTimer' => __DIR__ . '/../..' . '/src/universal_utilities/SimpleTimer.php',
         'QuasarSource\\Utilities\\StringUtilities' => __DIR__ . '/../..' . '/src/universal_utilities/StringUtilities.php',
         'QuasarSource\\Utilities\\StringUtilitiesTest' => __DIR__ . '/../..' . '/../../quality_assurance/php/universal_utilities/StringUtilitiesTest.php',
+        'SegmentVersion' => __DIR__ . '/../..' . '/src/code_abstractions/code_abstractions/yaml/SegmentVersion.php',
         'Symfony\\Bridge\\PhpUnit\\ClockMock' => __DIR__ . '/..' . '/symfony/phpunit-bridge/ClockMock.php',
         'Symfony\\Bridge\\PhpUnit\\CoverageListener' => __DIR__ . '/..' . '/symfony/phpunit-bridge/CoverageListener.php',
         'Symfony\\Bridge\\PhpUnit\\DeprecationErrorHandler' => __DIR__ . '/..' . '/symfony/phpunit-bridge/DeprecationErrorHandler.php',
