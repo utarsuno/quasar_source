@@ -25,6 +25,10 @@ task('build_nexus_courier', function() {
     $path_websocket_lib = get('path_websocket');
     $path_rabbitmq_lib  = get('path_rabbitmq');
     
+    // Compiling with -lamqpcpp won't without the following.
+    runLocally("cd ${path_rabbitmq_lib}; make; make install");
+
+
     runLocally(
         "cd ${path_websocket_lib}src/;
         g++ -std=c++11 \

@@ -4,13 +4,16 @@
   "type": "library",
   "homepage": "https://github.com/utarsuno/quasar_source",
   "require": {
-    "php"                   : "7.3.*",
-    "symfony/yaml"          : "~4.2",
-    "symfony/debug"         : "~4.2",
-    "symfony/phpunit-bridge": "~4.2",
-    "symfony/polyfill-iconv": "~1.11",
-    "doctrine/orm"          : "~2.6",
-    "doctrine/dbal"         : "^2.9"
+    "php"                         : "7.3.*",
+    "symfony/yaml"                : "~4.2",
+    "symfony/debug"               : "~4.2",
+    "symfony/phpunit-bridge"      : "~4.2",
+    "symfony/polyfill-iconv"      : "~1.11",
+    "doctrine/orm"                : "~2.6",
+    "doctrine/dbal"               : "^2.9",
+    "symfony/config"              : "^4.2",
+    "symfony/dependency-injection": "^4.2",
+    "symfony/framework-bundle"    : "^4.2"
   },
   "autoload": {
     "psr-4": {
