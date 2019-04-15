@@ -1,0 +1,33 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: utarsuno
+ * Date: 2019-03-27
+ * Time: 22:21
+ */
+
+namespace QuasarSource\Utilities;
+use QuasarSource\QualityAssurance\FileTestSuite;
+use QuasarSource\Utilities\FileUtilities as UFO;
+require_once '/quasar_source/libraries/php/autoload.php';
+
+
+class FileUtilitiesTest extends FileTestSuite {
+
+    private const PATH_TEST_FILE = '/quasar_source/var/quality_assurance/pre_minified.css';
+
+    public function test_file_get_sha512sum() : void {
+        $this->assertSame(
+            '3b6b48176efe4725e6f069efc0926be0e4185a4f4e8a1e0702a5ebfe34d4031ac3f1489033f0a578c1e4759bfa90145431276d76e3d00ef66bffc2ecb03b6449',
+            UFO::file_get_sha512sum(self::PATH_TEST_FILE)
+        );
+    }
+
+    public function test_file_get_size() : void {
+        $this->assertSame(
+            2107,
+            UFO::file_get_size(self::PATH_TEST_FILE)
+        );
+    }
+
+}

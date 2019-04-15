@@ -69,7 +69,6 @@ class LoadedJSFile(LoadedCodeFile):
 
 		if not passed:
 			dbg.raise_exception('minify error {' + str(output) + '}')
-			#oc.print_ascii_red('minify error {' + str(output) + '}')
 
 		if preserve_first_comment_block:
 			if self._first_comment_block is None:

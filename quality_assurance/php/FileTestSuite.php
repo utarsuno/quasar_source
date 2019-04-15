@@ -10,6 +10,7 @@ namespace QuasarSource\QualityAssurance;
 use PHPUnit\Framework\TestCase;
 require_once '/quasar_source/libraries/php/autoload.php';
 
+
 abstract class FileTestSuite extends TestCase {
 
     protected $class_to_test;

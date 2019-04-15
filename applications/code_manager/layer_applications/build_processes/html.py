@@ -62,12 +62,4 @@ class BuildProcessHTML(BuildProcessStepSimpleAndIsolated):
 		else:
 			code_file.minify(minified_path)
 
-	def handle_gzip_setup(self, base_path: str, gzip_path: str) -> None:
-		"""Handles the gzip step setup (if needed)."""
-		ufo.file_op_create_gzip(base_path, gzip_path)
 
-	def handle_gzip_end(self, base_path: str, gzip_path: str, base_volume_path: str, gzip_volume_path: str) -> None:
-		"""Handles the gzip step end (if needed)."""
-		# Now copy the needed files to the volume.
-		ufo.file_op_copy(base_path, base_volume_path)
-		ufo.file_op_copy(gzip_path, gzip_volume_path)

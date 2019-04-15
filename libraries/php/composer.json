@@ -13,12 +13,14 @@
     "doctrine/dbal"               : "^2.9",
     "symfony/config"              : "^4.2",
     "symfony/dependency-injection": "^4.2",
-    "symfony/framework-bundle"    : "^4.2"
+    "symfony/framework-bundle"    : "^4.2",
+    "symfony/console"             : "^4.2",
+    "symfony/process"             : "^4.2"
   },
   "autoload": {
     "psr-4": {
       "ProjectRoot\\": "",
-      "QuasarSource\\": "src/"
+      "QuasarSource\\": ["src/", "../../quality_assurance/php"]
     }
   },
   "autoload-dev": {

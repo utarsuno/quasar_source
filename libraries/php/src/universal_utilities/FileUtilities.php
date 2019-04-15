@@ -10,7 +10,10 @@ namespace QuasarSource\Utilities;
 require_once '/quasar_source/libraries/php/autoload.php';
 use QuasarSource\Utilities\StringUtilities as STR;
 
+
 abstract class FileUtilities {
+
+    private const CMD_MINIFY_CSS = ['node', '/quasar_source/applications/asset_server/js/minify_css_file.js'];
 
     /**
      * Checks if a provided path is both valid and that it points to something existing.
@@ -62,6 +65,40 @@ abstract class FileUtilities {
         }
     }
 
+    /**
+     * Return the sha512sum of a file as a string hex number.
+     *
+     * @param string $path < The path to the file to get a hash value for. >
+     * @return string      < Hex digits.                                   >
+     * @throws \Exception
+     */
+    public static function file_get_sha512sum(string $path) : string {
+        self::is_path_valid($path, true);
+        return hash_file('sha512', $path);
+    }
+
+    /**
+     * Return the size (in bytes) of the file provided.
+     *
+     * @param string $path < The path to the file to get size of. >
+     * @return int         < The number of bytes used by file.    >
+     * @throws \Exception
+     */
+    public static function file_get_size(string $path) : int {
+        self::is_path_valid($path, true);
+        return filesize($path);
+    }
+
+    public static function file_css_minify(string $path_base, string $path_output, & $stdout, & $stderr) : void {
+        self::is_path_valid($path_base, true);
+        ProcessUtilities::run_process(
+            [self::CMD_MINIFY_CSS[0], self::CMD_MINIFY_CSS[1], $path_base, $path_output],
+            true,
+            $stdout,
+            $stderr
+        );
+    }
+
     public static function file_op_set_contents(string $path, string $contents) : void {
         file_put_contents($path, $contents, LOCK_EX);
     }
@@ -92,6 +129,19 @@ abstract class FileUtilities {
             return $extension;
         }
         return '.' . $extension;
+    }
+
+    public static function file_gzip(string $path_base, string $path_output) : void {
+        self::is_path_valid($path_base);
+        $stdout = '';
+        $stderr = '';
+        ProcessUtilities::run_process(
+            ['gzip', '-f', '-k', '-9', $path_base],
+            true,
+            $stdout,
+            $stderr
+        );
+        rename($path_base . '.gz', $path_output);
     }
 
 }

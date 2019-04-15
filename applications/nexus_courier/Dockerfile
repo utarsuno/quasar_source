@@ -31,3 +31,6 @@ COPY ./libraries/pre_compiled/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 #CMD ["/quasar/generated_output/websocket_server/websocket_server"]
 CMD ["bash", "/quasar_source/scripts/docker/run_nexus_courier.sh"]
 #CMD ["sleep", "10m"]
+
+
+

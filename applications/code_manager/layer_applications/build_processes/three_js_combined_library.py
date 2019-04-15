@@ -84,7 +84,7 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 
 			volume_file_path    = self.domain.path_volume + 'three_js.min.js.gz'
 			generated_file_path = self.domain.path_output + 'three_js.min.js.gz'
-			ufo.file_op_create_gzip(library_destination, generated_file_path)
+			#ufo.file_op_create_gzip(library_destination, generated_file_path)
 
 			child_cached_or_updated, child_file = self.domain.cache_single_file(
 				code_file.FILE_TYPE_JS,

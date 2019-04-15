@@ -43,7 +43,7 @@ class EntityFile {
     /**
      * @ORM\Column(type="bigint")
      */
-    private $md5sum;
+    private $sha512sum;
 
     /**
      * @ORM\Column(type="bigint")

@@ -72,7 +72,7 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 					child_path=minified_path
 				)
 
-				ufo.file_op_create_gzip(minified_path, gzip_path)
+				#ufo.file_op_create_gzip(minified_path, gzip_path)
 
 				# Gzip.
 				updated_or_cached, gzip_file = self.domain.cache_child_file_based_off_base_code_file(

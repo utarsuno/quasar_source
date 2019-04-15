@@ -18,17 +18,18 @@ set('path_q_websocket', '/quasar_source/applications/nexus_courier/courier_webso
 set('path_q_rabbitmq', '/quasar_source/applications/nexus_courier/courier_rabbitmq/');
 set('path_q_nexus', '/quasar_source/applications/nexus_courier/');
 
+
 task('build_nexus_courier', function() {
     $path_nexus         = get('path_q_nexus');
     $path_websocket     = get('path_q_websocket');
     $path_rabbitmq      = get('path_q_rabbitmq');
     $path_websocket_lib = get('path_websocket');
     $path_rabbitmq_lib  = get('path_rabbitmq');
-    
+
     // Compiling with -lamqpcpp won't without the following.
     runLocally("cd ${path_rabbitmq_lib}; make; make install");
 
-
+    // Create the Nexus Courier executable.
     runLocally(
         "cd ${path_websocket_lib}src/;
         g++ -std=c++11 \
@@ -47,7 +48,7 @@ task('build_nexus_courier', function() {
         ${path_websocket}user_instance.cpp \
         ${path_websocket}courier_websocket.cpp \
         ${path_rabbitmq}courier_rabbitmq.cpp \
-        -o /quasar_source/generated_output/nexus_courier/nexus_courier \
+        -o /quasar_source/var/nexus_courier \
         -lssl -lcrypto -lz -lpthread -lboost_system -s -lamqpcpp"
     );
 })->desc('Builds the Nexus Courier C++ project.');

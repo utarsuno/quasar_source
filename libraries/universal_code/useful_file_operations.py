@@ -138,14 +138,6 @@ def file_op_copy(path_source: str, path_destination: str) -> None:
 	copyfile(path_source, path_destination)
 
 
-def file_op_create_gzip(path_source: str, path_destination=None) -> None:
-	"""Creates a gzipped version of the file."""
-	bash_command = bash.BashCommandRunner(['gzip', '-f', '-k', '-9', path_source])
-	bash_command.run()
-	if path_destination is not None:
-		os.rename(path_source + '.gz', path_destination)
-
-
 def file_op_convert_image_to_webp(path_source: str, path_destination:str) -> None:
 	"""Converts the provided PNG or JPG file to a compressed WebP format."""
 	is_png = '.png' in path_source

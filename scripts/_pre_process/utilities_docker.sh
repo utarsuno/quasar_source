@@ -182,7 +182,7 @@ function start_script_with_docker_health_check {
 }
 
 function finish_script {
-    print_dashed_line_with_text "${SCRIPT_NAME} Finished"
+    echo "${SCRIPT_NAME} Finished"
     if [ -x "$1" ]; then
         exit
     else
@@ -191,16 +191,16 @@ function finish_script {
 }
 
 function finish_script_success {
-    print_dashed_line_with_text "${SCRIPT_NAME} Finished!"
+    echo "${SCRIPT_NAME} Finished!"
     exit ${EXIT_CODE_SUCCESS}
 }
 
 function finish_script_fail {
     if [ -z "$1" ]; then
-        print_dashed_line_with_text "${SCRIPT_NAME} Failed!"
+        echo "${SCRIPT_NAME} Failed!"
     else
-        print_red_text "${1}"
-        print_dashed_line_with_text "${SCRIPT_NAME} Failed!"
+        echo "${1}"
+        echo "${SCRIPT_NAME} Failed!"
     fi
     exit ${EXIT_CODE_FAILED}
 }

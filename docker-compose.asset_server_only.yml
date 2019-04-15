@@ -16,6 +16,15 @@ services:
       - './:/quasar_source'
     environment:
       _SERVICE_NAME: 'asset_server'
+      RUN_CONSOLE: 'php /quasar_source/libraries/php/console.php'
+      RUN_DEPLOYER: './dep --file=/quasar_source/libraries/php/deploy.php'
+      FLAG_INPUT: '--file_input'
+      FLAG_OUTPUT: '--file_output'
+      CMD_CONSOLE_MINIFY: 'minify:css'
+      CMD_CONSOLE_GZIP: 'file:gzip'
+      CMD_DEPLOYER_RUN_ALL_TESTS: 'run_all_tests -vvv'
+      CMD_DEPLOYER_FULL_BUILD: 'full_build -vvv'
+      CMD_DEPLOYER_BUILD_NEXUS_COURIER: 'build_nexus_courier -vvv'
     tty: true
 
   postgres_server:

@@ -70,7 +70,7 @@ class NexusLocalBuildProcess(object):
 	def run_build_process(self):
 		"""Runs this build process."""
 		self.build_time = SimpleTimer(auto_start=True)
-		oc.print_ascii_yellow('building ' + self.name)
+		print('building ' + self.name)
 
 		self.db_domain.load()
 		self.run_setup()

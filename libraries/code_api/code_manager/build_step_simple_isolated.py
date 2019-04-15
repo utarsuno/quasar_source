@@ -42,14 +42,6 @@ class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
 		"""Handles the minification step end (if needed)."""
 		pass
 
-	def handle_gzip_setup(self, base_path: str, gzip_path: str) -> None:
-		"""Handles the gzip step setup (if needed)."""
-		pass
-
-	def handle_gzip_end(self, base_path: str, gzip_path: str, base_volume_path: str, gzip_volume_path: str) -> None:
-		"""Handles the gzip step end (if needed)."""
-		return 'pass'
-
 	def step_0x0_single_directory(self):
 		"""Utility function."""
 		files = self.code_directory.get_all_files()
@@ -80,17 +72,3 @@ class BuildProcessStepSimpleAndIsolated(BuildProcessStep):
 						child_path     = minified_path
 					)
 					self.handle_minify_end(f, minified_path, updated)
-
-					if self.gzips:
-						gzip_path = self.domain.path_output + f.file_name_with_minified_extension + '.gz'
-						self.handle_gzip_setup(minified_path, gzip_path)
-						gzip_cached_or_updated, gzip_file = self.domain.cache_child_file_based_off_base_code_file(
-							base_code_file = f,
-							base_file      = minified_file,
-							child_path     = gzip_path
-						)
-						volume_file_path = self.domain.path_volume + f.file_name_with_minified_extension
-
-						self.handle_gzip_end(minified_path, gzip_path, volume_file_path, volume_file_path + '.gz')
-
-
