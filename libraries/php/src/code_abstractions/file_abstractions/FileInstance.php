@@ -10,7 +10,6 @@ namespace QuasarSource\CodeAbstractions\File;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\Traits\PatternParentChild\TraitPatternChild;
 use QuasarSource\Utilities\FileUtilities as UFO;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 
 abstract class FileInstance extends FileAbstraction {

@@ -184,3 +184,4 @@ composer.lock
 
 *.hide_this
 
+/applications/asset_server/code_manager/bin/.phpunit/

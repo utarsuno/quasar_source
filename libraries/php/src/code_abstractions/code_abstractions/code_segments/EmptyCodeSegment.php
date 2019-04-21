@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 class EmptyCodeSegment extends CodeSegment {
 

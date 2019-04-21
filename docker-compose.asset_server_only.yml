@@ -16,6 +16,8 @@ services:
       - './:/quasar_source'
     environment:
       _SERVICE_NAME: 'asset_server'
+      DATABASE_URL: 'pgsql://postgres:password@postgres_server:5432/postgres'
+      SYMFONY_ENV: 'dev'
       RUN_CONSOLE: 'php /quasar_source/libraries/php/console.php'
       RUN_DEPLOYER: './dep --file=/quasar_source/libraries/php/deploy.php'
       FLAG_INPUT: '--file_input'
@@ -24,11 +26,14 @@ services:
       CMD_CONSOLE_GZIP: 'file:gzip'
       CMD_DEPLOYER_RUN_ALL_TESTS: 'run_all_tests -vvv'
       CMD_DEPLOYER_FULL_BUILD: 'full_build -vvv'
+      CMD_DEPLOYER_DEBUG: 'debug -vvv'
       CMD_DEPLOYER_BUILD_NEXUS_COURIER: 'build_nexus_courier -vvv'
     tty: true
 
   postgres_server:
     image: postgres
+    ports:
+      - '5432:5432'
     volumes:
       - '/Users/utarsuno/git_repos/quasar_source/generated_output/postgres:/var/lib/postgresql/data'
     environment:

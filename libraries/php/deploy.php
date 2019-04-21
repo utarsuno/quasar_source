@@ -10,6 +10,7 @@ set('cd_to_base'       , 'cd /quasar_source/libraries/php;');
 set('path_php_unit'    , './vendor/bin/simple-phpunit');
 set('path_php_unit_xml', './phpunit.xml');
 set('path_composer'    , './composer.phar');
+set('path_console'     , './console.php');
 
 
 set('path_websocket', '/quasar_source/generated_output/third_party_libraries/uWebSocketsv0_14_8/');
@@ -52,6 +53,11 @@ task('build_nexus_courier', function() {
         -lssl -lcrypto -lz -lpthread -lboost_system -s -lamqpcpp"
     );
 })->desc('Builds the Nexus Courier C++ project.');
+
+task('debug', function() {
+    $console = get('cd_to_base') . ' php ' . get('path_console');
+    runLocally("$console list --raw");
+})->desc('Temporary debugging.');
 
 task('run_health_check', function() {
     $composer = get('cd_to_base') . ' ' . get('path_composer');

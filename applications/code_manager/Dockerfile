@@ -26,6 +26,7 @@ RUN apk add --no-cache libc-dev \
  && pip3 install --no-cache-dir csscompressor \
  && pip3 install --no-cache-dir jsmin \
  && pip3 install --no-cache-dir pillow \
+ # TODO: R E M O V E
  && pip3 install --no-cache-dir htmlmin \
  && pip3 install --no-cache-dir requests \
  # For JS minification.

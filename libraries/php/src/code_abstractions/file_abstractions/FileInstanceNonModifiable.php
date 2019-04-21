@@ -8,7 +8,6 @@
 
 namespace QuasarSource\CodeAbstractions\File;
 use QuasarSource\CodeAbstractions\FileAbstraction;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 
 abstract class FileInstanceNonModifiable extends FileInstance {

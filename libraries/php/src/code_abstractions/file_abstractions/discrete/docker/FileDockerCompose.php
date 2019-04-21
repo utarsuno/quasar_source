@@ -15,8 +15,6 @@ use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
 use QuasarSource\Utilities\EchoUtilities as L;
 use QuasarSource\Utilities\StringUtilities as STR;
 use QuasarSource\Utilities\FileUtilities as UFO;
-require_once '/quasar_source/libraries/php/autoload.php';
-
 
 class FileDockerCompose extends FileYAML {
 

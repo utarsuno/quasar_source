@@ -1,15 +1,19 @@
-// Used for CSS minification.
-let lib_css  = require('../../../libraries/node/minifier_css.js');
-// Used for script argument parsing.
-let lib_args = require('../../../libraries/node/utilities_arguments.js');
-// File utilities.
-let lib_file = require('./../../../libraries/node/utilities_file');
+let lib_css  = require('../../../libraries/node/minifier_css.js');        // CSS minification.
+let lib_args = require('../../../libraries/node/utilities_arguments.js'); // Script argument parsing.
 
-let path_css_file        = lib_args.get_argument_by_position(0);
-let path_output_file     = lib_args.get_argument_by_position(1);
-let promise_minified_css = lib_css.minify_css_file(path_css_file);
+const ARG_INPUT_FILE  = '-i';
+const ARG_OUTPUT_FILE = '-o';
 
-promise_minified_css.then(function(value) {
-    lib_file.save_contents(path_output_file, value);
-});
+let script_args = lib_args.get_args_handler();
+script_args.add_required_arguments(
+    [
+        [ARG_INPUT_FILE , 'The input file.', true],
+        [ARG_OUTPUT_FILE, 'The path to the output file.', true]
+    ]
+);
+
+lib_css.minify_css_file(
+    script_args.get_value(ARG_INPUT_FILE),
+    script_args.get_value(ARG_OUTPUT_FILE)
+);
 

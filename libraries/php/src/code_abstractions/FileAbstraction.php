@@ -7,10 +7,8 @@
  */
 
 namespace QuasarSource\CodeAbstractions;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 use QuasarSource\CodeAbstractions\File\CommonActions\Cleanable;
-use QuasarSource\Utilities\StringUtilities as STR;
 use QuasarSource\Traits\PatternParentChild\InterfacePatternChild;
 use QuasarSource\Traits\TraitPatternName;
 

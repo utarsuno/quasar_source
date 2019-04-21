@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\CodeAbstractions\CodeAbstractions;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 class EmptyLine extends LineOfCode {
 

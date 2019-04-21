@@ -8,7 +8,6 @@
 
 namespace QuasarSource\CodeAbstractions\CodeAbstractions;
 use QuasarSource\Utilities\StringUtilities as STR;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 class LineOfCode {
 

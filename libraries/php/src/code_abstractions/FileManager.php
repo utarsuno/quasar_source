@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\CodeAbstractions;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileLicense;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileMarkDown;
@@ -20,7 +19,6 @@ use QuasarSource\CodeAbstractions\File\Discrete\JS\FileJavascript;
 use QuasarSource\CodeAbstractions\File\Discrete\PHP\FilePHP;
 use QuasarSource\CodeAbstractions\File\Discrete\System\FileDS_Store;
 use QuasarSource\CodeAbstractions\File\FileText;
-use QuasarSource\Utilities\EchoUtilities as L;
 use QuasarSource\Utilities\FileUtilities as UFO;
 use QuasarSource\Utilities\StringUtilities as STR;
 use QuasarSource\CodeAbstractions\Directory\DirectoryInstance;

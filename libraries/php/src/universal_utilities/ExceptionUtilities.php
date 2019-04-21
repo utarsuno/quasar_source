@@ -7,22 +7,21 @@
  */
 
 namespace QuasarSource\Utilities;
-
-use Exception;
+use Symfony\Component\Console\Exception\RuntimeException;
 
 abstract class ExceptionUtilities {
 
     /**
      * @param string $message
      * @param null $exception
-     * @throws Exception
+     * @throws RuntimeException
      */
     public static function throw_exception(string $message, $exception=null) : void {
         echo 'Exception{' . $message . '}' . PHP_EOL;
         if ($exception !== null) {
             echo $exception . PHP_EOL;
         }
-        throw new Exception($message);
+        throw new RuntimeException($message);
     }
 
 }

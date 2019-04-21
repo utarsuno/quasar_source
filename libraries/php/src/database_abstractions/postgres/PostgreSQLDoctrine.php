@@ -8,8 +8,6 @@
 
 namespace QuasarSource\DatabaseAbstractions\Postgres;
 
-require_once '/quasar_source/libraries/php/autoload.php';
-
 use Doctrine\DBAL\DBALException;
 use QuasarSource\DatabaseAbstractions\DatabaseAbstraction;
 use \Doctrine\DBAL\DriverManager;

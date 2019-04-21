@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csso": "^3.5.1"
+    "csso": "^3.5.1",
+    "html-minifier": "^4.0.0",
+    "npm": "^6.9.0"
   }
 }

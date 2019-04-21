@@ -1,11 +1,6 @@
-builds:
-  files:
-    assets/css/nexus_local.css:
-      output_directory : 'generated_output/asset_server/css/'
-      output_final_name: 'nl'
-      operations       : ['MINIFY', 'GZIP']
-
-
-# /quasar_source/applications/asset_server/js
-# node minify_css_file.js /quasar_source/assets/css/nexus_local.css /quasar_source/assets/css/nexus_local_min.css
+assets:
+  css:
+    output_directory: '/quasar_source/var/web_assets/'
+    files:
+      nexus_local: ['minify', 'gzip']
 

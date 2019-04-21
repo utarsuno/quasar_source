@@ -13,8 +13,6 @@ use QuasarSource\CodeAbstractions\CodeAbstractions\LineOfCode;
 use QuasarSource\Utilities\StringUtilities as STR;
 use QuasarSource\Utilities\ArrayUtilities as ARY;
 
-require_once '/quasar_source/libraries/php/autoload.php';
-
 class CodeSegments {
 
     private $segments;

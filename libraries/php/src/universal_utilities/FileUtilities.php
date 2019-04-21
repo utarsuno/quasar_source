@@ -7,13 +7,13 @@
  */
 
 namespace QuasarSource\Utilities;
-require_once '/quasar_source/libraries/php/autoload.php';
+use QuasarSource\Utilities\Processes\ProcessGZIP;
+use QuasarSource\Utilities\Processes\ProcessMinifyCSS;
+use QuasarSource\Utilities\Processes\ProcessMinifyHTML;
 use QuasarSource\Utilities\StringUtilities as STR;
 
 
 abstract class FileUtilities {
-
-    private const CMD_MINIFY_CSS = ['node', '/quasar_source/applications/asset_server/js/minify_css_file.js'];
 
     /**
      * Checks if a provided path is both valid and that it points to something existing.
@@ -89,21 +89,55 @@ abstract class FileUtilities {
         return filesize($path);
     }
 
-    public static function file_css_minify(string $path_base, string $path_output, & $stdout, & $stderr) : void {
+    /**
+     * Take the contents of the provided CSS file and create a minified version at provided output path.
+     *
+     * @param string $path_base   < The path to the CSS file to get contents of. >
+     * @param string $path_output < The path to create a minified CSS file at.   >
+     * @throws \Exception
+     */
+    public static function file_minify_css(string $path_base, string $path_output) : void {
         self::is_path_valid($path_base, true);
-        ProcessUtilities::run_process(
-            [self::CMD_MINIFY_CSS[0], self::CMD_MINIFY_CSS[1], $path_base, $path_output],
-            true,
-            $stdout,
-            $stderr
-        );
+        ProcessMinifyCSS::minify_file_to($path_base, $path_output, true);
+    }
+
+    /**
+     * Take the contents of the provided HTML file and create a minified version at provided output path.
+     *
+     * @param string $path_base   < The path to the CSS file to get contents of. >
+     * @param string $path_output < The path to create a minified HTML file at.  >
+     * @throws \Exception
+     */
+    public static function file_minify_html(string $path_base, string $path_output) : void {
+        self::is_path_valid($path_base, true);
+        ProcessMinifyHTML::minify_file_to($path_base, $path_output, true);
+    }
+
+    /**
+     * Take the contents of the provided file and create a gzipped version at provided output path.
+     *
+     * @param string $path_base   < The path to the file to get contents of. >
+     * @param string $path_output < The path to create a gzipped file at.    >
+     * @throws \Exception
+     */
+    public static function file_gzip(string $path_base, string $path_output) : void {
+        self::is_path_valid($path_base, true);
+        ProcessGZIP::gzip_file_to($path_base, $path_output, true);
+    }
+
+    public static function file_delete(string $path) : void {
+        if (self::is_path_valid($path)) {
+            unlink($path);
+        }
     }
 
     public static function file_op_set_contents(string $path, string $contents) : void {
+        self::is_path_valid($path, true);
         file_put_contents($path, $contents, LOCK_EX);
     }
 
     public static function get_contents_as_list(string $path) : array {
+        self::is_path_valid($path, true);
         $file_lines = [];
         $lines = file($path);
         foreach ($lines as $line) {
@@ -129,19 +163,6 @@ abstract class FileUtilities {
             return $extension;
         }
         return '.' . $extension;
-    }
-
-    public static function file_gzip(string $path_base, string $path_output) : void {
-        self::is_path_valid($path_base);
-        $stdout = '';
-        $stderr = '';
-        ProcessUtilities::run_process(
-            ['gzip', '-f', '-k', '-9', $path_base],
-            true,
-            $stdout,
-            $stderr
-        );
-        rename($path_base . '.gz', $path_output);
     }
 
 }

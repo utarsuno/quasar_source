@@ -8,8 +8,6 @@
 
 namespace QuasarSource\CodeAbstractions\File;
 
-require_once '/quasar_source/libraries/php/autoload.php';
-
 
 class FileText extends FileInstance {
 

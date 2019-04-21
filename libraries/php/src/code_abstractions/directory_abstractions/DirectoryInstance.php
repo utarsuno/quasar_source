@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\CodeAbstractions\Directory;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;

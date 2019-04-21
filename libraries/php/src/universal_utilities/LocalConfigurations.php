@@ -7,10 +7,8 @@
  */
 
 namespace QuasarSource\Utilities;
-
 use QuasarSource\CodeAbstractions\FileManager;
 
-require_once '/quasar_source/libraries/php/autoload.php';
 
 class LocalConfigurations {
 

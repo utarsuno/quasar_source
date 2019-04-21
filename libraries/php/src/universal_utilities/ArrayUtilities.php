@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\Utilities;
-require_once '/quasar_source/libraries/php/autoload.php';
 
 
 class ArrayUtilities {

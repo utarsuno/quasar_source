@@ -7,7 +7,6 @@
  */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
-require_once '/quasar_source/libraries/php/autoload.php';
 use QuasarSource\CodeAbstractions\File\FileInstance;
 use QuasarSource\CodeAbstractions\File\FileInstanceNonModifiable;
 

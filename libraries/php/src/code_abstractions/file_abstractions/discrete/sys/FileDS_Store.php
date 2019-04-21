@@ -9,8 +9,6 @@
 namespace QuasarSource\CodeAbstractions\File\Discrete\System;
 use QuasarSource\CodeAbstractions\File\FileInstanceNonModifiable;
 
-require_once '/quasar_source/libraries/php/autoload.php';
-
 
 class FileDS_Store extends FileInstanceNonModifiable {
 

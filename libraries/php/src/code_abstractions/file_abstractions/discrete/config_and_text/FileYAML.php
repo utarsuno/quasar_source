@@ -10,8 +10,6 @@ namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
 use Symfony\Component\Yaml\Yaml;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 
-require_once '/quasar_source/libraries/php/autoload.php';
-
 
 class FileYAML extends FileInstance {
 

@@ -13,7 +13,9 @@ RUN apk update && apk upgrade \
  # "metapackage that pulls in the most essential packages used to build new packages"
  && apk add --update alpine-sdk \
  # add GZIP just in case
- && apk add --no-cache gzip
+ && apk add --no-cache gzip \
+ # install Postgres for compatibility
+ && apk add --no-cache postgresql-dev
 
 # ----------------------------------------------------------------------------------------------------------------
 #  __        __
@@ -48,9 +50,11 @@ RUN apk --update add ca-certificates \
  && apk add --update php-mbstring@php \
  && apk add --update php-xml@php \
  && apk add --update php-zip@php \
+ && apk add --update php-ctype@php \
  # Database libraries.
  && apk add --update php-pdo@php \
- && apk add --update php-pgsql@php
+ && apk add --update php-pgsql@php \
+ && apk add --update php-pdo_pgsql@php
 
 # Set alias for 'php' --> 'php7'
 RUN ln -s /usr/bin/php7 /usr/bin/php
