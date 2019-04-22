@@ -57,22 +57,8 @@ class EntityFileRepository extends EntityRepository {
             return;
         }
 
-        $name      = FileUtilities::path_get_file_name($file_path);
-        $extension = FileUtilities::path_get_ending_extension($file_path);
-
-        $current_date_time = new DateTime('now');
-
         $file = new EntityFile();
-        $file->setName($name)
-            ->setExtension($extension)
-            ->setFullPath($file_path)
-            ->setFirstCached($current_date_time)
-            ->setLastCached($current_date_time)
-            ->setSha512sum(FileUtilities::file_get_sha512sum($file_path))
-            ->setSizeInBytes(FileUtilities::file_get_size($file_path))
-            // Temporary
-            ->setFileType(0);
-
+        $file->initialize($file_path);
         $this->_em->persist($file);
         $this->_em->flush();
     }

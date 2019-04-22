@@ -4,6 +4,7 @@ non_coding_task:
 todos:
   - 'completly re-do JS build, make sure to enforce a very strict/formal build process'
   - 'add many more JS linters/checkers/tools/libs, standards, etc'
+  - 'IMPORTANT: https://stackoverflow.com/questions/12667507/drawing-ui-elements-directly-to-the-webgl-area-with-three-js'
 
 big_tasks:
   - 'migrate CodeManager fully from Python to PHP (easier to organize it there)'

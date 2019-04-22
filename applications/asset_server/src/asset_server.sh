@@ -47,8 +47,8 @@ cd /quasar_source/applications/asset_server/code_manager;
 #php bin/console list
 
 #php bin/phpunit
-
-php bin/console file_compression:test
+#php bin/console file_compression:test
+php bin/console code:health_check
 
 
 #php bin/console doctrine:database:drop -vvv --force

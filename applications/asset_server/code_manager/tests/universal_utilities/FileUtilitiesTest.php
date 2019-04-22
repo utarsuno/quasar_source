@@ -13,7 +13,8 @@ use QuasarSource\Utilities\FileUtilities as UFO;
 
 class FileUtilitiesTest extends FileTestSuite {
 
-    private const PATH_TEST_FILE = '/quasar_source/var/quality_assurance/pre_minified.css';
+    private const PATH_TEST_FILE      = '/quasar_source/var/quality_assurance/pre_minified.css';
+    private const PATH_TEST_FILE_YAML = '/quasar_source/var/quality_assurance/simple.yml';
 
     public function test_file_get_sha512sum() : void {
         $this->assertSame(
@@ -26,6 +27,21 @@ class FileUtilitiesTest extends FileTestSuite {
         $this->assertSame(
             2107,
             UFO::file_get_size(self::PATH_TEST_FILE)
+        );
+    }
+
+    public function test_file_get_yaml_contents() : void {
+        $test_file_contents = [
+            'section_a' => ['a', 'b', 'c'],
+            'section_b' => ['hello' => ['world' => [
+                ['more' => 'contents', 'are' => 'here'],
+                ['sample' => 'text']
+            ]]]
+        ];
+
+        $this->assertSame(
+            $test_file_contents,
+            UFO::file_get_yaml_contents(self::PATH_TEST_FILE_YAML)
         );
     }
 

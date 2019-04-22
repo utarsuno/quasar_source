@@ -11,6 +11,7 @@ use QuasarSource\Utilities\Processes\ProcessGZIP;
 use QuasarSource\Utilities\Processes\ProcessMinifyCSS;
 use QuasarSource\Utilities\Processes\ProcessMinifyHTML;
 use QuasarSource\Utilities\StringUtilities as STR;
+use Symfony\Component\Yaml\Yaml;
 
 
 abstract class FileUtilities {
@@ -129,6 +130,18 @@ abstract class FileUtilities {
         if (self::is_path_valid($path)) {
             unlink($path);
         }
+    }
+
+    /**
+     * Returns the contents of a YAML file as an association array.
+     *
+     * @param string $path < The path to the (yml/yaml) file to get contents of. >
+     * @return array       < An association array of the file's contents.        >
+     * @throws \Exception
+     */
+    public static function file_get_yaml_contents(string $path) : array {
+        self::is_path_valid($path, true);
+        return Yaml::parseFile($path);
     }
 
     public static function file_op_set_contents(string $path, string $contents) : void {

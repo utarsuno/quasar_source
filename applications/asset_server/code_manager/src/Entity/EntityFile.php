@@ -18,6 +18,8 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use QuasarSource\Utilities\FileUtilities;
+use QuasarSource\Utilities\StringUtilities;
 
 
 /**
@@ -36,6 +38,8 @@ use Doctrine\ORM\Mapping\Table;
  *     )
  */
 class EntityFile {
+
+    public const FILE_TYPE_CSS = 1;
 
     /**
      * @Id
@@ -103,6 +107,18 @@ class EntityFile {
      * @Column(name="first_cached", type="datetime", nullable=true, unique=false)
      */
     private $first_cached;
+
+    public function initialize(string $full_path) : self {
+        $current_date_time = new DateTime('now');
+        $this->setFirstCached($current_date_time);
+        $this->setLastCached($current_date_time);
+        $this->setFullPath($full_path);
+        $this->setName(FileUtilities::path_get_file_name($full_path));
+        $this->setExtension(FileUtilities::path_get_ending_extension($full_path));
+        $this->setSizeInBytes(FileUtilities::file_get_size($this->full_path));
+        $this->setSha512sum(FileUtilities::file_get_sha512sum($this->full_path));
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -181,6 +197,11 @@ class EntityFile {
      */
     public function setExtension($extension) : self {
         $this->extension = $extension;
+        if ($this->file_type === null) {
+            if (StringUtilities::contains($this->extension, 'css')) {
+                $this->file_type = self::FILE_TYPE_CSS;
+            }
+        }
         return $this;
     }
 
