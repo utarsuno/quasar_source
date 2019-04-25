@@ -39,7 +39,6 @@ class CodeHealthCheckCommand extends Command {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        echo 'TODO: RUN CODE HEALTH CHECK COMMAND!' . PHP_EOL;
         $this->code_builder->run_code_health_check();
         return 0;
     }

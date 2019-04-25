@@ -42,13 +42,13 @@ cd /quasar_source/applications/asset_server/code_manager;
 #php bin/console doctrine:migrations:diff -vvv --no-interaction
 #php bin/console doctrine:migrations:execute --up 20190421084242 -vvv --no-interaction
 
-#php composer.phar update;
+#php composer.phar update -o;
 
 #php bin/console list
 
 #php bin/phpunit
 #php bin/console file_compression:test
-php bin/console code:health_check
+php bin/console code:health_check -vvv
 
 
 #php bin/console doctrine:database:drop -vvv --force

@@ -111,13 +111,31 @@ class EntityFile {
     public function initialize(string $full_path) : self {
         $current_date_time = new DateTime('now');
         $this->setFirstCached($current_date_time);
-        $this->setLastCached($current_date_time);
         $this->setFullPath($full_path);
         $this->setName(FileUtilities::path_get_file_name($full_path));
         $this->setExtension(FileUtilities::path_get_ending_extension($full_path));
+        $this->cache_warm_up();
+        return $this;
+    }
+
+    /**
+     * Computes the current sha512sum of the file and compares it to the current DB value.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function has_sha512sum_changed() : bool {
+        return FileUtilities::file_get_sha512sum($this->getFullPath()) !== $this->getSha512sum();
+    }
+
+    /**
+     * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
+     */
+    public function cache_warm_up() : void {
+        $current_date_time = new DateTime('now');
+        $this->setLastCached($current_date_time);
         $this->setSizeInBytes(FileUtilities::file_get_size($this->full_path));
         $this->setSha512sum(FileUtilities::file_get_sha512sum($this->full_path));
-        return $this;
     }
 
     /**
@@ -213,6 +231,13 @@ class EntityFile {
     }
 
     /**
+     * @return bool
+     */
+    public function hasParent() : bool {
+        return $this->parent !== null;
+    }
+
+    /**
      * @param mixed $parent
      * @return self
      */
@@ -226,6 +251,13 @@ class EntityFile {
      */
     public function getChild() {
         return $this->child;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChild() : bool {
+        return $this->child !== null;
     }
 
     /**
