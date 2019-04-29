@@ -8,12 +8,11 @@
 FILE_CSS_NEXUS_LOCAL=/quasar_source/assets/css/nexus_local.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT=/quasar_source/var/web_assets/nexus_local.min.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT_FINAL=/quasar_source/var/web_assets/nexus_local.min.css.gz
+RUN_CONSOLE_CMD="php bin/console"
+RUN_COMPOSER_CMD="php composer.phar"
 
-#apk search php7 #| grep -i gd
 
 #/usr/bin/php7
-
-#php --version
 
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_FULL_BUILD}
 
@@ -36,40 +35,37 @@ cd /quasar_source/applications/asset_server/code_manager;
 #php bin/console doctrine:database:create
 #php bin/console cache:clear
 
-#php bin/console doctrine:cache:delete
 
-#php composer.phar install -o;
-#php bin/console doctrine:migrations:diff -vvv --no-interaction
-#php bin/console doctrine:migrations:execute --up 20190421084242 -vvv --no-interaction
+#chmod +x ./composer.phar
 
-#php composer.phar update -o;
+#sleep 10000000
 
-#php bin/console list
+#curl -s https://getcomposer.org/installer
 
-#php bin/phpunit
-#php bin/console file_compression:test
-php bin/console code:health_check -vvv
+#${RUN_COMPOSER_CMD} self-update;
 
+#${RUN_CONSOLE_CMD} doctrine:cache:delete
 
-#php bin/console doctrine:database:drop -vvv --force
-#php bin/console doctrine:database:create -vvv
+#${RUN_COMPOSER_CMD} update;
+#${RUN_COMPOSER_CMD} install -o;
 
+#${RUN_CONSOLE_CMD} list
+#${RUN_CONSOLE_CMD} file_compression:test
 
-#php bin/console doctrine:mapping:info
-#php bin/console doctrine:schema:update -vvv --no-interaction --force
+#php bin/phpunit --log-junit report.xml # --log-teamcity
+${RUN_CONSOLE_CMD} code:health_check -vvv
 
-#php bin/console doctrine:migrations:execute --up 20190421065423 -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
+#${RUN_CONSOLE_CMD} doctrine:database:create -vvv
+#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force --no-interaction
 
-#php bin/console doctrine:database:drop -vvv --force --no-interaction
-#php bin/console doctrine:schema:create -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:mapping:info
 
-#php bin/console doctrine:migrations:migrate -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
+#${RUN_CONSOLE_CMD} doctrine:schema:create -vvv --no-interaction
 
-#php bin/console doctrine:migrations:status
-
-#php bin/console doctrine:migrations:execute --down 20190421062410 -vvv --no-interaction
-#php bin/console doctrine:migrations:execute --up 20190421062410 -vvv --no-interaction
-
-#php bin/console doctrine:schema:update --force -vvv
-
-#php bin/console doctrine:migrations:dump-schema
+#${RUN_CONSOLE_CMD} doctrine:migrations:migrate -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:migrations:status
+#${RUN_CONSOLE_CMD} doctrine:migrations:execute --down 20190421062410 -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:migrations:execute --up 20190421062410 -vvv --no-interaction
+#${RUN_CONSOLE_CMD} doctrine:migrations:dump-schema

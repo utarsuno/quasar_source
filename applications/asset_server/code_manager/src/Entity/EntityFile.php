@@ -16,10 +16,13 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\Utilities\FileUtilities;
-use QuasarSource\Utilities\StringUtilities;
+use Exception;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\Files\PathUtilities as UPO;
+use QuasarSource\Utilities\StringUtilities as STR;
 
 
 /**
@@ -39,7 +42,10 @@ use QuasarSource\Utilities\StringUtilities;
  */
 class EntityFile {
 
-    public const FILE_TYPE_CSS = 1;
+    public const FILE_TYPE_CSS                  = 1;
+    public const FILE_TYPE_CSS_MINIFIED         = 2;
+    public const FILE_TYPE_CSS_GZIPPED          = 3;
+    public const FILE_TYPE_CSS_MINIFIED_GZIPPED = 4;
 
     /**
      * @Id
@@ -74,12 +80,14 @@ class EntityFile {
     private $directory;
 
     /**
-     * @OneToMany(targetEntity="CodeManager\Entity\EntityFile", mappedBy="child")
+     * @var EntityFile
+     * @OneToOne(targetEntity="CodeManager\Entity\EntityFile", mappedBy="child")
      */
     private $parent;
 
     /**
-     * @ManyToOne(targetEntity="CodeManager\Entity\EntityFile", inversedBy="parent")
+     * @var EntityFile
+     * @OneToOne(targetEntity="CodeManager\Entity\EntityFile", inversedBy="parent")
      */
     private $child;
 
@@ -108,12 +116,13 @@ class EntityFile {
      */
     private $first_cached;
 
-    public function initialize(string $full_path) : self {
+    public function initialize(string $full_path, string $file_type) : self {
         $current_date_time = new DateTime('now');
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
-        $this->setName(FileUtilities::path_get_file_name($full_path));
-        $this->setExtension(FileUtilities::path_get_ending_extension($full_path));
+        $this->setFileType($file_type);
+        $this->setName(UPO::get_file_name($full_path));
+        $this->setExtension(UPO::get_ending_extension($full_path));
         $this->cache_warm_up();
         return $this;
     }
@@ -122,20 +131,19 @@ class EntityFile {
      * Computes the current sha512sum of the file and compares it to the current DB value.
      *
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function has_sha512sum_changed() : bool {
-        return FileUtilities::file_get_sha512sum($this->getFullPath()) !== $this->getSha512sum();
+        return !UFO::matches_sha512sum($this->getFullPath(), $this->getSha512sum());
     }
 
     /**
      * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
      */
     public function cache_warm_up() : void {
-        $current_date_time = new DateTime('now');
-        $this->setLastCached($current_date_time);
-        $this->setSizeInBytes(FileUtilities::file_get_size($this->full_path));
-        $this->setSha512sum(FileUtilities::file_get_sha512sum($this->full_path));
+        $this->setLastCached(new DateTime('now'));
+        $this->setSizeInBytes(UFO::get_size($this->full_path));
+        $this->setSha512sum(UFO::get_sha512sum($this->full_path));
     }
 
     /**
@@ -159,6 +167,23 @@ class EntityFile {
      */
     public function getFileType() {
         return $this->file_type;
+    }
+
+    public function getFileTypeMinified() : int {
+        if ($this->file_type === self::FILE_TYPE_CSS) {
+            return self::FILE_TYPE_CSS_MINIFIED;
+        }
+        return -1;
+    }
+
+    public function getFileTypeGzipped() : int {
+        if ($this->file_type === self::FILE_TYPE_CSS_MINIFIED) {
+            return self::FILE_TYPE_CSS_MINIFIED_GZIPPED;
+        }
+        if ($this->file_type === self::FILE_TYPE_CSS) {
+            return self::FILE_TYPE_CSS_GZIPPED;
+        }
+        return -1;
     }
 
     /**
@@ -189,8 +214,12 @@ class EntityFile {
     /**
      * @return mixed
      */
-    public function getName() {
+    public function getName() : string {
         return $this->name;
+    }
+
+    public function getFullName() : string {
+        return $this->name . $this->extension;
     }
 
     /**
@@ -205,7 +234,7 @@ class EntityFile {
     /**
      * @return mixed
      */
-    public function getExtension() {
+    public function getExtension() : string {
         return $this->extension;
     }
 
@@ -215,11 +244,6 @@ class EntityFile {
      */
     public function setExtension($extension) : self {
         $this->extension = $extension;
-        if ($this->file_type === null) {
-            if (StringUtilities::contains($this->extension, 'css')) {
-                $this->file_type = self::FILE_TYPE_CSS;
-            }
-        }
         return $this;
     }
 
@@ -251,6 +275,13 @@ class EntityFile {
      */
     public function getChild() {
         return $this->child;
+    }
+
+    public function getChildRecursively() : EntityFile {
+        if ($this->child === null) {
+            return $this;
+        }
+        return $this->child->getChildRecursively();
     }
 
     /**
@@ -363,6 +394,20 @@ class EntityFile {
     public function setFullPath(string $full_path) : self {
         $this->full_path = $full_path;
         return $this;
+    }
+
+    public function to_full_string() : string {
+        $info = ' --------- EntityFile{' . $this->getName() . $this->getExtension() . '}:' . PHP_EOL;
+        $info .= "\tpath{" . $this->getFullPath() . '}' . PHP_EOL;
+        $info .= "\tsize{" . $this->getSizeInBytes() . '}' . PHP_EOL;
+        if ($this->hasParent()) {
+            $info .= "\tparent{" . $this->getParent()->getFullName() . '}' . PHP_EOL;
+        }
+        if ($this->hasChild()) {
+            $info .= "\tchild{" . $this->getChild()->getFullName() . '}' . PHP_EOL;
+        }
+        $info .= '------------------------------------------------------------------------' . PHP_EOL;
+        return $info;
     }
 
     public function __toString() {

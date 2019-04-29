@@ -168,16 +168,12 @@ output_files_to_ignore/
 generated_output/
 depreciated/
 
-
-/documentation_and_settings/quasar_source.yml
-
 *.pyc
 
 
 Thumbs.db
 npm-debug.log
 /bower_components
-/node_modules
 vendor/
 composer.phar
 composer.lock
@@ -185,3 +181,4 @@ composer.lock
 *.hide_this
 
 /applications/asset_server/code_manager/bin/.phpunit/
+applications/asset_server/js/node_modules/

@@ -1,0 +1,8 @@
+servers:
+  l0_c4_m4:
+    ip: 192.168.1.170 # postgres_server
+
+
+
+
+

@@ -4,8 +4,6 @@ version: '3.7'
 # Services collectively make up a distributed application. (0x1)
 services:
 
-  # TODO: Investigate into 'container_name', it breaks builds.
-
   # Serves static content and forwards requests to servers.
   nginx:
     #hostname: nginx
@@ -93,56 +91,6 @@ services:
       - ./libraries:/quasar_source/libraries
       - ./scripts:/quasar_source/scripts
       - ./generated_output/nexus_courier:/quasar_source/generated_output/nexus_courier
-
-  nexus_db:
-    hostname: nexus_db
-    build:
-      context: .
-      dockerfile: ./applications/nexus_db/Dockerfile
-    environment:
-      _SERVICE_NAME: "nexus_db"
-      PYTHONPATH: ":/quasar_source"
-      RABBITMQ_ERLANG_COOKIE: "secret string"
-      RABBITMQ_NODENAME: "nexus_db"
-    tty: true
-    depends_on:
-      - rabbit_manager
-    volumes:
-      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
-      - ./applications/nexus_db:/quasar_source/applications/nexus_db
-      - ./libraries:/quasar_source/libraries
-      - ./scripts:/quasar_source/scripts
-      - nexus_volume:/v
-
-  mysql_server:
-    hostname: mysql_server
-    build:
-      context: .
-      dockerfile: ./applications/mysql_server/Dockerfile
-    environment:
-      _SERVICE_NAME: "mysql_server"
-      MYSQL_DATABASE: "test"
-      MYSQL_USER: "test"
-      MYSQL_PASSWORD: "test"
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      PYTHONPATH: "/quasar_source"
-      RABBITMQ_ERLANG_COOKIE: "secret string"
-      RABBITMQ_NODENAME: "nexus_courier"
-    #image: mysql
-    #container_name: mysql_server
-    #command: mysqld --user=root --verbose
-    tty: true
-    depends_on:
-      - rabbit_manager
-    volumes:
-      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
-    #  - ./applications/mysql_server/dbcreation.sql:/tmp/dbcreation.sql
-    #  - ./applications/mysql_server/import.sh:/tmp/import.sh
-    ports:
-      - "3306:3306"
 
 networks:
   default:

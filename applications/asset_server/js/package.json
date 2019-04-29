@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-tree": "^1.0.0-alpha.29",
     "csso": "^3.5.1",
     "html-minifier": "^4.0.0",
     "npm": "^6.9.0"

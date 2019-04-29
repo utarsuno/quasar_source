@@ -11,7 +11,7 @@ namespace CodeManager\Command;
 
 use CodeManager\Service\CodeBuilderService;
 use CodeManager\Service\EntityFileRepoService;
-use QuasarSource\Utilities\FileUtilities;
+use QuasarSource\Utilities\Files\FileUtilities;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

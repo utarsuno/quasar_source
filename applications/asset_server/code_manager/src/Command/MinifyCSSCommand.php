@@ -9,7 +9,7 @@
 
 namespace CodeManager\Command;
 
-use QuasarSource\Utilities\FileUtilities as UFO;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
 
 
 class MinifyCSSCommand extends AbstractFileCommand {
@@ -25,7 +25,7 @@ class MinifyCSSCommand extends AbstractFileCommand {
     }
 
     protected function run_file_command() : int {
-        UFO::file_minify_css($this->path_input, $this->path_output);
+        UFO::minify_css($this->path_input, $this->path_output);
         return 0;
     }
 }

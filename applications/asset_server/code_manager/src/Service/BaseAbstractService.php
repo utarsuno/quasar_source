@@ -23,4 +23,8 @@ abstract class BaseAbstractService {
         $this->logger->debug($content);
     }
 
+    protected function warn($content) : void {
+        $this->logger->warning($content);
+    }
+
 }

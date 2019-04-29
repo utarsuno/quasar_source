@@ -9,7 +9,7 @@
 
 namespace CodeManager\Command;
 
-use QuasarSource\Utilities\FileUtilities as UFO;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
 
 
 class GZIPCommand extends AbstractFileCommand {
@@ -25,7 +25,7 @@ class GZIPCommand extends AbstractFileCommand {
     }
 
     protected function run_file_command() : int {
-        UFO::file_gzip($this->path_input, $this->path_output);
+        UFO::gzip($this->path_input, $this->path_output);
         return 0;
     }
 }

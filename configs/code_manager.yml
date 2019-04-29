@@ -1,0 +1,20 @@
+assets:
+  css:
+    output_directory: '/quasar_source/var/web_assets/'
+    files:
+      nexus_local: {actions: ['minify', 'gzip'], depends_on: 'none'}
+
+qa_report:
+  stats:
+    - 'unit_tests'
+    - 'asset_stats'
+
+projects:
+  nexus_local:
+    build:
+      - 'assets'
+      - 'qa_report'
+
+
+
+

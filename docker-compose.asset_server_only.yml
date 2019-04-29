@@ -35,7 +35,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - '/Users/utarsuno/git_repos/quasar_source/generated_output/postgres:/var/lib/postgresql/data'
+      - '/Users/utarsuno/code/quasar_source/var/db/postgres:/var/lib/postgresql/data'
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'postgres'
@@ -46,4 +46,4 @@ volumes:
   nexus_volume:
     external: true
   postgres_data:
-
+    external: true

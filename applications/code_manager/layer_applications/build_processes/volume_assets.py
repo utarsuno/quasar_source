@@ -36,7 +36,7 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		# TEMPORARY SOLUTION
 		self._add_volume_file_reference_raw('Inconsolata.woff', '/quasar_source/assets/fonts/Inconsolata.woff')
 
-		self._add_volume_file_reference_raw('manifest.webmanifest', '/quasar_source/documentation_and_settings/js/manifest.webmanifest')
+		self._add_volume_file_reference_raw('manifest.webmanifest', '/quasar_source/configs/js/manifest.webmanifest')
 
 		self._add_volume_file_reference_raw('_3js.min.js', '/quasar_source/generated_output/web_assets/three_js.min.js')
 		self._add_volume_file_reference_raw('_3js.min.js.gz', '/quasar_source/generated_output/web_assets/three_js.min.js.gz')

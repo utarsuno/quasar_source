@@ -25,7 +25,7 @@
     "autoload": {
         "psr-4": {
             "CodeManager\\": "src/",
-            "QuasarSource\\": "./../../../libraries/php/src/",
+            "QuasarSource\\": "./../../../libraries/php/",
             "CodeManager\\Tests\\": "tests/"
         }
     },
@@ -33,7 +33,7 @@
         "psr-4": {
             "CodeManager\\": "src/",
             "CodeManager\\Tests\\": "tests/",
-            "QuasarSource\\": "./../../../libraries/php/src/"
+            "QuasarSource\\": "./../../../libraries/php/"
         }
     },
     "replace": {

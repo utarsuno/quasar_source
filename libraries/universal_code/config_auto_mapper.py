@@ -53,7 +53,7 @@ class LocalConfigurations(object):
 	def __init__(self):
 		local_mac        = get_mac()
 		settings_path    = os.path.abspath(__file__)
-		settings_path    = settings_path[:settings_path.index('libraries/')] + 'documentation_and_settings/quasar_source.yml'
+		settings_path    = settings_path[:settings_path.index('libraries/')] + 'configs/quasar_source.yml'
 		settings_content = ufo.file_get_yaml_contents(settings_path)
 		devs             = []
 		self.local_dev   = None
