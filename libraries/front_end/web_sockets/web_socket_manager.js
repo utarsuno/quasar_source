@@ -263,7 +263,7 @@ $_QE.prototype.WebSocketManager.prototype = {
         this._engine = engine;
         this._engine.flag_set_off(QEFLAG_STATE_WEB_SOCKET_CONNECTED);
         if (!this._check_endian()) {
-            QE.log_error('Client is not little endian. TODO: handle big endian!');
+            QE.error('Client is not little endian. TODO: handle big endian!');
         }
     },
 

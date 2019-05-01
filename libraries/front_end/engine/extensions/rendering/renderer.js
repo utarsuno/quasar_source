@@ -22,7 +22,7 @@ Object.assign(
         },
 
         _update_renderer_dimensions() {
-            if (this.effect_composer == null) {
+            if (this.effect_composer === null) {
                 return;
             }
 

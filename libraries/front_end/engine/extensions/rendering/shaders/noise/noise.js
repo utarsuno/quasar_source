@@ -17,7 +17,6 @@ $_QE.prototype.ShaderPassNoise = function() {
     this.scene.add(this.quad);
 };
 
-
 $_QE.prototype.ShaderPassNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
 
     constructor: $_QE.prototype.ShaderPassNoise,

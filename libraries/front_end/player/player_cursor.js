@@ -38,7 +38,7 @@ Object.assign(
         _add_player_state: function(_id, exit, enter, render) {
             let _exit;
             let _enter;
-            if (exit != null) {
+            if (exit !== null) {
                 _exit = function() {
                     this.flag_set_off(_id);
                     exit();
@@ -48,7 +48,7 @@ Object.assign(
                     this.flag_set_off(_id);
                 }.bind(this);
             }
-            if (enter != null) {
+            if (enter !== null) {
                 _enter = function() {
                     this.flag_set_on(_id);
                     enter();
@@ -138,7 +138,7 @@ Object.assign(
 
         attach: function(object_to_attach_to, intersection_position) {
             this.attached_to = object_to_attach_to;
-            if (intersection_position != null) {
+            if (intersection_position !== null) {
                 this._calculate_dx_dy(intersection_position);
             }
             this._set_needed_state();
@@ -158,7 +158,7 @@ Object.assign(
         },
 
         _set_needed_state: function() {
-            if (this.attached_to == null) {
+            if (this.attached_to === null) {
                 this.set_state(CURSOR_STATE_DEFAULT);
             } else if (this.attached_to.flag_is_on(EFLAG_IS_CLICKABLE) && this.attached_to.flag_is_off(EFLAG_IS_TYPEABLE)) {
                 this.set_state(CURSOR_STATE_CLICK);
@@ -178,7 +178,7 @@ Object.assign(
          /__` |__   |   |  |__  |__) /__`
          .__/ |___  |   |  |___ |  \ .__/*/
         set_current_icon: function(icon) {
-            if (this._current_icon != icon) {
+            if (this._current_icon !== icon) {
                 this._current_icon = icon;
                 this.render();
             }
@@ -201,7 +201,7 @@ Object.assign(
         },
 
         on_wheel_event: function(delta) {
-            if (delta == 1) {
+            if (delta === 1) {
                 this._player_offset *= 1.030;
             } else {
                 this._player_offset *= 0.970;

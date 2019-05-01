@@ -4,6 +4,8 @@
 namespace QuasarSource\Utilities\Files;
 
 
+use QuasarSource\QualityAssurance\TestSuiteResult;
+
 class FileParserXMLQA extends FileParserXML {
 
     /**
@@ -14,11 +16,11 @@ class FileParserXMLQA extends FileParserXML {
     protected static function parse_content(string $path) {
         $nodes = parent::parse_content($path);
 
-        foreach ($nodes->children as $key) {
-            var_dump('--- K E Y ---');
-            var_dump($key);
-            #var_dump('V A L U E');
-            #var_dump($value);
-        }
+        $test_suite = new TestSuiteResult($nodes->children[0], true);
+
+        $qa_report  = $test_suite->get_qa_report();
+
+        var_dump($qa_report);
+
     }
 }

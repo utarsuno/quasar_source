@@ -23,7 +23,7 @@ $_QE.prototype.AssetFile.prototype = {
                     },
                     undefined,
                     function(error) {
-                        QE.fatal_error('loading {' + me.name + '}');
+                        QE.error('loading {' + me.name + '}');
                         reject(error);
                     }
                 );

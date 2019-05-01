@@ -9,7 +9,6 @@ Object.assign($_QE.prototype.World.prototype, {
     update_elements_root: function(delta) {
         let e;
         for (e = 0; e < this.elements_root.length; e++) {
-            //this.elements_root[e].update(delta);
             this.elements_root[e].update_element(delta);
         }
     },
@@ -23,7 +22,7 @@ Object.assign($_QE.prototype.World.prototype, {
                 return;
             }
         }
-        QE.log_warning('WARNING: remove_from_elements_root did not find match for:', element);
+        QE.warning('remove_from_elements_root did not find match for: ', element);
     },
 
     _add_element_to_root_if_needed: function(element) {

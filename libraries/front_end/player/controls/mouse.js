@@ -1,9 +1,5 @@
 'use strict';
 
-// PIE * 2  == 6.283185307179586
-// PIE / 2  == 1.5707963267948966
-// -PIE / 2 == -1.5707963267948966
-
 const _MOUSE_UPDATE_NONE     = 0; // #pre-process_global_constant
 const _MOUSE_UPDATE_FOR_X    = 1; // #pre-process_global_constant
 const _MOUSE_UPDATE_FOR_Y    = 2; // #pre-process_global_constant
@@ -53,14 +49,14 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     update_mouse_view: function() {
-        if (this._mouse_update_flag == _MOUSE_UPDATE_FOR_X || this._mouse_update_flag == _MOUSE_UPDATE_FOR_BOTH) {
+        if (this._mouse_update_flag === _MOUSE_UPDATE_FOR_X || this._mouse_update_flag === _MOUSE_UPDATE_FOR_BOTH) {
             this.yaw.rotation.y   = this._mouse_angle_horizontal;
             this._cache[1]  = Math.cos(this._mouse_angle_horizontal / 2);
             this._cache[3]  = Math.sin(this._mouse_angle_horizontal / 2);
             this._cache[7]  = this._cache[1] * this._cache[1];
             this._cache[8]  = this._cache[3] * this._cache[3];
         }
-        if (this._mouse_update_flag == _MOUSE_UPDATE_FOR_Y || this._mouse_update_flag == _MOUSE_UPDATE_FOR_BOTH) {
+        if (this._mouse_update_flag === _MOUSE_UPDATE_FOR_Y || this._mouse_update_flag === _MOUSE_UPDATE_FOR_BOTH) {
             this.pitch.rotation.x = this._mouse_angle_vertical;
             this._cache[0]  = Math.cos(this._mouse_angle_vertical / 2);
             this._cache[2]  = Math.sin(this._mouse_angle_vertical / 2);
@@ -124,12 +120,8 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     get_normal: function(vector=null) {
-        if (vector != null) {
-            vector.set(
-                this._cache_normal.x,
-                this._cache_normal.y,
-                this._cache_normal.z
-            );
+        if (vector !== null) {
+            vector.set(this._cache_normal.x, this._cache_normal.y, this._cache_normal.z);
         } else {
             return this._cache_normal;
         }

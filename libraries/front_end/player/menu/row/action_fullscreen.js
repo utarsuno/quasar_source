@@ -14,10 +14,10 @@ Object.assign(
     {
         _action_fullscreen: function() {
             if (QE.flag_is_on(QEFLAG_STATE_FULLSCREEN)) {
-                QE.exit_fullscreen();
+                QE.fullscreen_exit();
                 this.text.update_text('enter full-screen');
             } else {
-                QE.enter_fullscreen();
+                QE.fullscreen_enter();
                 this.text.update_text('exit full-screen');
             }
         },

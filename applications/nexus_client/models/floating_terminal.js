@@ -32,6 +32,7 @@ Object.assign(
             //if (this.get_text_length_without_whitespaces() != 0) {
             this.shift_rows_up();
             this.clear();
+            // const COLOR_CANVAS_TEAL   = 'rgb(167,248,255,0.75)'; // #USED TO BE: pre-process_global_constant
             //this.add_text_line_to_bottom(this.get_text_and_clear(), COLOR_CANVAS_TEAL);
             //}
         },
@@ -47,7 +48,8 @@ Object.assign(
 
             this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.85);
             //this.set_foreground_color(QE.COLOR_RGB_GREEN_LIGHT, 0.5);
-            this.set_background_color(COLOR_CANVAS_GRAY);
+            //const COLOR_CANVAS_GRAY   = 'rgb(41,41,41,0.45)';    // #USED TO BE: pre-process_global_constant
+            this.set_background_color('rgb(41,41,41,0.45)');
 
             //this.__init__canvas_texture(number_of_rows, width, font);
             this.__init__canvas_texture(args);

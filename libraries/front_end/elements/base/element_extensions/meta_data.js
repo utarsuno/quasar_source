@@ -52,7 +52,7 @@ $_QE.prototype._ElementEvent.prototype = {
                 this.events[layer][f](data);
             }
         } else {
-            QE.log_warning('The layer {' + layer + '} was not found in events!');
+            QE.warning('The layer {' + layer + '} was not found in events!');
         }
     },
 

@@ -162,7 +162,7 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
     this.process_width = function() {
         if (!is_defined(this.width)) {
             this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
-            this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
+            this.width                = math_get_nearest_power_of_two(this._original_text_width);
             this.dynamic_width        = true;
             this.ratio                = this._original_text_width / (QE.get_next_highest_power_of_two(this.width * 2));
         } else {

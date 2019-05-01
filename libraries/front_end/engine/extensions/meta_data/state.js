@@ -8,17 +8,17 @@ Object.assign(
 
         __init__state: function(first_state=null) {
             this.__init__state_machine();
-            this.state_paused = this.add_state(QEFLAG_STATE_PAUSED,
+            this.add_state(QEFLAG_STATE_PAUSED,
                 this._on_state_exit_paused.bind(this),
                 this._on_state_enter_paused.bind(this)
             );
 
-            this.state_running = this.add_state(QEFLAG_STATE_RUNNING,
+            this.add_state(QEFLAG_STATE_RUNNING,
                 this._on_state_exit_running.bind(this),
                 this._on_state_enter_running.bind(this)
             );
 
-            if (first_state != null) {
+            if (first_state !== null) {
                 this.set_state(first_state);
             }
         },

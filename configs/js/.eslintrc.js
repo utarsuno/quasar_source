@@ -448,13 +448,6 @@ module.exports = {
         "AUDIO_SOUND_CHECKBOX"    : false,
         "AUDIO_MUSIC_BACKGROUND"  : false,
 
-
-        "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
-        "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
-        "COLOR_CANVAS_TEAL"                   : false,
-        "COLOR_CANVAS_YELLOW"                 : false,
-        "COLOR_CANVAS_GRAY"                   : false,
-
         // Keycodes.
         "KEY_CODE__SHIFT"     : false,
         "KEY_CODE__UP"        : false,

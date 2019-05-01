@@ -6,45 +6,50 @@ Object.assign($_QE.prototype.World.prototype, {
         this.elements_css = [];
     },
 
-    on_css_hover: function(element) {
+    has_css_element: function(css_element) {
         let e;
-        for (e = 0; e < this.elements_css.length; e++) {
-            if (this.elements_css[e].matches_css_object(element)) {
-                QE.flag_set_on(QEFLAG_CSS_HOVERED_ON);
-                return;
+        let num_elements_css = this.elements_css.length;
+        for (e = 0; e < num_elements_css; e++) {
+            if (this.elements_css[e].matches_css_object(css_element)) {
+                return true;
             }
         }
+        return false;
     },
 
     css_on_pause_state: function() {
         let e;
-        for (e = 0; e < this.elements_css.length; e++) {
+        let num_elements_css = this.elements_css.length;
+        for (e = 0; e < num_elements_css; e++) {
             this.elements_css[e].on_pause_state();
         }
     },
 
     css_on_running_state: function() {
         let e;
-        for (e = 0; e < this.elements_css.length; e++) {
+        let num_elements_css = this.elements_css.length;
+        for (e = 0; e < num_elements_css; e++) {
             this.elements_css[e].on_resume_state();
         }
     },
 
     remove_from_elements_css: function(element) {
         let i;
-        for (i = 0; i < this.elements_css.length; i++) {
+        let num_elements_css = this.elements_css.length;
+        for (i = 0; i < num_elements_css; i++) {
             if (this.elements_css[i] === element) {
                 this.elements_css[i].flag_set_off(EFLAG_IS_IN_ELEMENTS_ROOT);
                 this.elements_css.splice(i, 1);
                 return;
             }
         }
-        QE.log_warning('WARNING: remove_from_elements_css did not find match for:', element);
+        QE.warning('WARNING: remove_from_elements_css did not find match for:', element);
     },
 
     _add_element_to_css_if_needed: function(element) {
         let e;
-        for (e = 0; e < this.elements_css.length; e++) {
+        let num_elements_css = this.elements_css.length;
+        for (e = 0; e < num_elements_css; e++) {
             if (this.elements_css[e] === element) {
                 return;
             }

@@ -13,7 +13,7 @@ $_QE.prototype.FactoryBridgedWorker = function (workerFunction, workerExportName
     let name;
     for(i = 0; i < mainExportNames.length; i++){
         name = mainExportNames[i];
-        if (name.charAt(name.length-1) == '*'){
+        if (name.charAt(name.length-1) === '*'){
             name = name.substr(0,name.length-1);
             mainExportNames[i] = name;//we need this trimmed version back in main
             extraWorkerStr.push('main.' + name + ' = function(/* arguments */){\n var args = Array.prototype.slice.call(arguments); var buffers = args.pop(); \n self.postMessage({foo:\'' + name +  '\', args:args},buffers)\n}; \n');
@@ -26,7 +26,7 @@ $_QE.prototype.FactoryBridgedWorker = function (workerFunction, workerExportName
     let tmpStr = [];
     for(i = 0; i < workerExportNames.length; i++){
         name = workerExportNames[i];
-        name = name.charAt(name.length-1) == '*' ? name.substr(0,name.length-1) : name;
+        name = name.charAt(name.length-1) === '*' ? name.substr(0,name.length-1) : name;
         tmpStr.push(name + ': ' + name);
     }
     extraWorkerStr.push('var foos={' + tmpStr.join(',') + '};\n');
@@ -43,7 +43,7 @@ $_QE.prototype.FactoryBridgedWorker = function (workerFunction, workerExportName
     // buid a funcion for the main part of worker-calls-function-in-main-thread operation
     theWorker.onmessage = function(e){
         let fooInd = mainExportNames.indexOf(e.data.foo);
-        if(fooInd != -1)
+        if(fooInd !== -1)
             mainExportHandles[fooInd].apply(null, e.data.args);
         else
             throw(new Error('Worker requested function ' + e.data.foo + '. But it is not available.'));
@@ -68,7 +68,7 @@ $_QE.prototype.FactoryBridgedWorker = function (workerFunction, workerExportName
 
     for (i = 0; i < workerExportNames.length; i++){
         name = workerExportNames[i];
-        if (name.charAt(name.length-1) == '*'){
+        if (name.charAt(name.length-1) === '*'){
             name = name.substr(0,name.length-1);
             ret[name] = makePostMessageForFunction(name,true);
         } else {

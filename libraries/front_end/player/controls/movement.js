@@ -90,7 +90,7 @@ Object.assign($_QE.prototype.Player.prototype, {
 
     physics: function(delta) {
         // Directional view update.
-        if (this._mouse_update_flag != _MOUSE_UPDATE_NONE) {
+        if (this._mouse_update_flag !== _MOUSE_UPDATE_NONE) {
             this.update_mouse_view();
             this._update_player_matrix = true;
         }
@@ -100,9 +100,9 @@ Object.assign($_QE.prototype.Player.prototype, {
             (this._velocity.x > .001 || this._velocity.x < -.001) ||
             (this._velocity.y > .001 || this._velocity.y < -.001) ||
             (this._velocity.z > .001 || this._velocity.z < -.001) ||
-            (this._position_frame_target.x != this._position_frame_previous.x) ||
-            (this._position_frame_target.y != this._position_frame_previous.y) ||
-            (this._position_frame_target.z != this._position_frame_previous.z)
+            (this._position_frame_target.x !== this._position_frame_previous.x) ||
+            (this._position_frame_target.y !== this._position_frame_previous.y) ||
+            (this._position_frame_target.z !== this._position_frame_previous.z)
         ) {
             this._position_frame_target.add(this._velocity);
             this._position_frame_previous.lerp(this._position_frame_target, this._cache[13]);
@@ -112,25 +112,6 @@ Object.assign($_QE.prototype.Player.prototype, {
             this._velocity.multiplyScalar(Math.pow(this._cache[12], 1));
 
             this._update_player_matrix = true;
-        }
-
-        // Collision.
-        if (this._has_boundary) {
-            if (this.yaw.position.x < this._boundary_x_min) {
-                this.yaw.position.x = this._boundary_x_min;
-                this._velocity.x = 0;
-            } else if (this.yaw.position.x > this._boundary_x_max) {
-                this.yaw.position.x = this._boundary_x_max;
-                this._velocity.x = 0;
-            }
-
-            if (this.yaw.position.z < this._boundary_z_min) {
-                this.yaw.position.z = this._boundary_z_min;
-                this._velocity.z = 0;
-            } else if (this.yaw.position.z > this._boundary_z_max) {
-                this.yaw.position.z = this._boundary_z_max;
-                this._velocity.z = 0;
-            }
         }
 
         // Movement and look at direction can change but without updating matrix the changes won't be applied.

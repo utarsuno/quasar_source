@@ -23,15 +23,8 @@ RUN apk add --no-cache libc-dev \
  # Libraries for universal code.
  && pip3 install --no-cache-dir lazyme \
  # Libraries for code_api.
- && pip3 install --no-cache-dir csscompressor \
- && pip3 install --no-cache-dir jsmin \
  && pip3 install --no-cache-dir pillow \
- # TODO: R E M O V E
- && pip3 install --no-cache-dir htmlmin \
  && pip3 install --no-cache-dir requests \
- # For JS minification.
- && apk add --update --no-cache nodejs \
- && apk add --update --no-cache nodejs-npm \
  # For convience.
  && apk add --no-cache git \
  && apk add --no-cache bash \

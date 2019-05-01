@@ -11,7 +11,7 @@ $_QE.prototype.FiniteStateMachine.prototype = {
 
     add_state: function(state_id, state_exit_function, state_enter_function) {
         let state = new $_QE.prototype.State(state_id, state_exit_function, state_enter_function);
-        if (this._states == null) {
+        if (this._states === null) {
             this._states = [];
         }
         this._states.push(state);
@@ -25,16 +25,16 @@ $_QE.prototype.FiniteStateMachine.prototype = {
     _get_state: function(state) {
         let s;
         for (s = 0; s < this._states.length; s++) {
-            if (this._states[s].id == state) {
+            if (this._states[s].id === state) {
                 return this._states[s];
             }
         }
     },
 
     _set_state: function(state) {
-        if (this.state_current != state) {
+        if (this.state_current !== state) {
             this.state_previous = this.state_current;
-            if (this.state_previous != null) {
+            if (this.state_previous !== null) {
                 this.state_previous.exit();
             }
             this.state_current = state;
@@ -55,13 +55,13 @@ $_QE.prototype.FiniteStateMachine.prototype = {
     },
 
     is_current_state: function(state) {
-        if (this.state_current == null) {
+        if (this.state_current === null) {
             return false;
         }
         if (Number.isInteger(state)) {
-            return this.get_current_state_id() == state;
+            return this.get_current_state_id() === state;
         }
-        return state == this.state_current;
+        return state === this.state_current;
     },
 
 };

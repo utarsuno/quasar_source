@@ -20,7 +20,8 @@ class StringUtilitiesTest extends FileTestSuite {
             'get_matches_removed',
             [
                 # Expected Result, To search, To Remove.
-                ['hello ', 'hello world', 'world'],
+                # ['hello ', 'hello world', 'world'],
+                ['hello ', 'hello world', 'worlASDASDC#Rd'],
                 ['expected_output', 'expectedto_remove_output', 'to_remove'],
                 ['', '', ''],
                 ['', ' ', ' ']

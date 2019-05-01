@@ -34,7 +34,7 @@ Object.assign(
         },
 
         _on_enter_event: function() {
-            if (this.get_text_length_without_whitespaces() != 0) {
+            if (this.get_text_length_without_whitespaces() !== 0) {
                 QE.manager_web_sockets.parse_user_input_from_hud(this.get_text_and_clear());
             }
             this.hide();

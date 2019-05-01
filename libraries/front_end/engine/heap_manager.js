@@ -184,5 +184,4 @@ $_QE.prototype.get_heap_manager = function() {
     };
 
     return new HeapManager();
-    //this.heap_manager = new HeapManager();
 };

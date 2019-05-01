@@ -34,10 +34,19 @@ Object.assign($_QE.prototype, {
                 this._cachef[QECACHEF_ELAPSED_TIME_PHYSICS] -= this._frames_passed * this._cachef[QECACHEF_FPS_PHYSICS];
                 while (this._frame_iteration < this._frames_passed) {
                     this.manager_world.physics(this._cachef[QECACHEF_FPS_PHYSICS]);
-                    this._frame_iteration++;
-                    this.hud_update(this._cachef[QECACHEF_FPS_PHYSICS]);
+                    ++this._frame_iteration;
+
+                    // U P D A T E - H U D.
+                    this.hud_debug.content_update(this._cachef[QECACHEF_FPS_PHYSICS]);
+                    this.manager_world.player_cursor.update();
+                    this._pause_menu._update_element_animation(this._cachef[QECACHEF_FPS_PHYSICS]);
                 }
-                this.hud_render();
+
+                // R E N D E R - H U D.
+                this.hud_debug.update();
+                //this.hud_date_time.update();
+                this.hud_typing.update();
+                this.hud_chat.update();
             }
 
             if (this._cachef[QECACHEF_ELAPSED_TIME_LOGIC] >= this._cachef[QECACHEF_FPS_LOGIC]) {
@@ -71,8 +80,8 @@ Object.assign($_QE.prototype, {
                 this._frames_passed   = Math.floor(this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] / this._cachef[QECACHEF_FPS_PAUSED]);
                 this._cachef[QECACHEF_ELAPSED_TIME_PAUSED] -= this._frames_passed * this._cachef[QECACHEF_FPS_PAUSED];
                 while (this._frame_iteration < this._frames_passed) {
-                    this._frame_iteration++;
-                    this._update_pause_menu(this._cachef[QECACHEF_FPS_PAUSED]);
+                    ++this._frame_iteration;
+                    this._pause_menu._update_element_animation(this._cachef[QECACHEF_FPS_PAUSED]);
                 }
             }
         }

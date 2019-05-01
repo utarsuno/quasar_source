@@ -8,7 +8,7 @@ Object.assign(
         _initialize_state: function() {
             this.__init__state_machine();
 
-            this.state_teleporting = this.add_state(PLAYER_STATE_TELEPORTING);
+            this.add_state(PLAYER_STATE_TELEPORTING);
 
             this.state_full_control = this.add_state(PLAYER_STATE_FULL_CONTROL,
                 null,
@@ -17,14 +17,14 @@ Object.assign(
                 }.bind(this)
             );
 
-            this.state_hud_typing = this.add_state(PLAYER_STATE_HUD_TYPING,
+            this.add_state(PLAYER_STATE_HUD_TYPING,
                 null,
                 function() {
                     this.engine.hud_typing.enter_typing_state();
                 }.bind(this)
             );
 
-            this.state_engaged = this.add_state(PLAYER_STATE_ENGAGED);
+            this.add_state(PLAYER_STATE_ENGAGED);
 
             this.set_state(this.state_full_control);
         },

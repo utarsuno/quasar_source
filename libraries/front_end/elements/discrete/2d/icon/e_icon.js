@@ -18,10 +18,10 @@ Object.assign(
             this._parse_arguments_color(args);
             this.set_dimensions(args[ARG_SIZE], args[ARG_SIZE]);
 
-            args[ARG_GEOMETRY_TYPE]   = FEATURE_GEOMETRY_TYPE_PLANE;
-            args[ARG_MATERIAL_TYPE]   = FEATURE_MATERIAL_TYPE_ICON;
-            args[ARG_CACHE_GEOMETRY]  = true;
-            args[ARG_CACHE_MATERIAL]  = true;
+            args[ARG_GEOMETRY_TYPE]  = FEATURE_GEOMETRY_TYPE_PLANE;
+            args[ARG_MATERIAL_TYPE]  = FEATURE_MATERIAL_TYPE_ICON;
+            args[ARG_CACHE_GEOMETRY] = true;
+            args[ARG_CACHE_MATERIAL] = true;
             this._parse_arguments_engine(args);
         },
 

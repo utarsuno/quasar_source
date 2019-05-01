@@ -11,12 +11,12 @@ Object.assign($_QE.prototype.FeatureGeometry.prototype, {
 
     recycle_geometry: function() {
         if (this.flag_is_off(EFLAG_IS_CACHEABLE_GEOMETRY)) {
-            if (this.geometry != null) {
+            if (this.geometry !== null) {
                 this.geometry.dispose();
                 this.geometry = undefined;
             }
         } else {
-            l('Warning! recycle_geometry called on a caeable geometry.');
+            QE.warning('Warning! Recycle_geometry called on a geometry that has cache. Printing {this} context');
             l(this);
         }
     },

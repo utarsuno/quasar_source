@@ -20,8 +20,8 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     recycle_material: function() {
         if (this.flag_is_off(EFLAG_IS_CACHEABLE_MATERIAL)) {
-            if (this.material != null) {
-                if (this.material.map != null) {
+            if (this.material !== null) {
+                if (this.material.map !== null) {
                     this.material.map.dispose();
                     this.material.map = undefined;
                 }
@@ -29,7 +29,7 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
                 this.material = undefined;
             }
         } else {
-            l('WARNING: recycle_material called on cacheable material.');
+            QE.warning('Calling recycle material on a material that is in cache. Printing {this} context.');
             l(this);
         }
         this.material = null;
@@ -51,7 +51,7 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
         this.material = new material_class({
             map : this.texture, transparent: true, side: THREE.DoubleSide
         });
-        if (this.current_background_color != null && this.current_background_color === QE.COLOR_RGBA_TRANSPARENT) {
+        if (this.current_background_color !== null && this.current_background_color === QE.COLOR_RGBA_TRANSPARENT) {
             this.material.alphaTest = 0.5;
         }
     },
@@ -86,11 +86,11 @@ Object.assign($_QE.prototype.FeatureMaterial.prototype, {
 
     create_material: function() {
         this.flag_is_on(EFLAG_IS_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
-        if (this.opacity != null) {
+        if (this.opacity !== null) {
             this.set_opacity(this.opacity);
         }
 
-        if (this.material_type == FEATURE_MATERIAL_TYPE_ICON) {
+        if (this.material_type === FEATURE_MATERIAL_TYPE_ICON) {
             this.shader_material.set_icon(this.icon_type);
         }
     },

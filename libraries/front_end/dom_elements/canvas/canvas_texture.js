@@ -35,13 +35,13 @@ Object.assign(
         },
 
         _set_context: function() {
-            if (!QE.is_power_of_two(this.width)) {
-                this.set_canvas_width(QE.get_nearest_power_of_two_for_number(this.width * 2));
+            if (!QE.math_is_power_of_two(this.width)) {
+                this.set_canvas_width(QE.math_get_nearest_power_of_two(this.width * 2));
             } else {
                 this.set_canvas_width(this.width);
             }
-            if (!QE.is_power_of_two(this.height)) {
-                this.set_canvas_height(QE.get_nearest_power_of_two_for_number(this.height * 2));
+            if (!QE.math_is_power_of_two(this.height)) {
+                this.set_canvas_height(QE.math_get_nearest_power_of_two(this.height * 2));
             } else {
                 this.set_canvas_height(this.height);
             }

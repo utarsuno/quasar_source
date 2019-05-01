@@ -1,31 +1,108 @@
 'use strict';
 
-const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .45)';   // #pre-process_global_constant
-const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .45)'; // #pre-process_global_constant
-
-// '#ff5e33';
-const COLOR_CANVAS_RED    = 'rgb(255,94,51,1.0)'; // #pre-process_global_constant
-
-// '#9dff71';
-//COLOR_CANVAS_GREEN = 'rgb(157,255,113,1.0)';
-
-
-// '#a7f8ff';
-const COLOR_CANVAS_TEAL   = 'rgb(167,248,255,0.75)'; // #pre-process_global_constant
-// '#f2ff66';
-const COLOR_CANVAS_YELLOW = 'rgb(242,255,102,0.75)'; // #pre-process_global_constant
-// '#292929';
-const COLOR_CANVAS_GRAY   = 'rgb(41,41,41,0.45)';    // #pre-process_global_constant
-// '#4d0005';
-const COLOR_CANVAS_DARK_RED = 'rgb(77, 0, 5, 0.6)'; // #pre-process_global_constant
-
-// Old above.
 
 Object.assign($_QE.prototype, {
-    // Old
-    COLOR_DARK_GREEN      : new THREE.Color('#004100'),
 
-    // New
+    // F L A G S.
+    flags: new Uint32Array(1),
+
+    // C A C H E D - I N T E G E R S.
+    _cachei: new Uint32Array(3),
+
+    // C A C H E D - F L O A T S.
+    _cachef: new Float64Array(13),
+
+    _events: [null],
+
+    // Cached references.
+    _cacher_document_body   : document.body,
+    _cacher_document_element: document.documentElement,
+
+    CACHE_ZERO_VECTOR: new THREE.Vector3(0, 0, 0),
+    //CACHE_UP_VECTOR: new THREE.Vector3(0, 1, 0),
+
+    // Cache.
+    _frames_passed  : 0,
+    _frame_iteration: 0,
+    _delta_clock    : new THREE.Clock(false),
+    _delta          : 0,
+
+    // Eh, just use the cacei way faster and way less taxing on dynamic memory usage
+    // TODO: rename to _vector_cursor
+    _cursor         : new THREE.Vector2(),
+    // TODO:
+    _cachev_dimensions: new THREE.Vector2(),
+
+    _log_history: {
+        'error'  : [],
+        'warning': [],
+        'output' : []
+    },
+
+    // C O N T R O L S.
+    left_click_timer: new THREE.Clock(),
+    key_down_up     : false,
+    key_down_down   : false,
+    key_down_left   : false,
+    key_down_right  : false,
+    key_down_space  : false,
+    key_down_shift  : false,
+    key_down_v      : false,
+    key_down_control: false,
+
+    // E V E N T {drag and drop}
+    // Lazy loaded.
+    _ei_file_reader      : null,
+    // Position{0} in this queue logically represents the current file being processed.
+    // Positions 1-Length are remaining images to be processed (potentially including current image being processed).
+    _ei_queue_file       : [null],
+    // Useful cache value.
+    _ei_current_file_type: null,
+
+    __init__cache: function() {
+        this._cachei[QECACHEI_WIDTH_INNER]  = window.innerWidth;
+        this._cachei[QECACHEI_HEIGHT_INNER] = window.innerHeight;
+        this._cachef[QECACHEF_ASPECT_RATIO] = window.innerWidth / window.innerHeight;
+
+        this._cachef[QECACHEF_FPS_PHYSICS]  = 0.011111111111111112; // FPS is 90 (from 1.0 / 90.0).
+        this._cachef[QECACHEF_FPS_PAUSED]   = 0.011111111111111112;
+        this._cachef[QECACHEF_FPS_RENDER]   = 0.016666666666666666; // FPS is 60 (from 1.0 / 60.0).
+        this._cachef[QECACHEF_FPS_LOGIC]    = 0.03333333333333333;  // FPS is 30 (from 1.0 / 30.0).
+        this._clear_frames();
+    },
+
+    get_event_callback: function(event_callback_name) {
+        if (event_callback_name in this._events) {
+            return this._events[event_callback_name];
+        }
+        return null;
+    },
+
+    get_width: function() {
+        return this._cachei[QECACHEI_WIDTH_INNER];
+    },
+
+    get_height: function() {
+        return this._cachei[QECACHEI_HEIGHT_INNER];
+    },
+
+    // F O N T S. TODO: Need to allow completely dynamic sizing, remove these constants.
+    FONT_ARIAL_8      : new $_QE.prototype.Font('16px Helvetica' , 16, 2),
+    FONT_ARIAL_12     : new $_QE.prototype.Font('24px Inconsolata' , 24, 6), // 4
+    FONT_ARIAL_16     : new $_QE.prototype.Font('32px Helvetica' , 32, 6),
+    FONT_ARIAL_20     : new $_QE.prototype.Font('40px Helvetica' , 40, 9), // tried 12
+    FONT_ARIAL_24     : new $_QE.prototype.Font('48px Helvetica' , 48, 10),
+    FONT_ARIAL_28     : new $_QE.prototype.Font('56px Helvetica' , 56, 12),
+    FONT_ARIAL_32     : new $_QE.prototype.Font('64px Inconsolata' , 64, 14),
+    FONT_ARIAL_8_BOLD : new $_QE.prototype.Font('bold 16px Helvetica' , 16, 2),
+    FONT_ARIAL_12_BOLD: new $_QE.prototype.Font('bold 24px Helvetica' , 24, 6), // 4
+    FONT_ARIAL_16_BOLD: new $_QE.prototype.Font('bold 32px Helvetica' , 32, 6),
+    FONT_ARIAL_20_BOLD: new $_QE.prototype.Font('bold 40px Helvetica' , 40, 9), // tried 12
+    FONT_ARIAL_24_BOLD: new $_QE.prototype.Font('bold 48px Helvetica' , 48, 10),
+    FONT_ARIAL_28_BOLD: new $_QE.prototype.Font('bold 56px Helvetica' , 56, 12),
+    FONT_ARIAL_32_BOLD: new $_QE.prototype.Font('bold 64px Helvetica' , 64, 14),
+
+    // C O L O R S.
     COLOR_YELLOW          : new THREE.Color('#ffff00'),
     COLOR_WHITE           : new THREE.Color('#ffffff'),
     COLOR_BLACK           : new THREE.Color('#000000'),
@@ -95,7 +172,7 @@ Object.assign($_QE.prototype, {
         'rgba(236,255,240,0.91)', 'rgba(236,255,240,0.92)', 'rgba(236,255,240,0.93)', 'rgba(236,255,240,0.94)', 'rgba(236,255,240,0.95)', 'rgba(236,255,240,0.96)', 'rgba(236,255,240,0.97)',
         'rgba(236,255,240,0.98)', 'rgba(236,255,240,0.99)', 'rgba(236,255,240,1)'
     ],
-    
+
     COLOR_RGBA_FADE_RANGE_BORDER : [
         'rgba(101,128,84,0)', 'rgba(101,128,84,0.01)', 'rgba(101,128,84,0.02)', 'rgba(101,128,84,0.03)', 'rgba(101,128,84,0.04)', 'rgba(101,128,84,0.05)', 'rgba(101,128,84,0.06)',
         'rgba(101,128,84,0.07)', 'rgba(101,128,84,0.08)', 'rgba(101,128,84,0.09)', 'rgba(101,128,84,0.1)', 'rgba(101,128,84,0.11)', 'rgba(101,128,84,0.12)', 'rgba(101,128,84,0.13)',
@@ -113,9 +190,5 @@ Object.assign($_QE.prototype, {
         'rgba(101,128,84,0.91)', 'rgba(101,128,84,0.92)', 'rgba(101,128,84,0.93)', 'rgba(101,128,84,0.94)', 'rgba(101,128,84,0.95)', 'rgba(101,128,84,0.96)', 'rgba(101,128,84,0.97)',
         'rgba(101,128,84,0.98)', 'rgba(101,128,84,0.99)', 'rgba(101,128,84,1)'
     ],
-    
-    color_get_rgba_fade: function(alpha) {
-        return this.COLOR_RGBA_FADE_RANGE[alpha];
-    },
 
 });

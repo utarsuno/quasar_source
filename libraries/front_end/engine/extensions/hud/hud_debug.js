@@ -89,8 +89,8 @@ Object.assign(
         },
 
         _hud_int: function(position, value, min_delta, row) {
-            if (min_delta == 0) {
-                if (this._cache_debug_ints[position] != value) {
+            if (min_delta === 0) {
+                if (this._cache_debug_ints[position] !== value) {
                     this._cache_debug_ints[position] = value;
                     if (row != null) {
                         this.rows[row].set_text(value.toString());

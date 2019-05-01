@@ -60,5 +60,8 @@ Object.assign(
             //this.current_world.update_elements_root(delta);
             //this.current_world.update(delta);
         },
+
+        ///////////////////////////////////
+
     }
 );

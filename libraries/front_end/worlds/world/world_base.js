@@ -4,7 +4,7 @@ $_QE.prototype.World = function() {};
 
 Object.assign($_QE.prototype.World.prototype, {
 
-    handle_image_upload: function(file_data, file, file_name) {
+    handle_image_upload: function(file_data, file_name) {
         l('File uploaded!');
         l(file_name);
 
@@ -17,7 +17,6 @@ Object.assign($_QE.prototype.World.prototype, {
             l(image.width);
             l(image.height);
             l(image.name);
-
 
             self.create_and_add_element_to_root(fp);
             self.player.set_object_in_front_of(fp, 1000);
@@ -69,7 +68,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
     add_element: function(element, create=false, trigger_event=false) {
         if (element.flag_is_on(EFLAG_IS_IN_WORLD)) {
-            QE.log_warning('Element already in world?', element);
+            QE.warning('Element already in world?', element);
         }
 
         element.world = this;
@@ -115,7 +114,7 @@ Object.assign($_QE.prototype.World.prototype, {
                 element.world._remove_element(element);
             } else {
                 element.flag_set_off(EFLAG_IS_IN_WORLD);
-                QE.log_warning('Element had in_world flag as true but world variable was null.', element);
+                QE.warning('Element had in_world flag as true but world variable was null.', element);
             }
         }
     },

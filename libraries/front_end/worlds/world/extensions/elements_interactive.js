@@ -17,9 +17,9 @@ Object.assign($_QE.prototype.World.prototype, {
 
         // Temporary debug.
         if (element.mesh != null && !element.mesh.visible) {
-            QE.log_warning('Visibility check should be covered by flags!', element);
+            QE.warning('Visibility check should be covered by flags!', element);
         } else if (element.mesh == null && element.group == null) {
-            QE.log_warning('Is created check should be covered by flags!', element);
+            QE.warning('Is created check should be covered by flags!', element);
         }
         //
 

@@ -57,7 +57,7 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         if (this.player.in_hud_typing_state()) {
             QE.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
-            if (event.keyCode == KEY_CODE__ENTER) {
+            if (event.keyCode === KEY_CODE__ENTER) {
                 if (this.current_world.currently_looked_at_object == null) {
                     this.player.set_state(PLAYER_STATE_HUD_TYPING);
                 } else {
@@ -69,11 +69,4 @@ Object.assign($_QE.prototype.WorldManager.prototype, {
         }
     },
 
-    on_paste_event: function(text) {
-        if (this.player.in_hud_typing_state()) {
-            this.engine.hud_typing.on_paste_event(text);
-        } else if (this.player.has_input() && this.current_world.currently_looked_at_object != null) {
-            this.current_world.currently_looked_at_object.on_paste_event(text);
-        }
-    },
 });

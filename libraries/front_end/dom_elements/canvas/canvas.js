@@ -22,12 +22,7 @@ Object.assign(
         },
 
         save_as_image: function(image_name) {
-            QE.manager_canvas.download_canvas(this._element, image_name);
-        },
-
-        set_canvas_dimensions: function(w, h) {
-            this.set_canvas_width(w);
-            this.set_canvas_height(h);
+            QE.download_canvas(this._element, image_name);
         },
 
         set_canvas_width: function(w) {
@@ -50,7 +45,7 @@ Object.assign(
 
         set_canvas_font: function(font) {
             if (this._context == null) {
-                QE.log_warning('Tried setting font for canvas whose context is currently null!', this);
+                QE.warning('Tried setting font for canvas whose context is currently null!', this);
             }
             if (font == null) {
                 // Default font.

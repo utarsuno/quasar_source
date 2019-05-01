@@ -14,7 +14,7 @@ Object.assign(
                 ARG_COLOR_FOREGROUND: QE.COLOR_RGB_GREEN_LIGHT
             });
 
-            this.set_bottom_row('Nexus Local {v0.6617}, TODO: Fetch version dynamically!');
+            this.set_bottom_row('Nexus Local {v?}, TODO: Fetch version dynamically!');
 
             return this;
         },

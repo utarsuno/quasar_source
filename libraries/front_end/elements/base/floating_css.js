@@ -29,7 +29,7 @@ Object.assign(
         },
 
         matches_css_object: function(o) {
-            return o == this.div || o == this.div.parentElement;
+            return o === this.div || o === this.div.parentElement;
         },
 
         on_pause_state: function() {
@@ -73,15 +73,9 @@ Object.assign(
             this.css_object = new THREE.CSS3DObject(this.div);
             QE.css_scene.add(this.css_object);
 
-            /*
-            document.addEventListener('mousemove', function(event) {
-                l('CSS MOUSE MOVE!');
-                l(event);
-            });
-            */
-            this.div.addEventListener('mousemove', QE.on_mouse_move.bind(QE));
-            this.div.addEventListener('mouseenter', QE._engine_on_hover.bind(QE));
-            this.div.addEventListener('mouseover', QE._engine_on_hover.bind(QE));
+            this.div.addEventListener('mousemove' , QE.get_event_callback(QEEVENT_ON_WINDOW_MOUSE_OVER));
+            this.div.addEventListener('mouseenter', QE.get_event_callback(QEEVENT_ON_WINDOW_MOUSE_OVER));
+            this.div.addEventListener('mouseover' , QE.get_event_callback(QEEVENT_ON_WINDOW_MOUSE_OVER));
         },
 
         ___init__floating_css_traider: function() {

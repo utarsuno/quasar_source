@@ -7,23 +7,23 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
     set_mesh_type: function(use_cache, type, on_mesh_created) {
         this.flag_set(EFLAG_IS_CACHEABLE_MESH, use_cache);
         this.mesh_type = type;
-        if (on_mesh_created != null) {
+        if (on_mesh_created !== null) {
             this.set_event(ELEMENT_EVENT_ON_MESH_CREATED, on_mesh_created);
         }
     },
 
     recycle_mesh: function() {
-        if (this.group != null) {
+        if (this.group !== null) {
             this.group.remove(this.mesh);
         }
 
         if (this.flag_is_off(EFLAG_IS_CACHEABLE_MESH)) {
-            if (this.mesh != null) {
+            if (this.mesh !== null) {
                 this.mesh.userData = undefined;
                 this.mesh          = undefined;
             }
         } else {
-            l('WARNING: recycle_mesh called on cacheable mesh.');
+            QE.warning('Calling recycle mesh on a mesh that is in cache. Printing {this} context.');
             l(this);
         }
     },
@@ -45,7 +45,7 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
 
         this.set_user_data_if_needed();
 
-        if (this.group != null) {
+        if (this.group !== null) {
             this.group.add(this.mesh);
         }
 
@@ -53,13 +53,13 @@ Object.assign($_QE.prototype.FeatureMesh.prototype, {
     },
 
     set_user_data_if_needed: function() {
-        if (this.flag_is_on(EFLAG_IS_INTERACTIVE) && this.mesh != null && this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] == null) {
+        if (this.flag_is_on(EFLAG_IS_INTERACTIVE) && this.mesh !== null && this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] === null) {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
     },
 
     _set_user_data_looked_at: function(looked_at) {
-        if (this.mesh != null) {
+        if (this.mesh !== null) {
             this.mesh.userData[IS_CURRENTLY_LOOKED_AT] = looked_at;
         }
     },

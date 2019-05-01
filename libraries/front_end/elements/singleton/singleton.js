@@ -24,7 +24,7 @@ Object.assign(
         },
 
         world_leave: function(world) {
-            if (this._alias == SINGLETON_SKY_BOX_GRAY) {
+            if (this._alias === SINGLETON_SKY_BOX_GRAY) {
                 QE._shader_disable_background_gray();
             }
             if (this._is_element) {
@@ -35,7 +35,7 @@ Object.assign(
         },
 
         _world_enter: function(world) {
-            if (this._alias == SINGLETON_SKY_BOX_GRAY) {
+            if (this._alias === SINGLETON_SKY_BOX_GRAY) {
                 QE._shader_enable_background_gray();
             }
             if (this._is_element) {
@@ -50,7 +50,7 @@ Object.assign(
         world_enter: function(world) {
             let s;
             for (s = 0; s < world.needed_singletons.length; s++) {
-                if (world.needed_singletons[s] == this._alias) {
+                if (world.needed_singletons[s] === this._alias) {
                     this._world_enter(world);
                 }
             }

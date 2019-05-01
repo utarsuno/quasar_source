@@ -14,10 +14,10 @@ Object.assign(
                 //this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
 
                 if (this.flags_are_same(QEFLAG_CSS_LOOKED_AT, QEFLAG_CSS_HOVERED_ON)) {
-                    if (event.movementX != 0) {
+                    if (event.movementX !== 0) {
                         this.player.on_mouse_move_x(event.movementX);
                     }
-                    if (event.movementY != 0 && this.flag_is_off(QEFLAG_STATE_MOUSE_Y_DISABLED)) {
+                    if (event.movementY !== 0 && this.flag_is_off(QEFLAG_STATE_MOUSE_Y_DISABLED)) {
                         this.player.on_mouse_move_y(event.movementY);
                     }
                 }
@@ -74,40 +74,6 @@ Object.assign(
             }
             event.preventDefault();
             event.stopPropagation();
-        },
-
-        _initialize_mouse: function() {
-            document.onmousemove = this.on_mouse_move.bind(this);
-            //document.addEventListener('mousemove', this.on_mouse_move.bind(this), true);
-            document.addEventListener('mousedown', this.on_mouse_down.bind(this), true);
-            document.addEventListener('mouseup'  , this.on_mouse_up.bind(this), true);
-
-            // Base code modified from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
-            if ('onwheel' in document) {
-                document.addEventListener('wheel', function(event) {
-                    if (this.player.has_input()) {
-                        /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
-                        this.manager_world.on_wheel_event((event.deltaY >> 10) || 1);
-                    }
-                    // event.preventDefault(); --> "Unable to preventDefault inside passive event listener invocation.".
-                    event.stopPropagation();
-                }.bind(this), {
-                    capture: true,
-                    passive: true
-                });
-            } else {
-                document.addEventListener('mousewheel', function(event) {
-                    if (this.player.has_input()) {
-                        /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
-                        this.manager_world.on_wheel_event((-event.wheelDelta >> 10) || 1);
-                    }
-                    // event.preventDefault(); --> "Unable to preventDefault inside passive event listener invocation.".
-                    event.stopPropagation();
-                }.bind(this), {
-                    capture: true,
-                    passive: true
-                });
-            }
         },
     }
 );

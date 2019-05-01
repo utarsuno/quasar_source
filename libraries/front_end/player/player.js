@@ -7,14 +7,6 @@ $_QE.prototype.Player = function(engine) {
     this._cache[12] = 0.025;
     // Somewhat the formula:  1.0 - this._decay;
     this._cache[13] = 0.55;
-
-    // TEMPORARY LOCATION.
-    this.is_walking = false;
-    this._has_boundary = false;
-    this._boundary_x_min = -1000;
-    this._boundary_x_max = 1000;
-    this._boundary_z_min = -1000;
-    this._boundary_z_max = 1000;
 };
 
 Object.assign($_QE.prototype.Player.prototype, {
@@ -23,14 +15,9 @@ Object.assign($_QE.prototype.Player.prototype, {
     // Last 1 value is used for movement.
     _cache: new Float64Array(14),
 
-    set_to_walking: function() {
-        this.is_walking    = true;
-        this._has_boundary = true;
-    },
-
-    set_to_flying: function() {
-        this.is_walking    = false;
-        this._has_boundary = false;
+    // TODO: get currently looked at
+    get_currently_looked_at: function() {
+        return null;
     },
 
     initialize_player_controls: function() {

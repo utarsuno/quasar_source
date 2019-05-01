@@ -75,7 +75,6 @@ Object.assign(
             this.flag_set_on(EFLAG_IS_MOUSE_SCALABLE);
 
             this.set_foreground_color(QE.COLOR_GRAY_DARK, 0.70);
-            //this.set_background_color(COLOR_CANVAS_GRAY);
 
             $_QE.prototype.FeatureOnlyMoveable.call(this);
 

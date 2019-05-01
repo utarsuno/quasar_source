@@ -89,7 +89,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
         if (create) {
             // TODO: Only check on DEV/QA
             if (this.world == null) {
-                QE.log_warning('this.world is null!', this);
+                QE.warning('this.world is null!', this);
             }
             this.world.create_element(attachment);
         }
