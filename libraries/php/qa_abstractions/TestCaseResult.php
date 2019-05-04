@@ -9,18 +9,16 @@ use QuasarSource\Utilities\Files\XMLElement;
 class TestCaseResult extends TestResultAbstract {
 
     protected $name_class;
+    protected $parent;
 
-    protected $name;
-    protected $num_assertions;
-    protected $time_taken;
-
-    public function __construct(XMLElement $raw_data) {
+    public function __construct(XMLElement $raw_data, TestSuiteResult $parent) {
         parent::__construct($raw_data);
+        $this->parent     = $parent;
         $this->name_class = $raw_data->attributes['CLASSNAME'];
+        $this->parent->add_test_case($this);
     }
 
     public function get_header() : string {
-        $header = '[' . $this->name_class . ']: {assertions: ' . $this->num_assertions;
-        return $header . ', time: ' . $this->time_taken . '}';
+        return '        [' . $this->name . ']: {assertions: ' . $this->num_assertions . ', time: ' . $this->time_taken . '}' . PHP_EOL;
     }
 }

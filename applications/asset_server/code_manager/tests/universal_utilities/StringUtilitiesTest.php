@@ -20,11 +20,30 @@ class StringUtilitiesTest extends FileTestSuite {
             'get_matches_removed',
             [
                 # Expected Result, To search, To Remove.
-                # ['hello ', 'hello world', 'world'],
-                ['hello ', 'hello world', 'worlASDASDC#Rd'],
+                ['hello ', 'hello world', 'world'],
                 ['expected_output', 'expectedto_remove_output', 'to_remove'],
                 ['', '', ''],
                 ['', ' ', ' ']
+            ]
+        );
+    }
+
+    public function test_get_list_of_matches_removed() : void {
+        $this->assert_equals_scenarios(
+            'get_list_of_matches_removed',
+            [
+                # Expected Result, To search, To Remove.
+                ['okie_dokie', 'ccc okieaaa_bbbdokieccc  aaa', ['aaa', 'bbb', 'ccc', ' ']]
+            ]
+        );
+    }
+
+    public function test_split() : void {
+        $this->assert_equals_scenarios(
+            'split',
+            [
+                # Expected Result, To search, To Remove.
+                [['a', 'b', 'c'], 'a.b.c', '.']
             ]
         );
     }
@@ -54,6 +73,14 @@ class StringUtilitiesTest extends FileTestSuite {
                 [' ', ''],
             ]
         );
+    }
+
+    public function test_ensure_starts_with() : void {
+        $simple_case = 'png';
+        STR::ensure_starts_with($simple_case, '.');
+        $this->assertTrue(STR::starts_with($simple_case, '.'));
+        STR::ensure_starts_with($simple_case, 'a');
+        $this->assertFalse(STR::starts_with($simple_case, '.'));
     }
 
     public function test_starts_with() : void {

@@ -27,4 +27,28 @@ class ArrayUtilities {
         $array = array_slice($array, $number_to_remove);
     }
 
+    public static function contains(array $array, $element) : bool {
+        return in_array($element, $array);
+        //return array_key_exists($element, $array);
+    }
+
+    public static function has_all_keys_in(array $base, array $all_keys_to_match) : bool {
+        foreach ($all_keys_to_match as $key) {
+            if (!array_key_exists($key, $base)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static function get_all_missing_keys_relative_to(array $base, array $all_keys_to_match) : array {
+        $missing_keys = [];
+        foreach ($all_keys_to_match as $key) {
+            if (!array_key_exists($key, $base)) {
+                $missing_keys[] = $key;
+            }
+        }
+        return $missing_keys;
+    }
+
 }

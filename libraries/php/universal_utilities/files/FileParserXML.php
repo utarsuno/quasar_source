@@ -23,8 +23,11 @@ class FileParserXML extends AbstractFileParser {
         xml_parser_free($parser);
 
         foreach ($values as $tag) {
-            $index = count($elements);
-            if ($tag['type'] === 'complete' || $tag['type'] === 'open') {
+            $index            = count($elements);
+            $tag_type         = $tag['type'];
+            $tag_type_is_open = $tag_type === 'open';
+
+            if ($tag_type === 'complete' || $tag_type_is_open) {
                 $elements[$index] = new XMLElement();
                 $elements[$index]->name = $tag['tag'];
                 if (isset($tag['attributes'])) {
@@ -33,13 +36,13 @@ class FileParserXML extends AbstractFileParser {
                 if (isset($tag['value'])) {
                     $elements[$index]->content = $tag['value'];
                 }
-                if ($tag['type'] === 'open') {  // push
+                if ($tag_type_is_open) {  // push
                     $elements[$index]->children = array();
                     $stack[count($stack)] = &$elements;
                     $elements = &$elements[$index]->children;
                 }
             }
-            if ($tag['type'] === 'close') {  // pop
+            if ($tag_type === 'close') {  // pop
                 $elements = &$stack[count($stack) - 1];
                 unset($stack[count($stack) - 1]);
             }

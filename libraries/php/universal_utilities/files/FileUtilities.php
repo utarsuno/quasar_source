@@ -114,14 +114,6 @@ abstract class FileUtilities {
         return Yaml::parseFile($path);
     }
 
-    public static function get_xml_contents(string $path, bool $parse_as_qa_report=false) {
-        UPO::is_valid($path, true);
-        if ($parse_as_qa_report) {
-            return FileParserXMLQA::get_content($path);
-        }
-        return FileParserXML::get_content($path);
-    }
-
     public static function file_op_set_contents(string $path, string $contents) : void {
         UPO::is_valid($path, true);
         file_put_contents($path, $contents, LOCK_EX);

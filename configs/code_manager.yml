@@ -1,13 +1,18 @@
 assets:
   css:
+    data_directory  : '/quasar_source/assets/css/'
     output_directory: '/quasar_source/var/web_assets/'
-    files:
-      nexus_local: {actions: ['minify', 'gzip'], depends_on: 'none'}
+    files           :
+      nexus_local.css: {flags: ['minify', 'gzipped'], depends_on: 'none'}
+  html:
+    data_directory  : '/quasar_source/assets/html/'
+    output_directory: '/quasar_source/var/web_assets/'
+    files           :
+      nexus_local.html: {flags: [], depends_on: 'nexus_local.css'}
 
 qa_report:
   stats:
-    - 'unit_tests'
-    - 'asset_stats'
+    unit_tests: '/quasar_source/applications/asset_server/code_manager/report.xml'
 
 projects:
   nexus_local:

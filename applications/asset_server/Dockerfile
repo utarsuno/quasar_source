@@ -53,6 +53,7 @@ RUN apk add --update ca-certificates \
  && apk add --update php-xml@php \
  && apk add --update php-zip@php \
  && apk add --update php-ctype@php \
+ && apk add --update php-session@php \
  # Database libraries.
  && apk add --update php-pdo@php \
  && apk add --update php-pgsql@php \

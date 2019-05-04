@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#CMD ["php7", "-S", "0.0.0.0:80"]
-
 CMD_CONSOLE_MINIFY="minify:css"
 RUN_CONSOLE="php /quasar_source/libraries/php/console.php"
 RUN_DEPLOYER="./dep --file=/quasar_source/libraries/php/deploy.php"
@@ -18,6 +16,7 @@ FILE_CSS_NEXUS_LOCAL_OUTPUT=/quasar_source/var/web_assets/nexus_local.min.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT_FINAL=/quasar_source/var/web_assets/nexus_local.min.css.gz
 RUN_CONSOLE_CMD="php bin/console"
 RUN_COMPOSER_CMD="php composer.phar"
+RUN_PHP_UNIT_CMD="php bin/phpunit --log-junit report.xml" # --log-teamcity
 
 
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_FULL_BUILD}
@@ -32,8 +31,6 @@ RUN_COMPOSER_CMD="php composer.phar"
 
 cd /quasar_source/applications/asset_server/code_manager;
 
-#sleep 10000000
-
 #curl -s https://getcomposer.org/installer
 #chmod +x ./composer.phar
 #${RUN_COMPOSER_CMD} self-update;
@@ -41,10 +38,10 @@ cd /quasar_source/applications/asset_server/code_manager;
 #${RUN_COMPOSER_CMD} install -o;
 
 #${RUN_CONSOLE_CMD} list
-#${RUN_CONSOLE_CMD} file_compression:test
 
-#php bin/phpunit --log-junit report.xml # --log-teamcity
-${RUN_CONSOLE_CMD} code:health_check -vvv
+php -S "0.0.0.0:80"
+#${RUN_PHP_UNIT_CMD}
+#${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #${RUN_CONSOLE} cache:clear
 #${RUN_CONSOLE_CMD} doctrine:cache:delete

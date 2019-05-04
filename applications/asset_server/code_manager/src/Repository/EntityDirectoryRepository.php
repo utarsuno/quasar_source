@@ -8,9 +8,8 @@
 
 namespace CodeManager\Repository;
 
-use Doctrine\ORM\EntityRepository;
 
-class EntityDirectoryRepository extends EntityRepository {
+class EntityDirectoryRepository extends AbstractRepository {
 
 
 }

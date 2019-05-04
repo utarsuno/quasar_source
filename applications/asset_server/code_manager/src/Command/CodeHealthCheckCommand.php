@@ -8,27 +8,24 @@
 
 namespace CodeManager\Command;
 
-
 use CodeManager\Service\CodeBuilderService;
 use CodeManager\Service\EntityFileRepoService;
-use QuasarSource\Utilities\Files\FileUtilities;
+use CodeManager\Service\EntityQAReportRepoService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 
 class CodeHealthCheckCommand extends Command {
 
     public const COMMAND_NAME     = 'code:health_check';
     protected static $defaultName = self::COMMAND_NAME;
 
-    private $repo_files;
     private $code_builder;
 
-    public function __construct(EntityFileRepoService $repo_files, CodeBuilderService $code_builder) {
-        $this->repo_files   = $repo_files;
+    public function __construct(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, CodeBuilderService $code_builder) {
         $this->code_builder = $code_builder;
-
-        $this->code_builder->set_service_repo_files($this->repo_files);
+        $this->code_builder->set_services($repo_files, $qa_report);
         parent::__construct();
     }
 

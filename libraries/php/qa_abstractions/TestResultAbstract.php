@@ -20,4 +20,16 @@ abstract class TestResultAbstract {
 
     abstract public function get_header() : string;
 
+    public function get_name() : string {
+        return $this->name;
+    }
+
+    public function get_num_assertions() : int {
+        return $this->num_assertions;
+    }
+
+    public function get_time_taken() : string {
+        return $this->time_taken;
+    }
+
 }

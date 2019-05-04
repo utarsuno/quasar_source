@@ -5,6 +5,7 @@ namespace QuasarSource\Utilities\Files;
 
 use Exception;
 use QuasarSource\Utilities\ExceptionUtilities;
+use QuasarSource\Utilities\StringUtilities;
 
 
 class PathUtilities {
@@ -30,8 +31,33 @@ class PathUtilities {
         return pathinfo($path, PATHINFO_DIRNAME) . '/';
     }
 
+    public static function get_file_full_name(string $path) : string {
+        return self::get_file_name($path) . self::get_ending_extension($path);
+    }
+
     public static function get_file_name(string $path) : string {
         return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    public static function get_all_extensions(string $path) : ?array {
+        $file_full_name = self::get_file_full_name($path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        if ($extension === null || $extension === '') {
+            return null;
+        }
+        if ($extension === '.') {
+            return ['.'];
+        }
+        $extensions     = StringUtilities::split($file_full_name, '.');
+        $num_extensions = count($extensions);
+        if ($num_extensions > 1) {
+            $return_extensions = [];
+            for ($i = 1; $i < $num_extensions; $i++) {
+                $return_extensions[] = '.' . $extensions[$i];
+            }
+            return $return_extensions;
+        }
+        return null;
     }
 
     public static function get_ending_extension(string $path) : string {

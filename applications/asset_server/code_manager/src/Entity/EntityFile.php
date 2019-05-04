@@ -20,9 +20,15 @@ use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Exception;
+use RuntimeException;
+use QuasarSource\Utilities\ArrayUtilities      as ARY;
+use QuasarSource\Utilities\DateTimeUtilities;
 use QuasarSource\Utilities\Files\FileUtilities as UFO;
 use QuasarSource\Utilities\Files\PathUtilities as UPO;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\Files\PathUtilities as PATH;
+use QuasarSource\Utilities\Files\PathUtilities;
+use QuasarSource\Utilities\MathUtilities       as MATH;
+use QuasarSource\Utilities\StringUtilities     as STR;
 
 
 /**
@@ -42,10 +48,37 @@ use QuasarSource\Utilities\StringUtilities as STR;
  */
 class EntityFile {
 
-    public const FILE_TYPE_CSS                  = 1;
-    public const FILE_TYPE_CSS_MINIFIED         = 2;
-    public const FILE_TYPE_CSS_GZIPPED          = 3;
-    public const FILE_TYPE_CSS_MINIFIED_GZIPPED = 4;
+    public const TYPE_NO_MATCH    = -1;
+    public const TYPE_CSS         = 1;
+    public const TYPE_XML         = 2;
+    public const TYPE_HTML        = 3;
+    public const FLAG_MINIFY      = 'minify';
+    public const FLAG_PRE_PROCESS = 'pre_process';
+    public const FLAG_GZIP        = 'gzipped';
+
+    public static function get_file_type_from_path(string $path) : int {
+        $all_extensions = PATH::get_all_extensions($path);
+        if (ARY::contains($all_extensions, '.css')) {
+            return self::TYPE_CSS;
+        }
+        if (ARY::contains($all_extensions, '.xml')) {
+            return self::TYPE_XML;
+        }
+        if (ARY::contains($all_extensions, '.html')) {
+            return self::TYPE_HTML;
+        }
+        throw new RuntimeException('No match for {' . $path . '}');
+        return self::TYPE_NO_MATCH;
+    }
+
+    public function get_current_options() : array {
+        $options = [
+            self::FLAG_GZIP => $this->getIsGzipped(),
+            self::FLAG_MINIFY => $this->getIsMinified(),
+            self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
+        ];
+        return $options;
+    }
 
     /**
      * @Id
@@ -53,6 +86,12 @@ class EntityFile {
      * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var int
+     * @Column(type="integer", nullable=false, unique=false)
+     */
+    private $rank;
 
     /**
      * @Column(name="file_type", type="integer", nullable=false, unique=false)
@@ -107,6 +146,24 @@ class EntityFile {
     private $size_in_bytes;
 
     /**
+     * @var bool
+     * @Column(name="is_gzipped", type="boolean", nullable=false, unique=false)
+     */
+    private $is_gzipped;
+
+    /**
+     * @var bool
+     * @Column(name="is_minified", type="boolean", nullable=false, unique=false)
+     */
+    private $is_minified;
+
+    /**
+     * @var bool
+     * @Column(name="is_pre_processed", type="boolean", nullable=false, unique=false)
+     */
+    private $is_pre_processed;
+
+    /**
      * @Column(name="last_cached", type="datetime", nullable=true, unique=false)
      */
     private $last_cached;
@@ -116,11 +173,15 @@ class EntityFile {
      */
     private $first_cached;
 
-    public function initialize(string $full_path, string $file_type) : self {
-        $current_date_time = new DateTime('now');
+    public function initialize(string $full_path, int $file_type, array $options) : self {
+        $current_date_time = DateTimeUtilities::now();
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
         $this->setFileType($file_type);
+        $this->setRank(0);
+        $this->setIsGzipped($options[self::FLAG_GZIP]);
+        $this->setIsMinified($options[self::FLAG_MINIFY]);
+        $this->setIsPreProcessed($options[self::FLAG_PRE_PROCESS]);
         $this->setName(UPO::get_file_name($full_path));
         $this->setExtension(UPO::get_ending_extension($full_path));
         $this->cache_warm_up();
@@ -141,7 +202,7 @@ class EntityFile {
      * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
      */
     public function cache_warm_up() : void {
-        $this->setLastCached(new DateTime('now'));
+        $this->setLastCached(DateTimeUtilities::now());
         $this->setSizeInBytes(UFO::get_size($this->full_path));
         $this->setSha512sum(UFO::get_sha512sum($this->full_path));
     }
@@ -163,34 +224,17 @@ class EntityFile {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getFileType() {
+    public function getFileType() : int {
         return $this->file_type;
     }
 
-    public function getFileTypeMinified() : int {
-        if ($this->file_type === self::FILE_TYPE_CSS) {
-            return self::FILE_TYPE_CSS_MINIFIED;
-        }
-        return -1;
-    }
-
-    public function getFileTypeGzipped() : int {
-        if ($this->file_type === self::FILE_TYPE_CSS_MINIFIED) {
-            return self::FILE_TYPE_CSS_MINIFIED_GZIPPED;
-        }
-        if ($this->file_type === self::FILE_TYPE_CSS) {
-            return self::FILE_TYPE_CSS_GZIPPED;
-        }
-        return -1;
-    }
-
     /**
-     * @param mixed $fileType
+     * @param int $fileType
      * @return self
      */
-    public function setFileType($fileType) : self {
+    public function setFileType(int $fileType) : self {
         $this->file_type = $fileType;
         return $this;
     }
@@ -267,6 +311,7 @@ class EntityFile {
      */
     public function setParent($parent) : self {
         $this->parent = $parent;
+        $this->setRank($parent->getRank() + 1);
         return $this;
     }
 
@@ -297,6 +342,7 @@ class EntityFile {
      */
     public function setChild($child) : self {
         $this->child = $child;
+        $this->child->setRank($this->getRank() + 1);
         return $this;
     }
 
@@ -387,6 +433,17 @@ class EntityFile {
         return $this->full_path;
     }
 
+    public function get_full_name_with_pre_extension(string $extension) : string {
+        $ext = $extension;
+        STR::ensure_starts_with($ext, '.');
+        return $this->name . $ext . $this->extension;
+    }
+
+    public function get_path_with_pre_extension(string $extension) : string {
+        $path = PathUtilities::get_directory($this->getFullPath());
+        return $path . $this->getName() . $extension . $this->getExtension();
+    }
+
     /**
      * @param string $full_path
      * @return self
@@ -396,10 +453,17 @@ class EntityFile {
         return $this;
     }
 
-    public function to_full_string() : string {
+    public function to_full_string(?EntityFile $relative_to=null) : string {
         $info = ' --------- EntityFile{' . $this->getName() . $this->getExtension() . '}:' . PHP_EOL;
         $info .= "\tpath{" . $this->getFullPath() . '}' . PHP_EOL;
-        $info .= "\tsize{" . $this->getSizeInBytes() . '}' . PHP_EOL;
+        if ($relative_to !== null) {
+            $base = $this->getSizeInBytes();
+            $new  = $relative_to->getSizeInBytes();
+            $dif  = MATH::get_percentage_changed($base, $new, true);
+            $info .= "\tsize{" . $base . '} to {' . $new . '}, reduction of(' . $dif . '%)' . PHP_EOL;
+        } else {
+            $info .= "\tsize{" . $this->getSizeInBytes() . '}' . PHP_EOL;
+        }
         if ($this->hasParent()) {
             $info .= "\tparent{" . $this->getParent()->getFullName() . '}' . PHP_EOL;
         }
@@ -412,5 +476,70 @@ class EntityFile {
 
     public function __toString() {
         return 'EntityFile{' . $this->getFullPath() . '}';
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsGzipped() : bool {
+        return $this->is_gzipped;
+    }
+
+    /**
+     * @param bool $is_gzipped
+     * @return self
+     */
+    public function setIsGzipped(bool $is_gzipped): self {
+        $this->is_gzipped = $is_gzipped;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsMinified(): bool {
+        return $this->is_minified;
+    }
+
+    /**
+     * @param bool $is_minified
+     * @return self
+     */
+    public function setIsMinified(bool $is_minified): self {
+        $this->is_minified = $is_minified;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPreProcessed(): bool {
+        return $this->is_pre_processed;
+    }
+
+    /**
+     * @param bool $is_pre_processed
+     * @return self
+     */
+    public function setIsPreProcessed(bool $is_pre_processed): self {
+        $this->is_pre_processed = $is_pre_processed;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRank(): int {
+        return $this->rank;
+    }
+
+    /**
+     * @param int $rank
+     * @return self
+     */
+    public function setRank(int $rank): self
+    {
+        $this->rank = $rank;
+        return $this;
     }
 }

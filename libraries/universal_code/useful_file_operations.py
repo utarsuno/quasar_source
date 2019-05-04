@@ -494,15 +494,3 @@ def get_all_file_names_in_zip_directory(zip_file_path) -> List[str]:
 	return file_names
 
 '''
-
-'''
-def get_all_file_names_inside_directory(path: str) -> List[str]:
-	"""Returns a list of all file names found inside the provided directory."""
-	if _is_valid_path_parameter(path):
-		file_names = []
-		for full_path in glob.glob(path + '/**', recursive=True):
-			if not is_directory(full_path):
-				file_names.append(file_get_basename(full_path))
-		return file_names
-	return []
-'''
