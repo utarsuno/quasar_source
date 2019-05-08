@@ -14,7 +14,7 @@ CMD_DEPLOYER_BUILD_NEXUS_COURIER="build_nexus_courier -vvv"
 FILE_CSS_NEXUS_LOCAL=/quasar_source/assets/css/nexus_local.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT=/quasar_source/var/web_assets/nexus_local.min.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT_FINAL=/quasar_source/var/web_assets/nexus_local.min.css.gz
-RUN_CONSOLE_CMD="php bin/console"
+RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/console"
 RUN_COMPOSER_CMD="php composer.phar"
 RUN_PHP_UNIT_CMD="php bin/phpunit --log-junit report.xml" # --log-teamcity
 
@@ -29,7 +29,11 @@ RUN_PHP_UNIT_CMD="php bin/phpunit --log-junit report.xml" # --log-teamcity
 
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_BUILD_NEXUS_COURIER}
 
+#cd /quasar_source/applications/asset_server/js;
+#${RUN_CONSOLE_CMD} code:health_check -vvv
+
 cd /quasar_source/applications/asset_server/code_manager;
+php -S "0.0.0.0:80"
 
 #curl -s https://getcomposer.org/installer
 #chmod +x ./composer.phar
@@ -39,9 +43,7 @@ cd /quasar_source/applications/asset_server/code_manager;
 
 #${RUN_CONSOLE_CMD} list
 
-php -S "0.0.0.0:80"
 #${RUN_PHP_UNIT_CMD}
-#${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #${RUN_CONSOLE} cache:clear
 #${RUN_CONSOLE_CMD} doctrine:cache:delete

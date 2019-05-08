@@ -17,7 +17,17 @@ use QuasarSource\Utilities\Files\PathUtilities as UPO;
 
 abstract class FileUtilities {
 
-    private const HASH_ALGORITHM = 'sha512';
+    public const EXTENSION_WEB_MANIFEST    = '.webmanifest';
+    public const EXTENSION_SHADER_VERTEX   = '.vert';
+    public const EXTENSION_SHADER_FRAGMENT = '.frag';
+    public const EXTENSION_JSON            = '.json';
+    public const EXTENSION_CSS             = '.css';
+    public const EXTENSION_XML             = '.xml';
+    public const EXTENSION_HTML            = '.html';
+    public const EXTENSION_MINIFIED        = '.min';
+    public const EXTENSION_GZIPPED         = '.gz';
+
+    private const HASH_ALGORITHM           = 'sha512';
 
     public static function is_valid(string $path) : bool {
         return is_file($path);
@@ -114,7 +124,13 @@ abstract class FileUtilities {
         return Yaml::parseFile($path);
     }
 
-    public static function file_op_set_contents(string $path, string $contents) : void {
+    public static function create_or_overwrite_file(string $path, string $contents) : void {
+        $f = fopen($path, 'wb');
+        fwrite($f, $contents);
+        fclose($f);
+    }
+
+    public static function set_contents(string $path, string $contents) : void {
         UPO::is_valid($path, true);
         file_put_contents($path, $contents, LOCK_EX);
     }
@@ -122,7 +138,7 @@ abstract class FileUtilities {
     public static function get_contents_as_list(string $path) : array {
         UPO::is_valid($path, true);
         $file_lines = [];
-        $lines = file($path);
+        $lines      = file($path);
         foreach ($lines as $line) {
             $file_lines[] = $line;
         }

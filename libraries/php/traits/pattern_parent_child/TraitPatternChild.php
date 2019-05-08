@@ -8,7 +8,7 @@
 
 namespace QuasarSource\Traits\PatternParentChild;
 
-use QuasarSource\Utilities\ExceptionUtilities;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 
 trait TraitPatternChild {
 
@@ -21,7 +21,7 @@ trait TraitPatternChild {
 
     public function set_parent($parent, bool $raise_exception_if_parent_exists=true) : void {
         if ($raise_exception_if_parent_exists && ($this->parent !== null && $parent !== $this->parent)) {
-            ExceptionUtilities::throw_exception('Can not set parent when current parent is not null!');
+            DBG::throw_exception('Can not set parent when current parent is not null!');
         }
         $this->parent = $parent;
         if (!$this->parent->has_child($this)) {

@@ -7,6 +7,7 @@
  */
 
 namespace QuasarSource\Utilities\Processes;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
 
 
 class ProcessGZIP extends ProcessUtilities {
@@ -23,7 +24,7 @@ class ProcessGZIP extends ProcessUtilities {
         if ($throw_error_on_exception) {
             $p->throw_error_if_failed();
         }
-        rename($path_input . '.gz', $path_output);
+        rename($path_input . UFO::EXTENSION_GZIPPED, $path_output);
     }
 
 }

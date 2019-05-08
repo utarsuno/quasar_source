@@ -15,6 +15,17 @@ class ArrayUtilitiesTest extends FileTestSuite {
 
     protected $class_to_test = ARY::class;
 
+    public function test_string_arrays_have_same_values() : void {
+        $this->assert_equals_scenarios(
+            'string_arrays_have_same_values',
+            [
+                # Expected Result, To search, To Remove.
+                [true, ['a', 'b', 'c'], ['b', 'c', 'a']],
+                [false, ['a', 'b', 'c'], ['b', 'b', 'b']]
+            ]
+        );
+    }
+
     public function test_contains() : void {
         $simple_case = ['a', 'b', 'c'];
         // Positive cases.

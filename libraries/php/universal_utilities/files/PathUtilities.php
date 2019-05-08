@@ -4,11 +4,13 @@
 namespace QuasarSource\Utilities\Files;
 
 use Exception;
-use QuasarSource\Utilities\ExceptionUtilities;
-use QuasarSource\Utilities\StringUtilities;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
+use QuasarSource\Utilities\StringUtilities               as STR;
 
 
-class PathUtilities {
+abstract class PathUtilities {
+
+    private static $cwd;
 
     /**
      * Checks if a provided path is both valid and that it points to something existing.
@@ -22,9 +24,38 @@ class PathUtilities {
         // N O T E : Ensure that file check is performed first as that condition is more likely.
         $is_path_valid = ($path !== '') && (is_file($path) || is_dir($path));
         if ($raise_exception_if_not && !$is_path_valid) {
-            ExceptionUtilities::throw_exception('Invalid path{' . $path . '}');
+            DBG::throw_exception('Invalid path{' . $path . '}');
         }
         return $is_path_valid;
+    }
+
+    /**
+     * Returns a string representing the provided path with 1 less directory depth (if not already at base directory).
+     *
+     * @param string $path < The path to remove a layer from.                                                     >
+     * @return string      < A new string representing the path provided with potentially 1 less directory depth. >
+     */
+    public static function remove_layer(string $path) : string {
+        if ($path === '/') {
+            return '/';
+        }
+        if (STR::ends_with($path, '/')) {
+            return STR::indexed_inclusive_to_last_match(STR::indexed($path, 0, strlen($path) - 2), '/');
+        }
+        return STR::indexed_inclusive_to_last_match($path, '/');
+    }
+
+
+    public static function cwd_pop() : void {
+        if (self::$cwd !== null) {
+            chdir(self::$cwd);
+            self::$cwd = null;
+        }
+    }
+
+    public static function cwd_push(string $path) : void {
+        self::$cwd = getcwd();
+        chdir($path);
     }
 
     public static function get_directory(string $path) : string {
@@ -48,7 +79,7 @@ class PathUtilities {
         if ($extension === '.') {
             return ['.'];
         }
-        $extensions     = StringUtilities::split($file_full_name, '.');
+        $extensions     = STR::split($file_full_name, '.');
         $num_extensions = count($extensions);
         if ($num_extensions > 1) {
             $return_extensions = [];

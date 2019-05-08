@@ -11,7 +11,7 @@ namespace QuasarSource\CodeAbstractions\Directory;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
-use QuasarSource\Utilities\ExceptionUtilities;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\Files\FileUtilities as UFO;
 use QuasarSource\Utilities\Files\PathUtilities as UPO;
 use QuasarSource\Utilities\Files\DirectoryUtilities as UDO;
@@ -44,7 +44,7 @@ class DirectoryInstance extends FileAbstraction {
 
         $instance = FileManager::get_needed_file_class_type($path, $this);
         if ($instance === null) {
-            #ExceptionUtilities::throw_exception('No file created for path {' . $path . '}');
+            #DBG::throw_exception('No file created for path {' . $path . '}');
             L::l('Warning: no file created for path {' . $path . '}');
         }
     }
@@ -100,7 +100,7 @@ class DirectoryInstance extends FileAbstraction {
             $path_full        = $this->get_path_full();
             $path_files       = [];
             $path_directories = [];
-            UDO::directory_get_all_contents($path_full, $use_recursion, $path_files, $path_directories);
+            UDO::get_all_contents($path_full, $use_recursion, $path_files, $path_directories);
 
             foreach ($path_files as $path) {
                 $p = STR::get_matches_removed($path, $path_full);

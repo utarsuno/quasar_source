@@ -54,7 +54,7 @@ class FileDockerCompose extends FileYAML {
         }
         #echo $file_text;
 
-        UFO::file_op_set_contents($this->get_path_full(), $file_text);
+        UFO::set_contents($this->get_path_full(), $file_text);
     }
 
     public function clean() : void {

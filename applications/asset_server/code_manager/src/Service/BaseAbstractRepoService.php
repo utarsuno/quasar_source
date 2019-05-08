@@ -9,13 +9,14 @@
 namespace CodeManager\Service;
 
 use CodeManager\Abstractions\EntityDBStateInterface;
+use CodeManager\Repository\AbstractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
 
 abstract class BaseAbstractRepoService extends BaseAbstractService implements EntityDBStateInterface {
 
-    /** @var EntityManagerInterface */
+    /** @var AbstractRepository */
     protected $repo;
 
     public function __construct(EntityManagerInterface $entity_manager, LoggerInterface $logger, $repo_class) {

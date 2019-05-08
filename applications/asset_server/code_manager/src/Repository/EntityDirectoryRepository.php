@@ -11,5 +11,7 @@ namespace CodeManager\Repository;
 
 class EntityDirectoryRepository extends AbstractRepository {
 
+    protected function event_before_remove_entity($entity): void {}
 
+    protected function event_after_remove_entity($entity): void {}
 }

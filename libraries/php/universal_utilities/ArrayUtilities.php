@@ -9,7 +9,7 @@
 namespace QuasarSource\Utilities;
 
 
-class ArrayUtilities {
+abstract class ArrayUtilities {
 
     /**
      * Remove the first n elements from the provided array.
@@ -27,8 +27,20 @@ class ArrayUtilities {
         $array = array_slice($array, $number_to_remove);
     }
 
+    /**
+     * Returns a boolean indicating if two arrays comprised of strings have the same elements (but not necessarily in the same order).
+     *
+     * @param array $a0 < The first array to compare to.                                   >
+     * @param array $a1 < The second array to compare to.                                  >
+     * @return bool     < True if both arrays have the same values, order does not matter. >
+     */
+    public static function string_arrays_have_same_values(array $a0, array $a1) : bool {
+        /** @noinspection TypeUnsafeComparisonInspection */
+        return array_count_values($a0) == array_count_values($a1);
+    }
+
     public static function contains(array $array, $element) : bool {
-        return in_array($element, $array);
+        return in_array($element, $array, false);
         //return array_key_exists($element, $array);
     }
 

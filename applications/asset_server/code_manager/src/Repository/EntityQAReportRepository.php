@@ -17,4 +17,7 @@ class EntityQAReportRepository extends AbstractRepository {
         return $this->get_entity_by_attribute('entity_file_id', $entity_file->getId());
     }
 
+    protected function event_before_remove_entity($entity): void {}
+
+    protected function event_after_remove_entity($entity): void {}
 }

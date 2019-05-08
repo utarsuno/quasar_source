@@ -7,14 +7,14 @@
  */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
-use QuasarSource\Utilities\Files\FileUtilities;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 
 
 class FileYAML extends FileInstance {
 
-    protected function load_contents() {
-        return FileUtilities::get_yaml_contents($this->get_path_full());
+    protected function load_contents() : array {
+        return UFO::get_yaml_contents($this->get_path_full());
     }
 
 }

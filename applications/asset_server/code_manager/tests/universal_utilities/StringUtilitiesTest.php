@@ -23,17 +23,19 @@ class StringUtilitiesTest extends FileTestSuite {
                 ['hello ', 'hello world', 'world'],
                 ['expected_output', 'expectedto_remove_output', 'to_remove'],
                 ['', '', ''],
-                ['', ' ', ' ']
+                ['', ' ', ' '],
+                ['okie_dokie', 'ccc okieaaa_bbbdokieccc  aaa', ['aaa', 'bbb', 'ccc', ' ']]
             ]
         );
     }
 
-    public function test_get_list_of_matches_removed() : void {
+    public function test_replace() : void {
         $this->assert_equals_scenarios(
-            'get_list_of_matches_removed',
+            'replace',
             [
                 # Expected Result, To search, To Remove.
-                ['okie_dokie', 'ccc okieaaa_bbbdokieccc  aaa', ['aaa', 'bbb', 'ccc', ' ']]
+                ['hello ', 'hello world', 'world', ''],
+                ['expected_output', 'expected_wrong', 'wrong', 'output']
             ]
         );
     }

@@ -10,6 +10,7 @@ namespace CodeManager\Command;
 
 use CodeManager\Service\CodeBuilderService;
 use CodeManager\Service\EntityFileRepoService;
+use CodeManager\Service\EntityNPMLibraryRepoService;
 use CodeManager\Service\EntityQAReportRepoService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,9 +24,9 @@ class CodeHealthCheckCommand extends Command {
 
     private $code_builder;
 
-    public function __construct(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, CodeBuilderService $code_builder) {
+    public function __construct(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, CodeBuilderService $code_builder, EntityNPMLibraryRepoService $npm_libs) {
         $this->code_builder = $code_builder;
-        $this->code_builder->set_services($repo_files, $qa_report);
+        $this->code_builder->set_services($repo_files, $qa_report, $npm_libs);
         parent::__construct();
     }
 

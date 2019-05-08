@@ -1,14 +1,28 @@
 assets:
-  css:
+  .css:
     data_directory  : '/quasar_source/assets/css/'
     output_directory: '/quasar_source/var/web_assets/'
     files           :
-      nexus_local.css: {flags: ['minify', 'gzipped'], depends_on: 'none'}
-  html:
+      nexus_local.css: ['minify', 'gzipped']
+  .html:
     data_directory  : '/quasar_source/assets/html/'
     output_directory: '/quasar_source/var/web_assets/'
     files           :
-      nexus_local.html: {flags: [], depends_on: 'nexus_local.css'}
+      nexus_local.html: ['pre_process', '/quasar_source/var/web_assets/nexus_local.min.css', 'minify', 'gzipped']
+  .json:
+    data_directory  : '/quasar_source/assets/fonts/three_js_fonts/'
+    output_directory: '/quasar_source/var/web_assets/'
+    files           :
+      gentilis_regular.typeface.json: ['gzipped']
+
+npm:
+  - 'css-tree'
+  - 'csso'
+  - 'html-minifier'
+  - 'npm'
+  - 'three'
+  - 'browserify'
+  - 'webpack'
 
 qa_report:
   stats:

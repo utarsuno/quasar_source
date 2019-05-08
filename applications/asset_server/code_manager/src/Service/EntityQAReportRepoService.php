@@ -10,14 +10,11 @@ namespace CodeManager\Service;
 
 use CodeManager\Entity\EntityFile;
 use CodeManager\Entity\EntityQAReport;
-use CodeManager\Repository\EntityFileRepository;
-use CodeManager\Repository\EntityQAReportRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use mysql_xdevapi\Exception;
 use Psr\Log\LoggerInterface;
-use QuasarSource\Utilities\DateTimeUtilities;
+use QuasarSource\Utilities\DateTimeUtilities as TIME;
 use QuasarSource\Utilities\Files\FileParserXMLQA;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+
 
 class EntityQAReportRepoService extends BaseAbstractRepoService {
 
@@ -38,7 +35,7 @@ class EntityQAReportRepoService extends BaseAbstractRepoService {
         $qa_report->setSecondsTaken($content->get_time_taken());
         $qa_report->setNumTests($content->get_num_tests());
         $qa_report->setNumSkipped($content->get_num_skipped());
-        $qa_report->setRanAt(DateTimeUtilities::now());
+        $qa_report->setRanAt(TIME::now());
         $qa_report->setRawReport($content->get_qa_report());
 
         $this->save_entity($qa_report, true);

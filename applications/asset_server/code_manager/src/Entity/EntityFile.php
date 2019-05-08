@@ -20,15 +20,13 @@ use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Exception;
-use RuntimeException;
-use QuasarSource\Utilities\ArrayUtilities      as ARY;
-use QuasarSource\Utilities\DateTimeUtilities;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as UPO;
-use QuasarSource\Utilities\Files\PathUtilities as PATH;
-use QuasarSource\Utilities\Files\PathUtilities;
-use QuasarSource\Utilities\MathUtilities       as MATH;
-use QuasarSource\Utilities\StringUtilities     as STR;
+use QuasarSource\Utilities\DateTimeUtilities             as TIME;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
+use QuasarSource\Utilities\ArrayUtilities                as ARY;
+use QuasarSource\Utilities\Files\FileUtilities           as UFO;
+use QuasarSource\Utilities\Files\PathUtilities           as UPO;
+use QuasarSource\Utilities\Files\PathUtilities           as PATH;
+use QuasarSource\Utilities\MathUtilities                 as MATH;
 
 
 /**
@@ -48,33 +46,50 @@ use QuasarSource\Utilities\StringUtilities     as STR;
  */
 class EntityFile {
 
-    public const TYPE_NO_MATCH    = -1;
-    public const TYPE_CSS         = 1;
-    public const TYPE_XML         = 2;
-    public const TYPE_HTML        = 3;
-    public const FLAG_MINIFY      = 'minify';
-    public const FLAG_PRE_PROCESS = 'pre_process';
-    public const FLAG_GZIP        = 'gzipped';
+    public const TYPE_NO_MATCH        = -1;
+    public const TYPE_CSS             = 1;
+    public const TYPE_XML             = 2;
+    public const TYPE_HTML            = 3;
+    public const TYPE_JSON            = 4;
+    public const TYPE_SHADER_VERTEX   = 5;
+    public const TYPE_SHADER_FRAGMENT = 6;
+    public const TYPE_WEB_MANIFEST    = 7;
+
+    public const FLAG_MINIFY          = 'minify';
+    public const FLAG_PRE_PROCESS     = 'pre_process';
+    public const FLAG_GZIP            = 'gzipped';
 
     public static function get_file_type_from_path(string $path) : int {
         $all_extensions = PATH::get_all_extensions($path);
-        if (ARY::contains($all_extensions, '.css')) {
+        if (ARY::contains($all_extensions, UFO::EXTENSION_CSS)) {
             return self::TYPE_CSS;
         }
-        if (ARY::contains($all_extensions, '.xml')) {
+        if (ARY::contains($all_extensions, UFO::EXTENSION_XML)) {
             return self::TYPE_XML;
         }
-        if (ARY::contains($all_extensions, '.html')) {
+        if (ARY::contains($all_extensions, UFO::EXTENSION_HTML)) {
             return self::TYPE_HTML;
         }
-        throw new RuntimeException('No match for {' . $path . '}');
+        if (ARY::contains($all_extensions, UFO::EXTENSION_JSON)) {
+            return self::TYPE_JSON;
+        }
+        if (ARY::contains($all_extensions, UFO::EXTENSION_SHADER_FRAGMENT)) {
+            return self::TYPE_SHADER_FRAGMENT;
+        }
+        if (ARY::contains($all_extensions, UFO::EXTENSION_SHADER_VERTEX)) {
+            return self::TYPE_SHADER_VERTEX;
+        }
+        if (ARY::contains($all_extensions, UFO::EXTENSION_WEB_MANIFEST)) {
+            return self::TYPE_WEB_MANIFEST;
+        }
+        DBG::throw_exception('No file type match for {' . $path . '}');
         return self::TYPE_NO_MATCH;
     }
 
-    public function get_current_options() : array {
+    public function get_flags() : array {
         $options = [
-            self::FLAG_GZIP => $this->getIsGzipped(),
-            self::FLAG_MINIFY => $this->getIsMinified(),
+            self::FLAG_GZIP        => $this->getIsGzipped(),
+            self::FLAG_MINIFY      => $this->getIsMinified(),
             self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
         ];
         return $options;
@@ -174,7 +189,7 @@ class EntityFile {
     private $first_cached;
 
     public function initialize(string $full_path, int $file_type, array $options) : self {
-        $current_date_time = DateTimeUtilities::now();
+        $current_date_time = TIME::now();
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
         $this->setFileType($file_type);
@@ -202,7 +217,7 @@ class EntityFile {
      * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
      */
     public function cache_warm_up() : void {
-        $this->setLastCached(DateTimeUtilities::now());
+        $this->setLastCached(TIME::now());
         $this->setSizeInBytes(UFO::get_size($this->full_path));
         $this->setSha512sum(UFO::get_sha512sum($this->full_path));
     }
@@ -322,11 +337,11 @@ class EntityFile {
         return $this->child;
     }
 
-    public function getChildRecursively() : EntityFile {
+    public function get_child_recursively() : EntityFile {
         if ($this->child === null) {
             return $this;
         }
-        return $this->child->getChildRecursively();
+        return $this->child->get_child_recursively();
     }
 
     /**
@@ -433,14 +448,20 @@ class EntityFile {
         return $this->full_path;
     }
 
-    public function get_full_name_with_pre_extension(string $extension) : string {
-        $ext = $extension;
-        STR::ensure_starts_with($ext, '.');
-        return $this->name . $ext . $this->extension;
+    public function get_full_name_minified() : string {
+        return $this->name . UFO::EXTENSION_MINIFIED . $this->extension;
+    }
+
+    public function get_full_name_processed() : string {
+        return $this->name . '.processed' . $this->extension;
+    }
+
+    public function get_full_name_gzipped() : string {
+        return $this->getFullName() . UFO::EXTENSION_GZIPPED;
     }
 
     public function get_path_with_pre_extension(string $extension) : string {
-        $path = PathUtilities::get_directory($this->getFullPath());
+        $path = PATH::get_directory($this->getFullPath());
         return $path . $this->getName() . $extension . $this->getExtension();
     }
 
@@ -459,8 +480,8 @@ class EntityFile {
         if ($relative_to !== null) {
             $base = $this->getSizeInBytes();
             $new  = $relative_to->getSizeInBytes();
-            $dif  = MATH::get_percentage_changed($base, $new, true);
-            $info .= "\tsize{" . $base . '} to {' . $new . '}, reduction of(' . $dif . '%)' . PHP_EOL;
+            $dif  = MATH::get_percentage_decreased($base, $new, true);
+            $info .= "\tsize{" . $base . '} to {' . $new . '}, reduction of(' . $dif . ')' . PHP_EOL;
         } else {
             $info .= "\tsize{" . $this->getSizeInBytes() . '}' . PHP_EOL;
         }

@@ -5,7 +5,7 @@ namespace QuasarSource\QualityAssurance;
 
 
 use QuasarSource\Utilities\Files\XMLElement;
-use QuasarSource\Utilities\StringUtilities;
+use QuasarSource\Utilities\StringUtilities as STR;
 
 class TestSuiteResult extends TestResultAbstract {
 
@@ -16,9 +16,9 @@ class TestSuiteResult extends TestResultAbstract {
     public function __construct(XMLElement $raw_data, ProjectTestSuiteResult $parent) {
         parent::__construct($raw_data);
         $this->parent         = $parent;
-        $this->name           = StringUtilities::get_matches_removed($this->name, 'CodeManager\\Tests\\');
-        $this->name           = StringUtilities::get_matches_removed($this->name, 'Command\\');
-        $this->name           = StringUtilities::get_matches_removed($this->name, 'CodeManager\\Traits\\');
+        $this->name           = STR::get_matches_removed($this->name, 'CodeManager\\Tests\\');
+        $this->name           = STR::get_matches_removed($this->name, 'Command\\');
+        $this->name           = STR::get_matches_removed($this->name, 'CodeManager\\Traits\\');
         $this->file           = $raw_data->attributes['FILE'] ?? null;
         $this->parent->add_test_suite($this);
         foreach ($raw_data->children as $child) {

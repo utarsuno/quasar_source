@@ -2,12 +2,12 @@
 
 
 namespace QuasarSource\Utilities\Files;
-
+use \QuasarSource\Utilities\Files\FileUtilities as UFO;
 
 abstract class AbstractFileParser {
 
     public static function get_content(string $path) {
-        FileUtilities::is_valid($path);
+        UFO::is_valid($path);
         return static::parse_content($path);
     }
 

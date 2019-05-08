@@ -19,11 +19,11 @@ abstract class BaseAbstractService {
         $this->logger = $logger;
     }
 
-    protected function log($content) : void {
+    public function log($content) : void {
         $this->logger->debug($content);
     }
 
-    protected function warn($content) : void {
+    public function warn($content) : void {
         $this->logger->warning($content);
     }
 

@@ -9,32 +9,23 @@
 namespace QuasarSource\Utilities;
 
 
-class StringUtilities {
+abstract class StringUtilities {
 
     /**
      * Returns a string having the contents of the base string with any occurrences of secondary string provided removed.
      *
-     * @param string $base  < The string to base contents off of. >
-     * @param string $match < The string to find occurrences of.  >
-     * @return string       < A new string.                       >
+     * @param string       $base  < The string to base contents off of.                       >
+     * @param string|array $match < The string (or array of strings) to find occurrences of.  >
+     * @return string              < A new string.                                            >
      */
-    public static function get_matches_removed(string $base, string $match) : string {
-        return str_replace($match, '', $base);
-    }
-
-    /**
-     * Returns a string having the contents of the base string with any occurrences of any found string, provided from array, removed.
-     *
-     * @param string $base             < The string to base contents off of.                                 >
-     * @param array $matches_to_remove < A list of matches to remove from the base string (a copy returned). >
-     * @return string                  < A new string.                                                       >
-     */
-    public static function get_list_of_matches_removed(string $base, array $matches_to_remove) : string {
-        $b = $base;
-        foreach ($matches_to_remove as $match) {
-            $b = str_replace($match, '', $b);
+    public static function get_matches_removed(string $base, $match) : string {
+        if (is_string($match)) {
+            return str_replace($match, '', $base);
         }
-        return $b;
+        foreach ($match as $m) {
+            $base = str_replace($m, '', $base);
+        }
+        return $base;
     }
 
     /**
@@ -44,7 +35,7 @@ class StringUtilities {
      * @param string $delimiter < The string to match and split by.   >
      * @return array            < An array of string segments.        >
      */
-    public static function split(string $base, string $delimiter) : array {
+    public static function split(string $base, string $delimiter=PHP_EOL) : array {
         return explode($delimiter, $base, PHP_INT_MAX);
     }
 
@@ -60,6 +51,27 @@ class StringUtilities {
             return false;
         }
         return strpos($base, $match) !== false;
+    }
+
+    public static function remove_newline(string $base) : string {
+        return self::replace($base, PHP_EOL, '');
+    }
+
+    public static function position_of_last_match(string $base, string $match) : int {
+        $pos = strrpos($base, $match);
+        if ($pos === false) {
+            var_dump('POSITION NOT FOUND!');
+        }
+        return $pos;
+    }
+
+    public static function indexed_inclusive_to_last_match(string $base, string $match) : string {
+        return self::indexed($base, 0, self::position_of_last_match($base, $match) + strlen($match));
+    }
+
+    public static function indexed(string $base, int $start, int $end) : string {
+        // TODO: Error checks on bad sizes given.
+        return substr($base, $start, $end);
     }
 
     /**
@@ -111,6 +123,18 @@ class StringUtilities {
      */
     public static function formatted_number(float $number, int $number_of_decimals=3) : string {
         return number_format($number, $number_of_decimals, '.', '');
+    }
+
+    /**
+     * Returns the provided string with any matches replaced.
+     *
+     * @param string $base        < The string to return a modified version of. >
+     * @param string $match       < Text instance to find and replace.          >
+     * @param string $replacement < Content for replaced text instances.        >
+     * @return string
+     */
+    public static function replace(string $base, string $match, string $replacement) : string {
+        return str_replace($match, $replacement, $base);
     }
 
 }

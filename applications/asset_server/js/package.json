@@ -2,16 +2,23 @@
   "name": "asset_server_temp",
   "version": "1.0.0",
   "description": "asset_server_temp_description",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --optimize-minimize"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^16.2.3",
     "css-tree": "^1.0.0-alpha.29",
     "csso": "^3.5.1",
     "html-minifier": "^4.0.0",
-    "npm": "^6.9.0"
+    "npm": "^6.9.0",
+    "three": "^0.104.0",
+    "webpack": "^4.30.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.2"
   }
 }

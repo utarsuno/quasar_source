@@ -2,11 +2,12 @@
 
 
 namespace QuasarSource\Utilities\Files;
+use Exception;
 use QuasarSource\Utilities\StringUtilities as STR;
 use QuasarSource\Utilities\Files\PathUtilities as UPO;
 
 
-class DirectoryUtilities {
+abstract class DirectoryUtilities {
 
     /**
      * Provided a string path to search and given two arrays, add all found file and directory paths respectively to those arrays.
@@ -19,7 +20,7 @@ class DirectoryUtilities {
      * @param array  $all_directories < A provided array to insert directory paths into.                   >
      * @throws Exception
      */
-    public static function directory_get_all_contents(string $path_directory, bool $use_recursion, array &$all_files, array &$all_directories) : void {
+    public static function get_all_contents(string $path_directory, bool $use_recursion, array & $all_files, array & $all_directories) : void {
         UPO::is_valid($path_directory, true);
         $files = scandir($path_directory, SCANDIR_SORT_NONE);
         if (!STR::ends_with($path_directory, DIRECTORY_SEPARATOR)) {
@@ -35,7 +36,7 @@ class DirectoryUtilities {
             } else {
                 $all_directories[] = $path;
                 if ($use_recursion) {
-                    self::directory_get_all_contents($path, $use_recursion,$all_files, $all_directories);
+                    self::get_all_contents($path, $use_recursion,$all_files, $all_directories);
                 }
             }
         }

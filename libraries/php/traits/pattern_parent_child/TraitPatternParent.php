@@ -7,8 +7,8 @@
  */
 
 namespace QuasarSource\Traits\PatternParentChild;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 
-use QuasarSource\Utilities\ExceptionUtilities;
 
 trait TraitPatternParent {
 
@@ -26,7 +26,7 @@ trait TraitPatternParent {
 
     public function add_child($child, bool $raise_exception_if_child_exists=true) : void {
         if ($raise_exception_if_child_exists && $this->has_child($child)) {
-            ExceptionUtilities::throw_exception('Can not add child to parent when it already exists!');
+            DBG::throw_exception('Can not add child to parent when it already exists!');
         }
         $this->children[] = $child;
         if (!$child->has_parent()) {
