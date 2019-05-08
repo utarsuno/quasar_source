@@ -3,10 +3,6 @@
 const QEEVENT_ON_WINDOW_MOUSE_OVER  = 0; // #pre-process_global_constant
 const QEEVENT_ON_POINTER_LOCK_ERROR = 1; // #pre-process_global_constant
 
-const QECACHEI_WIDTH_INNER   = 0; // #pre-process_global_constant
-const QECACHEI_HEIGHT_INNER  = 1; // #pre-process_global_constant
-const QECACHEI_FRAME_COUNTER = 2; // #pre-process_global_constant
-
 const QECACHEF_FOV                  = 0;  // #pre-process_global_constant
 const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant
 const QECACHEF_CLIPPING_FAR         = 2;  // #pre-process_global_constant

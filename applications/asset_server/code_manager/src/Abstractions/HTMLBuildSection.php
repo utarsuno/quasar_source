@@ -55,7 +55,7 @@ class HTMLBuildSection extends AssetBuildSection {
         $path_processed = $this->directory_output . STR::replace(PATH::get_file_full_name($file_path), UFO::EXTENSION_HTML, '.processed' . UFO::EXTENSION_HTML);
         UFO::create_or_overwrite_file($path_processed, implode($processed_lines));
 
-        return $this->repo_entity_files->ensure_file_have_child($file, $path_processed, EntityFile::FLAG_PRE_PROCESS);
+        return $this->repo_entity_files->ensure_file_has_child($file, $path_processed, EntityFile::FLAG_PRE_PROCESS);
     }
 
 }

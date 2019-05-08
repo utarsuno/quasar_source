@@ -68,7 +68,7 @@ Object.assign($_QE.prototype.World.prototype, {
     check_if_element_needs_css: function(element) {
         if (element.flags_are_on_and_off(EFLAG_IS_CSS, EFLAG_IS_IN_ELEMENTS_CSS)) {
             this.add_element_css(element);
-        } else if (element.flags_are_both_on(EFLAG_IS_CSS, EFLAG_IS_IN_ELEMENTS_CSS)) {
+        } else if (element.flags_are_on(EFLAG_IS_CSS, EFLAG_IS_IN_ELEMENTS_CSS)) {
             this._add_element_to_css_if_needed(element);
         }
     },

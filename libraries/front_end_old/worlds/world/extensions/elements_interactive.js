@@ -16,9 +16,9 @@ Object.assign($_QE.prototype.World.prototype, {
         }
 
         // Temporary debug.
-        if (element.mesh != null && !element.mesh.visible) {
+        if (element.mesh !== null && !element.mesh.visible) {
             QE.warning('Visibility check should be covered by flags!', element);
-        } else if (element.mesh == null && element.group == null) {
+        } else if (element.mesh === null && element.group === null) {
             QE.warning('Is created check should be covered by flags!', element);
         }
         //
@@ -30,7 +30,6 @@ Object.assign($_QE.prototype.World.prototype, {
         // Find out what's currently being looked at if anything.
         let i;
         let max_distance        = 99999;
-        let intersection_data   = null;
         let intersected_element = null;
         for (i = 0; i < this.elements_interactive.length; i++) {
             if (this._is_element_skippable(this.elements_interactive[i])) {
@@ -55,7 +54,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
     update_elements_interactive: function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
-        if (this.currently_looked_at_object != null && this.currently_looked_at_object.flags_are_both_on(EFLAG_IS_TYPEABLE, EFLAG_IS_ENGAGED)) {
+        if (this.currently_looked_at_object !== null && this.currently_looked_at_object.flags_are_on(EFLAG_IS_TYPEABLE, EFLAG_IS_ENGAGED)) {
             return;
         }
 
@@ -68,14 +67,13 @@ Object.assign($_QE.prototype.World.prototype, {
         this._raycaster.set(this.player.get_position(), this.player.get_normal());
         let intersected_element = this.util_raycaster_get_closest_intersection(this._raycaster);
 
-        if (intersected_element == null) {
-            if (this.currently_looked_at_object != null) {
-                this.look_away_from_currently_looked_at_object();
-            }
-        } else {
-            if (this.currently_looked_at_object == null) {
+
+        if (intersected_element === null && this.currently_looked_at_object !== null) {
+            this.look_away_from_currently_looked_at_object();
+        } else if (intersected_element !== null) {
+            if (this.currently_looked_at_object === null) {
                 this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
-            } else if (this.currently_looked_at_object !== intersected_element) {
+            } else {
                 this.look_away_from_currently_looked_at_object();
                 this.set_new_currently_looked_at_object(intersected_element, this.intersection_data.point);
             }
@@ -117,7 +115,7 @@ Object.assign($_QE.prototype.World.prototype, {
 
         if (element.flags_are_on_and_off(EFLAG_IS_INTERACTIVE, EFLAG_IS_IN_ELEMENTS_INTERACTIVE)) {
             this.add_element_interactive(element);
-        } else if (element.flags_are_both_on(EFLAG_IS_INTERACTIVE, EFLAG_IS_IN_ELEMENTS_INTERACTIVE)) {
+        } else if (element.flags_are_on(EFLAG_IS_INTERACTIVE, EFLAG_IS_IN_ELEMENTS_INTERACTIVE)) {
             this._add_element_to_interactive_if_needed(element);
         }
     },

@@ -1,39 +1,45 @@
-// ThreeJS.
-//let threejs = require('./../../applications/asset_server/js/node_modules/three');
+import * as THREE from '../../applications/asset_server/js/node_modules/three';
+import WebGLDetector        from './engine/extensions/detector2';
+import DataStructureFlags31 from './data_structures/bitwise_flags_max_31';
 
-//import '../../applications/asset_server/js/node_modules/three';
-//import {run_engine} from "./engine/dummy_engine.js";
+const CACHE_ENGINE_FLAGS         = 0; // #pre-process_global_constant
+const CACHE_ENGINE_WIDTH_INNER   = 1; // #pre-process_global_constant
+const CACHE_ENGINE_HEIGHT_INNER  = 2; // #pre-process_global_constant
+const CACHE_ENGINE_FRAME_COUNTER = 3; // #pre-process_global_constant
 
-//let dummy_engine = require('./engine/dummy_engine.js');
+let EngineTest = function() {};
+EngineTest.prototype.run_engine = WebGLDetector.run_engine;
+Object.assign(
+    EngineTest.prototype,
+    DataStructureFlags31.lib_prototype, {
 
-//import('../../applications/asset_server/js/node_modules/three');
+        // C A C H E D - I N T E G E R S.
+        cached_ints     : new Uint32Array(4),
 
-//import('./engine/quasar_engine.js');
-//import('./engine/dummy_engine.js');
+        left_click_timer: new THREE.Clock(),
 
-//run_engine();
+        run_engine      : WebGLDetector.run_engine,
+
+    }
+);
+
+let engine = new EngineTest();
+console.log('Running the engine now!');
+
+engine.flag_set_on(0);
+engine.flag_set_on(2);
+engine.flag_set_on(5);
+
+console.log('Flag{0} - {' + engine.flag_is_on(0) + '}');
+console.log('Flag{1} - {' + engine.flag_is_on(1) + '}');
+console.log('Flag{2} - {' + engine.flag_is_on(2) + '}');
+console.log('Flag{3} - {' + engine.flag_is_on(3) + '}');
+console.log('Flag{4} - {' + engine.flag_is_on(4) + '}');
+console.log('Flag{5} - {' + engine.flag_is_on(5) + '}');
+console.log('Flag{6} - {' + engine.flag_is_on(6) + '}');
+console.log('Running the engine now!');
 
 
 
-
-
-//import * as THREE from 'three';
-//var THREE = require('three');
-//var THREE = require('./../../applications/asset_server/js/node_modules/three');
-
-//import * as THREE from './../../applications/asset_server/js/node_modules/three';
-
-//import 'three';
-
-console.log('Hallo World!');
-
-
-//module.exports = {
-//    'bowserify': bowserify
-//};
-
-
-import Detector from './engine/extensions/detector';
-
-Detector.run_engine();
+engine.run_engine();
 

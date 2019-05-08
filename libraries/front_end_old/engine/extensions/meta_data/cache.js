@@ -1,13 +1,6 @@
 'use strict';
 
-
 Object.assign($_QE.prototype, {
-
-    // F L A G S.
-    flags: new Uint32Array(1),
-
-    // C A C H E D - I N T E G E R S.
-    _cachei: new Uint32Array(3),
 
     // C A C H E D - F L O A T S.
     _cachef: new Float64Array(13),
@@ -40,7 +33,6 @@ Object.assign($_QE.prototype, {
     },
 
     // C O N T R O L S.
-    left_click_timer: new THREE.Clock(),
     key_down_up     : false,
     key_down_down   : false,
     key_down_left   : false,

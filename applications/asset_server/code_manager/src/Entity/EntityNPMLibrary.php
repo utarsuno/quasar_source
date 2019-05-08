@@ -8,7 +8,8 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityAbstraction;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use DateTime;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -37,7 +38,7 @@ use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
  *     }
  * )
  */
-class EntityNPMLibrary implements EntityInterface {
+class EntityNPMLibrary extends EntityAbstraction implements EntityInterface {
 
     /**
      * @Id
@@ -70,13 +71,13 @@ class EntityNPMLibrary implements EntityInterface {
      */
     private $last_checked;
 
-    private $cached_latest_version;
+    private const CACHE_KEY_LATEST_VERSION = 'cache_latest_version';
 
-    private function get_cached_latest_version() : string {
-        if ($this->cached_latest_version === null) {
-            $this->cached_latest_version = RUN::get_npm_lib_latest_version($this->getName());
+    protected function calculate_cache_value(string $cache_key){
+        if ($cache_key === self::CACHE_KEY_LATEST_VERSION) {
+            return RUN::get_npm_lib_latest_version($this->getName());
         }
-        return $this->cached_latest_version;
+        return null;
     }
 
     public function cache_needs_to_be_checked() : bool {
@@ -92,12 +93,12 @@ class EntityNPMLibrary implements EntityInterface {
     }
 
     public function cache_needs_to_be_updated() : bool {
-        return $this->getVersionLatest() !== $this->get_cached_latest_version();
+        return $this->getVersionLatest() !== $this->get_cache_value(self::CACHE_KEY_LATEST_VERSION);
     }
 
     public function cache_update(): void {
         $this->cache_set_to_checked();
-        $this->setVersionLatest($this->get_cached_latest_version());
+        $this->setVersionLatest($this->get_cache_value(self::CACHE_KEY_LATEST_VERSION));
     }
 
     public function on_event_first_new_creation($data): void {
@@ -180,5 +181,4 @@ class EntityNPMLibrary implements EntityInterface {
     public function setLastChecked(DateTime $last_checked): void {
         $this->last_checked = $last_checked;
     }
-
 }

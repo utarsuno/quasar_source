@@ -119,24 +119,24 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     },
 
     _set_parent_chain_to_update_children: function() {
-        if (this.attachment_parent == null) {
+        if (this.attachment_parent === null) {
             return;
-        } else if (this.attachment_parent.flag_set_on != null) {
+        } else if (this.attachment_parent.flag_set_on !== null) {
             this.attachment_parent.flag_set_on(EFLAG_IS_UPDATED_NEEDED_FOR_CHILD);
-        } else if (this.parent_button != null) {
+        } else if (this.parent_button !== null) {
             this.parent_button._set_parent_chain_to_update_children();
         }
     },
 
     set_offset_vertical: function(parent_percentage, self_percentage=null, distance=null) {
         this.position_offsets[3] = parent_percentage;
-        if (self_percentage != null) {
+        if (self_percentage !== null) {
             this.position_offsets[4] = self_percentage;
         }
-        if (distance != null) {
+        if (distance !== null) {
             this.position_offsets[5] = distance;
         }
-        if (this.group != null) {
+        if (this.group !== null) {
             //this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4];
             this.group.position.y = this.attachment_parent.height * (this.position_offsets[3] - 0.5) + this.height * this.position_offsets[4] + this.position_offsets[5];
         } else {
@@ -148,13 +148,13 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     set_offset_horizontal: function(parent_percentage, self_percentage=null, distance=null) {
         this.position_offsets[0] = parent_percentage;
-        if (self_percentage != null) {
+        if (self_percentage !== null) {
             this.position_offsets[1] = self_percentage;
         }
-        if (distance != null) {
+        if (distance !== null) {
             this.position_offsets[2] = distance;
         }
-        if (this.group != null) {
+        if (this.group !== null) {
             this.group.position.x = this.attachment_parent.width * (this.position_offsets[0] - 0.5) + this.width * this.position_offsets[1] + this.position_offsets[2];
         } else {
             this.mesh.position.x  = this.attachment_parent.width * (this.position_offsets[0] - 0.5) + this.width * this.position_offsets[1] + this.position_offsets[2];
@@ -163,7 +163,7 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
     },
 
     set_offset_depth: function(distance) {
-        if (this.group != null) {
+        if (this.group !== null) {
             this.group.position.z += distance;
         } else {
             this.mesh.position.z += distance;

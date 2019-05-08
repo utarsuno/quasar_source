@@ -21,8 +21,9 @@ use CodeManager\Repository\EntityNPMLibraryRepository;
 use CodeManager\Repository\EntityQAReportRepository;
 use Exception;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as PATH;
+use QuasarSource\Utilities\Files\FileUtilities        as UFO;
+use QuasarSource\Utilities\Files\PathUtilities        as PATH;
+use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
 
 
 class CodeBuilderService extends BaseAbstractService {
@@ -71,8 +72,9 @@ class CodeBuilderService extends BaseAbstractService {
     public function run_code_health_check() : void {
         #$p = ProcessMinifyJS::minify_file_to('a', 'b', true);
 
-        #$output = RUN::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_DIRECTORY);
-        #var_dump($output);
+        $output = RUN::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_DIRECTORY);
+        var_dump($output);
+        exit();
 
         $this->ensure_config_data_loaded();
         $this->run_all_builds();

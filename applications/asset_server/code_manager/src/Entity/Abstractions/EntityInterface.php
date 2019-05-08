@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeManager\Abstractions;
+namespace CodeManager\Entity\Abstractions;
 
 interface EntityInterface {
 

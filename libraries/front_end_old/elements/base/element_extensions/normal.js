@@ -3,7 +3,7 @@
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     set_to_absolute_normal: function() {
-        if (this._cache_normal == null) {
+        if (this._cache_normal === null) {
             this._cache_normal              = new THREE.Vector3();
             this._cache_relative_up         = new THREE.Vector3();
             this._cache_relative_forward    = new THREE.Vector3();
@@ -51,7 +51,6 @@ Object.assign($_QE.prototype.FloatingElement.prototype, {
 
 
     // For absolute normal.
-
 
     look_at: function(x, y, z) {
         if (this.group != null) {

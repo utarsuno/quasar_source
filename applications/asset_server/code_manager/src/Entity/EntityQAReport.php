@@ -8,7 +8,8 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityAbstraction;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
@@ -17,8 +18,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
-use QuasarSource\Utilities\DateTimeUtilities as TIME;
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities;
+use QuasarSource\Utilities\DateTimeUtilities             as TIME;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 
 
 /**
@@ -36,7 +37,7 @@ use QuasarSource\Utilities\Exceptions\ExceptionUtilities;
  *     }
  * )
  */
-class EntityQAReport implements EntityInterface {
+class EntityQAReport extends EntityAbstraction implements EntityInterface {
 
     /**
      * @Id
@@ -98,13 +99,10 @@ class EntityQAReport implements EntityInterface {
      */
     private $raw_report;
 
-    private $qa_test_suite;
+    private const CACHE_KEY_QA_TEST_SUITE = 'cache_qa_test_suite';
 
     public function cache_needs_to_be_checked() : bool {
-        if ($this->entity_file === null) {
-            ExceptionUtilities::throw_exception('EntityQAReport does not have {entity_file} set.');
-        }
-        return $this->entity_file->has_sha512sum_changed();
+        return $this->getEntityFile(true)->cache_needs_to_be_checked() || $this->getEntityFile(true)->cache_needs_to_be_updated();
     }
 
     public function cache_needs_to_be_updated(): bool {
@@ -113,9 +111,15 @@ class EntityQAReport implements EntityInterface {
 
     public function cache_set_to_checked(): void{}
 
+    protected function calculate_cache_value(string $cache_key) {
+        if ($cache_key === self::CACHE_KEY_QA_TEST_SUITE) {
+            return new ProjectTestSuiteResult($this->entity_file->getFullPath());
+        }
+        return null;
+    }
+
     public function cache_update() : void {
-        $this->qa_test_suite = new ProjectTestSuiteResult($this->entity_file->getFullPath());
-        $qa_test_suite       = $this->qa_test_suite;
+        $qa_test_suite = $this->get_cache_value(self::CACHE_KEY_QA_TEST_SUITE);
         $this->setNumAssertions($qa_test_suite->get_num_assertions());
         $this->setNumErrors($qa_test_suite->get_num_errors());
         $this->setNumFailed($qa_test_suite->get_num_failed());
@@ -127,7 +131,6 @@ class EntityQAReport implements EntityInterface {
     }
 
     public function on_event_first_new_creation($data): void {
-        #var_dump($data);
         $this->setEntityFile($data);
         $this->cache_update();
     }
@@ -259,9 +262,13 @@ class EntityQAReport implements EntityInterface {
     }
 
     /**
+     * @param bool $raise_exception_if_null < If true, an exception will be thrown if there is no EntityFile set. >
      * @return EntityFile
      */
-    public function getEntityFile(): EntityFile {
+    public function getEntityFile(bool $raise_exception_if_null=false): EntityFile {
+        if ($raise_exception_if_null && $this->entity_file === null) {
+            DBG::throw_exception('EntityQAReport does not have {entity_file} set.');
+        }
         return $this->entity_file;
     }
 

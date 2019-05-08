@@ -164,7 +164,7 @@ Object.assign(
                 this.set_state(CURSOR_STATE_CLICK);
             } else if (this.attached_to.flag_is_on(EFLAG_IS_TYPEABLE)) {
                 this.set_state(CURSOR_STATE_WRITE);
-            } else if (this.attached_to.flags_are_both_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE)) {
+            } else if (this.attached_to.flags_are_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE)) {
                 this.set_state(CURSOR_STATE_MOVE);
             } else if (this.attached_to.flag_is_on(EFLAG_IS_MOUSE_SCALABLE)) {
                 //if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
@@ -195,7 +195,7 @@ Object.assign(
          |__  \  / |__  |\ |  |  /__`
          |___  \/  |___ | \|  |  .__/ */
         on_left_click_down: function() {
-            if (this.attached_to.flags_are_both_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE)) {
+            if (this.attached_to.flags_are_on(EFLAG_IS_DOUBLE_CLICK_REQUIRED_FOR_ENGAGING, EFLAG_IS_MOUSE_MOVABLE)) {
                 this.set_state(CURSOR_STATE_MOVE);
             }
         },

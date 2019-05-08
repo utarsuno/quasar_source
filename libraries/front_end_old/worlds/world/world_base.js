@@ -106,21 +106,15 @@ Object.assign($_QE.prototype.World.prototype, {
         element.world = null;
     },
 
-    _remove_element_if_needed: function(element) {
+    remove_element: function(element) {
         if (element.flag_is_on(EFLAG_IS_IN_WORLD)) {
-            if (element.world === this) {
-                this._remove_element(element);
-            } else if (element.world != null) {
+            if (element.world !== null) {
                 element.world._remove_element(element);
             } else {
                 element.flag_set_off(EFLAG_IS_IN_WORLD);
                 QE.warning('Element had in_world flag as true but world variable was null.', element);
             }
         }
-    },
-
-    remove_element: function(element) {
-        this._remove_element_if_needed(element);
     },
 
 });

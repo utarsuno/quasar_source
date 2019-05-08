@@ -8,9 +8,10 @@
 
 namespace CodeManager\Entity;
 
+use CodeManager\Entity\Abstractions\EntityAbstraction;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
@@ -37,7 +38,10 @@ use Doctrine\ORM\Mapping\Table;
  *     }
  * )
  */
-class EntityDirectory {
+class EntityDirectory extends EntityAbstraction implements EntityInterface {
+
+    public const TYPE_NO_MATCH = -1;
+    public const TYPE_IGNORE   = 1;
 
     /**
      * @Id
@@ -235,4 +239,29 @@ class EntityDirectory {
         return $this;
     }
 
+    public function cache_needs_to_be_checked(): bool {
+        // TODO: Implement cache_needs_to_be_checked() method.
+        return false;
+    }
+
+    public function cache_set_to_checked(): void {
+        // TODO: Implement cache_set_to_checked() method.
+    }
+
+    public function cache_needs_to_be_updated(): bool {
+        // TODO: Implement cache_needs_to_be_updated() method.
+        return false;
+    }
+
+    public function cache_update(): void {
+        // TODO: Implement cache_update() method.
+    }
+
+    public function on_event_first_new_creation($data): void {
+        // TODO: Implement on_event_first_new_creation() method.
+    }
+
+    protected function calculate_cache_value(string $cache_key) {
+        return null;
+    }
 }

@@ -1,12 +1,10 @@
 <?php
 
 namespace CodeManager\Abstractions;
-use CodeManager\Repository\EntityNPMLibraryRepository;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Repository\EntityQAReportRepository;
 use CodeManager\Service\CodeBuilderService;
-use CodeManager\Service\EntityNPMLibraryRepoService;
 use DateTime;
-use QuasarSource\Utilities\ArrayUtilities as ARY;
 use QuasarSource\Utilities\DateTimeUtilities as DATE;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 

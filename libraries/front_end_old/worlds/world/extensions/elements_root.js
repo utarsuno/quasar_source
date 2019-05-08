@@ -46,7 +46,7 @@ Object.assign($_QE.prototype.World.prototype, {
     check_if_element_needs_root: function(element) {
         if (element.flags_are_on_and_off(EFLAG_IS_ROOT, EFLAG_IS_IN_ELEMENTS_ROOT)) {
             this.add_element_root(element);
-        } else if (element.flags_are_both_on(EFLAG_IS_ROOT, EFLAG_IS_IN_ELEMENTS_ROOT)) {
+        } else if (element.flags_are_on(EFLAG_IS_ROOT, EFLAG_IS_IN_ELEMENTS_ROOT)) {
             this._add_element_to_root_if_needed(element);
         }
     },

@@ -8,7 +8,8 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityAbstraction;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use DateTime;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -42,7 +43,7 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
  *         }
  *     )
  */
-class EntityFile implements EntityInterface {
+class EntityFile extends EntityAbstraction implements EntityInterface {
 
     public const TYPE_NO_MATCH        = -1;
     public const TYPE_CSS             = 1;
@@ -67,11 +68,18 @@ class EntityFile implements EntityInterface {
         UFO::EXTENSION_YAML            => self::TYPE_YAML
     ];
 
-    public const FLAG_MINIFY          = 'minify';
-    public const FLAG_PRE_PROCESS     = 'pre_process';
-    public const FLAG_GZIP            = 'gzipped';
+    public const FLAG_MINIFY           = 'minify';
+    public const FLAG_PRE_PROCESS      = 'pre_process';
+    public const FLAG_GZIP             = 'gzipped';
 
-    private $cached_sha512_sum;
+    private const CACHE_KEY_SHA512_SUM = 'cache_sha512_sum';
+
+    protected function calculate_cache_value(string $cache_key) {
+        if ($cache_key === self::CACHE_KEY_SHA512_SUM) {
+            return UFO::get_sha512sum($this->getFullPath());
+        }
+        return null;
+    }
 
     public static function get_file_type_from_path(string $path) : int {
         $all_extensions = PATH::get_all_extensions($path);
@@ -91,6 +99,12 @@ class EntityFile implements EntityInterface {
             self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
         ];
         return $options;
+    }
+
+    public function set_flags(array $flags) : void {
+        foreach ($flags as $flag => $value) {
+            $this->set_flag($flag, $value);
+        }
     }
 
     public function set_flag(string $key, bool $value) : void {
@@ -215,31 +229,15 @@ class EntityFile implements EntityInterface {
     }
 
     public function cache_needs_to_be_checked() : bool {
-        return $this->has_sha512sum_changed();
+        return $this->sha512sum !== $this->get_cache_value(self::CACHE_KEY_SHA512_SUM);
     }
 
     public function cache_needs_to_be_updated(): bool {
-        return $this->has_sha512sum_changed();
-    }
-
-    private function get_cached_sha512sum() : string {
-        if ($this->cached_sha512_sum === null) {
-            $this->cached_sha512_sum = UFO::get_sha512sum($this->getFullPath());
-        }
-        return $this->cached_sha512_sum;
+        return $this->cache_needs_to_be_checked();
     }
 
     public function cache_set_to_checked(): void {
         $this->setLastCached(TIME::now());
-    }
-
-    /**
-     * Computes the current sha512sum of the file and compares it to the current DB value.
-     *
-     * @return bool
-     */
-    public function has_sha512sum_changed() : bool {
-        return $this->sha512sum !== $this->get_cached_sha512sum();
     }
 
     /**
@@ -248,8 +246,7 @@ class EntityFile implements EntityInterface {
     public function cache_update() : void {
         $this->cache_set_to_checked();
         $this->setSizeInBytes(UFO::get_size($this->full_path));
-        #$this->setSha512sum(UFO::get_sha512sum($this->full_path));
-        $this->setSha512sum($this->get_cached_sha512sum());
+        $this->setSha512sum($this->get_cache_value(self::CACHE_KEY_SHA512_SUM));
     }
 
     /**

@@ -8,12 +8,8 @@
 
 namespace CodeManager\Repository;
 
-use CodeManager\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\EntityFile;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
-use Doctrine\ORM\ORMException;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\Files\FileUtilities           as UFO;
 
@@ -54,14 +50,12 @@ class EntityFileRepository extends AbstractRepository {
 
     private function create_new_child_entity(EntityFile $file, string $path_to_child, array $options) : EntityInterface {
         $child = $this->create_new_entity($path_to_child, false);
-        foreach ($options as $key => $value) {
-            $child->set_flag($key, $value);
-        }
+        $child->set_flags($options);
         $this->set_entity_file_child($file, $child);
         return $child;
     }
 
-    public function ensure_file_have_child(EntityFile $file, string $path_to_child, string $flag) : EntityInterface {
+    public function ensure_file_has_child(EntityFile $file, string $path_to_child, string $flag) : EntityInterface {
         if (!$this->does_child_file_exist_as_needed($file, $path_to_child)) {
             $options        = $file->get_flags();
             $options[$flag] = true;

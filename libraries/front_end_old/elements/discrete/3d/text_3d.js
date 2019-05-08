@@ -53,7 +53,7 @@ Object.assign(
                 this._cache_text3d_left_right = this.get_left_right();
                 this._cache_text3d_up         = this.get_up();
 
-                if (this._cache_text3d_left_right.x != 0) {
+                if (this._cache_text3d_left_right.x !== 0) {
                     this.width = (this._cache_box.min.x - this._cache_box.max.x) / this._cache_text3d_left_right.x;
                 } else {
                     this.width = (this._cache_box.min.z - this._cache_box.max.z) / this._cache_text3d_left_right.z;

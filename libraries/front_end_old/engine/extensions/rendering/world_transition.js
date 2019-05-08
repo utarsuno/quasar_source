@@ -6,9 +6,6 @@ $_QE.prototype.RendererSceneTransition = function() {
 
 };
 
-
-
-
 const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};
 //const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, stencilBuffer: false};
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace CodeManager\Abstractions;
+use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Repository\AbstractRepository;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\Traits\TraitPatternName;
