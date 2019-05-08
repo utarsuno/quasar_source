@@ -1,7 +1,7 @@
 .git
 .idea
 
-theoretical_and_depreciated_code
+deprecated
 
 *.md
 !README*.md

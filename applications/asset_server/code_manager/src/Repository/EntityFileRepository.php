@@ -8,6 +8,7 @@
 
 namespace CodeManager\Repository;
 
+use CodeManager\Abstractions\EntityInterface;
 use CodeManager\Entity\EntityFile;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -51,7 +52,7 @@ class EntityFileRepository extends AbstractRepository {
         $this->save_entity($child, true);
     }
 
-    private function create_new_child_entity(EntityFile $file, string $path_to_child, array $options) : EntityFile {
+    private function create_new_child_entity(EntityFile $file, string $path_to_child, array $options) : EntityInterface {
         $child = $this->create_new_entity($path_to_child, false);
         foreach ($options as $key => $value) {
             $child->set_flag($key, $value);
@@ -60,7 +61,7 @@ class EntityFileRepository extends AbstractRepository {
         return $child;
     }
 
-    public function ensure_file_have_child(EntityFile $file, string $path_to_child, string $flag) : EntityFile {
+    public function ensure_file_have_child(EntityFile $file, string $path_to_child, string $flag) : EntityInterface {
         if (!$this->does_child_file_exist_as_needed($file, $path_to_child)) {
             $options        = $file->get_flags();
             $options[$flag] = true;
@@ -88,12 +89,8 @@ class EntityFileRepository extends AbstractRepository {
         return $file->getChild();
     }
 
-    protected function event_on_entity_created($entity): void {
+    protected function event_entity_created(EntityInterface $entity, $data): void {
         $this->record_file_state($entity, self::FILE_STATE_CREATED);
-    }
-
-    protected function event_entity_already_exists_in_db($entity): void {
-        $this->record_file_state($entity, self::FILE_STATE_NO_CHANGE);
     }
 
     private function record_file_state(EntityFile $file, string $file_state) : void {
@@ -136,36 +133,9 @@ class EntityFileRepository extends AbstractRepository {
         return false;
     }
 
-    public function event_entity_additional_health_checks($entity) : void {
-        $this->ensure_valid_db_reference_for_child($entity);
-    }
-
-    public function ensure_valid_db_reference_for_child(EntityFile $file) : void {
-        if ($file->hasChild()) {
-            $child = $file->getChild();
-            if (!UFO::is_valid($child->getFullPath())) {
-                //$this->warn('EntityFile{' . $file->getName() . '} has child ID but it does not point to an existing file. Deleting child records (recursively) cache for this file.');
-                $this->remove_entity($file, true);
-            } else {
-                $this->ensure_db_cache_for_entity_up_to_date($child);
-                $this->ensure_valid_db_reference_for_child($child);
-            }
-        }
-    }
-
-    protected function event_before_remove_entity($entity): void {
+    protected function event_before_remove_entity(EntityInterface $entity): void {
         if ($entity->hasChild()) {
             $this->remove_entity($entity->getChild());
         }
-    }
-
-    protected function event_after_remove_entity($entity): void {}
-
-    protected function event_entity_cached_updated($entity): void {
-        //$this->record_file_state($entity, self::FILE_STATE_UPDATED);
-    }
-
-    protected function event_entity_cached_already_updated($entity): void {
-        //$this->record_file_state($entity, self::FILE_STATE_NO_CHANGE);
     }
 }

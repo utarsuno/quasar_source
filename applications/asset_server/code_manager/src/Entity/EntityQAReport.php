@@ -9,9 +9,6 @@
 namespace CodeManager\Entity;
 
 use CodeManager\Abstractions\EntityInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
@@ -21,6 +18,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use QuasarSource\Utilities\DateTimeUtilities as TIME;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities;
 
 
 /**
@@ -100,32 +98,38 @@ class EntityQAReport implements EntityInterface {
      */
     private $raw_report;
 
-    public function ensure_cache_up_to_date(): bool {
-        if ($this->entity_file !== null) {
-            $entity_file = $this->entity_file;
-            if ($entity_file->has_sha512sum_changed()) {
-                $this->update_cache($this->entity_file->getFullPath());
-                return false;
-            }
+    private $qa_test_suite;
+
+    public function cache_needs_to_be_checked() : bool {
+        if ($this->entity_file === null) {
+            ExceptionUtilities::throw_exception('EntityQAReport does not have {entity_file} set.');
         }
-        return true;
+        return $this->entity_file->has_sha512sum_changed();
     }
 
-    private function update_cache(string $path_qa_results) : void {
-        $content = new ProjectTestSuiteResult($path_qa_results);
-        $this->setNumAssertions($content->get_num_assertions());
-        $this->setNumErrors($content->get_num_errors());
-        $this->setNumFailed($content->get_num_failed());
-        $this->setSecondsTaken($content->get_time_taken());
-        $this->setNumTests($content->get_num_tests());
-        $this->setNumSkipped($content->get_num_skipped());
+    public function cache_needs_to_be_updated(): bool {
+        return $this->cache_needs_to_be_checked();
+    }
+
+    public function cache_set_to_checked(): void{}
+
+    public function cache_update() : void {
+        $this->qa_test_suite = new ProjectTestSuiteResult($this->entity_file->getFullPath());
+        $qa_test_suite       = $this->qa_test_suite;
+        $this->setNumAssertions($qa_test_suite->get_num_assertions());
+        $this->setNumErrors($qa_test_suite->get_num_errors());
+        $this->setNumFailed($qa_test_suite->get_num_failed());
+        $this->setSecondsTaken($qa_test_suite->get_time_taken());
+        $this->setNumTests($qa_test_suite->get_num_tests());
+        $this->setNumSkipped($qa_test_suite->get_num_skipped());
         $this->setRanAt(TIME::now());
-        $this->setRawReport($content->get_qa_report());
+        $this->setRawReport($qa_test_suite->get_qa_report());
     }
 
     public function on_event_first_new_creation($data): void {
+        #var_dump($data);
         $this->setEntityFile($data);
-        $this->update_cache($data->getFullPath());
+        $this->cache_update();
     }
 
     /**
@@ -267,5 +271,4 @@ class EntityQAReport implements EntityInterface {
     public function setEntityFile(EntityFile $entity_file): void {
         $this->entity_file = $entity_file;
     }
-
 }

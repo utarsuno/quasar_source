@@ -10,15 +10,11 @@ namespace CodeManager\Entity;
 
 use CodeManager\Abstractions\EntityInterface;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\Utilities\DateTimeUtilities as TIME;
 use QuasarSource\Utilities\DateTimeUtilities as DATE;
@@ -74,17 +70,34 @@ class EntityNPMLibrary implements EntityInterface {
      */
     private $last_checked;
 
-    public function ensure_cache_up_to_date(): bool {
+    private $cached_latest_version;
+
+    private function get_cached_latest_version() : string {
+        if ($this->cached_latest_version === null) {
+            $this->cached_latest_version = RUN::get_npm_lib_latest_version($this->getName());
+        }
+        return $this->cached_latest_version;
+    }
+
+    public function cache_needs_to_be_checked() : bool {
         $last_checked = $this->getLastChecked();
         if (DATE::is_different_day($last_checked, DATE::now())) {
-            $latest_version = RUN::get_npm_lib_latest_version($this->getName());
-            if ($latest_version !== $this->getVersionLatest()) {
-                $this->setVersionLatest($latest_version);
-                $this->setLastChecked(TIME::now());
-                return true;
-            }
+            return true;
         }
         return false;
+    }
+
+    public function cache_set_to_checked(): void {
+        $this->setLastChecked(TIME::now());
+    }
+
+    public function cache_needs_to_be_updated() : bool {
+        return $this->getVersionLatest() !== $this->get_cached_latest_version();
+    }
+
+    public function cache_update(): void {
+        $this->cache_set_to_checked();
+        $this->setVersionLatest($this->get_cached_latest_version());
     }
 
     public function on_event_first_new_creation($data): void {
@@ -93,9 +106,9 @@ class EntityNPMLibrary implements EntityInterface {
         $current_version = RUN::get_npm_lib_version_local($data);
         PATH::cwd_pop();
         $this->setName($data);
-        $this->setLastChecked(TIME::now());
         $this->setVersionLocal($current_version);
         $this->setVersionLatest($latest_version);
+        $this->cache_update();
     }
 
     /**

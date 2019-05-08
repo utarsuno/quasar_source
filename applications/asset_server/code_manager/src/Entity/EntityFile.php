@@ -10,7 +10,6 @@ namespace CodeManager\Entity;
 
 use CodeManager\Abstractions\EntityInterface;
 use DateTime;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -18,9 +17,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
-use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
-use Exception;
 use QuasarSource\Utilities\DateTimeUtilities             as TIME;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\ArrayUtilities                as ARY;
@@ -55,6 +52,9 @@ class EntityFile implements EntityInterface {
     public const TYPE_SHADER_VERTEX   = 5;
     public const TYPE_SHADER_FRAGMENT = 6;
     public const TYPE_WEB_MANIFEST    = 7;
+    public const TYPE_LICENSE         = 8;
+    public const TYPE_READ_ME         = 9;
+    public const TYPE_YAML            = 10;
 
     public const EXTENSION_TO_TYPE    = [
         UFO::EXTENSION_CSS             => self::TYPE_CSS,
@@ -64,11 +64,14 @@ class EntityFile implements EntityInterface {
         UFO::EXTENSION_SHADER_VERTEX   => self::TYPE_SHADER_VERTEX,
         UFO::EXTENSION_SHADER_FRAGMENT => self::TYPE_SHADER_FRAGMENT,
         UFO::EXTENSION_WEB_MANIFEST    => self::TYPE_WEB_MANIFEST,
+        UFO::EXTENSION_YAML            => self::TYPE_YAML
     ];
 
     public const FLAG_MINIFY          = 'minify';
     public const FLAG_PRE_PROCESS     = 'pre_process';
     public const FLAG_GZIP            = 'gzipped';
+
+    private $cached_sha512_sum;
 
     public static function get_file_type_from_path(string $path) : int {
         $all_extensions = PATH::get_all_extensions($path);
@@ -208,34 +211,45 @@ class EntityFile implements EntityInterface {
         $this->setIsPreProcessed(false);
         $this->setName(UPO::get_file_name($full_path));
         $this->setExtension(UPO::get_ending_extension($full_path));
-        $this->cache_warm_up();
+        $this->cache_update();
     }
 
-    public function ensure_cache_up_to_date(): bool {
-        if ($this->has_sha512sum_changed()) {
-            $this->cache_warm_up();
-            return true;
+    public function cache_needs_to_be_checked() : bool {
+        return $this->has_sha512sum_changed();
+    }
+
+    public function cache_needs_to_be_updated(): bool {
+        return $this->has_sha512sum_changed();
+    }
+
+    private function get_cached_sha512sum() : string {
+        if ($this->cached_sha512_sum === null) {
+            $this->cached_sha512_sum = UFO::get_sha512sum($this->getFullPath());
         }
-        return false;
+        return $this->cached_sha512_sum;
+    }
+
+    public function cache_set_to_checked(): void {
+        $this->setLastCached(TIME::now());
     }
 
     /**
      * Computes the current sha512sum of the file and compares it to the current DB value.
      *
      * @return bool
-     * @throws Exception
      */
     public function has_sha512sum_changed() : bool {
-        return !UFO::matches_sha512sum($this->getFullPath(), $this->getSha512sum());
+        return $this->sha512sum !== $this->get_cached_sha512sum();
     }
 
     /**
      * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
      */
-    public function cache_warm_up() : void {
-        $this->setLastCached(TIME::now());
+    public function cache_update() : void {
+        $this->cache_set_to_checked();
         $this->setSizeInBytes(UFO::get_size($this->full_path));
-        $this->setSha512sum(UFO::get_sha512sum($this->full_path));
+        #$this->setSha512sum(UFO::get_sha512sum($this->full_path));
+        $this->setSha512sum($this->get_cached_sha512sum());
     }
 
     /**

@@ -10,13 +10,14 @@ use QuasarSource\Utilities\StringUtilities               as STR;
 
 abstract class PathUtilities {
 
-    // TODO: Temporary holder
+    // TODO: Temporary location for certain paths.
     private const ASSET_SERVER         = '/quasar_source/applications/asset_server/';
     public const NODE_DIRECTORY        = self::ASSET_SERVER . 'js/';
     public const NODE_FILE_MINIFY_HTML = self::NODE_DIRECTORY . 'minify_html_file.js';
     public const NODE_FILE_MINIFY_CSS  = self::NODE_DIRECTORY . 'minify_css_file.js';
     public const NODE_FILE_MINIFY_JS   = self::NODE_DIRECTORY . 'minify_js_file.js';
     public const QA_REPORT             = self::ASSET_SERVER . 'code_manager/report.xml';
+    public const YML_FILE_CODE_MANAGER = '/quasar_source/configs/code_manager.yml';
 
     private static $cwd;
 

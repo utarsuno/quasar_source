@@ -53,7 +53,7 @@ abstract class ArrayUtilities {
         return true;
     }
 
-    public static function get_all_missing_keys_relative_to(array $base, array $all_keys_to_match) : array {
+    public static function get_missing_keys_relative_to(array $base, array $all_keys_to_match) : array {
         $missing_keys = [];
         foreach ($all_keys_to_match as $key) {
             if (!array_key_exists($key, $base)) {

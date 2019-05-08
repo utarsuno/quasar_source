@@ -20,6 +20,7 @@ abstract class FileUtilities {
     public const EXTENSION_CPP             = '.cpp';
     public const EXTENSION_HEADER          = '.h';
     public const EXTENSION_WEB_MANIFEST    = '.webmanifest';
+    public const EXTENSION_YAML            = '.yml';
     public const EXTENSION_SHADER_VERTEX   = '.vert';
     public const EXTENSION_SHADER_FRAGMENT = '.frag';
     public const EXTENSION_JSON            = '.json';

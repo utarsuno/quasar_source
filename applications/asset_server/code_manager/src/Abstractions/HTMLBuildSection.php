@@ -13,12 +13,10 @@ class HTMLBuildSection extends AssetBuildSection {
 
     private const PRE_PROCESS = '#pre-process-replace-style{';
 
-    public function __construct(array $data, CodeBuilderService $code_builder) {
-        parent::__construct(UFO::EXTENSION_HTML, $data, $code_builder);
-    }
-
-    protected function handle_step_minification(EntityFile $file): ?EntityFile {
-        return $this->repo_entity_files->ensure_file_have_child($file, $this->directory_output . $file->get_full_name_minified(), EntityFile::FLAG_MINIFY);
+    public function __construct(array $raw_data, CodeBuilderService $code_builder) {
+        $this->ensure_config_file_data($raw_data, UFO::EXTENSION_HTML);
+        parent::__construct(UFO::EXTENSION_HTML, $raw_data['assets'][UFO::EXTENSION_HTML], $code_builder);
+        $this->is_enabled_minification = true;
     }
 
     protected function handle_step_processed(EntityFile $file, string $output_file_path): ?EntityFile {
@@ -60,8 +58,5 @@ class HTMLBuildSection extends AssetBuildSection {
         return $this->repo_entity_files->ensure_file_have_child($file, $path_processed, EntityFile::FLAG_PRE_PROCESS);
     }
 
-    protected function handle_step_gzipped(EntityFile $file): ?EntityFile {
-        return $this->repo_entity_files->ensure_file_have_child($file, $this->directory_output . $file->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
-    }
 }
 

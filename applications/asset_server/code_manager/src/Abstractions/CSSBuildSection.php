@@ -8,19 +8,14 @@ use QuasarSource\Utilities\Files\FileUtilities as UFO;
 
 class CSSBuildSection extends AssetBuildSection {
 
-    public function __construct(array $data, CodeBuilderService $code_builder) {
-        parent::__construct(UFO::EXTENSION_CSS, $data, $code_builder);
-    }
-
-    protected function handle_step_minification(EntityFile $file): ?EntityFile {
-        return $this->repo_entity_files->ensure_file_have_child($file, $this->directory_output . $file->get_full_name_minified(), EntityFile::FLAG_MINIFY);
-    }
-
-    protected function handle_step_gzipped(EntityFile $file): ?EntityFile {
-        return $this->repo_entity_files->ensure_file_have_child($file, $this->directory_output . $file->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
+    public function __construct(array $raw_data, CodeBuilderService $code_builder) {
+        $this->ensure_config_file_data($raw_data, UFO::EXTENSION_CSS);
+        parent::__construct(UFO::EXTENSION_CSS, $raw_data['assets'][UFO::EXTENSION_CSS], $code_builder);
+        $this->is_enabled_minification = true;
     }
 
     protected function handle_step_processed(EntityFile $file, string $output_file_path): ?EntityFile {
         return null;
     }
+
 }

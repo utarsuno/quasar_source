@@ -38,21 +38,21 @@ Object.assign($_QE.prototype.Player.prototype, {
     },
 
     _move_along_normal: function(magnitude) {
-        if (this.is_walking) {
-            this._velocity.addScaledVector(this._cache_walking_normal, magnitude);
-        } else {
-            this._velocity.addScaledVector(this._cache_normal, magnitude);
-        }
+        //if (this.is_walking) {
+        //    this._velocity.addScaledVector(this._cache_walking_normal, magnitude);
+        //} else {
+        this._velocity.addScaledVector(this._cache_normal, magnitude);
+        //}
     },
 
     _physics: function() {
-        if (!this.is_walking) {
-            if (this.engine.key_down_space && !this.engine.key_down_shift) {
-                this._velocity.y += this._cache[10];
-            } else if (this.engine.key_down_shift && !this.engine.key_down_space) {
-                this._velocity.y -= this._cache[10];
-            }
+        //if (!this.is_walking) {
+        if (this.engine.key_down_space && !this.engine.key_down_shift) {
+            this._velocity.y += this._cache[10];
+        } else if (this.engine.key_down_shift && !this.engine.key_down_space) {
+            this._velocity.y -= this._cache[10];
         }
+        //}
 
         if ((this.engine.key_down_up ^ this.engine.key_down_down) & (this.engine.key_down_left ^ this.engine.key_down_right)) {
             // Move along normal.
