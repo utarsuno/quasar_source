@@ -13,7 +13,7 @@ class JSONBuildSection extends AssetBuildSection {
     }
 
     protected function handle_step_gzipped(EntityFile $file): ?EntityFile {
-        return $this->repo_service->ensure_file_has_flagged_child($file, $this->directory_output . $file->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
+        return $this->repo_entity_files->ensure_file_have_child($file, $this->directory_output . $file->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
     }
 
     protected function handle_step_minification(EntityFile $file): ?EntityFile {

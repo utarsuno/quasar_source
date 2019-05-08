@@ -14,7 +14,7 @@ abstract class BuildSection {
     /** @var CodeBuilderService */
     protected $code_builder;
 
-    public function __construct(string $name, array $data, CodeBuilderService $code_builder) {
+    public function __construct(string $name, CodeBuilderService $code_builder) {
         $this->set_name($name);
         $this->build_time   = new SimpleTimer(false);
         $this->code_builder = $code_builder;

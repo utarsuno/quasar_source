@@ -8,6 +8,7 @@
 
 namespace CodeManager\Entity;
 
+use CodeManager\Abstractions\EntityInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +20,10 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use QuasarSource\Utilities\DateTimeUtilities as TIME;
+use QuasarSource\Utilities\DateTimeUtilities as DATE;
+use QuasarSource\Utilities\Files\PathUtilities as PATH;
+use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
 
 
 /**
@@ -36,7 +41,7 @@ use Doctrine\ORM\Mapping\Table;
  *     }
  * )
  */
-class EntityNPMLibrary {
+class EntityNPMLibrary implements EntityInterface {
 
     /**
      * @Id
@@ -68,6 +73,30 @@ class EntityNPMLibrary {
      * @Column(name="last_checked", type="datetime", nullable=false, unique=false)
      */
     private $last_checked;
+
+    public function ensure_cache_up_to_date(): bool {
+        $last_checked = $this->getLastChecked();
+        if (DATE::is_different_day($last_checked, DATE::now())) {
+            $latest_version = RUN::get_npm_lib_latest_version($this->getName());
+            if ($latest_version !== $this->getVersionLatest()) {
+                $this->setVersionLatest($latest_version);
+                $this->setLastChecked(TIME::now());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function on_event_first_new_creation($data): void {
+        $latest_version  = RUN::get_npm_lib_latest_version($data);
+        PATH::cwd_push(PATH::NODE_DIRECTORY);
+        $current_version = RUN::get_npm_lib_version_local($data);
+        PATH::cwd_pop();
+        $this->setName($data);
+        $this->setLastChecked(TIME::now());
+        $this->setVersionLocal($current_version);
+        $this->setVersionLatest($latest_version);
+    }
 
     /**
      * @return mixed
@@ -138,6 +167,5 @@ class EntityNPMLibrary {
     public function setLastChecked(DateTime $last_checked): void {
         $this->last_checked = $last_checked;
     }
-
 
 }

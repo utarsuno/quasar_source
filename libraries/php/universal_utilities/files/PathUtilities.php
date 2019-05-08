@@ -10,6 +10,14 @@ use QuasarSource\Utilities\StringUtilities               as STR;
 
 abstract class PathUtilities {
 
+    // TODO: Temporary holder
+    private const ASSET_SERVER         = '/quasar_source/applications/asset_server/';
+    public const NODE_DIRECTORY        = self::ASSET_SERVER . 'js/';
+    public const NODE_FILE_MINIFY_HTML = self::NODE_DIRECTORY . 'minify_html_file.js';
+    public const NODE_FILE_MINIFY_CSS  = self::NODE_DIRECTORY . 'minify_css_file.js';
+    public const NODE_FILE_MINIFY_JS   = self::NODE_DIRECTORY . 'minify_js_file.js';
+    public const QA_REPORT             = self::ASSET_SERVER . 'code_manager/report.xml';
+
     private static $cwd;
 
     /**
@@ -45,6 +53,13 @@ abstract class PathUtilities {
         return STR::indexed_inclusive_to_last_match($path, '/');
     }
 
+    public static function get_current_cwd() : string {
+        return getcwd();
+    }
+
+    public static function set_current_cwd(string $path) : void {
+        chdir($path);
+    }
 
     public static function cwd_pop() : void {
         if (self::$cwd !== null) {

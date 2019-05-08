@@ -8,6 +8,7 @@
 
 namespace CodeManager\Entity;
 
+use CodeManager\Abstractions\EntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +19,8 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
+use QuasarSource\Utilities\DateTimeUtilities as TIME;
 
 
 /**
@@ -35,7 +38,7 @@ use Doctrine\ORM\Mapping\Table;
  *     }
  * )
  */
-class EntityQAReport {
+class EntityQAReport implements EntityInterface {
 
     /**
      * @Id
@@ -97,165 +100,172 @@ class EntityQAReport {
      */
     private $raw_report;
 
+    public function ensure_cache_up_to_date(): bool {
+        if ($this->entity_file !== null) {
+            $entity_file = $this->entity_file;
+            if ($entity_file->has_sha512sum_changed()) {
+                $this->update_cache($this->entity_file->getFullPath());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function update_cache(string $path_qa_results) : void {
+        $content = new ProjectTestSuiteResult($path_qa_results);
+        $this->setNumAssertions($content->get_num_assertions());
+        $this->setNumErrors($content->get_num_errors());
+        $this->setNumFailed($content->get_num_failed());
+        $this->setSecondsTaken($content->get_time_taken());
+        $this->setNumTests($content->get_num_tests());
+        $this->setNumSkipped($content->get_num_skipped());
+        $this->setRanAt(TIME::now());
+        $this->setRawReport($content->get_qa_report());
+    }
+
+    public function on_event_first_new_creation($data): void {
+        $this->setEntityFile($data);
+        $this->update_cache($data->getFullPath());
+    }
+
     /**
      * @return string
      */
-    public function getRawReport(): string
-    {
+    public function getRawReport(): string {
         return $this->raw_report;
     }
 
     /**
      * @param string $raw_report
      */
-    public function setRawReport(string $raw_report): void
-    {
+    public function setRawReport(string $raw_report): void {
         $this->raw_report = $raw_report;
     }
 
     /**
      * @return float
      */
-    public function getSecondsTaken(): float
-    {
+    public function getSecondsTaken(): float {
         return $this->seconds_taken;
     }
 
     /**
      * @param float $seconds_taken
      */
-    public function setSecondsTaken(float $seconds_taken): void
-    {
+    public function setSecondsTaken(float $seconds_taken): void {
         $this->seconds_taken = $seconds_taken;
     }
 
     /**
      * @return int
      */
-    public function getNumAssertions(): int
-    {
+    public function getNumAssertions(): int {
         return $this->num_assertions;
     }
 
     /**
      * @param int $num_assertions
      */
-    public function setNumAssertions(int $num_assertions): void
-    {
+    public function setNumAssertions(int $num_assertions): void {
         $this->num_assertions = $num_assertions;
     }
 
     /**
      * @return int
      */
-    public function getNumErrors(): int
-    {
+    public function getNumErrors(): int {
         return $this->num_errors;
     }
 
     /**
      * @param int $num_errors
      */
-    public function setNumErrors(int $num_errors): void
-    {
+    public function setNumErrors(int $num_errors): void {
         $this->num_errors = $num_errors;
     }
 
     /**
      * @return int
      */
-    public function getNumFailed(): int
-    {
+    public function getNumFailed(): int {
         return $this->num_failed;
     }
 
     /**
      * @param int $num_failed
      */
-    public function setNumFailed(int $num_failed): void
-    {
+    public function setNumFailed(int $num_failed): void {
         $this->num_failed = $num_failed;
     }
 
     /**
      * @return int
      */
-    public function getNumSkipped(): int
-    {
+    public function getNumSkipped(): int {
         return $this->num_skipped;
     }
 
     /**
      * @param int $num_skipped
      */
-    public function setNumSkipped(int $num_skipped): void
-    {
+    public function setNumSkipped(int $num_skipped): void {
         $this->num_skipped = $num_skipped;
     }
 
     /**
      * @return int
      */
-    public function getNumTests(): int
-    {
+    public function getNumTests(): int {
         return $this->num_tests;
     }
 
     /**
      * @param int $num_tests
      */
-    public function setNumTests(int $num_tests): void
-    {
+    public function setNumTests(int $num_tests): void {
         $this->num_tests = $num_tests;
     }
 
     /**
      * @return mixed
      */
-    public function getRanAt()
-    {
+    public function getRanAt() {
         return $this->ran_at;
     }
 
     /**
      * @param mixed $ran_at
      */
-    public function setRanAt($ran_at): void
-    {
+    public function setRanAt($ran_at): void {
         $this->ran_at = $ran_at;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id): void
-    {
+    public function setId($id): void {
         $this->id = $id;
     }
 
     /**
      * @return EntityFile
      */
-    public function getEntityFile(): EntityFile
-    {
+    public function getEntityFile(): EntityFile {
         return $this->entity_file;
     }
 
     /**
      * @param EntityFile $entity_file
      */
-    public function setEntityFile(EntityFile $entity_file): void
-    {
+    public function setEntityFile(EntityFile $entity_file): void {
         $this->entity_file = $entity_file;
     }
-
 
 }

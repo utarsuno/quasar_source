@@ -1,7 +1,8 @@
 <?php
 
 namespace QuasarSource\QualityAssurance;
-use QuasarSource\Utilities\Files\XMLElement;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
+
 
 class ProjectTestSuiteResult extends TestResultAbstract {
 
@@ -27,8 +28,10 @@ class ProjectTestSuiteResult extends TestResultAbstract {
         return $this->num_failures;
     }
 
-    public function __construct(XMLElement $raw_data) {
-        parent::__construct($raw_data);
+    public function __construct(string $path_qa_report) {
+        $nodes    = UFO::parse_xml_contents($path_qa_report);
+        $raw_data = $nodes->children[0];
+        parent::__construct($nodes->children[0]);
         $this->num_tests      = (int) $raw_data->attributes['TESTS'];
         $this->num_skipped    = (int) $raw_data->attributes['SKIPPED'];
         $this->num_failures   = (int) $raw_data->attributes['FAILURES'];

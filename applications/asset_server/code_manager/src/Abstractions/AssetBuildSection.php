@@ -20,16 +20,16 @@ abstract class AssetBuildSection extends BuildSection {
     /** @var array */
     protected $file_build_times = [];
     /** @var EntityFileRepoService */
-    protected $repo_service;
+    protected $repo_entity_files;
     /** @var EntityFile */
     protected $last_file;
 
     public function __construct(string $name, array $data, CodeBuilderService $code_builder) {
-        parent::__construct($name, $data, $code_builder);
-        $this->repo_service     = $code_builder->get_service_repo_files();
-        $this->directory_output = $data['output_directory'];
-        $this->directory_data   = $data['data_directory'];
-        $this->files            = $data['files'];
+        parent::__construct($name, $code_builder);
+        $this->repo_entity_files = $code_builder->get_repo_entity_files();
+        $this->directory_output  = $data['output_directory'];
+        $this->directory_data    = $data['data_directory'];
+        $this->files             = $data['files'];
 
         foreach ($this->files as $key => $value) {
             $file_path                     = $this->directory_data . $key;
@@ -41,7 +41,7 @@ abstract class AssetBuildSection extends BuildSection {
         foreach ($this->file_builds as $file => $flags) {
             $build_timer = new SimpleTimer(true);
 
-            $f = $this->repo_service->ensure_file_is_cached($file);
+            $f = $this->repo_entity_files->ensure_db_has_entity($file);
 
             if ($this->has_flag_processed($flags)) {
                 $this->last_file = $this->handle_step_processed($f, $flags[1]);

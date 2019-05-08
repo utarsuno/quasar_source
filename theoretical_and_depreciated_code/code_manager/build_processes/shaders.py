@@ -19,8 +19,6 @@ class BuildProcessShaders(BuildProcessStep):
 
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
 
-		# TODO: AUTOMATICALLY CHECK FOR CHANGES IN THE SHADER FILES!
-
 	def step_0x0(self):
 		"""The first step."""
 

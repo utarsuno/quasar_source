@@ -14,13 +14,17 @@ use CodeManager\Abstractions\HTMLBuildSection;
 use CodeManager\Abstractions\JSONBuildSection;
 use CodeManager\Abstractions\NPMLibraryBuildSection;
 use CodeManager\Entity\EntityFile;
+use CodeManager\Repository\EntityFileRepository;
+use CodeManager\Repository\EntityNPMLibraryRepository;
+use CodeManager\Repository\EntityQAReportRepository;
 use Exception;
 use Psr\Log\LoggerInterface;
+use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use QuasarSource\Utilities\ArrayUtilities                as ARY;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
-use QuasarSource\Utilities\Files\FileParserXMLQA;
 use QuasarSource\Utilities\Files\FileUtilities           as UFO;
-use QuasarSource\Utilities\Processes\ProcessMinifyJS;
+use QuasarSource\Utilities\Files\PathUtilities           as PATH;
+use QuasarSource\Utilities\Processes\ProcessUtilities    as RUN;
 
 
 class CodeBuilderService extends BaseAbstractService {
@@ -43,12 +47,12 @@ class CodeBuilderService extends BaseAbstractService {
 
     private $loaded = false;
 
-    /** @var EntityFileRepoService */
-    private $service_repo_files;
-    /** @var EntityQAReportRepoService */
-    private $service_qa_report;
-    /** @var EntityNPMLibraryRepoService */
-    private $service_npm_libs;
+    /** @var EntityFileRepository */
+    private $repo_entity_files;
+    /** @var EntityQAReportRepository */
+    private $repo_qa_report;
+    /** @var EntityNPMLibraryRepository */
+    private $repo_npm_libs;
 
     private $config;
     private $config_assets;
@@ -91,16 +95,21 @@ class CodeBuilderService extends BaseAbstractService {
     }
 
     public function run_code_health_check() : void {
-        $p = ProcessMinifyJS::minify_file_to('a', 'b', true);
-        #$this->ensure_config_data_loaded();
-        #$this->run_all_builds();
-        #$this->print_final_results();
+        #$p = ProcessMinifyJS::minify_file_to('a', 'b', true);
+
+        #$output = RUN::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_DIRECTORY);
+        #var_dump($output);
+
+
+        $this->ensure_config_data_loaded();
+        $this->run_all_builds();
+        $this->print_final_results();
     }
 
     public function generate_qa_report(string $path) : void {
-        $f = $this->service_repo_files->ensure_file_is_cached($path);
-        if ($this->service_repo_files->did_file_cache_update($f)) {
-            $this->service_qa_report->cache_new_report($f);
+        $f = $this->repo_entity_files->ensure_db_has_entity($path);
+        if ($this->repo_entity_files->did_file_cache_update($f)) {
+            $this->repo_qa_report->create_new_entity($f->getFullPath());
         }
     }
 
@@ -116,7 +125,7 @@ class CodeBuilderService extends BaseAbstractService {
             $this->generate_qa_report($this->config_qa_report['unit_tests']);
         }
 
-        $all_db_files = $this->service_repo_files->get_all_entities();
+        $all_db_files = $this->repo_entity_files->get_all_entities();
         foreach ($all_db_files as $entity_file) {
             if (!$entity_file->hasParent()) {
 
@@ -128,26 +137,26 @@ class CodeBuilderService extends BaseAbstractService {
             }
         }
 
-        $qa_results = FileParserXMLQA::get_content('/quasar_source/applications/asset_server/code_manager/report.xml');
+        $qa_results = new ProjectTestSuiteResult(PATH::QA_REPORT);
         var_dump($qa_results->get_qa_report());
     }
 
     public function set_services(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, EntityNPMLibraryRepoService $npm_libs) : void {
-        $this->service_repo_files = $repo_files;
-        $this->service_qa_report  = $qa_report;
-        $this->service_npm_libs   = $npm_libs;
+        $this->repo_entity_files = $repo_files->get_repo();
+        $this->repo_qa_report    = $qa_report->get_repo();
+        $this->repo_npm_libs     = $npm_libs->get_repo();
     }
 
-    public function get_service_repo_files() : EntityFileRepoService {
-        return $this->service_repo_files;
+    public function get_repo_entity_files() : EntityFileRepository {
+        return $this->repo_entity_files;
     }
 
-    public function get_service_qa_report() : EntityQAReportRepoService {
-        return $this->service_qa_report;
+    public function get_repo_qa_report() : EntityQAReportRepository {
+        return $this->repo_qa_report;
     }
 
-    public function get_service_npm_libs() : EntityNPMLibraryRepoService {
-        return $this->service_npm_libs;
+    public function get_repo_npm_libs() : EntityNPMLibraryRepository {
+        return $this->repo_npm_libs;
     }
 
 }

@@ -1,39 +1,36 @@
 <?php
 
 namespace CodeManager\Abstractions;
+use CodeManager\Repository\EntityNPMLibraryRepository;
 use CodeManager\Service\CodeBuilderService;
 use CodeManager\Service\EntityNPMLibraryRepoService;
-use QuasarSource\Utilities\DateTimeUtilities   as DATE;
+use DateTime;
+use QuasarSource\Utilities\DateTimeUtilities as DATE;
 
 
 class NPMLibraryBuildSection extends BuildSection {
 
-    /** @var EntityNPMLibraryRepoService */
+    /** @var EntityNPMLibraryRepository */
     protected $repo_service;
-
     /** @var array */
     protected $libs;
+    /** @var DateTime */
+    protected $time_of_build;
+
 
     public function __construct(array $data, CodeBuilderService $code_builder) {
-        parent::__construct('NPM Libs', $data, $code_builder);
-        $this->repo_service = $code_builder->get_service_npm_libs();
-        $this->libs         = $data;
+        parent::__construct('NPM Libs', $code_builder);
+        $this->repo_service  = $code_builder->get_repo_npm_libs();
+        $this->libs          = $data;
+        $this->time_of_build = DATE::now();
     }
 
     protected function run_section_build() : void {
-        $today = DATE::now();
-
         foreach ($this->libs as $lib) {
-            if (!$this->repo_service->has_npm_lib_by_name($lib)) {
-                $this->repo_service->cache_create_new($lib);
-            } else {
-                $npm_lib      = $this->repo_service->get_lib($lib);
-                $last_checked = $npm_lib->getLastChecked();
 
-                if (!DATE::is_different_day($last_checked, $today)) {
-                    $this->repo_service->check_version_latest($npm_lib);
-                }
-            }
+            $this->repo_service->ensure_db_has_entity($lib);
+
+            $this->repo_service->ensure_db_cache_for_entity_up_to_date($this->repo_service->get_entity($lib));
         }
     }
 

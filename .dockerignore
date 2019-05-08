@@ -1,0 +1,12 @@
+.git
+.idea
+
+theoretical_and_depreciated_code
+
+*.md
+!README*.md
+README-secret.md
+
+scripts
+configs/read_me.yml
+configs/documentation.yml

@@ -14,6 +14,10 @@ assets:
     output_directory: '/quasar_source/var/web_assets/'
     files           :
       gentilis_regular.typeface.json: ['gzipped']
+  .vert:
+    data_directory: '/quasar_source/assets/shaders/'
+  .frag:
+    data_directory: '/quasar_source/assets/shaders/'
 
 npm:
   - 'css-tree'
@@ -21,7 +25,6 @@ npm:
   - 'html-minifier'
   - 'npm'
   - 'three'
-  - 'browserify'
   - 'webpack'
 
 qa_report:

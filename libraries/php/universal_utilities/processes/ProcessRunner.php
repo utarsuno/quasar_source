@@ -14,35 +14,37 @@ use Symfony\Component\Process\Process;
 
 class ProcessRunner {
 
-    private $process;
     private $failed = false;
+    private $process;
+    private $prior_cwd;
+    private $cwd;
+    private $raise_exception_on_error;
 
-    public function __construct(array $command, int $timeout=20) {
+    public function __construct(array $command, bool $raise_exception_on_error=true, int $timeout=20, ?string $cwd=null) {
+        if ($cwd !== null) {
+            $this->prior_cwd = PATH::get_current_cwd();
+            $this->cwd       = $cwd;
+            PATH::set_current_cwd($this->cwd);
+        }
         $this->process = new Process($command);
         $this->process->setTimeout($timeout);
+        $this->raise_exception_on_error = $raise_exception_on_error;
     }
 
-    public function run(string $current_working_directory=null) : void {
-        if ($current_working_directory !== null) {
-            var_dump($current_working_directory);
-            PATH::cwd_push($current_working_directory);
+    public function run() : void {
+        if ($this->cwd !== null && PATH::get_current_cwd() !== $this->cwd) {
+            PATH::set_current_cwd($this->cwd);
         }
         $this->process->run();
         $this->process->wait();
         $this->failed = !$this->process->isSuccessful();
-        if ($current_working_directory !== null) {
-            PATH::cwd_pop();
+        if ($this->prior_cwd !== null && $this->cwd !== $this->prior_cwd) {
+            PATH::set_current_cwd($this->prior_cwd);
+            $this->cwd = $this->prior_cwd;
         }
-    }
-
-    public function throw_error_if_failed() : void {
-        if ($this->failed) {
+        if ($this->raise_exception_on_error && $this->failed) {
             throw new ProcessFailedException($this->process);
         }
-    }
-
-    public function failed() : bool {
-        return $this->failed;
     }
 
     public function get_output() {

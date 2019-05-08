@@ -8,6 +8,7 @@
 
 namespace CodeManager\Entity;
 
+use CodeManager\Abstractions\EntityInterface;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
@@ -44,7 +45,7 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
  *         }
  *     )
  */
-class EntityFile {
+class EntityFile implements EntityInterface {
 
     public const TYPE_NO_MATCH        = -1;
     public const TYPE_CSS             = 1;
@@ -55,32 +56,26 @@ class EntityFile {
     public const TYPE_SHADER_FRAGMENT = 6;
     public const TYPE_WEB_MANIFEST    = 7;
 
+    public const EXTENSION_TO_TYPE    = [
+        UFO::EXTENSION_CSS             => self::TYPE_CSS,
+        UFO::EXTENSION_XML             => self::TYPE_XML,
+        UFO::EXTENSION_HTML            => self::TYPE_HTML,
+        UFO::EXTENSION_JSON            => self::TYPE_JSON,
+        UFO::EXTENSION_SHADER_VERTEX   => self::TYPE_SHADER_VERTEX,
+        UFO::EXTENSION_SHADER_FRAGMENT => self::TYPE_SHADER_FRAGMENT,
+        UFO::EXTENSION_WEB_MANIFEST    => self::TYPE_WEB_MANIFEST,
+    ];
+
     public const FLAG_MINIFY          = 'minify';
     public const FLAG_PRE_PROCESS     = 'pre_process';
     public const FLAG_GZIP            = 'gzipped';
 
     public static function get_file_type_from_path(string $path) : int {
         $all_extensions = PATH::get_all_extensions($path);
-        if (ARY::contains($all_extensions, UFO::EXTENSION_CSS)) {
-            return self::TYPE_CSS;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_XML)) {
-            return self::TYPE_XML;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_HTML)) {
-            return self::TYPE_HTML;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_JSON)) {
-            return self::TYPE_JSON;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_SHADER_FRAGMENT)) {
-            return self::TYPE_SHADER_FRAGMENT;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_SHADER_VERTEX)) {
-            return self::TYPE_SHADER_VERTEX;
-        }
-        if (ARY::contains($all_extensions, UFO::EXTENSION_WEB_MANIFEST)) {
-            return self::TYPE_WEB_MANIFEST;
+        foreach (self::EXTENSION_TO_TYPE as $extension => $type) {
+            if (ARY::contains($all_extensions, $extension)) {
+                return $type;
+            }
         }
         DBG::throw_exception('No file type match for {' . $path . '}');
         return self::TYPE_NO_MATCH;
@@ -93,6 +88,20 @@ class EntityFile {
             self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
         ];
         return $options;
+    }
+
+    public function set_flag(string $key, bool $value) : void {
+        switch ($key) {
+            case self::FLAG_PRE_PROCESS:
+                $this->setIsPreProcessed($value);
+                break;
+            case self::FLAG_GZIP:
+                $this->setIsGzipped($value);
+                break;
+            case self::FLAG_MINIFY:
+                $this->setIsMinified($value);
+                break;
+        }
     }
 
     /**
@@ -188,19 +197,26 @@ class EntityFile {
      */
     private $first_cached;
 
-    public function initialize(string $full_path, int $file_type, array $options) : self {
+    public function on_event_first_new_creation($full_path): void {
         $current_date_time = TIME::now();
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
-        $this->setFileType($file_type);
+        $this->setFileType(self::get_file_type_from_path($full_path));
         $this->setRank(0);
-        $this->setIsGzipped($options[self::FLAG_GZIP]);
-        $this->setIsMinified($options[self::FLAG_MINIFY]);
-        $this->setIsPreProcessed($options[self::FLAG_PRE_PROCESS]);
+        $this->setIsGzipped(false);
+        $this->setIsMinified(false);
+        $this->setIsPreProcessed(false);
         $this->setName(UPO::get_file_name($full_path));
         $this->setExtension(UPO::get_ending_extension($full_path));
         $this->cache_warm_up();
-        return $this;
+    }
+
+    public function ensure_cache_up_to_date(): bool {
+        if ($this->has_sha512sum_changed()) {
+            $this->cache_warm_up();
+            return true;
+        }
+        return false;
     }
 
     /**
