@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.Text3D = function(args) {
     this.text            = args[ARG_TEXT];
     this.text_size       = args[ARG_SIZE];

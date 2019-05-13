@@ -28,6 +28,12 @@ class ProcessUtilities {
         }
     }
 
+    // W E B P A C K.
+
+    public static function run_webpack_build(): string {
+        return self::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_DIRECTORY);
+    }
+
     // N O D E.
 
     public static function minify_file_html_to(string $path_input, string $path_output) : string {
@@ -43,11 +49,6 @@ class ProcessUtilities {
     }
 
     // N P M.
-
-    public static function minify_file_js_to(?string $path_input=null, ?string $path_output=null) : string {
-        $output = self::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_FILE_MINIFY_JS);
-        return $output;
-    }
 
     public static function get_npm_lib_latest_version(string $lib_name) : string {
         $output = self::run_cmd(['npm', 'view', $lib_name, 'version']);

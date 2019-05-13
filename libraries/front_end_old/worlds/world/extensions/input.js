@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.World.prototype, {
 
     key_down_event_for_interactive_objects: function(event) {

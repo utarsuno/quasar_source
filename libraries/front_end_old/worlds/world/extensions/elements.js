@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.World.prototype, {
 
     // ------------------------------------------------------------------------------

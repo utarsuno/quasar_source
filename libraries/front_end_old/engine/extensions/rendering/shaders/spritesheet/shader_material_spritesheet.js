@@ -1,6 +1,3 @@
-'use strict';
-
-
 $_QE.prototype.ShaderMaterialSpriteSheet = function(shader_material, icon) {
     if (shader_material != null) {
         this.shader_material = shader_material.get_clone(icon);

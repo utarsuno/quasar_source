@@ -1,6 +1,3 @@
-'use strict';
-
-
 $_QE.prototype.ShaderMaterialBackground = function() {
 
     let uniforms = {

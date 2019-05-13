@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.HUDDebug = function() {};
 
 Object.assign(

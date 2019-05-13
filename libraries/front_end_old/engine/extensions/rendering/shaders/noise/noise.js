@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @author alteredq / http://alteredqualia.com/
  * ^ original author.

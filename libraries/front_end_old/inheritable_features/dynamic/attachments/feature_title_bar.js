@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureTitleBar = function(parent_wall) {
     this.create_row(parent_wall, 64, 1, false);
 };

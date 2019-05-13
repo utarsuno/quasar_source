@@ -1,5 +1,3 @@
-'use strict';
-
 const ARG_COLOR_FOREGROUND         = 'ARG_COLOR_FOREGROUND';         // #pre-process_global_constant
 const ARG_COLOR_BACKGROUND         = 'ARG_COLOR_BACKGROUND';         // #pre-process_global_constant
 const ARG_ICON                     = 'ARG_ICON';                     // #pre-process_global_constant

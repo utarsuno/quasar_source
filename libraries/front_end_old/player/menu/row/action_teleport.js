@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.PlayerMenuRowTeleport = function(menu) {
     this.__init__(menu, ASSET_ICON_TELEPORT, 'teleport', this._action_teleport.bind(this));
 

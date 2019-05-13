@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
     this.name       = name;
     this.type       = asset_type;

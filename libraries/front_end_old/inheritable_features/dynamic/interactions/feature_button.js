@@ -1,6 +1,3 @@
-'use strict';
-
-
 $_QE.prototype.FeatureButton = function(args) {
     if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {
         $_QE.prototype.FeatureInteractive.call(this);

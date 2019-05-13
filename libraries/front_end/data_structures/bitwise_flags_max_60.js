@@ -1,5 +1,3 @@
-'use strict';
-
 // Supports a maximum of 60 unique keys. (First bit used to indicate bucket {0 or 1}, usage of last bit currently not supported.)
 let DataStructureBitwiseFlagsMax60       = function(){};
 DataStructureBitwiseFlagsMax60.prototype = {

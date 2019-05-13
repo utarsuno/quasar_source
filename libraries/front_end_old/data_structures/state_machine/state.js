@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.State = function(state_id, on_exit, on_enter) {
     this.id       = state_id;
     this.on_exit  = on_exit;

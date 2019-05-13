@@ -18,13 +18,9 @@ class NPMLibraryBuildSection extends BuildSection {
     /** @var DateTime */
     protected $time_of_build;
 
-    public function __construct(array $raw_data, CodeBuilderService $code_builder) {
-        if (!isset($raw_data['npm'])) {
-            DBG::throw_exception_config_file('npm');
-        }
+    public function __construct(CodeBuilderService $code_builder) {
         parent::__construct('NPM Libs', $code_builder);
-        $this->repo_service  = $code_builder->get_repo_npm_libs();
-        $this->libs          = $raw_data['npm'];
+        $this->repo_service  = $code_builder->get_repo(CodeBuilderService::ENTITY_REPOSITORY_NPM_LIBS);
         $this->time_of_build = DATE::now();
     }
 
@@ -44,6 +40,20 @@ class NPMLibraryBuildSection extends BuildSection {
                 $entity->cache_set_to_checked();
             }
         }
+    }
+
+    /*        __        ___        ___      ___      ___    __
+     |  |\/| |__) |    |__   |\/| |__  |\ |  |   /\   |  | /  \ |\ |
+     |  |  | |    |___ |___  |  | |___ | \|  |  /~~\  |  | \__/ | \|*/
+
+    protected function ensure_needed_config_data(array $config): void {
+        if (!isset($config['npm'])) {
+            DBG::throw_exception_config_file('npm');
+        }
+    }
+
+    protected function set_needed_config_data(array $config): void {
+        $this->libs = $config['npm'];
     }
 
 }

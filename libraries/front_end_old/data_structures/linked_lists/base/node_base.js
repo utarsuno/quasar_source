@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LLNode = function(object) {
     this._object    = object;
     this._node_next = null;

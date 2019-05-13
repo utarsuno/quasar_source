@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FloatingPicture = function(image) {
     this.__init__floating_picture(image);
 };

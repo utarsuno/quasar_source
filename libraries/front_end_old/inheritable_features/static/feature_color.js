@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureColor = function(){};
 
 Object.assign($_QE.prototype.FeatureColor.prototype, {

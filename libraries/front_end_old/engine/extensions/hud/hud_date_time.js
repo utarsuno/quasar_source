@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.HUDDateTime = function() {};
 
 Object.assign(

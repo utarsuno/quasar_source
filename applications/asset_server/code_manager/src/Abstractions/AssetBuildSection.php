@@ -17,7 +17,7 @@ abstract class AssetBuildSection extends BuildSection {
     /** @var array */
     protected $files;
     /** @var array */
-    protected $file_builds      = [];
+    protected $file_builds = [];
     /** @var EntityFileRepoService */
     protected $repo_entity_files;
     /** @var EntityFile */
@@ -25,26 +25,10 @@ abstract class AssetBuildSection extends BuildSection {
     /** @var boolean */
     protected $is_enabled_minification;
 
-    public function __construct(string $name, array $data, CodeBuilderService $code_builder) {
+    public function __construct(string $name, CodeBuilderService $code_builder, bool $is_enabled_minification) {
         parent::__construct($name, $code_builder);
-        $this->repo_entity_files = $code_builder->get_repo_entity_files();
-        $this->directory_output  = $data['output_directory'];
-        $this->directory_data    = $data['data_directory'];
-        $this->files             = $data['files'];
-
-        foreach ($this->files as $key => $value) {
-            $file_path                     = $this->directory_data . $key;
-            $this->file_builds[$file_path] = $value;
-        }
-    }
-
-    protected function ensure_config_file_data(array $raw_data, string $section) : void {
-        if (!isset($raw_data['assets'])) {
-            DBG::throw_exception_config_file('assets');
-        }
-        if (!isset($raw_data['assets'][$section])) {
-            DBG::throw_exception_config_file('assets{' . $section . '}');
-        }
+        $this->is_enabled_minification = $is_enabled_minification;
+        $this->repo_entity_files       = $code_builder->get_repo(CodeBuilderService::ENTITY_REPOSITORY_FILES);
     }
 
     public function run_section_build() : void {
@@ -108,4 +92,27 @@ abstract class AssetBuildSection extends BuildSection {
 
     abstract protected function handle_step_processed(EntityFile $file, string $output_file_path) : ?EntityFile;
 
+    /*        __        ___        ___      ___      ___    __
+     |  |\/| |__) |    |__   |\/| |__  |\ |  |   /\   |  | /  \ |\ |
+     |  |  | |    |___ |___  |  | |___ | \|  |  /~~\  |  | \__/ | \|*/
+
+    protected function ensure_needed_config_data(array $config): void {
+        if (!isset($config['assets'])) {
+            DBG::throw_exception_config_file('assets');
+        }
+        if (!isset($config['assets'][$this->name])) {
+            DBG::throw_exception_config_file('assets{' . $this->name . '}');
+        }
+    }
+
+    protected function set_needed_config_data(array $config): void {
+        $data                          = $config['assets'][$this->name];
+        $this->directory_output        = $data['output_directory'];
+        $this->directory_data          = $data['data_directory'];
+        $this->files                   = $data['files'];
+        foreach ($this->files as $key => $value) {
+            $file_path                     = $this->directory_data . $key;
+            $this->file_builds[$file_path] = $value;
+        }
+    }
 }

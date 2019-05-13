@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureSize = function() {};
 
 Object.assign($_QE.prototype.FeatureSize.prototype, {

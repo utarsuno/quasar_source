@@ -1,9 +1,4 @@
-'use strict';
-
 Object.assign($_QE.prototype, {
-
-    // C A C H E D - F L O A T S.
-    _cachef: new Float64Array(13),
 
     _events: [null],
 
@@ -11,20 +6,11 @@ Object.assign($_QE.prototype, {
     _cacher_document_body   : document.body,
     _cacher_document_element: document.documentElement,
 
-    CACHE_ZERO_VECTOR: new THREE.Vector3(0, 0, 0),
-    //CACHE_UP_VECTOR: new THREE.Vector3(0, 1, 0),
-
     // Cache.
     _frames_passed  : 0,
     _frame_iteration: 0,
     _delta_clock    : new THREE.Clock(false),
     _delta          : 0,
-
-    // Eh, just use the cacei way faster and way less taxing on dynamic memory usage
-    // TODO: rename to _vector_cursor
-    _cursor         : new THREE.Vector2(),
-    // TODO:
-    _cachev_dimensions: new THREE.Vector2(),
 
     _log_history: {
         'error'  : [],
@@ -51,31 +37,11 @@ Object.assign($_QE.prototype, {
     // Useful cache value.
     _ei_current_file_type: null,
 
-    __init__cache: function() {
-        this._cachei[QECACHEI_WIDTH_INNER]  = window.innerWidth;
-        this._cachei[QECACHEI_HEIGHT_INNER] = window.innerHeight;
-        this._cachef[QECACHEF_ASPECT_RATIO] = window.innerWidth / window.innerHeight;
-
-        this._cachef[QECACHEF_FPS_PHYSICS]  = 0.011111111111111112; // FPS is 90 (from 1.0 / 90.0).
-        this._cachef[QECACHEF_FPS_PAUSED]   = 0.011111111111111112;
-        this._cachef[QECACHEF_FPS_RENDER]   = 0.016666666666666666; // FPS is 60 (from 1.0 / 60.0).
-        this._cachef[QECACHEF_FPS_LOGIC]    = 0.03333333333333333;  // FPS is 30 (from 1.0 / 30.0).
-        this._clear_frames();
-    },
-
     get_event_callback: function(event_callback_name) {
         if (event_callback_name in this._events) {
             return this._events[event_callback_name];
         }
         return null;
-    },
-
-    get_width: function() {
-        return this._cachei[QECACHEI_WIDTH_INNER];
-    },
-
-    get_height: function() {
-        return this._cachei[QECACHEI_HEIGHT_INNER];
     },
 
     // F O N T S. TODO: Need to allow completely dynamic sizing, remove these constants.

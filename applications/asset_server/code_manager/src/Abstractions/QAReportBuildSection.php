@@ -2,6 +2,7 @@
 
 namespace CodeManager\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Repository\EntityFileRepository;
 use CodeManager\Repository\EntityQAReportRepository;
 use CodeManager\Service\CodeBuilderService;
 use DateTime;
@@ -13,6 +14,7 @@ class QAReportBuildSection extends BuildSection {
 
     /** @var EntityQAReportRepository */
     protected $repo;
+    /** @var EntityFileRepository */
     protected $repo_files;
     /** @var array */
     protected $stats;
@@ -21,21 +23,10 @@ class QAReportBuildSection extends BuildSection {
     /** @var DateTime */
     protected $time_of_build;
 
-    public function __construct(array $raw_data, CodeBuilderService $code_builder) {
+    public function __construct(CodeBuilderService $code_builder) {
         parent::__construct('QA Report', $code_builder);
-        $this->repo          = $code_builder->get_repo_qa_report();
-        $this->repo_files    = $code_builder->get_repo_entity_files();
-        if (!isset($raw_data['qa_report'])) {
-            DBG::throw_exception_config_file('qa_report');
-        }
-        if (!isset($raw_data['qa_report']['stats'])) {
-            DBG::throw_exception_config_file('qa_report{stats}');
-        }
-        if (!isset($raw_data['qa_report']['stats']['unit_tests'])) {
-            DBG::throw_exception_config_file('qa_report{stats}{unit_tests}');
-        }
-        $this->stats         = $raw_data['qa_report']['stats'];
-        $this->unit_tests    = $this->stats['unit_tests'];
+        $this->repo          = $code_builder->get_repo(CodeBuilderService::ENTITY_REPOSITORY_QA_REPORT);
+        $this->repo_files    = $code_builder->get_repo(CodeBuilderService::ENTITY_REPOSITORY_FILES);
         $this->time_of_build = DATE::now();
     }
 
@@ -64,5 +55,27 @@ class QAReportBuildSection extends BuildSection {
         }
         return $entity;
     }
+
+    /*        __        ___        ___      ___      ___    __
+     |  |\/| |__) |    |__   |\/| |__  |\ |  |   /\   |  | /  \ |\ |
+     |  |  | |    |___ |___  |  | |___ | \|  |  /~~\  |  | \__/ | \|*/
+
+    protected function ensure_needed_config_data(array $config): void {
+        if (!isset($config['qa_report'])) {
+            DBG::throw_exception_config_file('qa_report');
+        }
+        if (!isset($config['qa_report']['stats'])) {
+            DBG::throw_exception_config_file('qa_report{stats}');
+        }
+        if (!isset($config['qa_report']['stats']['unit_tests'])) {
+            DBG::throw_exception_config_file('qa_report{stats}{unit_tests}');
+        }
+    }
+
+    protected function set_needed_config_data(array $config): void {
+        $this->stats      = $config['qa_report']['stats'];
+        $this->unit_tests = $this->stats['unit_tests'];
+    }
+
 }
 

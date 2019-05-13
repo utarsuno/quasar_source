@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.CanvasRenderer = function() {};
 
 $_QE.prototype.CanvasRenderer.prototype = {

@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.DemoRoom = function(tiles, home_tile, world, alias) {
     this._initialize_cache(2048);
 

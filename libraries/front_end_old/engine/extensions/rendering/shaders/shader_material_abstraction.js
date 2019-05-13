@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.ShaderMaterialAbstraction = function() {};
 
 $_QE.prototype.ShaderMaterialAbstraction.prototype = {

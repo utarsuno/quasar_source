@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LightPoint = function(color, intensity, distance, decay, x, y, z, alias) {
     this.create_singleton(color, intensity, distance, decay, x, y, z);
     this.set_alias(alias);

@@ -1,22 +1,5 @@
-'use strict';
-
 const QEEVENT_ON_WINDOW_MOUSE_OVER  = 0; // #pre-process_global_constant
 const QEEVENT_ON_POINTER_LOCK_ERROR = 1; // #pre-process_global_constant
-
-const QECACHEF_FOV                  = 0;  // #pre-process_global_constant
-const QECACHEF_CLIPPING_NEAR        = 1;  // #pre-process_global_constant
-const QECACHEF_CLIPPING_FAR         = 2;  // #pre-process_global_constant
-const QECACHEF_ASPECT_RATIO         = 3;  // #pre-process_global_constant
-const QECACHEF_FPS_PHYSICS          = 4;  // #pre-process_global_constant
-const QECACHEF_FPS_PAUSED           = 5;  // #pre-process_global_constant
-const QECACHEF_FPS_LOGIC            = 6;  // #pre-process_global_constant
-const QECACHEF_FPS_RENDER           = 7;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_PHYSICS = 8;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_LOGIC   = 9;  // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_RENDER  = 10; // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_SECOND  = 11; // #pre-process_global_constant
-const QECACHEF_ELAPSED_TIME_PAUSED  = 12; // #pre-process_global_constant
-
 
 const QEFLAG_STATE_PAUSED               = 1;       // #pre-process_global_constant
 const QEFLAG_STATE_RUNNING              = 2;       // #pre-process_global_constant

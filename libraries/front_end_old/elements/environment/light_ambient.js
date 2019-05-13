@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LightAmbient = function(color, intensity, alias) {
     this.create_singleton(color, intensity);
     this.set_alias(alias);

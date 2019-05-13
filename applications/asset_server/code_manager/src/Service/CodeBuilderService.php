@@ -8,7 +8,6 @@
 
 namespace CodeManager\Service;
 
-
 use CodeManager\Abstractions\BuildSection;
 use CodeManager\Abstractions\CSSBuildSection;
 use CodeManager\Abstractions\HTMLBuildSection;
@@ -16,9 +15,7 @@ use CodeManager\Abstractions\JSONBuildSection;
 use CodeManager\Abstractions\NPMLibraryBuildSection;
 use CodeManager\Abstractions\QAReportBuildSection;
 use CodeManager\Entity\EntityFile;
-use CodeManager\Repository\EntityFileRepository;
-use CodeManager\Repository\EntityNPMLibraryRepository;
-use CodeManager\Repository\EntityQAReportRepository;
+use CodeManager\Repository\AbstractRepository;
 use Exception;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use QuasarSource\Utilities\Files\FileUtilities        as UFO;
@@ -28,53 +25,43 @@ use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
 
 class CodeBuilderService extends BaseAbstractService {
 
-    /** @var EntityFileRepository */
-    private $repo_entity_files;
-    /** @var EntityQAReportRepository */
-    private $repo_qa_report;
-    /** @var EntityNPMLibraryRepository */
-    private $repo_npm_libs;
+    public const ENTITY_REPOSITORY_FILES     = 'EntityRepositoryFiles';
+    public const ENTITY_REPOSITORY_QA_REPORT = 'EntityRepositoryQAReport';
+    public const ENTITY_REPOSITORY_NPM_LIBS  = 'EntityRepositoryNPMLibs';
+
+    public const BUILD_SECTION_CSS           = CSSBuildSection::class;
+    public const BUILD_SECTION_HTML          = HTMLBuildSection::class;
+    public const BUILD_SECTION_JSON          = JSONBuildSection::class;
+    public const BUILD_SECTION_NPM_LIBS      = NPMLibraryBuildSection::class;
+    public const BUILD_SECTION_QA_REPORT     = QAReportBuildSection::class;
+
+    private const BUILD_SECTION_CLASSES      = [
+        self::BUILD_SECTION_CSS, self::BUILD_SECTION_HTML, self::BUILD_SECTION_JSON, self::BUILD_SECTION_NPM_LIBS, self::BUILD_SECTION_QA_REPORT
+    ];
+
     /** @var array */
     private $config;
-    /** @var CSSBuildSection */
-    private $asset_build_css;
-    /** @var HTMLBuildSection */
-    private $asset_build_html;
-    /** @var JSONBuildSection */
-    private $asset_build_json;
-    /** @var NPMLibraryBuildSection */
-    private $lib_build_npm;
-    /** @var QAReportBuildSection */
-    private $config_qa_report;
     /** @var array */
     private $all_build_sections = [];
+    /** @var array */
+    private $entity_repos       = [];
 
     /**
      * @throws Exception
      */
     private function ensure_config_data_loaded() : void {
         if ($this->config === null) {
-            $this->config           = UFO::get_yaml_contents(PATH::YML_FILE_CODE_MANAGER);
-            $this->asset_build_css  = new CSSBuildSection($this->config, $this);
-            $this->asset_build_html = new HTMLBuildSection($this->config, $this);
-            $this->asset_build_json = new JSONBuildSection($this->config, $this);
-            $this->lib_build_npm    = new NPMLibraryBuildSection($this->config, $this);
-            $this->config_qa_report = new QAReportBuildSection($this->config, $this);
-
-            $this->all_build_sections[] = $this->asset_build_css;
-            $this->all_build_sections[] = $this->asset_build_html;
-            $this->all_build_sections[] = $this->asset_build_json;
-            $this->all_build_sections[] = $this->lib_build_npm;
-            $this->all_build_sections[] = $this->config_qa_report;
+            $this->config = UFO::get_yaml_contents(PATH::YML_FILE_CODE_MANAGER);
+            foreach (self::BUILD_SECTION_CLASSES as $build_section_class) {
+                $this->all_build_sections[$build_section_class] = new $build_section_class($this);
+            }
         }
     }
 
     public function run_code_health_check() : void {
-        #$p = ProcessMinifyJS::minify_file_to('a', 'b', true);
-
-        $output = RUN::run_cmd(['npm', 'run-script', 'build'], PATH::NODE_DIRECTORY);
-        var_dump($output);
-        exit();
+        #$output = RUN::run_webpack_build();
+        #var_dump($output);
+        #exit();
 
         $this->ensure_config_data_loaded();
         $this->run_all_builds();
@@ -89,7 +76,9 @@ class CodeBuilderService extends BaseAbstractService {
     }
 
     private function print_final_results() : void {
-        $all_db_files = $this->repo_entity_files->get_all_entities();
+        $repo_entity_files = $this->get_repo(self::ENTITY_REPOSITORY_FILES);
+        $all_db_files      = $repo_entity_files->get_all_entities();
+
         foreach ($all_db_files as $entity_file) {
             if (!$entity_file->hasParent()) {
 
@@ -106,21 +95,17 @@ class CodeBuilderService extends BaseAbstractService {
     }
 
     public function set_services(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, EntityNPMLibraryRepoService $npm_libs) : void {
-        $this->repo_entity_files = $repo_files->get_repo();
-        $this->repo_qa_report    = $qa_report->get_repo();
-        $this->repo_npm_libs     = $npm_libs->get_repo();
+        $this->entity_repos[self::ENTITY_REPOSITORY_FILES]     = $repo_files->get_repo();
+        $this->entity_repos[self::ENTITY_REPOSITORY_QA_REPORT] = $qa_report->get_repo();
+        $this->entity_repos[self::ENTITY_REPOSITORY_NPM_LIBS]  = $npm_libs->get_repo();
     }
 
-    public function get_repo_entity_files() : EntityFileRepository {
-        return $this->repo_entity_files;
+    public function get_config() : array {
+        return $this->config;
     }
 
-    public function get_repo_qa_report() : EntityQAReportRepository {
-        return $this->repo_qa_report;
-    }
-
-    public function get_repo_npm_libs() : EntityNPMLibraryRepository {
-        return $this->repo_npm_libs;
+    public function get_repo(string $repo_key) : AbstractRepository {
+        return $this->entity_repos[$repo_key];
     }
 
 }

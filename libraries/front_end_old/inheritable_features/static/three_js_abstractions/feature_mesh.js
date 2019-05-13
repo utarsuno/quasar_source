@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureMesh = function() {};
 
 Object.assign($_QE.prototype.FeatureMesh.prototype, {

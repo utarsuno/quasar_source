@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LLNodeRow = function(object) {
     this._object                     = object;
     this.already_in_interactive_list = false;

@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.PlayerMenuRowClose = function(menu) {
     this.__init__(menu, ASSET_ICON_CROSS, 'close', this._action_close.bind(this));
 };

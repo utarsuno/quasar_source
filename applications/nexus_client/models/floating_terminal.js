@@ -1,5 +1,3 @@
-'use strict';
-
 $_NL.prototype.FloatingTerminal = function(args) {
     args[ARG_WIDTH] = 1024 * 4;
     this.__init__floating_terminal(args);

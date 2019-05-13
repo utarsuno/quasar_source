@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.VisibleRow = function(row_number, container, alignment=TEXT_ALIGNMENT_START) {
     this.row_number     = row_number;
     this.row_height     = container.font.height;

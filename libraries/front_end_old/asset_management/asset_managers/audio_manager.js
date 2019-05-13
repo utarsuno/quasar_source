@@ -1,5 +1,3 @@
-'use strict';
-
 const AUDIO_SOUND_TYPING       = 0; // #pre-process_global_constant
 const AUDIO_SOUND_TRANSITION   = 1; // #pre-process_global_constant
 const AUDIO_SOUND_ERROR        = 2; // #pre-process_global_constant

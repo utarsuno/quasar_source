@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype._ElementEvent = function() {
     this.events          = {};
     this.max_event_depth = 1;

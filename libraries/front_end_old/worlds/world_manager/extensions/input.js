@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.WorldManager.prototype, {
 
     on_wheel_event: function(direction) {

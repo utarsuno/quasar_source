@@ -1,6 +1,3 @@
-'use strict';
-
-
 // First bit used to determine first or second bucket of flags.
 const EFLAG_IS_TYPEABLE                              = 2;          // #pre-process_global_constant
 const EFLAG_IS_INTERACTIVE                           = 4;          // #pre-process_global_constant

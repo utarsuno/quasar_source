@@ -1,6 +1,3 @@
-'use strict';
-
-
 Object.assign(
     $_QE.prototype,
     $_QE.prototype.FiniteStateMachine.prototype,
@@ -43,7 +40,7 @@ Object.assign(
                 this.manager_world.event_trigger_on_pause();
             }
             this.pause_menu_fade_in();
-            this._clear_frames();
+            this.clear_frames();
         },
 
         _on_state_enter_running: function() {

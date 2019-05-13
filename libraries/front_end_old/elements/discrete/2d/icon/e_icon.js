@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FloatingIcon = function(args) {
     this._initialize_floating_icon(args);
 };

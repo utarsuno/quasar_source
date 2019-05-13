@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.CanvasRenderingTextLine = function() {};
 
 Object.assign(

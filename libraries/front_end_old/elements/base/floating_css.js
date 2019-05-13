@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FloatingCSSWall = function(args) {
     this.__init__floating_css_wall(args);
 };

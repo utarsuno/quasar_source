@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.AssetBatch = function() {
     this.layers = [[]];
 

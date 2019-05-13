@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.ConfirmationPrompt = function(parent_button, no_response, yes_response) {
     this.__init__floating_rows();
 

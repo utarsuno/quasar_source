@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureAnimationStep = function(duration) {
     this._animation_duration     = duration;
     this._animation_elapsed_time = 0;

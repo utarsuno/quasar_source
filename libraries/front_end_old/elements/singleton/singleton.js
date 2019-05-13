@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.Singleton = function(object) {
     this._create_singleton(object);
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 const CURSOR_STATE_DEFAULT   = 1;  // #pre-process_global_constant
 const CURSOR_STATE_CLICK     = 2;  // #pre-process_global_constant
 const CURSOR_STATE_SCALE     = 4;  // #pre-process_global_constant

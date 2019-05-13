@@ -1,5 +1,3 @@
-'use strict';
-
 const _MOUSE_UPDATE_NONE     = 0; // #pre-process_global_constant
 const _MOUSE_UPDATE_FOR_X    = 1; // #pre-process_global_constant
 const _MOUSE_UPDATE_FOR_Y    = 2; // #pre-process_global_constant

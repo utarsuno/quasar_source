@@ -1,5 +1,3 @@
-'use strict';
-
 // TEMPROARY LOCATION.
 $_QE.prototype.perform_global_save = function() {
     let roots = QE.manager_world.current_world.elements_root;

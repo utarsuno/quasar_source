@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureTyping = function(on_enter=null) {
 
     this.callback_on_enter = on_enter;

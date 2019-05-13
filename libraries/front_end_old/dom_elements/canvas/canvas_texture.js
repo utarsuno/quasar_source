@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.DomCanvasTexture = function() {};
 
 Object.assign(
@@ -13,10 +11,8 @@ Object.assign(
             this.__init__renderer_text(args);
             this._set_context();
 
-
             //this._set_context();
             //this.set_canvas_font(font);
-
 
             // this._set_texture();
             //

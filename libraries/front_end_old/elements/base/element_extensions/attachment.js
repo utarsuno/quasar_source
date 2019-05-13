@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     _set_to_group: function() {

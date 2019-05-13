@@ -1,9 +1,5 @@
-'use strict';
-
 $_QE.prototype.RendererSceneTransition = function() {
     this._render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};
-
-
 };
 
 const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};

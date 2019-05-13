@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign(
     $_QE.prototype.DemoRoom.prototype,
     // DemoRoom --> ceiling features

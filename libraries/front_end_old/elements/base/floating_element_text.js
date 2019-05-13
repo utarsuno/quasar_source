@@ -1,6 +1,3 @@
-'use strict';
-
-
 $_QE.prototype.FloatingElementText = function() {};
 
 Object.assign(

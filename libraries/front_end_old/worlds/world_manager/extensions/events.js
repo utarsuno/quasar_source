@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.WorldManager.prototype, {
 
     event_trigger_on_pause: function() {

@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FloatingCheckbox = function(size, checked, on_checked_function) {
     this.checked             = checked;
     this.on_checked_function = on_checked_function;

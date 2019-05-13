@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureGeometry = function(){};
 
 Object.assign($_QE.prototype.FeatureGeometry.prototype, {

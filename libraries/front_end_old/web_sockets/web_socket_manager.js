@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.WebSocketManager = function(engine) {
     this.__init__(engine);
 

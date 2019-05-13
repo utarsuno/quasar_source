@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.DomElement = function() {};
 
 Object.assign($_QE.prototype.DomElement.prototype, {

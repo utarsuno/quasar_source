@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureMaterial = function(){};
 
 Object.assign($_QE.prototype.FeatureMaterial.prototype, {

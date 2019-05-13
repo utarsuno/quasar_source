@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureLookable = function() {
 
     if (this.flag_is_off(EFLAG_IS_INTERACTIVE)) {

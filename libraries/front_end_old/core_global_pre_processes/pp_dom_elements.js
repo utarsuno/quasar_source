@@ -1,5 +1,3 @@
-'use strict';
-
 const GLOBAL_ID_PAUSED_BACKGROUND_FILTER     = 'a'; // #pre-process_global_constant
 const GLOBAL_ID_PAUSE_DISPLAY                = 'b'; // #pre-process_global_constant
 const GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE     = 'c'; // #pre-process_global_constant

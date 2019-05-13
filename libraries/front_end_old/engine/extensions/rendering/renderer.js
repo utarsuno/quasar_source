@@ -1,18 +1,12 @@
-'use strict';
-
-
 Object.assign(
     $_QE.prototype,
     {
         render: function(delta) {
-
-
             if (this.flag_is_on(QEFLAG_STATE_IN_TRANSITION)) {
                 this._current_transition.render(delta);
             } else {
                 this.effect_composer.render(delta);
             }
-
 
             //this.renderer.clearDepth();
             //this.renderer.render(this.manager_world.current_world.scene, this.camera);

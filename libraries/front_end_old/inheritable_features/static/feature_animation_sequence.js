@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureAnimationSequence = function() {};
 
 $_QE.prototype.FeatureAnimationSequence.prototype = {

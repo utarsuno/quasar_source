@@ -1,5 +1,3 @@
-'use strict';
-
 //const DIAGONAL_PENALTY = 0.7071067811865476;
 // _movement_diagonal = _movement_speed * DIAGONAL_PENALTY;
 

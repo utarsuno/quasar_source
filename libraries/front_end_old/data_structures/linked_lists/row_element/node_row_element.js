@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LLNodeRowElement = function(object) {
     this._object = object;
 };

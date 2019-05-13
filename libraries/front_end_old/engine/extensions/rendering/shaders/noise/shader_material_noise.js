@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.ShaderMaterialNoise = function() {
     let uniforms = {};
     uniforms[SHADER_UNIFORM_NOISE_T_DIFFUSE]   = this._get_value(null);

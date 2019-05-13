@@ -1,5 +1,3 @@
-'use strict';
-
 // TODO: Potentially move the spot of these 2.
 const USER_DATA_KEY_PARENT_OBJECT         = 'p'; // #pre-process_global_constant
 const IS_CURRENTLY_LOOKED_AT              = 'i'; // #pre-process_global_constant

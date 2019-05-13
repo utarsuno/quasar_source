@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.Player = function(engine) {
     this.engine     = engine;
     this._cache[10] = 27.5;

@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureInteractive = function() {
 
     //this.trigger_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE);

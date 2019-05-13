@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.ShaderMaterialTransition = function() {
     this.texture = QE.manager_assets.get_asset(ASSET_TEXTURE_TRANSITION);
 

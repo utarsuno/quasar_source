@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.World.prototype, {
 
     __init__world_feature_root: function() {

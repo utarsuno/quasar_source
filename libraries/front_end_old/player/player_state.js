@@ -1,6 +1,3 @@
-'use strict';
-
-
 Object.assign(
     $_QE.prototype.Player.prototype,
     $_QE.prototype.FiniteStateMachine.prototype,

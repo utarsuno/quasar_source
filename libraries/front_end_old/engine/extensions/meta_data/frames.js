@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype, {
 
     /*___       __          ___          __   __       ___  ___          __   __   __
@@ -88,14 +86,6 @@ Object.assign($_QE.prototype, {
         this._delta_clock.start();
 
         // TODO: Set a delay here?
-    },
-
-    _clear_frames: function() {
-        this._cachef[QECACHEF_ELAPSED_TIME_PHYSICS] = 0.0;
-        this._cachef[QECACHEF_ELAPSED_TIME_LOGIC]   = 0.0;
-        this._cachef[QECACHEF_ELAPSED_TIME_RENDER]  = 0.0;
-        this._cachef[QECACHEF_ELAPSED_TIME_SECOND]  = 0.0;
-        this._cachei[QECACHEI_FRAME_COUNTER]        = 0;
     },
 
 });

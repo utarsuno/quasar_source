@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FloatingRows = function() {};
 
 Object.assign(

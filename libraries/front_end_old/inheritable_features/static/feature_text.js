@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FeatureText = function() {};
 
 Object.assign(

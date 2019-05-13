@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.FiniteStateMachine = function() {};
 
 $_QE.prototype.FiniteStateMachine.prototype = {

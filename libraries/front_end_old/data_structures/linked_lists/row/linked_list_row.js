@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.LinkedListRows = function() {};
 
 Object.assign(

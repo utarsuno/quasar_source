@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.DemoWorld = function(engine) {
     this.init_world('Demo', ASSET_ICON_PLANET, engine);
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const HEADER_INDEX_TYPE  = 0; // #pre-process_global_constant
 const HEADER_INDEX_MID   = 1; // #pre-process_global_constant
 const HEADER_INDEX_SID   = 2; // #pre-process_global_constant

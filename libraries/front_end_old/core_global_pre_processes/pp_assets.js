@@ -1,5 +1,3 @@
-'use strict';
-
 const ASSET_TEXTURE_SPRITE_SHEET  = 'p0.png'; // #pre-process_global_constant
 const ASSET_TEXTURE_TRANSITION    = 'p1.jpg'; // #pre-process_global_constant
 const ASSET_TEXTURE_SKYBOX_FRONT  = 'f.jpg';  // #pre-process_global_constant

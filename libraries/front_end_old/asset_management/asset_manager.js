@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.AssetManager = function(engine) {
 
     this.engine                      = engine;

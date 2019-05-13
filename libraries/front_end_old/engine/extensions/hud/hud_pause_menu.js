@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype._PauseMenu = function(engine) {
     this.engine = engine;
     this.initialize_element_data();

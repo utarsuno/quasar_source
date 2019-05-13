@@ -1,5 +1,3 @@
-'use strict';
-
 const KEY_CODE__SHIFT      = 16;           // #pre-process_global_constant
 const KEY_CODE__SPACE      = 32;           // #pre-process_global_constant
 const KEY_CODE__UP         = 38;           // #pre-process_global_constant

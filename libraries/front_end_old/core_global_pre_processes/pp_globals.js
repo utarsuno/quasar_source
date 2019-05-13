@@ -1,5 +1,3 @@
-'use strict';
-
 // Common file types.
 const IMAGE_TYPE_PNG          = 'image/png';          // #pre-process_global_constant
 const IMAGE_TYPE_JPEG         = 'image/jpeg';         // #pre-process_global_constant

@@ -1,5 +1,3 @@
-'use strict';
-
 const PRE_COMPUTED_VAL_H          = 55.42562484741211;  // #pre-process_global_constant
 const PRE_COMPUTED_VAL_TWO_H      = 110.85124969482422; // #pre-process_global_constant
 // W_DISTANCE = Math.sqrt(3 * this.h * this.h);

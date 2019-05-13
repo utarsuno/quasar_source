@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.Text2D = function(args) {
     /*this.set_dimensions(width, height);
     let w = QE.manager_text2D.get_text_width(text, font);

@@ -8,6 +8,8 @@
 
 namespace QuasarSource\Utilities\Files;
 use Exception;
+use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
 use QuasarSource\Utilities\Files\PathUtilities        as UPO;
 use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
 use Symfony\Component\Yaml\Yaml;
@@ -125,6 +127,17 @@ abstract class FileUtilities {
     public static function get_yaml_contents(string $path) : array {
         UPO::is_valid($path, true);
         return Yaml::parseFile($path);
+    }
+
+    public static function get_css_minified_contents(string $path): string {
+        $contents  = self::get_contents_as_list($path);
+        $num_lines = count($contents);
+        if ($num_lines > 1) {
+            DBG::throw_exception('File{' . $path . '} has more than 1 line of code!');
+        } else if ($num_lines === 0) {
+            DBG::throw_exception('File{' . $path . '} has no contents!');
+        }
+        return $contents[0];
     }
 
     public static function create_or_overwrite_file(string $path, string $contents) : void {

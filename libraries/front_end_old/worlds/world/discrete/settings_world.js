@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.SettingsWorld = function(engine) {
     this.init_world('Settings', ASSET_ICON_GEARS, engine);
     this.set_world_enter_default_position(new THREE.Vector3(-34.79899682521624, 557.3571839639006, 1802.99541871182));

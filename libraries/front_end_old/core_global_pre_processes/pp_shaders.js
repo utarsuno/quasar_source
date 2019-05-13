@@ -1,5 +1,3 @@
-'use strict';
-
 // From spritesheet shader.
 const SHADER_UNIFORM_SPRITESHEET_OFFSET      = 'offset';  // #pre-process_global_constant
 const SHADER_UNIFORM_SPRITESHEET_TEXTURE     = 'texture'; // #pre-process_global_constant

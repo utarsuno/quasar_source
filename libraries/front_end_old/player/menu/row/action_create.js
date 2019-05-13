@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.PlayerMenuRowCreate = function(menu) {
     this.__init__(menu, ASSET_ICON_WRENCH, 'create', this._action_create.bind(this));
 

@@ -1,6 +1,3 @@
-'use strict';
-
-
 $_QE.prototype.Button2D = function(args) {
     args[ARG_ALIGNMENT_TEXT] = TEXT_ALIGNMENT_CENTER;
     this.__init__text2d(args);

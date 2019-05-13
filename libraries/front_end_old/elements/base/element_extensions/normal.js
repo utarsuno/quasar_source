@@ -1,5 +1,3 @@
-'use strict';
-
 Object.assign($_QE.prototype.FloatingElement.prototype, {
 
     set_to_absolute_normal: function() {

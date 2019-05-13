@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.PlayerMenuRow = function() {};
 
 $_QE.prototype.PlayerMenuRow.prototype = {

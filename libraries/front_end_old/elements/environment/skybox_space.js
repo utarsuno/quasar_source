@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.SkyBoxSpace = function(alias) {
     this.create_singleton();
     this.set_alias(alias);

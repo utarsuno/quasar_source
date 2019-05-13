@@ -11,12 +11,13 @@ use QuasarSource\Utilities\StringUtilities               as STR;
 
 class HTMLBuildSection extends AssetBuildSection {
 
-    private const PRE_PROCESS = '#pre-process-replace-style{';
+    private const PRE_PROCESS       = '#pre-process-replace-style{';
+    private const PATTERN_MATCH     = '/*' . self::PRE_PROCESS;
+    private const PATTERN_FILE_NAME = ['/*', '}*/', '<style>', '</style>', self::PRE_PROCESS];
+    private const PATTERN_FILE_LINE = ['/*', '}*/', self::PRE_PROCESS];
 
-    public function __construct(array $raw_data, CodeBuilderService $code_builder) {
-        $this->ensure_config_file_data($raw_data, UFO::EXTENSION_HTML);
-        parent::__construct(UFO::EXTENSION_HTML, $raw_data['assets'][UFO::EXTENSION_HTML], $code_builder);
-        $this->is_enabled_minification = true;
+    public function __construct(CodeBuilderService $code_builder) {
+        parent::__construct(UFO::EXTENSION_HTML, $code_builder, true);
     }
 
     protected function handle_step_processed(EntityFile $file, string $output_file_path): ?EntityFile {
@@ -28,25 +29,13 @@ class HTMLBuildSection extends AssetBuildSection {
         $processed_lines = [];
         $lines           = UFO::get_contents_as_list($file_path);
         foreach ($lines as $line) {
-            if (STR::contains($line, '/*' . self::PRE_PROCESS)) {
-                $css_file_name = STR::get_matches_removed(trim($line), ['/*', '}*/', '<style>', '</style>', self::PRE_PROCESS]);
-                $modified_line = STR::get_matches_removed($line, ['/*', '}*/', self::PRE_PROCESS]);
-
-                if ($this->repo_entity_files->has_checked_file_by_path($css_file_name)) {
-                    $contents = UFO::get_contents_as_list($css_file_name);
-
-                    if (count($contents) > 1) {
-                        DBG::throw_exception('File{' . $css_file_name . '} has more than 1 line of code!');
-                    } else if (count($contents) === 0) {
-                        DBG::throw_exception('File{' . $css_file_name . '} has no contents!');
-                    }
-                    $contents = $contents[0];
-
-                    $modified_line = STR::replace($modified_line, $css_file_name, $contents);
-                } else {
+            if (STR::contains($line, self::PATTERN_MATCH)) {
+                $css_file_name     = STR::get_matches_removed(trim($line), self::PATTERN_FILE_NAME);
+                if (!$this->repo_entity_files->has_checked_file_by_path($css_file_name)) {
                     DBG::throw_exception('Needed pre-process file not found in memory {' . $css_file_name . '}');
                 }
-                $processed_lines[] = $modified_line;
+                $modified_line     = STR::get_matches_removed($line, self::PATTERN_FILE_LINE);
+                $processed_lines[] = STR::replace($modified_line, $css_file_name, UFO::get_css_minified_contents($css_file_name));
             } else {
                 $processed_lines[] = $line;
             }

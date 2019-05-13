@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.HUDElement = function() {};
 Object.assign(
     $_QE.prototype.HUDElement.prototype,

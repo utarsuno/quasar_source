@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.WorldManager = function(engine) {
     this.engine      = engine;
     this.player      = engine.player;

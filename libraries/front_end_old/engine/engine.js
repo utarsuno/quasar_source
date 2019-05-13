@@ -1,8 +1,4 @@
-'use strict';
-
-
 let QE;
-
 
 function $_QE(application, application_first_world) {
     QE                           = this;
@@ -19,7 +15,6 @@ function $_QE(application, application_first_world) {
 
     // If current client's browsers has all needed features then create and run the main engine and application provided.
     if (this._are_required_features_enabled()) {
-        this.__init__cache();
         this.__init__engine();
         this.__init__state();
     } else {

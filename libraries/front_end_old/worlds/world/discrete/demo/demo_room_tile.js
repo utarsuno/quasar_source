@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.DemoRoomTile = function(x, y, home_tile, demo_room) {
     this.room         = demo_room;
     this.is_home_tile = home_tile;

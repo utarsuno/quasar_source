@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.get_heap_manager = function() {
 
     /*__        __        ___  __      __   __        ___  __  ___  __      __        __   ___

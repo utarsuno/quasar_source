@@ -1,5 +1,3 @@
-'use strict';
-
 const SINGLETON_HEXAGON_GRID          = 's0_hexagon_grid';           // #pre-process_global_constant
 const SINGLETON_SKY_BOX_GRAY          = 's1_sky_box_gray';           // #pre-process_global_constant
 const SINGLETON_SKY_BOX_SPACE         = 's2_sky_box_space';          // #pre-process_global_constant

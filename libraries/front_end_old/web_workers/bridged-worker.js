@@ -1,5 +1,3 @@
-'use strict';
-
 // Original source code modified.
 
 $_QE.prototype.FactoryBridgedWorker = function (workerFunction, workerExportNames, mainExportNames, mainExportHandles) {

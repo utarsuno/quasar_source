@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.HUDUserTyping = function() {};
 
 Object.assign(

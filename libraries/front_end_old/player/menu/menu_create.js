@@ -1,5 +1,3 @@
-'use strict';
-
 $_QE.prototype.PlayerMenuCreate = function(player, world, parent_row) {
     this.parent_row = parent_row;
     this.__init__(player);
