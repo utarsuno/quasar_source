@@ -1,26 +1,26 @@
-$_QE.prototype.FiniteStateMachine = function() {};
+import State from 'state';
 
-$_QE.prototype.FiniteStateMachine.prototype = {
+let FiniteStateMachine = function() {};
+
+FiniteStateMachine.prototype = {
 
     __init__state_machine: function() {
         this.state_current  = null;
         this.state_previous = null;
+        this.states         = [];
     },
 
     add_state: function(state_id, state_exit_function, state_enter_function) {
-        let state = new $_QE.prototype.State(state_id, state_exit_function, state_enter_function);
-        if (this._states === null) {
-            this._states = [];
-        }
-        this._states.push(state);
+        let state = new State.State(state_id, state_exit_function, state_enter_function);
+        this.states.push(state);
         return state;
     },
 
     _get_state: function(state) {
         let s;
-        for (s = 0; s < this._states.length; s++) {
-            if (this._states[s].id === state) {
-                return this._states[s];
+        for (s = 0; s < this.states.length; s++) {
+            if (this.states[s].id === state) {
+                return this.states[s];
             }
         }
     },
@@ -59,3 +59,7 @@ $_QE.prototype.FiniteStateMachine.prototype = {
     },
 
 };
+
+export default {
+    FiniteStateMachine: FiniteStateMachine
+}

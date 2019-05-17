@@ -18,6 +18,7 @@ abstract class PathUtilities {
     public const NODE_FILE_MINIFY_JS   = self::NODE_DIRECTORY . 'minify_js_file.js';
     public const QA_REPORT             = self::ASSET_SERVER . 'code_manager/report.xml';
     public const YML_FILE_CODE_MANAGER = '/quasar_source/configs/code_manager.yml';
+    public const UTILITIES_TEST        = self::ASSET_SERVER . 'code_manager/tests/universal_utilities/files/PathUtilitiesTest.php';
 
     private static $cwd;
 

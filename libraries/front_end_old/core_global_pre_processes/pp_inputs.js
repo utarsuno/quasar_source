@@ -46,6 +46,3 @@ const KEY_CODE__ENTER      = 13;           // #pre-process_global_constant
 const KEY_CODE__CONTROL    = 17;           // #pre-process_global_constant
 const KEY_CODE__BACK_SLASH = 220;          // #pre-process_global_constant
 
-const CLICK_LEFT   = 1;                    // #pre-process_global_constant
-const CLICK_MIDDLE = 2;                    // #pre-process_global_constant
-const CLICK_RIGHT  = 3;                    // #pre-process_global_constant

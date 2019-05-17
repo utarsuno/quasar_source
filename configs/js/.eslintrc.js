@@ -205,11 +205,6 @@ module.exports = {
         "ARG_DOM_ELEMENT_ID"            : false,
 
         //
-        "CLICK_LEFT"      : false,
-        "CLICK_MIDDLE"    : false,
-        "CLICK_RIGHT"     : false,
-
-        //
         "GLOBAL_ID_PAUSED_BACKGROUND_FILTER"    : false,
         "GLOBAL_ID_PAUSE_DISPLAY"               : false,
         "GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE"    : false,

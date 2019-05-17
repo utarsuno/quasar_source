@@ -32,7 +32,7 @@ RUN_PHP_UNIT_CMD="php bin/phpunit --log-junit report.xml" # --log-teamcity
 cd /quasar_source/applications/asset_server/code_manager;
 #php -S "0.0.0.0:80"
 
-#${RUN_PHP_UNIT_CMD}
+${RUN_PHP_UNIT_CMD}
 ${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #curl -s https://getcomposer.org/installer
