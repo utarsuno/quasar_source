@@ -24,7 +24,7 @@ abstract class AbstractTestFileCommand extends FileTestSuite {
     protected $command_class;
     protected $command_name;
 
-    protected function run_compression_assertion(float $minimum_allowed_compression_achieved) : void {
+    protected function run_compression_assertion(float $minimum_allowed_compression_achieved): void {
         $application    = new Application();
         $command        = new $this->command_class();
         $application->add($command);

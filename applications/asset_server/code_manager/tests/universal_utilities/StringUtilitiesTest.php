@@ -15,7 +15,7 @@ class StringUtilitiesTest extends FileTestSuite {
 
     protected $class_to_test = STR::class;
 
-    public function test_get_matches_removed() : void {
+    public function test_get_matches_removed(): void {
         $this->assert_equals_scenarios(
             'get_matches_removed',
             [
@@ -29,7 +29,7 @@ class StringUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_replace() : void {
+    public function test_replace(): void {
         $this->assert_equals_scenarios(
             'replace',
             [
@@ -40,7 +40,7 @@ class StringUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_split() : void {
+    public function test_split(): void {
         $this->assert_equals_scenarios(
             'split',
             [
@@ -50,7 +50,7 @@ class StringUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_contains() : void {
+    public function test_contains(): void {
         $this->assert_positive_and_negative_scenarios(
             'contains',
             [
@@ -77,7 +77,7 @@ class StringUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_ensure_starts_with() : void {
+    public function test_ensure_starts_with(): void {
         $simple_case = 'png';
         STR::ensure_starts_with($simple_case, '.');
         $this->assertTrue(STR::starts_with($simple_case, '.'));
@@ -85,7 +85,7 @@ class StringUtilitiesTest extends FileTestSuite {
         $this->assertFalse(STR::starts_with($simple_case, '.'));
     }
 
-    public function test_starts_with() : void {
+    public function test_starts_with(): void {
         $this->assert_positive_and_negative_scenarios(
             'starts_with',
             [
@@ -106,7 +106,7 @@ class StringUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_ends_with() : void {
+    public function test_ends_with(): void {
         $this->assert_positive_and_negative_scenarios(
             'ends_with',
             [

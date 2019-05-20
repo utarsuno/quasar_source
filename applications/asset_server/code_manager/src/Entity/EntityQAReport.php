@@ -8,8 +8,8 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Entity\Abstractions\EntityAbstraction;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use QuasarSource\DataStructures\Cached;
+use QuasarSource\DataStructures\TraitCached;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use QuasarSource\Utilities\DateTimeUtilities             as TIME;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
@@ -37,7 +39,8 @@ use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
  *     }
  * )
  */
-class EntityQAReport extends EntityAbstraction implements EntityInterface {
+class EntityQAReport extends EntityState implements EntityInterface, Cached {
+    use TraitCached;
 
     /**
      * @Id
@@ -111,15 +114,14 @@ class EntityQAReport extends EntityAbstraction implements EntityInterface {
 
     public function cache_set_to_checked(): void{}
 
-    protected function calculate_cache_value(string $cache_key) {
-        if ($cache_key === self::CACHE_KEY_QA_TEST_SUITE) {
-            return new ProjectTestSuiteResult($this->entity_file->getFullPath());
+    public function cache_set(string $key): void {
+        if ($key === self::CACHE_KEY_QA_TEST_SUITE) {
+            $this->cached_values[$key] = new ProjectTestSuiteResult($this->entity_file->getFullPath());
         }
-        return null;
     }
 
-    public function cache_update() : void {
-        $qa_test_suite = $this->get_cache_value(self::CACHE_KEY_QA_TEST_SUITE);
+    public function cache_update(bool $update_state=true) : void {
+        $qa_test_suite = $this->cache_get(self::CACHE_KEY_QA_TEST_SUITE);
         $this->setNumAssertions($qa_test_suite->get_num_assertions());
         $this->setNumErrors($qa_test_suite->get_num_errors());
         $this->setNumFailed($qa_test_suite->get_num_failed());
@@ -130,7 +132,7 @@ class EntityQAReport extends EntityAbstraction implements EntityInterface {
         $this->setRawReport($qa_test_suite->get_qa_report());
     }
 
-    public function on_event_first_new_creation($data): void {
+    public function on_event_born($data): void {
         $this->setEntityFile($data);
         $this->cache_update();
     }

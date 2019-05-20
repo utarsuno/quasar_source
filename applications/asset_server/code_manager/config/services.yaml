@@ -25,3 +25,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    #CodeManager\EventListener\TestHighPriorityListener:
+    #    tags:
+    #        - {name: doctrine.event_listener, event: postPersist, prority: 10}
+    #CodeManager\EventListener\TestLowPriorityListener:
+    #    tags:
+    #        - {name: doctrine.event_listener, event: postPersist, prority: 2}

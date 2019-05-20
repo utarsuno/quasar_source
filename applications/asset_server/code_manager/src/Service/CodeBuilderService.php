@@ -8,75 +8,138 @@
 
 namespace CodeManager\Service;
 
-use CodeManager\Abstractions\BuildSection;
-use CodeManager\Abstractions\CSSBuildSection;
-use CodeManager\Abstractions\HTMLBuildSection;
-use CodeManager\Abstractions\JSONBuildSection;
-use CodeManager\Abstractions\NPMLibraryBuildSection;
-use CodeManager\Abstractions\QAReportBuildSection;
+use CodeManager\Command\CodeHealthCheckCommand;
+use CodeManager\Entity\EntityDirectory;
 use CodeManager\Entity\EntityFile;
-use CodeManager\Repository\AbstractRepository;
+use CodeManager\Entity\EntityNPMLib;
+use CodeManager\Entity\EntityQAReport;
+use CodeManager\Entity\Users\EntityUser;
+use CodeManager\Entity\Users\EntityUserRole;
+use CodeManager\Repository\EntityDirectoryRepository;
+use CodeManager\Repository\EntityFileRepository;
+use CodeManager\Repository\EntityNPMLibRepository;
+use CodeManager\Repository\EntityQAReportRepository;
+use CodeManager\Repository\Users\EntityUserRepository;
+use CodeManager\Repository\Users\EntityUserRoleRepository;
+use CodeManager\Service\Abstractions\BaseAbstractService;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
+use QuasarSource\BuildProcess\CSSBuildSection;
+use QuasarSource\BuildProcess\DBBuildSection;
+use QuasarSource\BuildProcess\HTMLBuildSection;
+use QuasarSource\BuildProcess\JSONBuildSection;
+use QuasarSource\BuildProcess\NPMLibBuildSection;
+use QuasarSource\BuildProcess\QAReportBuildSection;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
-use QuasarSource\Utilities\Files\FileUtilities        as UFO;
-use QuasarSource\Utilities\Files\PathUtilities        as PATH;
-use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
+use QuasarSource\Traits\TraitConfigParams;
+use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
+use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\Files\FileUtilities;
+use QuasarSource\Utilities\Files\PathUtilities as PATH;
 
 
 class CodeBuilderService extends BaseAbstractService {
+    use TraitConfigParams;
 
-    public const ENTITY_REPOSITORY_FILES     = 'EntityRepositoryFiles';
-    public const ENTITY_REPOSITORY_QA_REPORT = 'EntityRepositoryQAReport';
-    public const ENTITY_REPOSITORY_NPM_LIBS  = 'EntityRepositoryNPMLibs';
-
-    public const BUILD_SECTION_CSS           = CSSBuildSection::class;
-    public const BUILD_SECTION_HTML          = HTMLBuildSection::class;
-    public const BUILD_SECTION_JSON          = JSONBuildSection::class;
-    public const BUILD_SECTION_NPM_LIBS      = NPMLibraryBuildSection::class;
-    public const BUILD_SECTION_QA_REPORT     = QAReportBuildSection::class;
-
-    private const BUILD_SECTION_CLASSES      = [
-        self::BUILD_SECTION_CSS, self::BUILD_SECTION_HTML, self::BUILD_SECTION_JSON, self::BUILD_SECTION_NPM_LIBS, self::BUILD_SECTION_QA_REPORT
+    private const REPO_TO_ENTITY = [
+        EntityFileRepository::class      => EntityFile::class,
+        EntityDirectoryRepository::class => EntityDirectory::class,
+        EntityQAReportRepository::class  => EntityQAReport::class,
+        EntityNPMLibRepository::class    => EntityNPMLib::class,
+        EntityUserRepository::class      => EntityUser::class,
+        EntityUserRoleRepository::class  => EntityUserRole::class,
     ];
 
+    private const BUILD_STEPS = [
+        CSSBuildSection::class,
+        HTMLBuildSection::class,
+        JSONBuildSection::class,
+        NPMLibBuildSection::class,
+        QAReportBuildSection::class,
+        DBBuildSection::class
+    ];
+
+    /** @var EntityManagerInterface */
+    private $entity_manager;
     /** @var array */
     private $config;
     /** @var array */
     private $all_build_sections = [];
     /** @var array */
     private $entity_repos       = [];
+    /** @var CodeHealthCheckCommand */
+    private $cmd;
 
     /**
+     * CodeBuilderService constructor.
+     * @param LoggerInterface $logger
+     * @param EntityManagerInterface $entity_manager
+     * @throws ExceptionInvalidConfigurationFile
      * @throws Exception
      */
-    private function ensure_config_data_loaded() : void {
-        if ($this->config === null) {
-            $this->config = UFO::get_yaml_contents(PATH::YML_FILE_CODE_MANAGER);
-            foreach (self::BUILD_SECTION_CLASSES as $build_section_class) {
-                $this->all_build_sections[$build_section_class] = new $build_section_class($this);
-            }
+    public function __construct(LoggerInterface $logger, EntityManagerInterface $entity_manager) {
+        parent::__construct($logger);
+        $this->entity_manager             = $entity_manager;
+        EntityFile::$code_manager_service = $this;
+        $this->config_initialize(
+            [
+                'global_information' => null,
+                'assets'             => [
+                    UFO::EXTENSION_CSS             => null,
+                    UFO::EXTENSION_HTML            => null,
+                    UFO::EXTENSION_JSON            => null,
+                    UFO::EXTENSION_SHADER_VERTEX   => null,
+                    UFO::EXTENSION_SHADER_FRAGMENT => null
+                ],
+                'npm'                => null,
+                'qa_report'          => null,
+                'docker'             => null,
+                'projects'           => null
+            ],
+            UFO::get_yaml_contents(PATH::get(PATH::PROJECT_CONFIG))
+        );
+
+        foreach (self::BUILD_STEPS as $build_section_class) {
+            $this->all_build_sections[] = new $build_section_class($this);
         }
     }
 
-    public function run_code_health_check() : void {
+    public function get_cmd(): CodeHealthCheckCommand {
+        return $this->cmd;
+    }
+
+    public function set_code_builder_command(CodeHealthCheckCommand $cmd): void {
+        $this->cmd = $cmd;
+    }
+
+    public function run_code_health_check(): void {
+
+        $path = '/quasar_source/var/data/orders.json';
+
+        $content = FileUtilities::get_json_contents($path);
+
+
+        var_dump($content);
+
         #$output = RUN::run_webpack_build();
         #var_dump($output);
         #exit();
 
-        $this->ensure_config_data_loaded();
-        $this->run_all_builds();
-        $this->print_final_results();
+        var_dump('Code Health Check disabled');
+        #$this->run_all_builds();
+        #$this->print_final_results();
     }
 
-    private function run_all_builds() : void {
-        /** @var BuildSection $build_section */
+    private function run_all_builds(): void {
         foreach ($this->all_build_sections as $build_section) {
-            $build_section->run_build();
+            $build_section->run_unit_of_work();
         }
     }
 
-    private function print_final_results() : void {
-        $repo_entity_files = $this->get_repo(self::ENTITY_REPOSITORY_FILES);
+    private function print_final_results(): void {
+        $repo_entity_files = $this->get_repo(EntityFileRepository::class);
         $all_db_files      = $repo_entity_files->get_all_entities();
 
         foreach ($all_db_files as $entity_file) {
@@ -90,22 +153,19 @@ class CodeBuilderService extends BaseAbstractService {
             }
         }
 
-        $qa_results = new ProjectTestSuiteResult(PATH::QA_REPORT);
+        $qa_results = new ProjectTestSuiteResult(PATH::get(PATH::QA_REPORT));
         var_dump($qa_results->get_qa_report());
     }
 
-    public function set_services(EntityFileRepoService $repo_files, EntityQAReportRepoService $qa_report, EntityNPMLibraryRepoService $npm_libs) : void {
-        $this->entity_repos[self::ENTITY_REPOSITORY_FILES]     = $repo_files->get_repo();
-        $this->entity_repos[self::ENTITY_REPOSITORY_QA_REPORT] = $qa_report->get_repo();
-        $this->entity_repos[self::ENTITY_REPOSITORY_NPM_LIBS]  = $npm_libs->get_repo();
-    }
-
-    public function get_config() : array {
-        return $this->config;
-    }
-
-    public function get_repo(string $repo_key) : AbstractRepository {
+    public function get_repo(string $repo_key) : ObjectRepository {
+        if (!array_key_exists($repo_key, $this->entity_repos)) {
+            $this->set_repo($repo_key, self::REPO_TO_ENTITY[$repo_key]);
+        }
         return $this->entity_repos[$repo_key];
+    }
+
+    private function set_repo(string $repo_key, string $entity_class): void {
+        $this->entity_repos[$repo_key] = $this->entity_manager->getRepository($entity_class);
     }
 
 }

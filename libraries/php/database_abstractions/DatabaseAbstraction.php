@@ -56,7 +56,7 @@ abstract class DatabaseAbstraction implements DatabaseConnection {
      *
      * @return void
      */
-    public function connect() : void {
+    public function connect(): void {
         $this->db_connection = $this->get_connection();
     }
 
@@ -65,7 +65,7 @@ abstract class DatabaseAbstraction implements DatabaseConnection {
      *
      * @return void
      */
-    public function terminate() : void {
+    public function terminate(): void {
     }
 
     abstract protected function get_connection();

@@ -10,6 +10,7 @@ namespace CodeManager\Repository;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\EntityQAReport;
+use CodeManager\Repository\Abstractions\AbstractRepository;
 
 class EntityQAReportRepository extends AbstractRepository {
 
@@ -17,9 +18,5 @@ class EntityQAReportRepository extends AbstractRepository {
     protected $entity_class = EntityQAReport::class;
 
     protected function event_before_remove_entity(EntityInterface $entity): void {}
-
-    protected function event_entity_created(EntityInterface $entity, $value): void {
-        $entity->on_event_first_new_creation($value);
-    }
 
 }

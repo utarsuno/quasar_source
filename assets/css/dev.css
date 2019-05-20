@@ -1,0 +1,9 @@
+/* TODO: Fully test the difference with and without this.*/
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}

@@ -29,7 +29,7 @@ class DirectoryInstance extends FileAbstraction {
         parent::__construct($path, $path . DIRECTORY_SEPARATOR, false, $parent);
     }
 
-    public function print_tree(string $offset='') : void {
+    public function print_tree(string $offset=''): void {
         L::ll($offset . 'D', $this->get_path_full());
         foreach ($this->children as $child) {
             if ($child->is_file()) {
@@ -40,7 +40,7 @@ class DirectoryInstance extends FileAbstraction {
         }
     }
 
-    private function add_file_from_path(string $path) : void {
+    private function add_file_from_path(string $path): void {
 
         $instance = FileManager::get_needed_file_class_type($path, $this);
         if ($instance === null) {
@@ -94,7 +94,7 @@ class DirectoryInstance extends FileAbstraction {
         return null;
     }
 
-    public function load_cache(bool $use_recursion=false) : void {
+    public function load_cache(bool $use_recursion=false): void {
         if (!$this->cached) {
             $this->cached     = true;
             $path_full        = $this->get_path_full();

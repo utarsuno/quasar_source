@@ -17,7 +17,7 @@ abstract class ArrayUtilities {
      * @param array $array             < The array to remove elements from.                                >
      * @param int   $number_to_remove  < The number of elements to be removed from the start of the array. >
      */
-    public static function remove_first_n(array & $array, int $number_to_remove) : void {
+    public static function remove_first_n(array & $array, int $number_to_remove): void {
         if ($number_to_remove <= 0 || !isset($array)) {
             return;
         }
@@ -34,7 +34,7 @@ abstract class ArrayUtilities {
      * @param array $a1 < The second array to compare to.                                  >
      * @return bool     < True if both arrays have the same values, order does not matter. >
      */
-    public static function string_arrays_have_same_values(array $a0, array $a1) : bool {
+    public static function string_arrays_have_same_values(array $a0, array $a1): bool {
         /** @noinspection TypeUnsafeComparisonInspection */
         return array_count_values($a0) == array_count_values($a1);
     }

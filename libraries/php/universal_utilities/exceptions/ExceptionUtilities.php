@@ -16,7 +16,7 @@ abstract class ExceptionUtilities {
      * @param null $exception
      * @throws RuntimeException
      */
-    public static function throw_exception(string $message, $exception=null) : void {
+    public static function throw_exception(string $message, $exception=null): void {
         throw new RuntimeException($message, 0, $exception);
     }
 
@@ -24,7 +24,7 @@ abstract class ExceptionUtilities {
      * @param string $missing_section
      * @throws ExceptionInvalidConfigurationFile
      */
-    public static function throw_exception_config_file(string $missing_section) : void {
+    public static function throw_exception_config_file(string $missing_section): void {
         throw new ExceptionInvalidConfigurationFile('Section' . $missing_section. '} missing from config file');
     }
 

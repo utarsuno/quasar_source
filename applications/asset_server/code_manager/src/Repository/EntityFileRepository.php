@@ -9,7 +9,9 @@
 namespace CodeManager\Repository;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Entity\EntityFile;
+use CodeManager\Repository\Abstractions\AbstractRepository;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\Files\FileUtilities           as UFO;
 
@@ -19,17 +21,12 @@ class EntityFileRepository extends AbstractRepository {
     protected $default_search_attribute = 'full_path';
     protected $entity_class             = EntityFile::class;
 
-    private const FILE_STATE_CREATED   = 'cache_created';
-    private const FILE_STATE_UPDATED   = 'cache_updated';
-    private const FILE_STATE_NO_CHANGE = 'cache_no_change';
-    private $files_created             = [];
-    private $files_updated             = [];
-    private $files_no_delta            = [];
-
     public function does_child_file_exist_as_needed(EntityFile $file, string $path_to_child) : bool {
         if (!$file->hasChild()) {
             if ($this->has_entity($path_to_child)) {
-                //$this->warn('EntityFile{' . $base_file->getName() . '} did not have a child ID but cached path{' . $path_to_child . '} exists as a DB record, deleting the record!');
+                var_dump($file->getFullName());
+                var_dump('EntityFile{' . $file->getFullName() . '} did not have a child ID but cached path{' . $path_to_child . '} exists as a DB record, deleting the record!');
+                exit();
                 $this->remove_entity($this->get_entity($path_to_child));
             }
             return false;
@@ -37,7 +34,7 @@ class EntityFileRepository extends AbstractRepository {
         return true;
     }
 
-    protected function set_entity_file_child(EntityFile $parent, EntityFile $child) : void {
+    protected function set_entity_file_child(EntityFile $parent, EntityFile $child): void {
         if ($parent->getChild() === null) {
             $parent->setChild($child);
         }
@@ -79,55 +76,26 @@ class EntityFileRepository extends AbstractRepository {
                 case EntityFile::FLAG_PRE_PROCESS:
                     return $this->create_new_child_entity($file, $path_to_child, $options);
             }
+            $file->set_state(EntityState::STATE_UPDATED);
+            $file->getChild()->set_state(EntityState::STATE_CREATED);
+        } else {
+            // TODO: probably wrong logic here
+            $file->getChild()->set_state(EntityState::STATE_NO_CHANGE);
         }
         return $file->getChild();
     }
 
-    protected function event_entity_created(EntityInterface $entity, $data): void {
-        $this->record_file_state($entity, self::FILE_STATE_CREATED);
-    }
-
-    private function record_file_state(EntityFile $file, string $file_state) : void {
-        $file_path = $file->getFullPath();
-        switch ($file_state) {
-            case self::FILE_STATE_CREATED:
-                $this->files_created[$file_path] = $file;
-                break;
-            case self::FILE_STATE_UPDATED:
-                $this->files_updated[$file_path] = $file;
-                break;
-            case self::FILE_STATE_NO_CHANGE:
-                $this->files_no_delta[$file_path] = $file;
-                break;
-        }
-    }
-
-    public function has_checked_file_by_path(string $file_path) : bool {
-        if ($this->has_entity($file_path)) {
-            $file = $this->get_entity($file_path);
-            return $this->file_has_state($file, self::FILE_STATE_NO_CHANGE) || $this->did_file_cache_update($file);
-        }
-        return false;
-    }
-
-    public function did_file_cache_update(EntityFile $file) : bool {
-        return $this->file_has_state($file, self::FILE_STATE_UPDATED) || $this->file_has_state($file, self::FILE_STATE_CREATED);
-    }
-
-    private function file_has_state(EntityFile $file, string $file_state) : bool {
-        $file_path = $file->getFullPath();
-        switch ($file_state) {
-            case self::FILE_STATE_CREATED:
-                return array_key_exists($file_path, $this->files_created);
-            case self::FILE_STATE_UPDATED:
-                return array_key_exists($file_path, $this->files_updated);
-            case self::FILE_STATE_NO_CHANGE:
-                return array_key_exists($file_path, $this->files_no_delta);
-        }
-        return false;
-    }
-
     protected function event_before_remove_entity(EntityInterface $entity): void {
+        var_dump('REMOVING CHILD!');
+        var_dump($entity->getName());
+        #var_dump($entity);
+        if ($entity->hasParent()) {
+            $parent = $entity->getParent();
+            $parent->remove_child();
+            $entity->remove_parent();
+            $this->save_entity($parent);
+            $this->save_entity($entity);
+        }
         if ($entity->hasChild()) {
             $this->remove_entity($entity->getChild());
         }

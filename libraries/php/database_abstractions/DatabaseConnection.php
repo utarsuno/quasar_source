@@ -15,13 +15,13 @@ interface DatabaseConnection {
      *
      * @return void
      */
-    public function connect() : void;
+    public function connect(): void;
 
     /**
      * Terminate the connection to the database.
      *
      * @return void
      */
-    public function terminate() : void;
+    public function terminate(): void;
 
 }

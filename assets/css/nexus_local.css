@@ -8,6 +8,11 @@ Do not worry about logically organizing & optimizing the CSS rules, this is auto
     src: url('Inconsolata.woff') format('woff');
 }
 
+/* TODO: Fully test the difference with and without this.*/
+html, body {
+    height: 100%;
+}
+
 /*__             __   ___  __      __  ___      ___  ___
  |__)  /\  |  | /__` |__  |  \    /__`  |   /\   |  |__
  |    /~~\ \__/ .__/ |___ |__/    .__/  |  /~~\  |  |___ */

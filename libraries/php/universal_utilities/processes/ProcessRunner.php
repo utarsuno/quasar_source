@@ -31,7 +31,7 @@ class ProcessRunner {
         $this->raise_exception_on_error = $raise_exception_on_error;
     }
 
-    public function run() : void {
+    public function run(): void {
         if ($this->cwd !== null && PATH::get_current_cwd() !== $this->cwd) {
             PATH::set_current_cwd($this->cwd);
         }

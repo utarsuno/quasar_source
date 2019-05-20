@@ -43,15 +43,15 @@ abstract class FileAbstraction implements InterfacePatternChild {
         }
     }
 
-    public function is_file() : bool {
+    public function is_file(): bool {
         return $this->is_type_file;
     }
 
-    public function get_path_relative() : string {
+    public function get_path_relative(): string {
         return $this->path_relative;
     }
 
-    public function get_path_full() : string {
+    public function get_path_full(): string {
         return $this->path_full;
     }
 

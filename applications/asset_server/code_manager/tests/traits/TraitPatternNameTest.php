@@ -15,7 +15,7 @@ use QuasarSource\Traits\TraitPatternName;
 class TraitPatternNameTest extends TestCase {
     use TraitPatternName;
 
-    public function test_trait_pattern_name() : void {
+    public function test_trait_pattern_name(): void {
         $name = 'hello world';
         $this->set_name($name);
         $this->assertSame($name, $this->get_name());

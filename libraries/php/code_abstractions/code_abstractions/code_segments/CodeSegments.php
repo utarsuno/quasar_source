@@ -23,7 +23,7 @@ class CodeSegments {
         $this->last_line_number = 1;
     }
 
-    public function add_comment(string $line, bool $add_to_start=false) : void {
+    public function add_comment(string $line, bool $add_to_start=false): void {
         if (!STR::ends_with($line, PHP_EOL)) {
             $line .= PHP_EOL;
         }
@@ -36,7 +36,7 @@ class CodeSegments {
         }
     }
 
-    public function add_empty_line(bool $add_to_start=false) : void {
+    public function add_empty_line(bool $add_to_start=false): void {
         if (!$add_to_start) {
             $this->segments[] = new EmptyLine(PHP_EOL, $this->last_line_number);
             ++$this->last_line_number;
@@ -46,7 +46,7 @@ class CodeSegments {
         }
     }
 
-    public function add_line(string $line, bool $add_to_start=false) : void {
+    public function add_line(string $line, bool $add_to_start=false): void {
         if (!STR::ends_with($line, PHP_EOL)) {
             $line .= PHP_EOL;
         }
@@ -59,11 +59,11 @@ class CodeSegments {
         }
     }
 
-    public function remove_all_after_and_before(LineOfCode $start, LineOfCode $end) : void {
+    public function remove_all_after_and_before(LineOfCode $start, LineOfCode $end): void {
 
     }
 
-    public function remove_all_before(LineOfCode $line_to_keep) : void {
+    public function remove_all_before(LineOfCode $line_to_keep): void {
         $delta = $line_to_keep->get_line_number() - 1;
 
         ARY::remove_first_n($this->segments, $delta);
@@ -71,14 +71,14 @@ class CodeSegments {
         $this->apply_line_number_delta(-$delta);
     }
 
-    private function apply_line_number_delta(int $delta) : void {
+    private function apply_line_number_delta(int $delta): void {
         $this->last_line_number += $delta;
         foreach ($this->segments as $line) {
             $line->apply_line_number_delta($delta);
         }
     }
 
-    public function get_line_with_text(string $text) : ?LineOfCode {
+    public function get_line_with_text(string $text): ?LineOfCode {
         foreach ($this->segments as $segment) {
             if ($segment->has_text($text)) {
                 return $segment;
@@ -87,7 +87,7 @@ class CodeSegments {
         return null;
     }
 
-    public function get_segments() : array {
+    public function get_segments(): array {
         return $this->segments;
     }
 

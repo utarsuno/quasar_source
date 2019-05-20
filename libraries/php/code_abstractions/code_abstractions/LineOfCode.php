@@ -25,23 +25,23 @@ class LineOfCode {
         $this->line_number = $line_number;
     }
 
-    public function has_text(string $text) : bool {
+    public function has_text(string $text): bool {
         return STR::contains($this->raw_line, $text);
     }
 
-    public function get_line_number() : int {
+    public function get_line_number(): int {
         return $this->line_number;
     }
 
-    public function get_line_type() : string {
+    public function get_line_type(): string {
         return $this->line_type;
     }
 
-    public function __toString() : string {
+    public function __toString(): string {
         return $this->raw_line;
     }
 
-    public function apply_line_number_delta(int $delta) : void {
+    public function apply_line_number_delta(int $delta): void {
         $this->line_number += $delta;
     }
 

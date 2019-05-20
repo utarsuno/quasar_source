@@ -37,7 +37,7 @@ class FileDockerCompose extends FileYAML {
         return $segments;
     }
 
-    private function perform_clean(CodeSegments $segments) : void {
+    private function perform_clean(CodeSegments $segments): void {
         $version  = $segments->get_line_with_text("version: '3.7'");
         $services = $segments->get_line_with_text('services:');
 
@@ -57,7 +57,7 @@ class FileDockerCompose extends FileYAML {
         UFO::set_contents($this->get_path_full(), $file_text);
     }
 
-    public function clean() : void {
+    public function clean(): void {
         L::ll('TODO: CLEAN DOCKER FILE!', $this);
 
         $lines = $this->get_lines();

@@ -32,7 +32,7 @@ class SimpleTimer {
     /**
      * Start recording the accumulation of time.
      */
-    public function start() : void {
+    public function start(): void {
         if (!$this->running) {
             $this->time_start = microtime(true);
             $this->running    = true;
@@ -42,7 +42,7 @@ class SimpleTimer {
     /**
      * Stop recording the accumulation of time.
      */
-    public function stop() : void {
+    public function stop(): void {
         if ($this->running) {
             $this->time_accumulated = microtime(true) - $this->time_start;
             $this->running          = false;
@@ -66,7 +66,7 @@ class SimpleTimer {
      *
      * @return string < Elapsed time in seconds. >
      */
-    public function __toString() : string {
+    public function __toString(): string {
         $delta = $this->get_delta();
         if ($delta < 0.01) {
             return '0s';

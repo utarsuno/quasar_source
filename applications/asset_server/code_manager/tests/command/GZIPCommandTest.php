@@ -7,7 +7,7 @@
  */
 
 namespace CodeManager\Tests\Command;
-use CodeManager\Command\GZIPCommand;
+use CodeManager\Command\Files\GZIPCommand;
 use QuasarSource\QualityAssurance\AbstractTestFileCommand;
 
 class GZIPCommandTest extends AbstractTestFileCommand {
@@ -17,7 +17,7 @@ class GZIPCommandTest extends AbstractTestFileCommand {
     protected $command_class = GZIPCommand::class;
     protected $command_name  = GZIPCommand::COMMAND_NAME;
 
-    public function test_gzip_command() : void {
+    public function test_gzip_command(): void {
         $this->run_compression_assertion(0.35);
     }
 

@@ -2,6 +2,7 @@ config_files:
   read_me.yml: 'Provides an explanation for each configuration file.'
   servers.yml: 'List of local-network servers.'
 
-
+useful_plugins:
+  phpstorm_python_syntax_coloring: ['https://github.com/textmate/python.tmbundle', 'https://www.jetbrains.com/help/phpstorm/textmate.html#e632c2b1']
 
 

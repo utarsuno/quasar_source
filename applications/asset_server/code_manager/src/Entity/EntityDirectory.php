@@ -8,8 +8,8 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Entity\Abstractions\EntityAbstraction;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
@@ -21,6 +21,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use QuasarSource\DataStructures\Cached;
+use QuasarSource\DataStructures\TraitCached;
 
 
 /**
@@ -38,7 +40,8 @@ use Doctrine\ORM\Mapping\Table;
  *     }
  * )
  */
-class EntityDirectory extends EntityAbstraction implements EntityInterface {
+class EntityDirectory extends EntityState implements EntityInterface, Cached {
+    use TraitCached;
 
     public const TYPE_NO_MATCH = -1;
     public const TYPE_IGNORE   = 1;
@@ -253,15 +256,13 @@ class EntityDirectory extends EntityAbstraction implements EntityInterface {
         return false;
     }
 
-    public function cache_update(): void {
+    public function cache_update(bool $update_state=true): void {
         // TODO: Implement cache_update() method.
     }
 
-    public function on_event_first_new_creation($data): void {
-        // TODO: Implement on_event_first_new_creation() method.
+    public function on_event_born($data): void {
+
     }
 
-    protected function calculate_cache_value(string $cache_key) {
-        return null;
-    }
+    public function cache_set(string $cache_key): void {}
 }

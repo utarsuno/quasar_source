@@ -15,7 +15,7 @@ class ArrayUtilitiesTest extends FileTestSuite {
 
     protected $class_to_test = ARY::class;
 
-    public function test_string_arrays_have_same_values() : void {
+    public function test_string_arrays_have_same_values(): void {
         $this->assert_equals_scenarios(
             'string_arrays_have_same_values',
             [
@@ -26,7 +26,7 @@ class ArrayUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_contains() : void {
+    public function test_contains(): void {
         $simple_case = ['a', 'b', 'c'];
         // Positive cases.
         $this->assertTrue(ARY::contains($simple_case, 'a'));
@@ -38,7 +38,7 @@ class ArrayUtilitiesTest extends FileTestSuite {
         $this->assertFalse(ARY::contains($simple_case, ''));
     }
 
-    public function test_remove_first_n() : void {
+    public function test_remove_first_n(): void {
         $simple_cases = ['a', 'b', 'c', 'd'];
         ARY::remove_first_n($simple_cases, 2);
         $this->assertSame(['c', 'd'], $simple_cases);

@@ -7,7 +7,7 @@
  */
 
 namespace CodeManager\Tests\Command;
-use CodeManager\Command\MinifyHTMLCommand;
+use CodeManager\Command\Files\MinifyHTMLCommand;
 use QuasarSource\QualityAssurance\AbstractTestFileCommand;
 
 
@@ -18,7 +18,7 @@ class MinifyHTMLCommandTest extends AbstractTestFileCommand {
     protected $command_class = MinifyHTMLCommand::class;
     protected $command_name  = MinifyHTMLCommand::COMMAND_NAME;
 
-    public function test_minify_html_command() : void {
+    public function test_minify_html_command(): void {
         $this->run_compression_assertion(0.30);
     }
 

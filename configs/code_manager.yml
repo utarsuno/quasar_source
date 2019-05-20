@@ -1,23 +1,33 @@
+global_information:
+  lang: 'en'
+  theme_color: '#6fff9a'
+
 assets:
   .css:
     data_directory  : '/quasar_source/assets/css/'
     output_directory: '/quasar_source/var/web_assets/'
     files           :
       nexus_local.css: ['minify', 'gzipped']
+      dev.css        : ['minify', 'gzipped']
   .html:
     data_directory  : '/quasar_source/assets/html/'
     output_directory: '/quasar_source/var/web_assets/'
     files           :
       nexus_local.html: ['pre_process', '/quasar_source/var/web_assets/nexus_local.min.css', 'minify', 'gzipped']
+      dev.html        : ['pre_process', '/quasar_source/var/web_assets/dev.min.css'        , 'minify', 'gzipped']
   .json:
     data_directory  : '/quasar_source/assets/fonts/three_js_fonts/'
     output_directory: '/quasar_source/var/web_assets/'
     files           :
       gentilis_regular.typeface.json: ['gzipped']
   .vert:
-    data_directory: '/quasar_source/assets/shaders/'
+    data_directory  : '/quasar_source/assets/shaders/'
+    output_directory: '/quasar_source/var/web_assets/'
+    files           : []
   .frag:
-    data_directory: '/quasar_source/assets/shaders/'
+    data_directory  : '/quasar_source/assets/shaders/'
+    output_directory: '/quasar_source/var/web_assets/'
+    files           : []
 
 npm:
   - 'css-tree'
@@ -30,6 +40,17 @@ npm:
 qa_report:
   stats:
     unit_tests: '/quasar_source/applications/asset_server/code_manager/report.xml'
+
+docker:
+  dev:
+    file: 'docker-compose.asset_server_only.yml'
+    containers:
+      postgres_server:
+        z_index      : 0
+        in_background: 1
+      asset_server:
+        z_index      : 1
+        in_background: 0
 
 projects:
   nexus_local:

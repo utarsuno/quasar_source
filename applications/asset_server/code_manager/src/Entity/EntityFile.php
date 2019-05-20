@@ -8,9 +8,10 @@
 
 namespace CodeManager\Entity;
 
-use CodeManager\Entity\Abstractions\EntityAbstraction;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -19,6 +20,9 @@ use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
+use Exception;
+use QuasarSource\DataStructures\Cached;
+use QuasarSource\DataStructures\TraitCached;
 use QuasarSource\Utilities\DateTimeUtilities             as TIME;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\ArrayUtilities                as ARY;
@@ -33,6 +37,7 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
  * @package CodeManager\Entity
  *
  * @Entity(repositoryClass="CodeManager\Repository\EntityFileRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Table(
  *         name="entity_file",
  *         indexes={
@@ -43,7 +48,24 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
  *         }
  *     )
  */
-class EntityFile extends EntityAbstraction implements EntityInterface {
+class EntityFile extends EntityState implements EntityInterface, Cached {
+    use TraitCached;
+
+    public static $code_manager_service;
+
+    // TESTING
+
+    /** @ORM\PreRemove() */
+    public function before_remove(): void {
+        var_dump('Entity{' . $this->getName() . '}');
+        var_dump($this->hasChild());
+        var_dump($this->hasParent());
+
+
+        var_dump('AN ENTITY FILE IS ABOUT TO BE REMOVED!');
+    }
+
+    // TESTING
 
     public const TYPE_NO_MATCH        = -1;
     public const TYPE_CSS             = 1;
@@ -73,53 +95,6 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
     public const FLAG_GZIP             = 'gzipped';
 
     private const CACHE_KEY_SHA512_SUM = 'cache_sha512_sum';
-
-    protected function calculate_cache_value(string $cache_key) {
-        if ($cache_key === self::CACHE_KEY_SHA512_SUM) {
-            return UFO::get_sha512sum($this->getFullPath());
-        }
-        return null;
-    }
-
-    public static function get_file_type_from_path(string $path) : int {
-        $all_extensions = PATH::get_all_extensions($path);
-        foreach (self::EXTENSION_TO_TYPE as $extension => $type) {
-            if (ARY::contains($all_extensions, $extension)) {
-                return $type;
-            }
-        }
-        DBG::throw_exception('No file type match for {' . $path . '}');
-        return self::TYPE_NO_MATCH;
-    }
-
-    public function get_flags() : array {
-        $options = [
-            self::FLAG_GZIP        => $this->getIsGzipped(),
-            self::FLAG_MINIFY      => $this->getIsMinified(),
-            self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
-        ];
-        return $options;
-    }
-
-    public function set_flags(array $flags) : void {
-        foreach ($flags as $flag => $value) {
-            $this->set_flag($flag, $value);
-        }
-    }
-
-    public function set_flag(string $key, bool $value) : void {
-        switch ($key) {
-            case self::FLAG_PRE_PROCESS:
-                $this->setIsPreProcessed($value);
-                break;
-            case self::FLAG_GZIP:
-                $this->setIsGzipped($value);
-                break;
-            case self::FLAG_MINIFY:
-                $this->setIsMinified($value);
-                break;
-        }
-    }
 
     /**
      * @Id
@@ -214,7 +189,57 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
      */
     private $first_cached;
 
-    public function on_event_first_new_creation($full_path): void {
+    public function cache_set(string $key): void {
+        if ($key === self::CACHE_KEY_SHA512_SUM) {
+            $this->cached_values[$key] = UFO::get_sha512sum($this->getFullPath());
+        }
+    }
+
+    public static function get_file_type_from_path(string $path) : int {
+        $all_extensions = PATH::get_all_extensions($path);
+        foreach (self::EXTENSION_TO_TYPE as $extension => $type) {
+            if (ARY::contains($all_extensions, $extension)) {
+                return $type;
+            }
+        }
+        DBG::throw_exception('No file type match for {' . $path . '}');
+        return self::TYPE_NO_MATCH;
+    }
+
+    public function get_flags(): array {
+        $options = [
+            self::FLAG_GZIP        => $this->getIsGzipped(),
+            self::FLAG_MINIFY      => $this->getIsMinified(),
+            self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
+        ];
+        return $options;
+    }
+
+    public function set_flags(array $flags): void {
+        foreach ($flags as $flag => $value) {
+            $this->set_flag($flag, $value);
+        }
+    }
+
+    public function set_flag(string $key, bool $value): void {
+        switch ($key) {
+            case self::FLAG_PRE_PROCESS:
+                $this->setIsPreProcessed($value);
+                break;
+            case self::FLAG_GZIP:
+                $this->setIsGzipped($value);
+                break;
+            case self::FLAG_MINIFY:
+                $this->setIsMinified($value);
+                break;
+        }
+    }
+
+    /**
+     * @param $full_path
+     * @throws Exception
+     */
+    public function on_event_born($full_path): void {
         $current_date_time = TIME::now();
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
@@ -225,11 +250,11 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
         $this->setIsPreProcessed(false);
         $this->setName(UPO::get_file_name($full_path));
         $this->setExtension(UPO::get_ending_extension($full_path));
-        $this->cache_update();
+        $this->cache_update(false);
     }
 
     public function cache_needs_to_be_checked() : bool {
-        return $this->sha512sum !== $this->get_cache_value(self::CACHE_KEY_SHA512_SUM);
+        return $this->sha512sum !== $this->cache_get(self::CACHE_KEY_SHA512_SUM);
     }
 
     public function cache_needs_to_be_updated(): bool {
@@ -242,11 +267,16 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
 
     /**
      * When DB values are out of date compared to the file's current values, this function is called to re-update those values.
+     * @param bool $update_state
+     * @throws Exception
      */
-    public function cache_update() : void {
+    public function cache_update(bool $update_state=true): void {
         $this->cache_set_to_checked();
         $this->setSizeInBytes(UFO::get_size($this->full_path));
-        $this->setSha512sum($this->get_cache_value(self::CACHE_KEY_SHA512_SUM));
+        $this->setSha512sum($this->cache_get(self::CACHE_KEY_SHA512_SUM));
+        if ($update_state) {
+            $this->set_state(EntityState::STATE_UPDATED);
+        }
     }
 
     /**
@@ -343,15 +373,19 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
     /**
      * @return bool
      */
-    public function hasParent() : bool {
+    public function hasParent(): bool {
         return $this->parent !== null;
+    }
+
+    public function remove_parent(): void {
+        $this->parent = null;
     }
 
     /**
      * @param mixed $parent
      * @return self
      */
-    public function setParent($parent) : self {
+    public function setParent($parent): self {
         $this->parent = $parent;
         $this->setRank($parent->getRank() + 1);
         return $this;
@@ -374,7 +408,7 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
     /**
      * @return bool
      */
-    public function hasChild() : bool {
+    public function hasChild(): bool {
         return $this->child !== null;
     }
 
@@ -382,10 +416,14 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
      * @param mixed $child
      * @return self
      */
-    public function setChild($child) : self {
+    public function setChild($child): self {
         $this->child = $child;
         $this->child->setRank($this->getRank() + 1);
         return $this;
+    }
+
+    public function remove_child(): void {
+        $this->child = null;
     }
 
     /**
@@ -585,8 +623,7 @@ class EntityFile extends EntityAbstraction implements EntityInterface {
      * @param int $rank
      * @return self
      */
-    public function setRank(int $rank): self
-    {
+    public function setRank(int $rank): self {
         $this->rank = $rank;
         return $this;
     }

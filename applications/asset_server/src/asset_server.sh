@@ -32,18 +32,23 @@ RUN_PHP_UNIT_CMD="php bin/phpunit --log-junit report.xml" # --log-teamcity
 cd /quasar_source/applications/asset_server/code_manager;
 #php -S "0.0.0.0:80"
 
-${RUN_PHP_UNIT_CMD}
+#php bin/console list
+#php bin/console doctrine:schema:validate
+
+#${RUN_PHP_UNIT_CMD}
+#${RUN_COMPOSER_CMD} install -o;
+
 ${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #curl -s https://getcomposer.org/installer
 #chmod +x ./composer.phar
 #${RUN_COMPOSER_CMD} self-update;
-#${RUN_COMPOSER_CMD} update;
-#${RUN_COMPOSER_CMD} install -o;
+#${RUN_CONSOLE} cache:clear
+
+#${RUN_COMPOSER_CMD} update -o;
 
 #${RUN_CONSOLE_CMD} list
 
-#${RUN_CONSOLE} cache:clear
 #${RUN_CONSOLE_CMD} doctrine:cache:delete
 
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force

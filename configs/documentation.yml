@@ -4,6 +4,8 @@ reference_URLs:
 
 python:
   git_abstraction: 'pip3 install gitpython'
+  yaml_parser    : 'pip3 install pyyaml'
+  color_print    : 'pip3 install lazyme'
 
 development_progress_snapshots:
   - 'https://i.imgur.com/839NKO1.jpg'

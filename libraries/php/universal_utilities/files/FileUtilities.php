@@ -9,9 +9,8 @@
 namespace QuasarSource\Utilities\Files;
 use Exception;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities        as UPO;
-use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
+use QuasarSource\Utilities\Files\PathUtilities           as UPO;
+use QuasarSource\Utilities\Processes\ProcessUtilities    as RUN;
 use Symfony\Component\Yaml\Yaml;
 
 
@@ -58,7 +57,7 @@ abstract class FileUtilities {
      * @return string      < Hex digits.                                   >
      * @throws Exception
      */
-    public static function get_sha512sum(string $path) : string {
+    public static function get_sha512sum(string $path): string {
         UPO::is_valid($path, true);
         return hash_file(self::HASH_ALGORITHM, $path);
     }
@@ -70,7 +69,7 @@ abstract class FileUtilities {
      * @return int         < The number of bytes used by file.    >
      * @throws Exception
      */
-    public static function get_size(string $path) : int {
+    public static function get_size(string $path): int {
         UPO::is_valid($path, true);
         return filesize($path);
     }
@@ -82,7 +81,7 @@ abstract class FileUtilities {
      * @param string $path_output < The path to create a minified CSS file at.   >
      * @throws Exception
      */
-    public static function minify_css(string $path_base, string $path_output) : void {
+    public static function minify_css(string $path_base, string $path_output): void {
         UPO::is_valid($path_base, true);
         RUN::minify_file_css_to($path_base, $path_output);
     }
@@ -94,7 +93,7 @@ abstract class FileUtilities {
      * @param string $path_output < The path to create a minified HTML file at.  >
      * @throws Exception
      */
-    public static function minify_html(string $path_base, string $path_output) : void {
+    public static function minify_html(string $path_base, string $path_output): void {
         UPO::is_valid($path_base, true);
         RUN::minify_file_html_to($path_base, $path_output);
     }
@@ -106,12 +105,12 @@ abstract class FileUtilities {
      * @param string $path_output < The path to create a gzipped file at.    >
      * @throws Exception
      */
-    public static function gzip(string $path_base, string $path_output) : void {
+    public static function gzip(string $path_base, string $path_output): void {
         UPO::is_valid($path_base, true);
         RUN::gzip_file_to($path_base, $path_output);
     }
 
-    public static function delete(string $path) : void {
+    public static function delete(string $path): void {
         if (UPO::is_valid($path)) {
             unlink($path);
         }
@@ -124,9 +123,14 @@ abstract class FileUtilities {
      * @return array       < An association array of the file's contents.        >
      * @throws Exception
      */
-    public static function get_yaml_contents(string $path) : array {
+    public static function get_yaml_contents(string $path): array {
         UPO::is_valid($path, true);
         return Yaml::parseFile($path);
+    }
+
+    public static function get_json_contents(string $path) {
+        UPO::is_valid($path, true);
+        return json_decode(file_get_contents($path));
     }
 
     public static function get_css_minified_contents(string $path): string {
@@ -140,18 +144,18 @@ abstract class FileUtilities {
         return $contents[0];
     }
 
-    public static function create_or_overwrite_file(string $path, string $contents) : void {
+    public static function create_or_overwrite_file(string $path, string $contents): void {
         $f = fopen($path, 'wb');
         fwrite($f, $contents);
         fclose($f);
     }
 
-    public static function set_contents(string $path, string $contents) : void {
+    public static function set_contents(string $path, string $contents): void {
         UPO::is_valid($path, true);
         file_put_contents($path, $contents, LOCK_EX);
     }
 
-    public static function get_contents_as_list(string $path) : array {
+    public static function get_contents_as_list(string $path): array {
         UPO::is_valid($path, true);
         $file_lines = [];
         $lines      = file($path);

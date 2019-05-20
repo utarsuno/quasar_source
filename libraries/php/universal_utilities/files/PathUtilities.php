@@ -10,15 +10,61 @@ use QuasarSource\Utilities\StringUtilities               as STR;
 
 abstract class PathUtilities {
 
-    // TODO: Temporary location for certain paths.
-    private const ASSET_SERVER         = '/quasar_source/applications/asset_server/';
-    public const NODE_DIRECTORY        = self::ASSET_SERVER . 'js/';
-    public const NODE_FILE_MINIFY_HTML = self::NODE_DIRECTORY . 'minify_html_file.js';
-    public const NODE_FILE_MINIFY_CSS  = self::NODE_DIRECTORY . 'minify_css_file.js';
-    public const NODE_FILE_MINIFY_JS   = self::NODE_DIRECTORY . 'minify_js_file.js';
-    public const QA_REPORT             = self::ASSET_SERVER . 'code_manager/report.xml';
-    public const YML_FILE_CODE_MANAGER = '/quasar_source/configs/code_manager.yml';
-    public const UTILITIES_TEST        = self::ASSET_SERVER . 'code_manager/tests/universal_utilities/files/PathUtilitiesTest.php';
+    private const QS                 = '/quasar_source/';
+    private static $cached_paths     = [null, null, null, null, null, null, null, null, null];
+    public const PROJECT_BASE        = 0;
+    public const PROJECT_CONFIG      = 1;
+    public const ASSET_DIR           = 2;
+    public const NODE_DIR            = 3;
+    public const JS_MINIFY_HTML      = 4;
+    public const JS_MINIFY_CSS       = 5;
+    public const JS_MINIFY_JS        = 6;
+    public const QA_REPORT           = 7;
+    public const CODE_MANAGER        = 8;
+    public const COMPOSER            = 9;
+    public const TEST_PATH_UTILITIES = 10;
+
+    private static function calculate_cached_path(int $key): ?string {
+        switch ($key) {
+            case static::PROJECT_BASE:
+                return self::get_up_to_layer(__FILE__, self::QS);
+            case static::PROJECT_CONFIG:
+                return static::get(static::PROJECT_BASE) . 'configs/code_manager.yml';
+            case static::ASSET_DIR:
+                return static::get(static::PROJECT_BASE) . 'applications/asset_server/';
+            case static::NODE_DIR:
+                return static::get(static::ASSET_DIR) . 'js/';
+            case static::JS_MINIFY_HTML:
+                return static::get(static::NODE_DIR) . 'minify_html_file.js';
+            case static::JS_MINIFY_CSS:
+                return static::get(static::NODE_DIR) . 'minify_css_file.js';
+            case static::JS_MINIFY_JS:
+                return static::get(static::NODE_DIR) . 'minify_js_file.js';
+            case static::CODE_MANAGER:
+                return static::get(static::ASSET_DIR) . 'code_manager/';
+            case static::COMPOSER:
+                return static::get(static::CODE_MANAGER) . 'composer.phar';
+            case static::QA_REPORT:
+                return static::get(static::CODE_MANAGER) . 'report.xml';
+            case static::TEST_PATH_UTILITIES:
+                return static::get(static::CODE_MANAGER) . 'tests/universal_utilities/files/PathUtilitiesTest.php';
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Utility function to get various needed project paths.
+     *
+     * @param int $key Class constant mapping.
+     * @return string The path value.
+     */
+    public static function get(int $key): string {
+        if (!isset($cached_paths[$key])) {
+            static::$cached_paths[$key] = static::calculate_cached_path($key);
+        }
+        return static::$cached_paths[$key];
+    }
 
     private static $cwd;
 
@@ -53,6 +99,10 @@ abstract class PathUtilities {
             return STR::indexed_inclusive_to_last_match(STR::indexed($path, 0, strlen($path) - 2), '/');
         }
         return STR::indexed_inclusive_to_last_match($path, '/');
+    }
+
+    public static function get_up_to_layer(string $path, string $layer) : string {
+        return STR::indexed($path, 0, STR::position_of_last_match($path, $layer)) . $layer;
     }
 
     public static function get_current_cwd() : string {
