@@ -242,27 +242,13 @@ class EntityDirectory extends EntityState implements EntityInterface, Cached {
         return $this;
     }
 
-    public function cache_needs_to_be_checked(): bool {
-        // TODO: Implement cache_needs_to_be_checked() method.
+    public function cache_needs_update(bool $trigger_update): bool {
         return false;
     }
 
-    public function cache_set_to_checked(): void {
-        // TODO: Implement cache_set_to_checked() method.
-    }
+    public function cache_update(bool $update_state=true): void {}
 
-    public function cache_needs_to_be_updated(): bool {
-        // TODO: Implement cache_needs_to_be_updated() method.
-        return false;
-    }
-
-    public function cache_update(bool $update_state=true): void {
-        // TODO: Implement cache_update() method.
-    }
-
-    public function on_event_born($data): void {
-
-    }
+    public function on_event_born($data): void {}
 
     public function cache_set(string $cache_key): void {}
 }

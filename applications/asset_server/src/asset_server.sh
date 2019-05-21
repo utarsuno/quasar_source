@@ -22,11 +22,11 @@ RUN_COMPOSER_CMD="php composer.phar"
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_BUILD_NEXUS_COURIER}
 
 cd /quasar_source/applications/asset_server/code_manager;
-php -S "0.0.0.0:80"
+#php -S "0.0.0.0:80"
 
 #${RUN_COMPOSER_CMD} install -o;
 
-#${RUN_CONSOLE_CMD} code:health_check -vvv
+${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #curl -s https://getcomposer.org/installer
 #chmod +x ./composer.phar

@@ -39,14 +39,8 @@ class NPMLibBuildSection extends BuildSection {
     }
 
     protected function process_entity(EntityInterface $entity): void {
-        if ($entity->cache_needs_to_be_checked()) {
-            if ($entity->cache_needs_to_be_updated()) {
-                $entity->cache_update();
-                $entity->set_state(EntityState::STATE_UPDATED);
-            } else {
-                $entity->cache_set_to_checked();
-                $entity->set_state(EntityState::STATE_NO_CHANGE);
-            }
+        if ($entity->cache_needs_update(true)) {
+            $entity->set_state(EntityState::STATE_UPDATED);
         } else {
             $entity->set_state(EntityState::STATE_NO_CHANGE);
         }

@@ -251,16 +251,15 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
         $this->cache_update(false);
     }
 
-    public function cache_needs_to_be_checked() : bool {
-        return $this->sha512sum !== $this->cache_get(self::CACHE_KEY_SHA512_SUM);
-    }
-
-    public function cache_needs_to_be_updated(): bool {
-        return $this->cache_needs_to_be_checked();
-    }
-
-    public function cache_set_to_checked(): void {
-        $this->setLastCached(TIME::now());
+    public function cache_needs_update(bool $trigger_update): bool {
+        $needs_update = $this->sha512sum !== $this->cache_get(self::CACHE_KEY_SHA512_SUM);
+        if ($needs_update) {
+            if ($trigger_update) {
+                $this->cache_update(true);
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -269,7 +268,7 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
      * @throws Exception
      */
     public function cache_update(bool $update_state=true): void {
-        $this->cache_set_to_checked();
+        $this->setLastCached(TIME::now());
         $this->setSizeInBytes(UFO::get_size($this->full_path));
         $this->setSha512sum($this->cache_get(self::CACHE_KEY_SHA512_SUM));
         if ($update_state) {

@@ -104,15 +104,15 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     private const CACHE_KEY_QA_TEST_SUITE = 'cache_qa_test_suite';
 
-    public function cache_needs_to_be_checked() : bool {
-        return $this->getEntityFile(true)->cache_needs_to_be_checked() || $this->getEntityFile(true)->cache_needs_to_be_updated();
+    public function cache_needs_update(bool $trigger_update): bool {
+        if ($this->getEntityFile(true)->cache_needs_update(false)) {
+            if ($trigger_update) {
+                $this->cache_update();
+            }
+            return true;
+        }
+        return false;
     }
-
-    public function cache_needs_to_be_updated(): bool {
-        return $this->cache_needs_to_be_checked();
-    }
-
-    public function cache_set_to_checked(): void{}
 
     public function cache_set(string $key): void {
         if ($key === self::CACHE_KEY_QA_TEST_SUITE) {
@@ -121,15 +121,17 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
     }
 
     public function cache_update(bool $update_state=true) : void {
-        $qa_test_suite = $this->cache_get(self::CACHE_KEY_QA_TEST_SUITE);
-        $this->setNumAssertions($qa_test_suite->get_num_assertions());
-        $this->setNumErrors($qa_test_suite->get_num_errors());
-        $this->setNumFailed($qa_test_suite->get_num_failed());
-        $this->setSecondsTaken($qa_test_suite->get_time_taken());
-        $this->setNumTests($qa_test_suite->get_num_tests());
-        $this->setNumSkipped($qa_test_suite->get_num_skipped());
-        $this->setRanAt(TIME::now());
-        $this->setRawReport($qa_test_suite->get_qa_report());
+        /** @var ProjectTestSuiteResult $qa_results */
+        $qa_results = $this->cache_get(self::CACHE_KEY_QA_TEST_SUITE);
+        $this
+            ->setNumAssertions($qa_results->get_num_assertions())
+            ->setNumErrors($qa_results->get_num_errors())
+            ->setNumFailed($qa_results->get_num_failed())
+            ->setSecondsTaken($qa_results->get_time_taken())
+            ->setNumTests($qa_results->get_num_tests())
+            ->setNumSkipped($qa_results->get_num_skipped())
+            ->setRanAt(TIME::now())
+            ->setRawReport($qa_results->get_qa_report());
     }
 
     public function on_event_born($data): void {
@@ -146,9 +148,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param string $raw_report
+     * @return self
      */
-    public function setRawReport(string $raw_report): void {
+    public function setRawReport(string $raw_report): self {
         $this->raw_report = $raw_report;
+        return $this;
     }
 
     /**
@@ -160,9 +164,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param float $seconds_taken
+     * @return self
      */
-    public function setSecondsTaken(float $seconds_taken): void {
+    public function setSecondsTaken(float $seconds_taken): self {
         $this->seconds_taken = $seconds_taken;
+        return $this;
     }
 
     /**
@@ -174,9 +180,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param int $num_assertions
+     * @return self
      */
-    public function setNumAssertions(int $num_assertions): void {
+    public function setNumAssertions(int $num_assertions): self {
         $this->num_assertions = $num_assertions;
+        return $this;
     }
 
     /**
@@ -188,9 +196,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param int $num_errors
+     * @return self
      */
-    public function setNumErrors(int $num_errors): void {
+    public function setNumErrors(int $num_errors): self {
         $this->num_errors = $num_errors;
+        return $this;
     }
 
     /**
@@ -202,9 +212,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param int $num_failed
+     * @return self
      */
-    public function setNumFailed(int $num_failed): void {
+    public function setNumFailed(int $num_failed): self {
         $this->num_failed = $num_failed;
+        return $this;
     }
 
     /**
@@ -216,9 +228,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param int $num_skipped
+     * @return self
      */
-    public function setNumSkipped(int $num_skipped): void {
+    public function setNumSkipped(int $num_skipped): self {
         $this->num_skipped = $num_skipped;
+        return $this;
     }
 
     /**
@@ -230,9 +244,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param int $num_tests
+     * @return self
      */
-    public function setNumTests(int $num_tests): void {
+    public function setNumTests(int $num_tests): self {
         $this->num_tests = $num_tests;
+        return $this;
     }
 
     /**
@@ -244,9 +260,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param mixed $ran_at
+     * @return self
      */
-    public function setRanAt($ran_at): void {
+    public function setRanAt($ran_at): self {
         $this->ran_at = $ran_at;
+        return $this;
     }
 
     /**
@@ -258,9 +276,11 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param mixed $id
+     * @return self
      */
-    public function setId($id): void {
+    public function setId($id): self {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -276,8 +296,10 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
 
     /**
      * @param EntityFile $entity_file
+     * @return self
      */
-    public function setEntityFile(EntityFile $entity_file): void {
+    public function setEntityFile(EntityFile $entity_file): self {
         $this->entity_file = $entity_file;
+        return $this;
     }
 }

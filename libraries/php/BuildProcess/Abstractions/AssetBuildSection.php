@@ -32,10 +32,9 @@ abstract class AssetBuildSection extends BuildSection {
             $code_builder->config_get(['assets', $name])
         );
         $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
-        $directory_data          = $this->get_path_output();
+        $directory_data          = $this->config_get(self::CONFIG_KEY_DIR_DATA);
         foreach ($this->config_get('files') as $k => $v) {
-            $file_path                     = $directory_data . $k;
-            $this->file_builds[$file_path] = $v;
+            $this->file_builds[$directory_data . $k] = $v;
         }
     }
 
@@ -65,14 +64,8 @@ abstract class AssetBuildSection extends BuildSection {
     }
 
     protected function process_entity(EntityInterface $entity) : EntityInterface {
-        if ($entity->cache_needs_to_be_checked()) {
-            if ($entity->cache_needs_to_be_updated()) {
-                $entity->cache_update();
-                $entity->set_state(EntityState::STATE_UPDATED);
-            } else {
-                $entity->cache_set_to_checked();
-                $entity->set_state(EntityState::STATE_NO_CHANGE);
-            }
+        if ($entity->cache_needs_update(true)) {
+            $entity->set_state(EntityState::STATE_UPDATED);
         } else {
             $entity->set_state(EntityState::STATE_NO_CHANGE);
         }

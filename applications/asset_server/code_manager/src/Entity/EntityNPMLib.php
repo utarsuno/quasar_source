@@ -82,24 +82,29 @@ class EntityNPMLib extends EntityState implements EntityInterface, Cached {
         }
     }
 
-    public function cache_needs_to_be_checked() : bool {
+    public function cache_needs_inspection() : bool {
         $last_checked = $this->getLastChecked();
         if (DATE::is_different_day($last_checked, DATE::now())) {
+            $this->setLastChecked(TIME::now());
             return true;
         }
         return false;
     }
 
-    public function cache_set_to_checked(): void {
-        $this->setLastChecked(TIME::now());
-    }
-
-    public function cache_needs_to_be_updated() : bool {
-        return $this->getVersionLatest() !== $this->cache_get(self::CACHE_KEY_LATEST_VERSION);
+    public function cache_needs_update(bool $trigger_update) : bool {
+        if ($this->cache_needs_inspection()) {
+            if ($this->getVersionLatest() !== $this->cache_get(self::CACHE_KEY_LATEST_VERSION)) {
+                if ($trigger_update) {
+                    $this->cache_update(true);
+                }
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public function cache_update(bool $update_state=true): void {
-        $this->cache_set_to_checked();
         $this->setVersionLatest($this->cache_get(self::CACHE_KEY_LATEST_VERSION));
     }
 

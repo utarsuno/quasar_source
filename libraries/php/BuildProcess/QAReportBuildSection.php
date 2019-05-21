@@ -2,6 +2,7 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\EntityFileRepository;
 use CodeManager\Repository\EntityQAReportRepository;
 use CodeManager\Service\CodeBuilderService;
@@ -32,11 +33,9 @@ class QAReportBuildSection extends BuildSection {
     }
 
     protected function perform_work() : void {
-        #foreach ($this->stats as $stat => $file_path) {
         foreach ($this->config_get('stats') as $stat => $file_path) {
             if (!$this->repo_entity_files->has_entity($file_path)) {
-                $entity_file = $this->repo_entity_files->create_new_entity($file_path);
-                $this->repo->create_new_entity($entity_file);
+                $this->event_qa_entity_file_not_stored_in_db($file_path);
             } else {
                 $this->process_entity($this->repo_entity_files->get_entity($file_path));
             }
@@ -44,14 +43,17 @@ class QAReportBuildSection extends BuildSection {
     }
 
     protected function process_entity(EntityInterface $entity) : ?EntityInterface {
-        if ($entity->cache_needs_to_be_checked()) {
-            if ($entity->cache_needs_to_be_updated()) {
-                $entity->cache_update();
-                return $this->repo->create_new_entity($entity);
-            }
-            $entity->cache_set_to_checked();
+        if ($entity->cache_needs_update(true)) {
+            $entity->set_state(EntityState::STATE_UPDATED);
+            return $this->repo->create_new_entity($entity);
         }
+        $entity->set_state(EntityState::STATE_NO_CHANGE);
         return $entity;
+    }
+
+    private function event_qa_entity_file_not_stored_in_db(string $file_path): void {
+        $entity_file = $this->repo_entity_files->create_new_entity($file_path);
+        $this->repo->create_new_entity($entity_file);
     }
 
 }
