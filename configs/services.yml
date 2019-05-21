@@ -1,6 +1,6 @@
 service_bundles:
   asset_server:
-    path: 'docker-compose.asset_server_only.yml'
+    path: 'docker-compose.asset_server.yml'
     services:
       postgres_server:
       asset_server:

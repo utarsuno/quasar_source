@@ -32,7 +32,7 @@ abstract class AssetBuildSection extends BuildSection {
             $code_builder->config_get(['assets', $name])
         );
         $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
-        $directory_data          = $this->config_get(self::CONFIG_KEY_DIR_DATA);
+        $directory_data          = $this->get_path_output();
         foreach ($this->config_get('files') as $k => $v) {
             $file_path                     = $directory_data . $k;
             $this->file_builds[$file_path] = $v;
@@ -51,10 +51,10 @@ abstract class AssetBuildSection extends BuildSection {
             $f      = $result ?? $f;
         }
         if ($this->has_flag_minified($flags)) {
-            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->config_get(self::CONFIG_KEY_DIR_OUTPUT) . $f->get_full_name_minified(), EntityFile::FLAG_MINIFY);
+            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_minified(), EntityFile::FLAG_MINIFY);
         }
         if ($this->has_flag_gzipped($flags)) {
-            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->config_get(self::CONFIG_KEY_DIR_OUTPUT) . $f->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
+            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
         }
     }
 
@@ -89,6 +89,10 @@ abstract class AssetBuildSection extends BuildSection {
 
     protected function has_flag_gzipped(array $flags) : bool {
         return in_array(EntityFile::FLAG_GZIP, $flags, true);
+    }
+
+    protected function get_path_output(): string {
+        return $this->config_get(self::CONFIG_KEY_DIR_OUTPUT);
     }
 
     abstract protected function handle_step_processed(EntityFile $file, string $output_file_path) : ?EntityFile;

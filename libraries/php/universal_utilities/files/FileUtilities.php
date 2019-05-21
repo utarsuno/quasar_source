@@ -134,7 +134,7 @@ abstract class FileUtilities {
     }
 
     public static function get_css_minified_contents(string $path): string {
-        $contents  = self::get_contents_as_list($path);
+        $contents  = self::get_as_list($path);
         $num_lines = count($contents);
         if ($num_lines > 1) {
             DBG::throw_exception('File{' . $path . '} has more than 1 line of code!');
@@ -144,8 +144,11 @@ abstract class FileUtilities {
         return $contents[0];
     }
 
-    public static function create_or_overwrite_file(string $path, string $contents): void {
+    public static function create_or_overwrite_file(string $path, $contents): void {
         $f = fopen($path, 'wb');
+        if (is_array($contents)) {
+            $contents = implode($contents);
+        }
         fwrite($f, $contents);
         fclose($f);
     }
@@ -155,7 +158,7 @@ abstract class FileUtilities {
         file_put_contents($path, $contents, LOCK_EX);
     }
 
-    public static function get_contents_as_list(string $path): array {
+    public static function get_as_list(string $path): array {
         UPO::is_valid($path, true);
         $file_lines = [];
         $lines      = file($path);

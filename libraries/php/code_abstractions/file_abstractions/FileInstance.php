@@ -33,7 +33,7 @@ abstract class FileInstance extends FileAbstraction {
 
     public function get_lines() : array {
         if (!$this->loaded_lines) {
-            $this->file_lines = UFO::get_contents_as_list($this->get_path_full());
+            $this->file_lines = UFO::get_as_list($this->get_path_full());
             $this->loaded_lines = true;
         }
         return $this->file_lines;

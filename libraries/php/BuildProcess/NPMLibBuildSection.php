@@ -23,13 +23,13 @@ class NPMLibBuildSection extends BuildSection {
         parent::__construct('NPM Libs', $code_builder);
         $this->config_initialize(
             ['npm' => null],
-            $code_builder->get_config_data()
+            $code_builder->config_get()
         );
         $this->repo = $this->get_repo(EntityNPMLibRepository::class);
     }
 
     protected function perform_work(): void {
-        foreach ($this->get_config_data() as $file_value) {
+        foreach ($this->config_get() as $file_value) {
             if (!$this->repo->has_entity($file_value)) {
                 $this->repo->create_new_entity($file_value);
             } else {

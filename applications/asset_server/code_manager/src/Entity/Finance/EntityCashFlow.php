@@ -94,7 +94,7 @@ class EntityCashFlow {
         $this->amount = $amount;
         return $this;
     }
-#D
+
     /**
      * @return string
      */

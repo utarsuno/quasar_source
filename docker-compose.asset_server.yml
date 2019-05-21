@@ -4,78 +4,80 @@ version: '3.7'
 # Services collectively make up a distributed application. (0x1)
 services:
 
-  # TODO: Investigate into 'container_name', it breaks builds.
-
-  # Serves static content and forwards requests to servers.
-  dapp_nginx:
-    #hostname: nginx
-    build:
-      context: .
-      dockerfile: ./applications/nginx/Dockerfile
-    environment:
-      _SERVICE_NAME: "dapp_nginx"
-    #container_name: nginx
-    ports:
-      - "80:80"
-      - "3000:3000"
-    tty: true
-    volumes:
-      - nexus_volume:/v
-      - ./applications/nginx/nginx.nginx:/etc/nginx/nginx.conf
-
-  # Test.
   asset_server:
-    build:
-      context: .
-      dockerfile: ./applications/asset_server/Dockerfile
-    environment:
-      _SERVICE_NAME: "asset_server"
-    tty: true
-    volumes:
-      - nexus_volume:/v
+    tty           : true
+    container_name: asset_server
+    build         :
+      context   : '.'
+      dockerfile: './applications/asset_server/Dockerfile'
+    ports         :
+      - '80:80'
+    volumes       :
+      - 'nexus_volume:/v'
+      - './:/quasar_source'
+    environment   :
+      _SERVICE_NAME: 'asset_server'
+      DATABASE_URL : 'pgsql://postgres:password@postgres_server:5432/postgres'
+      SYMFONY_ENV  : 'dev'
 
-  # Manages automated jobs, builds, etc.
-  jenkins:
-    #hostname: jenkins
-    build:
-      context: .
-      dockerfile: ./applications/jenkins/Dockerfile
-    environment:
-      _SERVICE_NAME: "jenkins"
-      JAVA_OPTS: "-Xmx3072m" # 3GB memory.
-      JENKINS_OPTS: "--logfile=/var/log/jenkins/jenkins.log"
-    tty: true
-    volumes:
-      - jenkins-log:/var/log/jenkins
-      - jenkins-data:/var/jenkins_home
+  postgres_server:
+    tty           : true
+    container_name: postgres_server
+    image         : postgres
+    ports         :
+      - '5432:5432'
+    volumes       :
+      - '/Users/utarsuno/code/quasar_source/var/db/postgres:/var/lib/postgresql/data'
+    environment   :
+      POSTGRES_USER    : 'postgres'
+      POSTGRES_DB      : 'postgres'
+      POSTGRES_PASSWORD: 'password'
 
-  # MySQL server, no custom logic attached, just the stand-alone server.
-  mysql_server:
-    hostname: mysql_server
-    build:
-      context: .
-      dockerfile: ./applications/mysql_server/Dockerfile
-    environment:
-      _SERVICE_NAME: "mysql_server"
-      MYSQL_DATABASE: "test"
-      MYSQL_USER: "test"
-      MYSQL_PASSWORD: "test"
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    tty: true
-    ports:
-      - "3306:3306"
-
-networks:
-  default:
-    external:
-      name: nexus_network
+#networks:
+#  default:
+#    external:
+#      name: nexus_network
 
 volumes:
   nexus_volume:
     external: true
-  jenkins-log:
+  postgres_data:
     external: true
-  jenkins-data:
-    external: true
+#  jenkins-log:
+#    external: true
+#  jenkins-data:
+#    external: true
+
+  # Serves static content and forwards requests to servers.
+#  dapp_nginx:
+    #hostname: nginx
+#    build:
+#      context: .
+#      dockerfile: ./applications/nginx/Dockerfile
+#    environment:
+#      _SERVICE_NAME: "dapp_nginx"
+    #container_name: nginx
+#    ports:
+#      - "80:80"
+#      - "3000:3000"
+#    tty: true
+#    volumes:
+#      - nexus_volume:/v
+#      - ./applications/nginx/nginx.nginx:/etc/nginx/nginx.conf
+
+  # Manages automated jobs, builds, etc.
+#  jenkins:
+    #hostname: jenkins
+#    build:
+#      context: .
+#      dockerfile: ./applications/jenkins/Dockerfile
+#    environment:
+#      _SERVICE_NAME: "jenkins"
+#      JAVA_OPTS: "-Xmx3072m" # 3GB memory.
+#      JENKINS_OPTS: "--logfile=/var/log/jenkins/jenkins.log"
+#    tty: true
+#    volumes:
+#      - jenkins-log:/var/log/jenkins
+#      - jenkins-data:/var/jenkins_home
+
 

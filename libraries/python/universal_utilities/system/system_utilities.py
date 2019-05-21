@@ -19,7 +19,7 @@ def run_process_live(command_to_run, cwd=None, decode_output=False, get_output_a
 
 
 def run_docker_composer_container(docker_compose_file_path: str, service_name: str, in_background: bool=False):
-    #output, errors = run_process_live('docker-compose -f ./docker-compose.asset_server_only.yml up -d postgres_server')
+    #output, errors = run_process_live('docker-compose -f ./docker-compose.asset_server.yml up -d postgres_server')
     mode = ' up '
     if in_background:
         mode += '-d '

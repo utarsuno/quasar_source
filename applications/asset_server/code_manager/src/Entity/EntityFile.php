@@ -51,8 +51,6 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
 class EntityFile extends EntityState implements EntityInterface, Cached {
     use TraitCached;
 
-    public static $code_manager_service;
-
     // TESTING
 
     /** @ORM\PreRemove() */
@@ -513,23 +511,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
         return $this->full_path;
     }
 
-    public function get_full_name_minified() : string {
-        return $this->name . UFO::EXTENSION_MINIFIED . $this->extension;
-    }
-
-    public function get_full_name_processed() : string {
-        return $this->name . '.processed' . $this->extension;
-    }
-
-    public function get_full_name_gzipped() : string {
-        return $this->getFullName() . UFO::EXTENSION_GZIPPED;
-    }
-
-    public function get_path_with_pre_extension(string $extension) : string {
-        $path = PATH::get_directory($this->getFullPath());
-        return $path . $this->getName() . $extension . $this->getExtension();
-    }
-
     /**
      * @param string $full_path
      * @return self
@@ -626,5 +607,19 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
     public function setRank(int $rank): self {
         $this->rank = $rank;
         return $this;
+    }
+
+    // ------ U T I L I T Y ------
+
+    public function get_full_name_minified() : string {
+        return $this->name . UFO::EXTENSION_MINIFIED . $this->extension;
+    }
+
+    public function get_full_name_processed() : string {
+        return $this->name . '.processed' . $this->extension;
+    }
+
+    public function get_full_name_gzipped() : string {
+        return $this->getFullName() . UFO::EXTENSION_GZIPPED;
     }
 }

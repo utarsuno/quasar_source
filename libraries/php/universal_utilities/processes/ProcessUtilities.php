@@ -29,7 +29,16 @@ class ProcessUtilities {
         }
     }
 
+    // Q A.
+
+    public static function run_qa_tests(): string {
+        #'--log-junit'
+        # --log-teamcity
+        return self::run_cmd(['php', 'bin/phpunit', '--log-junit', 'report.xml'], PATH::get(PATH::CODE_MANAGER));
+    }
+
     // C O M P O S E R.
+
     public static function run_composer_self_update(string $path_composer): string {
         return self::run_cmd(['php', $path_composer, 'self-update'], PATH::get(PATH::CODE_MANAGER));
     }

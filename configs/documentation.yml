@@ -59,7 +59,7 @@ docker:
     total_size_used:
       - 'docker system df'
     examples:
-      - 'docker-compose -f docker-compose.asset_server_only.yml up -d postgres_server' # 192.168.1.170
+      - 'docker-compose -f docker-compose.asset_server.yml up -d postgres_server' # 192.168.1.170
 
 bash_commands:
 

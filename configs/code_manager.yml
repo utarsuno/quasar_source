@@ -43,7 +43,7 @@ qa_report:
 
 docker:
   dev:
-    file: 'docker-compose.asset_server_only.yml'
+    file: 'docker-compose.asset_server.yml'
     containers:
       postgres_server:
         z_index      : 0

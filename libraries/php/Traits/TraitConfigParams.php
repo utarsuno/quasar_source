@@ -17,10 +17,6 @@ trait TraitConfigParams {
     /** @var array */
     protected $config_data = [];
 
-    public function get_config_data(): array {
-        return $this->config_data;
-    }
-
     /**
      * @param array $keys
      * @param array $config
@@ -56,7 +52,14 @@ trait TraitConfigParams {
         }
     }
 
-    public function config_get($keys) {
+    /**
+     * @param null $keys
+     * @return mixed
+     */
+    public function config_get($keys=null) {
+        if ($keys === null) {
+            return $this->config_data;
+        }
         if (is_string($keys)) {
             return $this->config_data[$keys];
         }
