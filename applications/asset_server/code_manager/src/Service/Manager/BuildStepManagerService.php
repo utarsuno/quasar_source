@@ -29,19 +29,11 @@ class BuildStepManagerService extends BaseAbstractService {
 
     /** @var CodeBuilderService */
     private $code_builder;
-
     /** @var array */
     private $all_build_sections = [];
 
-    #public function __construct(LoggerInterface $logger) {
-    #    parent::__construct($logger);
-    #}
-
     public function set_code_builder(CodeBuilderService $code_builder): void {
         $this->code_builder = $code_builder;
-    }
-
-    public function initialize_builds(): void {
         foreach (self::BUILD_STEPS as $build_section_class) {
             $this->all_build_sections[] = new $build_section_class($this->code_builder);
         }

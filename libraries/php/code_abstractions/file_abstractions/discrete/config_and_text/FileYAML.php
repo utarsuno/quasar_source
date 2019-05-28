@@ -14,7 +14,7 @@ use QuasarSource\CodeAbstractions\File\FileInstance;
 class FileYAML extends FileInstance {
 
     protected function load_contents() : array {
-        return UFO::get_yaml_contents($this->get_path_full());
+        return UFO::get_yaml($this->get_path_full());
     }
 
 }

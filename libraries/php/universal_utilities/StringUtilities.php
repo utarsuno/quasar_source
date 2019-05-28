@@ -11,6 +11,35 @@ namespace QuasarSource\Utilities;
 
 abstract class StringUtilities {
 
+    public static function to_associative(string $raw): array {
+        return json_decode($raw, true);
+    }
+
+    public static function url_GET_params(array $params): string {
+        return http_build_query($params, '', '&');
+    }
+
+    public static function wrapped_in_quotes(string $base, bool $single_quotes=true, bool $replace_incorrect_quotes=true): string {
+        $quote = $single_quotes ? "'" : '"';
+        $text  = $base;
+        if ($replace_incorrect_quotes) {
+            $wrong_quote = $single_quotes ? '"' : "'";
+            if (self::starts_with($base, $wrong_quote)) {
+                $text = self::indexed($base, 1);
+            }
+            if (self::ends_with($base, $wrong_quote)) {
+                $text = self::indexed($base, 0, strlen($text) - 2);
+            }
+        }
+        if (!self::starts_with($base, $quote)) {
+            $text = $quote . $text;
+        }
+        if (!self::ends_with($base, $quote)) {
+            $text .= $quote;
+        }
+        return $text;
+    }
+
     /**
      * Returns a string having the contents of the base string with any occurrences of secondary string provided removed.
      *
@@ -79,8 +108,11 @@ abstract class StringUtilities {
         return self::indexed($base, 0, self::position_of_last_match($base, $match) + strlen($match));
     }
 
-    public static function indexed(string $base, int $start, int $end): string {
+    public static function indexed(string $base, int $start, int $end=-1): string {
         // TODO: Error checks on bad sizes given.
+        if ($end === -1) {
+            $end = strlen($base) - 1;
+        }
         return substr($base, $start, $end);
     }
 

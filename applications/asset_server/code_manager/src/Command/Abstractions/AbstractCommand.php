@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+
 abstract class AbstractCommand extends Command {
 
     public const COMMAND_NAME     = 'must_be_set_by_child_command_class';
@@ -24,11 +25,13 @@ abstract class AbstractCommand extends Command {
         $this->add_required_arguments();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): ?int {
+        $this->input  = $input;
+        $this->output = $output;
         return $this->run_command();
     }
 
     abstract protected function add_required_arguments(): void;
 
-    abstract protected function run_command();
+    abstract protected function run_command(): int;
 }

@@ -2,7 +2,6 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\EntityNPMLibRepository;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
@@ -38,12 +37,8 @@ class NPMLibBuildSection extends BuildSection {
         }
     }
 
-    protected function process_entity(EntityInterface $entity): void {
-        if ($entity->cache_needs_update(true)) {
-            $entity->set_state(EntityState::STATE_UPDATED);
-        } else {
-            $entity->set_state(EntityState::STATE_NO_CHANGE);
-        }
+    protected function on_entity_update(EntityInterface $entity) {
+        return $entity;
     }
 
 }

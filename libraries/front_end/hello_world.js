@@ -116,6 +116,12 @@ Engine.prototype = {
 let engine = new Engine();
 
 
+// TODO: LATER, WINDOW ONLOAD MUST BE ON THE APPLICATION SIDE, NOT ENGINE SIDE!
+//window.onload = function() {
+//    NL = new $_NL();
+//    QE = new $_QE(NL, $_NL.prototype.WorldDevTools);
+//};
+
 /*
 let init_engine_flags = function() {
     // Default rendering settings.

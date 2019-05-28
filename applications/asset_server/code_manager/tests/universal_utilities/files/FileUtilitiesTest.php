@@ -69,7 +69,7 @@ class FileUtilitiesTest extends FileTestSuite {
         );
     }
 
-    public function test_get_yaml_contents(): void {
+    public function test_get_yaml(): void {
         $test_file_contents = [
             'section_a' => ['a', 'b', 'c'],
             'section_b' => ['hello' => ['world' => [
@@ -80,7 +80,7 @@ class FileUtilitiesTest extends FileTestSuite {
 
         $this->assertSame(
             $test_file_contents,
-            UFO::get_yaml_contents(self::PATH_YAML)
+            UFO::get_yaml(self::PATH_YAML)
         );
     }
 

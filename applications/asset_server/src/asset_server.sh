@@ -26,6 +26,7 @@ cd /quasar_source/applications/asset_server/code_manager;
 
 #${RUN_COMPOSER_CMD} install -o;
 
+#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 ${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #curl -s https://getcomposer.org/installer
@@ -39,7 +40,6 @@ ${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #${RUN_CONSOLE_CMD} doctrine:cache:delete
 
-#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 #${RUN_CONSOLE_CMD} doctrine:database:create -vvv
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force --no-interaction
 

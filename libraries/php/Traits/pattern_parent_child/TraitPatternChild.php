@@ -10,6 +10,7 @@ namespace QuasarSource\Traits\PatternParentChild;
 
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 
+
 trait TraitPatternChild {
 
     protected $parent;

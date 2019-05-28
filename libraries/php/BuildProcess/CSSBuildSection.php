@@ -1,7 +1,7 @@
 <?php
 
 namespace QuasarSource\BuildProcess;
-use CodeManager\Entity\EntityFile;
+use CodeManager\Entity\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
 use QuasarSource\Utilities\Files\FileUtilities as UFO;

@@ -9,7 +9,7 @@
 namespace CodeManager\Repository;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\EntityQAReport;
+use CodeManager\Entity\CodeManager\EntityQAReport;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 
 class EntityQAReportRepository extends AbstractRepository {

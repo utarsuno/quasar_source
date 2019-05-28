@@ -8,6 +8,7 @@
 
 namespace QuasarSource\Utilities\Files;
 use Exception;
+use QuasarSource\Utilities\CryptographyUtilities         as HASH;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\Files\PathUtilities           as UPO;
 use QuasarSource\Utilities\Processes\ProcessUtilities    as RUN;
@@ -31,8 +32,6 @@ abstract class FileUtilities {
     public const EXTENSION_MINIFIED        = '.min';
     public const EXTENSION_GZIPPED         = '.gz';
 
-    private const HASH_ALGORITHM           = 'sha512';
-
     public static function is_valid(string $path) : bool {
         return is_file($path);
     }
@@ -47,7 +46,7 @@ abstract class FileUtilities {
      */
     public static function matches_sha512sum(string $path, string $sha512sum) : bool {
         UPO::is_valid($path, true);
-        return hash_file(self::HASH_ALGORITHM, $path) === $sha512sum;
+        return HASH::get_file_hash($path, HASH::SHA512SUM) === $sha512sum;
     }
 
     /**
@@ -59,7 +58,7 @@ abstract class FileUtilities {
      */
     public static function get_sha512sum(string $path): string {
         UPO::is_valid($path, true);
-        return hash_file(self::HASH_ALGORITHM, $path);
+        return HASH::get_file_hash($path, HASH::SHA512SUM);
     }
 
     /**
@@ -123,7 +122,7 @@ abstract class FileUtilities {
      * @return array       < An association array of the file's contents.        >
      * @throws Exception
      */
-    public static function get_yaml_contents(string $path): array {
+    public static function get_yaml(string $path): array {
         UPO::is_valid($path, true);
         return Yaml::parseFile($path);
     }

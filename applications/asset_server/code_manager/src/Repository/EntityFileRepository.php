@@ -10,16 +10,25 @@ namespace CodeManager\Repository;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\EntityFile;
+use CodeManager\Entity\File\EntityFile;
 use CodeManager\Repository\Abstractions\AbstractRepository;
+use CodeManager\Repository\Abstractions\QueryableRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
 use QuasarSource\Utilities\Files\FileUtilities           as UFO;
 
 
-class EntityFileRepository extends AbstractRepository {
+class EntityFileRepository extends QueryableRepository {
 
     protected $default_search_attribute = 'full_path';
     protected $entity_class             = EntityFile::class;
+
+    public function __construct(EntityManagerInterface $em, Mapping\ClassMetadata $class) {
+        parent::__construct($em, $class);
+        $this->set_table_name(EntityFile::TABLE_NAME);
+        $this->set_sort_field_time(EntityFile::SORT_FIELD_TIME);
+    }
 
     public function does_child_file_exist_as_needed(EntityFile $file, string $path_to_child) : bool {
         if (!$file->hasChild()) {
@@ -61,7 +70,7 @@ class EntityFileRepository extends AbstractRepository {
                     UFO::gzip($file->getFullPath(), $path_to_child);
                     return $this->create_new_child_entity($file, $path_to_child, $options);
                 case EntityFile::FLAG_MINIFY:
-                    switch ($file->getFileType()) {
+                    switch ($file->getType()) {
                         case EntityFile::TYPE_HTML:
                             UFO::minify_html($file->getFullPath(), $path_to_child);
                             break;

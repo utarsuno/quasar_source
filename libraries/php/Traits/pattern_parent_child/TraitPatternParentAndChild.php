@@ -8,6 +8,7 @@
 
 namespace QuasarSource\Traits\PatternParentChild;
 
+
 trait TraitPatternParentAndChild {
     use TraitPatternChild;
     use TraitPatternParent;

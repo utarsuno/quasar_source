@@ -6,14 +6,15 @@
  * Time: 00:06
  */
 
-namespace CodeManager\Entity;
+namespace CodeManager\Entity\CodeManager;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use DateTime;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
+use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldVersionLatest;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldVersionLocal;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldLastChecked;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -42,37 +43,14 @@ use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
  */
 class EntityNPMLib extends EntityState implements EntityInterface, Cached {
     use TraitCached;
+    use FieldID;
+    use FieldName;
+    use FieldVersionLatest;
+    use FieldVersionLocal;
+    use FieldLastChecked;
 
-    /**
-     * @Id
-     * @Column(type="integer", nullable=false, unique=true)
-     * @GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @var string
-     * @Column(name="name", type="string", nullable=false, unique=true)
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @Column(name="version_local", type="string", nullable=false, unique=false)
-     */
-    private $version_local;
-
-    /**
-     * @var string
-     * @Column(name="version_latest", type="string", nullable=false, unique=false)
-     */
-    private $version_latest;
-
-    /**
-     * @var DateTime
-     * @Column(name="last_checked", type="datetime", nullable=false, unique=false)
-     */
-    private $last_checked;
+    public const TABLE_NAME      = 'npm_library';
+    public const SORT_FIELD_TIME = 'last_checked';
 
     private const CACHE_KEY_LATEST_VERSION = 'cache_latest_version';
 
@@ -119,73 +97,4 @@ class EntityNPMLib extends EntityState implements EntityInterface, Cached {
         $this->cache_update(false);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersionLocal(): string {
-        return $this->version_local;
-    }
-
-    /**
-     * @param string $version_local
-     */
-    public function setVersionLocal(string $version_local): void {
-        $this->version_local = $version_local;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersionLatest(): string {
-        return $this->version_latest;
-    }
-
-    /**
-     * @param string $version_latest
-     */
-    public function setVersionLatest(string $version_latest): void {
-        $this->version_latest = $version_latest;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastChecked(): DateTime {
-        return $this->last_checked;
-    }
-
-    /**
-     * @param DateTime $last_checked
-     */
-    public function setLastChecked(DateTime $last_checked): void {
-        $this->last_checked = $last_checked;
-    }
 }

@@ -2,12 +2,16 @@
 
 namespace CodeManager\Service\Manager;
 
-use CodeManager\Entity\EntityDirectory;
-use CodeManager\Entity\EntityFile;
-use CodeManager\Entity\EntityNPMLib;
-use CodeManager\Entity\EntityQAReport;
+use CodeManager\Entity\CodeManager\EntityCodeBuild;
+use CodeManager\Entity\CodeManager\EntityDBSnapshot;
+use CodeManager\Entity\File\EntityDirectory;
+use CodeManager\Entity\File\EntityFile;
+use CodeManager\Entity\CodeManager\EntityNPMLib;
+use CodeManager\Entity\CodeManager\EntityQAReport;
 use CodeManager\Entity\Users\EntityUser;
 use CodeManager\Entity\Users\EntityUserRole;
+use CodeManager\Repository\CodeManager\EntityCodeBuildRepository;
+use CodeManager\Repository\CodeManager\EntityDBSnapshotRepository;
 use CodeManager\Repository\EntityDirectoryRepository;
 use CodeManager\Repository\EntityFileRepository;
 use CodeManager\Repository\EntityNPMLibRepository;
@@ -24,12 +28,14 @@ use Psr\Log\LoggerInterface;
 class RepositoryManagerService extends BaseAbstractService implements OwnsRepos {
 
     private const REPO_TO_ENTITY = [
-        EntityFileRepository::class      => EntityFile::class,
-        EntityDirectoryRepository::class => EntityDirectory::class,
-        EntityQAReportRepository::class  => EntityQAReport::class,
-        EntityNPMLibRepository::class    => EntityNPMLib::class,
-        EntityUserRepository::class      => EntityUser::class,
-        EntityUserRoleRepository::class  => EntityUserRole::class,
+        EntityFileRepository::class       => EntityFile::class,
+        EntityDirectoryRepository::class  => EntityDirectory::class,
+        EntityQAReportRepository::class   => EntityQAReport::class,
+        EntityNPMLibRepository::class     => EntityNPMLib::class,
+        EntityUserRepository::class       => EntityUser::class,
+        EntityUserRoleRepository::class   => EntityUserRole::class,
+        EntityCodeBuildRepository::class  => EntityCodeBuild::class,
+        EntityDBSnapshotRepository::class => EntityDBSnapshot::class
     ];
 
     /** @var EntityManagerInterface */

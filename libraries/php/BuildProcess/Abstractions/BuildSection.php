@@ -2,6 +2,7 @@
 
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
+use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 use CodeManager\Service\CodeBuilderService;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -33,5 +34,15 @@ abstract class BuildSection extends UnitOfWork {
 
     protected function post_work(): void {}
 
-    abstract protected function process_entity(EntityInterface $entity);
+    protected function process_entity(EntityInterface $entity): ?EntityInterface {
+        if ($entity->cache_needs_update(true)) {
+            $entity->set_state(EntityState::STATE_UPDATED);
+
+        } else {
+            $entity->set_state(EntityState::STATE_NO_CHANGE);
+        }
+        return $entity;
+    }
+
+    abstract protected function on_entity_update(EntityInterface $entity);
 }

@@ -8,10 +8,9 @@
 
 namespace CodeManager\Entity\Users;
 
-
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
+use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldRank;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -32,72 +31,7 @@ use Doctrine\ORM\Mapping\Table;
  * )
  */
 class EntityUserRole {
-
-    /**
-     * @Id
-     * @Column(type="integer", nullable=false, unique=true)
-     * @GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @var string
-     * @Column(name="name", type="string", nullable=false, unique=true)
-     */
-    private $name;
-
-    /**
-     * @var int
-     * @Column(name="rank", type="integer", nullable=false, unique=true)
-     */
-    private $rank;
-
-    /**
-     * @return mixed
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return self
-     */
-    public function setId($id): self {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    public function setName(string $name): self {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getRank(): int {
-        return $this->rank;
-    }
-
-    /**
-     * @param int $rank
-     * @return self
-     */
-    public function setRank(int $rank): self {
-        $this->rank = $rank;
-        return $this;
-    }
-
+    use FieldID;
+    use FieldName;
+    use FieldRank;
 }

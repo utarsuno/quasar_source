@@ -6,16 +6,20 @@
  * Time: 23:13
  */
 
-namespace CodeManager\Entity;
+namespace CodeManager\Entity\File;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use DateTime;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldFirstCached;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldLastCached;
+use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldSHA512Sum;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldRank;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldSizeInBytes;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
@@ -43,13 +47,23 @@ use QuasarSource\Utilities\MathUtilities                 as MATH;
  *         indexes={
  *             @Index(
  *                 name="search_entity_file",
- *                 columns={"name", "extension", "file_type", "sha512sum"}
+ *                 columns={"name", "extension", "type", "sha512sum"}
  *             )
  *         }
  *     )
  */
 class EntityFile extends EntityState implements EntityInterface, Cached {
     use TraitCached;
+    use FieldFirstCached;
+    use FieldLastCached;
+    use FieldID;
+    use FieldName;
+    use FieldRank;
+    use FieldSHA512Sum;
+    use FieldSizeInBytes;
+
+    public const TABLE_NAME      = 'entity_file';
+    public const SORT_FIELD_TIME = 'last_cached';
 
     // TESTING
 
@@ -95,29 +109,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
     private const CACHE_KEY_SHA512_SUM = 'cache_sha512_sum';
 
     /**
-     * @Id
-     * @Column(type="integer", nullable=false, unique=true)
-     * @GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @var int
-     * @Column(type="integer", nullable=false, unique=false)
-     */
-    private $rank;
-
-    /**
-     * @Column(name="file_type", type="integer", nullable=false, unique=false)
-     */
-    private $file_type;
-
-    /**
-     * @Column(name="name", type="string", nullable=false, unique=false, length=256)
-     */
-    private $name;
-
-    /**
      * @Column(name="extension", type="string", nullable=false, unique=false, length=16)
      */
     private $extension;
@@ -128,19 +119,19 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
     private $full_path;
 
     /**
-     * @ManyToOne(targetEntity="CodeManager\Entity\EntityDirectory", inversedBy="files")
+     * @ManyToOne(targetEntity="CodeManager\Entity\File\EntityDirectory", inversedBy="files")
      */
     private $directory;
 
     /**
      * @var EntityFile
-     * @OneToOne(targetEntity="CodeManager\Entity\EntityFile", mappedBy="child")
+     * @OneToOne(targetEntity="CodeManager\Entity\File\EntityFile", mappedBy="child")
      */
     private $parent;
 
     /**
      * @var EntityFile
-     * @OneToOne(targetEntity="CodeManager\Entity\EntityFile", inversedBy="parent")
+     * @OneToOne(targetEntity="CodeManager\Entity\File\EntityFile", inversedBy="parent")
      */
     private $child;
 
@@ -148,16 +139,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
      * @Column(name="content", type="blob", nullable=true, unique=false)
      */
     private $content;
-
-    /**
-     * @Column(name="sha512sum", type="string", nullable=true, unique=true, length=512)
-     */
-    private $sha512sum;
-
-    /**
-     * @Column(name="size_in_bytes", type="bigint", nullable=true, unique=false)
-     */
-    private $size_in_bytes;
 
     /**
      * @var bool
@@ -176,16 +157,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
      * @Column(name="is_pre_processed", type="boolean", nullable=false, unique=false)
      */
     private $is_pre_processed;
-
-    /**
-     * @Column(name="last_cached", type="datetime", nullable=true, unique=false)
-     */
-    private $last_cached;
-
-    /**
-     * @Column(name="first_cached", type="datetime", nullable=true, unique=false)
-     */
-    private $first_cached;
 
     public function cache_set(string $key): void {
         if ($key === self::CACHE_KEY_SHA512_SUM) {
@@ -241,7 +212,7 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
         $current_date_time = TIME::now();
         $this->setFirstCached($current_date_time);
         $this->setFullPath($full_path);
-        $this->setFileType(self::get_file_type_from_path($full_path));
+        $this->setTypeID(self::get_file_type_from_path($full_path));
         $this->setRank(0);
         $this->setIsGzipped(false);
         $this->setIsMinified(false);
@@ -277,38 +248,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
     }
 
     /**
-     * @return mixed
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return self
-     */
-    public function setId($id) : self {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFileType() : int {
-        return $this->file_type;
-    }
-
-    /**
-     * @param int $fileType
-     * @return self
-     */
-    public function setFileType(int $fileType) : self {
-        $this->file_type = $fileType;
-        return $this;
-    }
-
-    /**
      * @return EntityDirectory
      */
     public function getDirectory() : EntityDirectory {
@@ -324,24 +263,8 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName() : string {
-        return $this->name;
-    }
-
     public function getFullName() : string {
         return $this->name . $this->extension;
-    }
-
-    /**
-     * @param mixed $name
-     * @return self
-     */
-    public function setName($name) : self {
-        $this->name = $name;
-        return $this;
     }
 
     /**
@@ -442,70 +365,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
     /**
      * @return string
      */
-    public function getSha512sum() : string {
-        return $this->sha512sum;
-    }
-
-    /**
-     * @param string $sha512sum
-     * @return self
-     */
-    public function setSha512sum(string $sha512sum) : self {
-        $this->sha512sum = $sha512sum;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSizeInBytes() : int {
-        return $this->size_in_bytes;
-    }
-
-    /**
-     * @param int $sizeInBytes
-     * @return self
-     */
-    public function setSizeInBytes(int $sizeInBytes) : self {
-        $this->size_in_bytes = $sizeInBytes;
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastCached() : DateTime {
-        return $this->last_cached;
-    }
-
-    /**
-     * @param DateTime $last_cached
-     * @return self
-     */
-    public function setLastCached(DateTime $last_cached) : self {
-        $this->last_cached = $last_cached;
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getFirstCached() : DateTime {
-        return $this->first_cached;
-    }
-
-    /**
-     * @param DateTime $first_cached
-     * @return self
-     */
-    public function setFirstCached(DateTime $first_cached) : self {
-        $this->first_cached = $first_cached;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getFullPath() : string {
         return $this->full_path;
     }
@@ -589,22 +448,6 @@ class EntityFile extends EntityState implements EntityInterface, Cached {
      */
     public function setIsPreProcessed(bool $is_pre_processed): self {
         $this->is_pre_processed = $is_pre_processed;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getRank(): int {
-        return $this->rank;
-    }
-
-    /**
-     * @param int $rank
-     * @return self
-     */
-    public function setRank(int $rank): self {
-        $this->rank = $rank;
         return $this;
     }
 

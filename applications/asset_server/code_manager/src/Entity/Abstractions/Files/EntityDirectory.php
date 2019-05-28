@@ -6,15 +6,17 @@
  * Time: 00:06
  */
 
-namespace CodeManager\Entity;
+namespace CodeManager\Entity\File;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldFirstCached;
+use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldLastCached;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldTypeID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Entity;
 
@@ -42,21 +44,16 @@ use QuasarSource\DataStructures\TraitCached;
  */
 class EntityDirectory extends EntityState implements EntityInterface, Cached {
     use TraitCached;
+    use FieldLastCached;
+    use FieldFirstCached;
+    use FieldID;
+    use FieldTypeID;
+
+    public const TABLE_NAME      = 'entity_directory';
+    public const SORT_FIELD_TIME = 'last_cached';
 
     public const TYPE_NO_MATCH = -1;
     public const TYPE_IGNORE   = 1;
-
-    /**
-     * @Id
-     * @Column(type="integer", nullable=false, unique=true)
-     * @GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @Column(name="directory_type", type="integer", nullable=false, unique=false)
-     */
-    private $directory_type;
 
     /**
      * @Column(name="path", type="string", nullable=false, unique=false, length=256)
@@ -64,70 +61,23 @@ class EntityDirectory extends EntityState implements EntityInterface, Cached {
     private $path;
 
     /**
-     * @ManyToOne(targetEntity="CodeManager\Entity\EntityDirectory", inversedBy="directories")
+     * @ManyToOne(targetEntity="CodeManager\Entity\File\EntityDirectory", inversedBy="directories")
      */
     private $parent_directory;
 
     /**
-     * @OneToMany(targetEntity="CodeManager\Entity\EntityFile", mappedBy="directory")
+     * @OneToMany(targetEntity="CodeManager\Entity\File\EntityFile", mappedBy="directory")
      */
     private $files;
 
     /**
-     * @OneToMany(targetEntity="CodeManager\Entity\EntityDirectory", mappedBy="parent_directory")
+     * @OneToMany(targetEntity="CodeManager\Entity\File\EntityDirectory", mappedBy="parent_directory")
      */
     private $directories;
-
-    /**
-     * @Column(name="sha512sum", type="string", nullable=true, unique=true, length=512)
-     */
-    private $sha512sum;
-
-    /**
-     * @Column(name="last_cached", type="datetime", nullable=true, unique=false)
-     */
-    private $last_cached;
-
-    /**
-     * @Column(name="first_cached", type="datetime", nullable=true, unique=false)
-     */
-    private $first_cached;
 
     public function __construct() {
         $this->files       = new ArrayCollection();
         $this->directories = new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     * @return self
-     */
-    public function setId($id) : self {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDirectoryType() {
-        return $this->directory_type;
-    }
-
-    /**
-     * @param mixed $directoryType
-     * @return self
-     */
-    public function setDirectoryType($directoryType) : self {
-        $this->directory_type = $directoryType;
-        return $this;
     }
 
     /**
@@ -191,54 +141,6 @@ class EntityDirectory extends EntityState implements EntityInterface, Cached {
      */
     public function setDirectories($directories) : self {
         $this->directories = $directories;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastCached() {
-        return $this->last_cached;
-    }
-
-    /**
-     * @param mixed $last_cached
-     * @return self
-     */
-    public function setLastCached($last_cached) : self {
-        $this->last_cached = $last_cached;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirstCached() {
-        return $this->first_cached;
-    }
-
-    /**
-     * @param mixed $first_cached
-     * @return self
-     */
-    public function setFirstCached($first_cached) : self {
-        $this->first_cached = $first_cached;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSha512sum() : string {
-        return $this->sha512sum;
-    }
-
-    /**
-     * @param string $sha512sum
-     * @return self
-     */
-    public function setSha512sum(string $sha512sum) : self {
-        $this->sha512sum = $sha512sum;
         return $this;
     }
 

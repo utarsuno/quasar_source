@@ -168,9 +168,6 @@ output_files_to_ignore/
 generated_output/
 depreciated/
 
-*.pyc
-
-
 Thumbs.db
 npm-debug.log
 /bower_components

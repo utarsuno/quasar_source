@@ -12,6 +12,8 @@ abstract class UnitOfWork {
 
     /** @var CodeBuilderService */
     protected $code_builder;
+    /** @var bool */
+    protected $step_failed = false;
 
     protected function __construct(string $name, CodeBuilderService $code_builder) {
         $this->set_name_and_label($name, 'Step');
@@ -26,7 +28,20 @@ abstract class UnitOfWork {
         $this->perform_work();
         $this->post_work();
         $this->timer->stop();
-        $this->code_builder->log('--- ' . $this->name . ' completed in {' . $this->timer->get_delta() . '}---');
+        if ($this->failed()) {
+            $this->code_builder->log('--- ' . $this->name . ' failed in {' . $this->timer->get_delta() . '}---');
+            # TODO: stop the rest of the build!
+        } else {
+            $this->code_builder->log('--- ' . $this->name . ' completed in {' . $this->timer->get_delta() . '}---');
+        }
+    }
+
+    protected function mark_as_failed(): void {
+        $this->step_failed = true;
+    }
+
+    protected function failed(): bool {
+        return $this->step_failed;
     }
 
     abstract protected function pre_work(): void;

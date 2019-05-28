@@ -2,8 +2,7 @@
 
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\EntityFile;
+use CodeManager\Entity\File\EntityFile;
 use CodeManager\Repository\EntityFileRepository;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
@@ -63,12 +62,7 @@ abstract class AssetBuildSection extends BuildSection {
         }
     }
 
-    protected function process_entity(EntityInterface $entity) : EntityInterface {
-        if ($entity->cache_needs_update(true)) {
-            $entity->set_state(EntityState::STATE_UPDATED);
-        } else {
-            $entity->set_state(EntityState::STATE_NO_CHANGE);
-        }
+    protected function on_entity_update(EntityInterface $entity) {
         return $entity;
     }
 

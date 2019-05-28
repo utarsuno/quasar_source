@@ -8,7 +8,7 @@
 
 namespace CodeManager\Repository;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\EntityNPMLib;
+use CodeManager\Entity\CodeManager\EntityNPMLib;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 
 

@@ -70,4 +70,8 @@ trait TraitConfigParams {
         return $current;
     }
 
+    # TODO:
+    #public function config_get_leaf(string $key) {
+    #}
+
 }

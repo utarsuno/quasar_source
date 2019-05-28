@@ -11,7 +11,7 @@ use QuasarSource\Utilities\StringUtilities               as STR;
 abstract class PathUtilities {
 
     private const QS                 = '/quasar_source/';
-    private static $cached_paths     = [null, null, null, null, null, null, null, null, null];
+    private static $cached_paths     = [null, null, null, null, null, null, null, null, null, null, null, null];
     public const PROJECT_BASE        = 0;
     public const PROJECT_CONFIG      = 1;
     public const ASSET_DIR           = 2;
@@ -23,6 +23,7 @@ abstract class PathUtilities {
     public const CODE_MANAGER        = 8;
     public const COMPOSER            = 9;
     public const TEST_PATH_UTILITIES = 10;
+    public const API                 = 11;
 
     private static function calculate_cached_path(int $key): ?string {
         switch ($key) {
@@ -48,6 +49,8 @@ abstract class PathUtilities {
                 return static::get(static::CODE_MANAGER) . 'report.xml';
             case static::TEST_PATH_UTILITIES:
                 return static::get(static::CODE_MANAGER) . 'tests/universal_utilities/files/PathUtilitiesTest.php';
+            case static::API:
+                return static::get(static::PROJECT_BASE) . 'var/.ignore/.config.yml';
             default:
                 return null;
         }

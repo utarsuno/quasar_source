@@ -12,12 +12,12 @@ use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
 use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as UPO;
+use QuasarSource\Utilities\Files\FileUtilities      as UFO;
+use QuasarSource\Utilities\Files\PathUtilities      as UPO;
 use QuasarSource\Utilities\Files\DirectoryUtilities as UDO;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\StringUtilities          as STR;
 use QuasarSource\CodeAbstractions\File\FileInstance;
-use QuasarSource\Utilities\EchoUtilities as L;
+use QuasarSource\Utilities\EchoUtilities            as L;
 
 
 class DirectoryInstance extends FileAbstraction {

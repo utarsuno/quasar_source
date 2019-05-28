@@ -2,7 +2,6 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\EntityFileRepository;
 use CodeManager\Repository\EntityQAReportRepository;
 use CodeManager\Service\CodeBuilderService;
@@ -29,7 +28,7 @@ class QAReportBuildSection extends BuildSection {
             $code_builder->config_get('qa_report')
         );
         $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
-        $this->repo              = $code_builder->get_repo(EntityQAReportRepository::class);
+        $this->repo              = $this->get_repo(EntityQAReportRepository::class);
     }
 
     protected function perform_work() : void {
@@ -42,13 +41,8 @@ class QAReportBuildSection extends BuildSection {
         }
     }
 
-    protected function process_entity(EntityInterface $entity) : ?EntityInterface {
-        if ($entity->cache_needs_update(true)) {
-            $entity->set_state(EntityState::STATE_UPDATED);
-            return $this->repo->create_new_entity($entity);
-        }
-        $entity->set_state(EntityState::STATE_NO_CHANGE);
-        return $entity;
+    protected function on_entity_update(EntityInterface $entity) {
+        $this->repo->create_new_entity($entity);
     }
 
     private function event_qa_entity_file_not_stored_in_db(string $file_path): void {
