@@ -23,12 +23,6 @@ final class DBSchema extends SQLQueryGroup {
     /** @var SQLQuery $query_get_table_names */
     private $query_get_table_names;
 
-    /** @var SQLQuery $query_get_db_size */
-    private $query_get_db_size;
-
-    /** @var SQLQuery $query_get_size */
-    private $query_get_size;
-
     /** @var string $sql_db_size */
     private $sql_db_size;
 
@@ -43,19 +37,6 @@ final class DBSchema extends SQLQueryGroup {
         parent::__construct(SYS::get_env('DB_NAME'), $connection);
         $this->sql_db_size        = 'pg_database_size' . STR::parentheses('', $this->db_name_quotes);
         $this->sql_db_size_pretty = STR::parentheses('pg_size_pretty', $this->sql_db_size);
-    }
-
-    /**
-     * @param bool $pretty_output
-     * @return mixed
-     */
-    public function get_total_size(bool $pretty_output=false) {
-        if ($this->cache_is_cold('query_get_db_size')) {
-            return $this->first_execute($this->query_get_size->SELECT(
-                $pretty_output ? $this->sql_db_size_pretty : $this->sql_db_size
-            ));
-        }
-        return $this->query_get_db_size->execute();
     }
 
     /**
@@ -85,16 +66,30 @@ final class DBSchema extends SQLQueryGroup {
         return $this->query_get_table_names->execute();
     }
 
+    # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
+
     /**
-     * @see https://www.postgresql.org/docs/9.1/sql-analyze.html
-     *
-     * @return mixed
+     * @param SQLQuery $query
+     * @return SQLQuery
      */
-    protected function analyze() {
-        if ($this->cache_is_cold('query_analyze')) {
-            return $this->first_execute($this->query_analyze->raw('ANALYZE VERBOSE'));
-        }
-        return $this->query_analyze->execute();
+    protected function query_set_get_size(SQLQuery $query): SQLQuery {
+        return $query->SELECT($this->sql_db_size);
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    protected function query_set_get_size_pretty(SQLQuery $query): SQLQuery {
+        return $query->SELECT($this->sql_db_size_pretty);
+    }
+    
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    protected function query_set_analyze(SQLQuery $query): SQLQuery {
+        return $query->raw('ANALYZE VERBOSE');
     }
 
 }

@@ -13,9 +13,6 @@ use QuasarSource\Utilities\StringUtilities as STR;
  */
 final class DBTable extends SQLQueryGroup {
 
-    /** @var SQLQuery $query_get_size */
-    private $query_get_size;
-
     /** @var SQLQuery $query_get_num_rows_cheap */
     private $query_get_num_rows_cheap;
 
@@ -94,29 +91,29 @@ final class DBTable extends SQLQueryGroup {
         return $this->query_get_num_rows_expensive->execute();
     }
 
+    # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
+
     /**
-     * @param bool $pretty_output
-     * @return mixed
+     * @param SQLQuery $query
+     * @return SQLQuery
      */
-    public function get_size(bool $pretty_output=false) {
-        if ($this->cache_is_cold('query_get_size')) {
-            return $this->first_execute(
-                $this->query_get_size
-                    ->SELECT($pretty_output ? $this->sql_table_size_pretty : $this->sql_table_size)
-            );
-        }
-        return $this->query_get_size->execute();
+    protected function query_set_get_size(SQLQuery $query): SQLQuery {
+        return $query->SELECT($this->sql_table_size);
     }
 
     /**
-     * @see https://www.postgresql.org/docs/9.1/sql-analyze.html
-     *
-     * @return mixed
+     * @param SQLQuery $query
+     * @return SQLQuery
      */
-    protected function analyze() {
-        if ($this->cache_is_cold('query_analyze')) {
-            return $this->first_execute($this->query_analyze->raw('ANALYZE VERBOSE ' . $this->db_name . '.' . $this->name_sql_wrapped));
-        }
-        return $this->query_analyze->execute();
+    protected function query_set_get_size_pretty(SQLQuery $query): SQLQuery {
+        return $query->SELECT($this->sql_table_size_pretty);
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    protected function query_set_analyze(SQLQuery $query): SQLQuery {
+        return $query->raw('ANALYZE VERBOSE ' . $this->db_name . '.' . $this->name_sql_wrapped);
     }
 }

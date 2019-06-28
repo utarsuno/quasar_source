@@ -37,6 +37,12 @@ abstract class SQLQueryGroup {
     /** @var SQLQuery $query_analyze */
     protected $query_analyze;
 
+    /** @var SQLQuery $query_get_size */
+    protected $query_get_size;
+
+    /** @var SQLQuery $query_get_size_pretty */
+    protected $query_get_size_pretty;
+
     /**
      * SQLQueryGroup constructor.
      * @param string     $table_name
@@ -56,5 +62,47 @@ abstract class SQLQueryGroup {
      *
      * @return mixed
      */
-    abstract protected function analyze();
+    protected function analyze() {
+        if ($this->cache_is_cold('query_analyze')) {
+            return $this->first_execute($this->query_set_analyze($this->query_analyze));
+        }
+        return $this->query_analyze->execute();
+    }
+
+    /**
+     * @param bool $pretty_output
+     * @return int|string
+     */
+    public function get_size(bool $pretty_output=false) {
+        if ($pretty_output) {
+            if ($this->cache_is_cold('query_get_size_pretty')) {
+                return $this->first_execute($this->query_set_get_size_pretty($this->query_get_size_pretty));
+            }
+            return $this->query_get_size_pretty->execute();
+        }
+        if ($this->cache_is_cold('query_get_size')) {
+            return $this->first_execute($this->query_set_get_size($this->query_get_size));
+        }
+        return $this->query_get_size->execute();
+    }
+
+    # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    abstract protected function query_set_get_size(SQLQuery $query): SQLQuery;
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    abstract protected function query_set_get_size_pretty(SQLQuery $query): SQLQuery;
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    abstract protected function query_set_analyze(SQLQuery $query): SQLQuery;
 }
