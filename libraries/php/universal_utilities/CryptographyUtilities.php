@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Utilities;
 
-
+/**
+ * Class CryptographyUtilities
+ * @package QuasarSource\Utilities
+ */
 abstract class CryptographyUtilities {
 
     public const SHA512SUM = 'sha512';

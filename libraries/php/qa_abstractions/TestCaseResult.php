@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace QuasarSource\QualityAssurance;
 
-
-use QuasarSource\Utilities\Files\XMLElement;
+use QuasarSource\Utilities\File\Discrete\XMLElement;
 
 class TestCaseResult extends TestResultAbstract {
 

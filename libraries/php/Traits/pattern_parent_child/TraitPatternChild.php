@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,7 +8,7 @@
 
 namespace QuasarSource\Traits\PatternParentChild;
 
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
+use QuasarSource\Utilities\Exception\LogicException;
 
 
 trait TraitPatternChild {
@@ -20,9 +20,14 @@ trait TraitPatternChild {
         return $this->parent !== null;
     }
 
+    /**
+     * @param $parent
+     * @param bool $raise_exception_if_parent_exists
+     * @throws LogicException
+     */
     public function set_parent($parent, bool $raise_exception_if_parent_exists=true): void {
         if ($raise_exception_if_parent_exists && ($this->parent !== null && $parent !== $this->parent)) {
-            DBG::throw_exception('Can not set parent when current parent is not null!');
+            throw LogicException::invalid_function_call('set_parent', 'Can not set parent when current parent is not null!');
         }
         $this->parent = $parent;
         if (!$this->parent->has_child($this)) {

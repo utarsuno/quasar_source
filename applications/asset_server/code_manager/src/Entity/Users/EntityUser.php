@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,14 +8,10 @@
 
 namespace CodeManager\Entity\Users;
 
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldHasPointerToUserRole;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldCreatedAt;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldEmail;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldPassword;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldLastLogin;
-use Doctrine\ORM\Mapping\Index;
+use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldTextThree;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
@@ -25,22 +21,14 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Users
  *
  * @Entity(repositoryClass="CodeManager\Repository\Users\EntityUserRepository")
- * @Table(
- *     name="users",
- *     indexes={
- *         @Index(
- *             name="search_entity_users",
- *             columns={"username", "email", "last_login"}
- *         )
- *     }
- * )
+ * @Table(name="users")
  */
 class EntityUser {
     use FieldID;
-    use FieldCreatedAt;
-    use FieldName;
-    use FieldPassword;
-    use FieldEmail;
-    use FieldLastLogin;
-    use FieldHasPointerToUserRole;
+    // Username, Password, Email.
+    use FieldTextThree;
+    // The time instance that this account was created at and last logged in at.
+    use FieldUnixTimeTwo;
+    // A pointer to the EntityUserRole.
+    use FieldEntityPointer;
 }

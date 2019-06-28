@@ -8,7 +8,7 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\SimpleTimer;
+use QuasarSource\Utilities\Time\SimpleTimer;
 
 
 class SimpleTimerTest extends FileTestSuite {

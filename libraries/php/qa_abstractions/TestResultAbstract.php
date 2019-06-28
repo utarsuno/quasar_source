@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace QuasarSource\QualityAssurance;
-use QuasarSource\Traits\TraitPatternName;
-use QuasarSource\Utilities\Files\XMLElement;
+use QuasarSource\Traits\TraitName;
+use QuasarSource\Utilities\File\Discrete\XMLElement;
 
 
 abstract class TestResultAbstract {
-    use TraitPatternName;
+    use TraitName;
 
     protected $num_assertions;
     protected $time_taken;

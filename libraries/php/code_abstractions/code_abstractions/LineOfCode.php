@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -26,7 +26,7 @@ class LineOfCode {
     }
 
     public function has_text(string $text): bool {
-        return STR::contains($this->raw_line, $text);
+        return STR::has($this->raw_line, $text);
     }
 
     public function get_line_number(): int {

@@ -1,13 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Entity\Finance;
 
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldFromUser;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldFromVendor;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldToUser;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldToVendor;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldDescription;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldInt;
+use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointerTwo;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
 
@@ -21,9 +19,10 @@ use Doctrine\ORM\Mapping\Table;
  */
 class EntityCashFlow {
     use FieldID;
-    use FieldDescription;
-    use FieldFromVendor;
-    use FieldFromUser;
-    use FieldToVendor;
-    use FieldToUser;
+    // Description
+    use FieldText;
+    // 0 --> VendorToVendor, 1 --> VendorToUser, 2 --> UserToUser, 3 --> UserToVendor
+    use FieldInt;
+    // A pointer from Entity and pointer to Entity.
+    use FieldEntityPointerTwo;
 }

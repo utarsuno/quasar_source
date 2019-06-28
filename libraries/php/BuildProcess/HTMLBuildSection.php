@@ -1,11 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\StringUtilities     as STR;
+use QuasarSource\Utilities\File\Discrete\CSSUtilities as CSS;
+use QuasarSource\Utilities\File\FileUtilities         as UFO;
+use QuasarSource\Utilities\StringUtilities            as STR;
+use QuasarSource\Enums\EnumFileTypeExtensions         as EXTENSION;
 
 
 class HTMLBuildSection extends AssetBuildSection {
@@ -42,7 +44,7 @@ class HTMLBuildSection extends AssetBuildSection {
     private $web_manifest_default;
 
     public function __construct(CodeBuilderService $code_builder) {
-        parent::__construct(UFO::EXTENSION_HTML, $code_builder);
+        parent::__construct(EXTENSION::HTML, $code_builder);
         $this->web_manifest_default = 'data:application/manifest+json,' . json_encode(self::RAW_WEB_MANIFEST);
     }
 
@@ -61,11 +63,11 @@ class HTMLBuildSection extends AssetBuildSection {
 
         $file_path       = $file->getFullPath();
         $processed_lines = [];
-        $lines           = UFO::get_as_list($file_path);
+        $lines           = UFO::get($file_path);
         foreach ($lines as $line) {
-            if (STR::contains($line, self::PATTERN_CSS)) {
+            if (STR::has($line, self::PATTERN_CSS)) {
                 $this->process_line_css($line, $processed_lines);
-            } else if (STR::contains($line, self::PATTERN_MANIFEST)) {
+            } else if (STR::has($line, self::PATTERN_MANIFEST)) {
                 $this->process_line_manifest($line, $processed_lines);
             } else {
                 $processed_lines[] = $line;
@@ -73,17 +75,17 @@ class HTMLBuildSection extends AssetBuildSection {
         }
 
         $path_processed = $this->get_path_output() . $file->get_full_name_processed();
-        UFO::create_or_overwrite_file($path_processed, $processed_lines);
+        UFO::set($path_processed, $processed_lines);
         return $this->repo_entity_files->ensure_file_has_child($file, $path_processed, EntityFile::FLAG_PRE_PROCESS);
     }
 
     private function process_line_css(string $line, array & $processed_lines): void {
-        $css_file_name     = STR::get_matches_removed(trim($line), self::PATTERN_SUB_CSS_FILE_NAME);
+        $css_file_name     = STR::remove(trim($line), self::PATTERN_SUB_CSS_FILE_NAME);
         #if (!$this->repo_entity_files->has_checked_file_by_path($css_file_name)) {
         #    DBG::throw_exception('Needed pre-process file not found in memory {' . $css_file_name . '}');
         #}
-        $modified_line     = STR::get_matches_removed($line, self::PATTERN_SUB_CSS_FILE_LINE);
-        $processed_lines[] = STR::replace($modified_line, $css_file_name, UFO::get_css_minified_contents($css_file_name));
+        $modified_line     = STR::remove($line, self::PATTERN_SUB_CSS_FILE_LINE);
+        $processed_lines[] = STR::replace($modified_line, $css_file_name, CSS::get($css_file_name));
     }
 
     private function process_line_manifest(string $line, array & $processed_lines): void {

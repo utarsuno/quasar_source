@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -11,61 +11,49 @@ namespace CodeManager\Entity\CodeManager;
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldVersionLatest;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldVersionLocal;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldLastChecked;
-use Doctrine\ORM\Mapping\Index;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldTextThree;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\DataStructures\Cached;
-use QuasarSource\DataStructures\TraitCached;
-use QuasarSource\Utilities\DateTimeUtilities as TIME;
-use QuasarSource\Utilities\DateTimeUtilities as DATE;
-use QuasarSource\Utilities\Files\PathUtilities as PATH;
-use QuasarSource\Utilities\Processes\ProcessUtilities as RUN;
+use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
+use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
+use QuasarSource\Utilities\File\PathUtilities       as PATH;
+use QuasarSource\Utilities\Process\ProcessUtilities as RUN;
 
 
 /**
- * Class EntityDirectory
- * @package CodeManager\Entity
+ * Class EntityNPMLib
+ * @package CodeManager\Entity\CodeManager
  *
- * @Entity(repositoryClass="CodeManager\Repository\EntityNPMLibRepository")
- * @Table(
- *     name="npm_library",
- *     indexes={
- *         @Index(
- *             name="search_entity_npm_library",
- *             columns={"name", "last_checked"}
- *         )
- *     }
- * )
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityNPMLibRepository")
+ * @Table(name="npm_library")
  */
-class EntityNPMLib extends EntityState implements EntityInterface, Cached {
-    use TraitCached;
+class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInterface {
+    use TraitCacheTable;
     use FieldID;
-    use FieldName;
-    use FieldVersionLatest;
-    use FieldVersionLocal;
-    use FieldLastChecked;
-
-    public const TABLE_NAME      = 'npm_library';
-    public const SORT_FIELD_TIME = 'last_checked';
+    // Name, VersionLatest, VersionLocal.
+    use FieldTextThree;
+    // Represents the last time it was checked.
+    use FieldUnixTime;
 
     private const CACHE_KEY_LATEST_VERSION = 'cache_latest_version';
 
-    public function cache_set(string $key): void {
+    public function cache_calculate(string $key) {
         if ($key === self::CACHE_KEY_LATEST_VERSION) {
-            $this->cached_values[$key] = RUN::get_npm_lib_latest_version($this->getName());
+            return RUN::get_npm_lib_latest_version($this->getName());
         }
+        return null;
     }
 
     public function cache_needs_inspection() : bool {
-        $last_checked = $this->getLastChecked();
-        if (DATE::is_different_day($last_checked, DATE::now())) {
-            $this->setLastChecked(TIME::now());
-            return true;
-        }
+        $last_checked = $this->getUnixTimestamp();
+        var_dump('Last checked is {' . $last_checked . '}');
+
+
+        #if (DATE::is_different_day($last_checked, DATE::now())) {
+        #    $this->setLastChecked(TIME::now());
+        #    return true;
+        #}
         return false;
     }
 
@@ -88,7 +76,7 @@ class EntityNPMLib extends EntityState implements EntityInterface, Cached {
 
     public function on_event_born($data): void {
         $latest_version  = RUN::get_npm_lib_latest_version($data);
-        PATH::cwd_push(PATH::get(PATH::NODE_DIR));
+        PATH::cwd_push(\CodeManager\Enum\ProjectParameterKeys\Path::DIRECTORY_NODE);
         $current_version = RUN::get_npm_lib_version_local($data);
         PATH::cwd_pop();
         $this->setName($data);

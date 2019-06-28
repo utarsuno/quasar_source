@@ -1,7 +1,3 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-
 qa_test:
   path: /qa_test
   controller: CodeManager\Controller\QAController::test_response

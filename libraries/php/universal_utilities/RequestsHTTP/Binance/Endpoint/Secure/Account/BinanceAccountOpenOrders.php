@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure;
 use QuasarSource\Utilities\RequestsHTTP\Binance\BinanceSecureRequest;
@@ -14,7 +14,7 @@ class BinanceAccountOpenOrders extends BinanceSecureRequest {
     use NoArgs;
 
     public function __construct(string $api_key, string $api_secret) {
-        parent::__construct(self::API_V3 . 'openOrders', $api_key, $api_secret);
+        parent::__construct('openOrders', $api_key, $api_secret);
     }
 }
 /*

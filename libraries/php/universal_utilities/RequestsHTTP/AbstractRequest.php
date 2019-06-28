@@ -1,18 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Utilities\RequestsHTTP;
-use QuasarSource\Traits\TraitPatternName;
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
-use QuasarSource\Utilities\StringUtilities               as STR;
+use QuasarSource\Traits\TraitName;
+use QuasarSource\Utilities\Exception\ParameterException;
+use QuasarSource\Utilities\StringUtilities as STR;
 
 
 abstract class AbstractRequest {
-    use TraitPatternName;
+    use TraitName;
 
-    protected const NEW_LINE       = "\r\n";
-    protected const HEADER_DEFAULT = 'User-Agent: Mozilla/4.0 (compatible; PHP API)' . self::NEW_LINE;
-    public const REQUEST_TYPE_GET  = 'GET';
-    public const REQUEST_TYPE_POST = 'POST';
+    protected const NEW_LINE         = "\r\n";
+    protected const HEADER_DEFAULT   = 'User-Agent: Mozilla/4.0 (compatible; PHP API)' . self::NEW_LINE;
+    public const REQUEST_TYPE_GET    = 'GET';
+    public const REQUEST_TYPE_POST   = 'POST';
+    public const REQUEST_TYPE_DELETE = 'DELETE';
 
     public static function execute_http_request(string $url, $context): string {
         return file_get_contents($url, false, $context);
@@ -21,7 +22,7 @@ abstract class AbstractRequest {
     /** @var array */
     protected $params;
     /** @var string */
-    private $request_type;
+    protected $request_type;
     /** @var bool */
     protected $cache_response = false;
     protected $cached_response;
@@ -64,6 +65,10 @@ abstract class AbstractRequest {
         return $this->parse_response($this->run_http_request());
     }
 
+    /**
+     * @return string
+     * @throws ParameterException
+     */
     protected function get_url(): string {
         switch ($this->request_type) {
             case self::REQUEST_TYPE_GET:
@@ -74,9 +79,10 @@ abstract class AbstractRequest {
                 return $this->name;
             case self::REQUEST_TYPE_POST:
                 return $this->name;
+            case self::REQUEST_TYPE_DELETE:
+                return $this->name;
             default:
-                DBG::throw_exception('Invalid request type{' . $this->request_type . '}');
-                return '';
+                throw ParameterException::invalid_function_parameter('get_url', $this->request_type);
         }
     }
 
@@ -109,20 +115,6 @@ abstract class AbstractRequest {
         return stream_context_create($this->get_stream_context_settings());
     }
 
-    /**
-     * @return bool
-     */
-    protected function is_get(): bool {
-        return $this->request_type === self::REQUEST_TYPE_GET;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function is_post(): bool {
-        return $this->request_type === self::REQUEST_TYPE_POST;
-    }
-
     /*__        __              __
      |__)  /\  |__)  /\   |\/| /__`
      |    /~~\ |  \ /~~\  |  | .__/ */
@@ -140,7 +132,7 @@ abstract class AbstractRequest {
      * @return string
      */
     protected function get_params_as_query(): string {
-        return STR::url_GET_params($this->params);
+        return http_build_query($this->params, '', '&');
     }
 
     /**

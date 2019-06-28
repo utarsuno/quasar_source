@@ -1,26 +1,31 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace CodeManager\Repository\Abstractions;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities      as DBG;
-use QuasarSource\Utilities\SQL\PostgreSQL\PostgreSQLTableUtilities as TABLE;
-use QuasarSource\Utilities\SQL\PostgreSQL\PostgreSQLUtilities as SQL;
+use QuasarSource\Utilities\Exception\ExceptionDB;
 
 
+/**
+ * Class AbstractRepository
+ * @package CodeManager\Repository\Abstractions
+ */
 abstract class AbstractRepository extends EntityRepository {
 
     protected $default_search_attribute;
     protected $entity_class;
 
+    /**
+     * @param EntityManagerInterface $em
+     * @param Mapping\ClassMetadata  $class
+     */
     public function __construct(EntityManagerInterface $em, Mapping\ClassMetadata $class) {
         parent::__construct($em, $class);
     }
@@ -48,36 +53,49 @@ abstract class AbstractRepository extends EntityRepository {
         return $entity;
     }
 
+    /**
+     * @param $entity
+     * @param bool $save_db_state
+     * @throws ExceptionDB
+     */
     public function remove_entity($entity, bool $save_db_state=false): void {
         #$this->event_before_remove_entity($entity);
         try {
             $this->_em->remove($entity);
         } catch (ORMException $e) {
-            DBG::throw_exception($e->getMessage());
+            throw ExceptionDB::doctrine_error($e->getMessage());
         }
         if ($save_db_state) {
             $this->flush();
         }
     }
 
+    /**
+     * @param $entity
+     * @param bool $save_db_state
+     * @throws ExceptionDB
+     */
     public function save_entity($entity, bool $save_db_state=false): void {
         try {
             $this->_em->persist($entity);
         } catch (ORMException $e) {
-            DBG::throw_exception($e->getMessage());
+            throw ExceptionDB::doctrine_error($e->getMessage());
         }
         if ($save_db_state) {
             $this->flush();
         }
     }
 
+    /**
+     * @throws ExceptionDB
+     */
     private function flush(): void {
         try {
             $this->_em->flush();
         } catch (OptimisticLockException $e) {
-            DBG::throw_exception($e->getMessage());
+            throw ExceptionDB::doctrine_error($e->getMessage());
         } catch (ORMException $e) {
-            DBG::throw_exception($e->getMessage());
+            throw ExceptionDB::doctrine_error($e->getMessage());
         }
     }
 

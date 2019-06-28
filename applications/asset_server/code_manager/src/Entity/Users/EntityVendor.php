@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Entity\Users;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldHasPointerToVendorCategory;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldDescription;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
+use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldTextTwo;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -17,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EntityVendor {
     use FieldID;
-    use FieldName;
-    use FieldDescription;
-    use FieldHasPointerToVendorCategory;
+    // Name and description.
+    use FieldTextTwo;
+    // A pointer to the EntityVendorCategory.
+    use FieldEntityPointer;
 }

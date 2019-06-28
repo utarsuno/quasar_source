@@ -13,8 +13,8 @@ use QuasarSource\Utilities\MathUtilities as MATH;
 
 class MathUtilitiesTest extends FileTestSuite {
 
-    public function test_get_percentage_decreased(): void {
-        $this->assertLessThan(.41, MATH::get_percentage_decreased(2.5, 1.5, false));
+    public function test_percentage_decreased(): void {
+        $this->assertLessThan(.41, MATH::percentage_decreased(2.5, 1.5, false));
     }
 
 }

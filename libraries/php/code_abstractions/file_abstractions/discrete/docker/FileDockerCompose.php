@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,13 +8,10 @@
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\Docker;
 use QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments\CodeSegments;
-use QuasarSource\CodeAbstractions\CodeAbstractions\Comment;
-use QuasarSource\CodeAbstractions\CodeAbstractions\EmptyLine;
-use QuasarSource\CodeAbstractions\CodeAbstractions\LineOfCode;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
 use QuasarSource\Utilities\EchoUtilities as L;
 use QuasarSource\Utilities\StringUtilities as STR;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\File\FileUtilities as UFO;
 
 class FileDockerCompose extends FileYAML {
 
@@ -54,7 +51,7 @@ class FileDockerCompose extends FileYAML {
         }
         #echo $file_text;
 
-        UFO::set_contents($this->get_path_full(), $file_text);
+        UFO::set($this->get_path_full(), $file_text);
     }
 
     public function clean(): void {

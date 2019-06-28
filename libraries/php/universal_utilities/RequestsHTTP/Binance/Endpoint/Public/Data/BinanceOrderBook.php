@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint;
-use QuasarSource\Utilities\RequestsHTTP\Binance\BinanceRequest;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOptionalLimit;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\ReturnResultAsIs;
 
 
-class BinanceOrderBook extends BinanceRequest {
+class BinanceOrderBook extends BinancePublicEndpoint {
     use ParameterSymbol;
     use ParameterOptionalLimit;
     use ReturnResultAsIs;
@@ -18,7 +17,7 @@ class BinanceOrderBook extends BinanceRequest {
     # Caution: setting limit=0 can return a lot of data.
 
     public function __construct() {
-        parent::__construct(self::API_V1 . 'depth');
+        parent::__construct('depth');
         $this->allowed_parameter_limit_values = [5, 10, 20, 50, 100, 500, 1000];
     }
 }

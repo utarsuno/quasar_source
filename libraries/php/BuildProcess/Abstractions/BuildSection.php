@@ -1,38 +1,44 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 use CodeManager\Service\CodeBuilderService;
+use CodeManager\Service\Feature\Repository\OwnsReposInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
-use QuasarSource\Traits\TraitConfigParams;
+use CodeManager\Service\Feature\Config\FeatureConfigUniversalInterface;
+use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
 
-
-abstract class BuildSection extends UnitOfWork {
-    use TraitConfigParams;
+/**
+ * Class BuildSection
+ * @package QuasarSource\BuildProcess\Abstractions
+ */
+abstract class BuildSection extends UnitOfWork implements OwnsReposInterface, FeatureConfigUniversalInterface {
+    use FeatureConfigYAMLTrait;
 
     /** @var AbstractRepository */
     protected $repo;
 
+    /** @var CodeBuilderService */
+    protected $code_builder;
+
     /**
-     * BuildSection constructor.
      * @param string $name
      * @param CodeBuilderService $code_builder
      */
     public function __construct(string $name, CodeBuilderService $code_builder) {
-        parent::__construct($name, $code_builder);
+        parent::__construct($name, $code_builder->service_get_logger());
+        $this->code_builder = $code_builder;
     }
 
-    protected function get_repo(string $repo_name): ObjectRepository {
+    /**
+     * @param  string $repo_name
+     * @return ObjectRepository
+     */
+    public function get_repo(string $repo_name): ObjectRepository {
         return $this->code_builder->get_repo($repo_name);
     }
-
-    protected function pre_work(): void {}
-
-    abstract protected function perform_work(): void;
-
-    protected function post_work(): void {}
 
     protected function process_entity(EntityInterface $entity): ?EntityInterface {
         if ($entity->cache_needs_update(true)) {
@@ -45,4 +51,12 @@ abstract class BuildSection extends UnitOfWork {
     }
 
     abstract protected function on_entity_update(EntityInterface $entity);
+
+    /**
+     * @param  string $key
+     * @return mixed
+     */
+    public function config_universal_get(string $key) {
+        return $this->code_builder->config_universal_get($key);
+    }
 }

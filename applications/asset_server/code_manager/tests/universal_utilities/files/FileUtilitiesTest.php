@@ -8,7 +8,9 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\File\Discrete\CSSUtilities;
+use QuasarSource\Utilities\File\Discrete\HTMLUtilities;
+use QuasarSource\Utilities\File\FileUtilities as UFO;
 
 
 class FileUtilitiesTest extends FileTestSuite {
@@ -40,12 +42,14 @@ class FileUtilitiesTest extends FileTestSuite {
     }
 
     public function test_minify_html(): void {
-        UFO::minify_html(self::PATH_HTML_PRE, self::PATH_HTML_POST);
+        #UFO::minify_html(self::PATH_HTML_PRE, self::PATH_HTML_POST);
+        HTMLUtilities::minify(self::PATH_HTML_PRE, self::PATH_HTML_POST);
         $this->assert_compression(self::PATH_HTML_PRE, self::PATH_HTML_POST, 0.30);
     }
 
     public function test_minify_css(): void {
-        UFO::minify_css(self::PATH_CSS_PRE, self::PATH_CSS_POST);
+        #UFO::minify_css(self::PATH_CSS_PRE, self::PATH_CSS_POST);
+        CSSUtilities::minify(self::PATH_CSS_PRE, self::PATH_CSS_POST);
         $this->assert_compression(self::PATH_CSS_PRE, self::PATH_CSS_POST, 0.60);
     }
 
@@ -69,6 +73,7 @@ class FileUtilitiesTest extends FileTestSuite {
         );
     }
 
+    /*
     public function test_get_yaml(): void {
         $test_file_contents = [
             'section_a' => ['a', 'b', 'c'],
@@ -82,6 +87,6 @@ class FileUtilitiesTest extends FileTestSuite {
             $test_file_contents,
             UFO::get_yaml(self::PATH_YAML)
         );
-    }
+    }*/
 
 }

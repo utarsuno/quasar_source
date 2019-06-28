@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Repository\EntityNPMLibRepository;
+use CodeManager\Repository\CodeManager\EntityNPMLibRepository;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
-use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
+use QuasarSource\Utilities\Exception\ParameterException;
 
 
 class NPMLibBuildSection extends BuildSection {
@@ -16,19 +16,19 @@ class NPMLibBuildSection extends BuildSection {
     /**
      * NPMLibBuildSection constructor.
      * @param CodeBuilderService $code_builder
-     * @throws ExceptionInvalidConfigurationFile
+     * @throws ParameterException
      */
     public function __construct(CodeBuilderService $code_builder) {
         parent::__construct('NPM Libs', $code_builder);
         $this->config_initialize(
             ['npm' => null],
-            $code_builder->config_get()
+            $code_builder->config_yaml_get_all()
         );
         $this->repo = $this->get_repo(EntityNPMLibRepository::class);
     }
 
     protected function perform_work(): void {
-        foreach ($this->config_get() as $file_value) {
+        foreach ($this->config_yaml_get_all() as $file_value) {
             if (!$this->repo->has_entity($file_value)) {
                 $this->repo->create_new_entity($file_value);
             } else {

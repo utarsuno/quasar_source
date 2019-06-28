@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Repository\Finance;
 use CodeManager\Entity\Abstractions\EntityInterface;

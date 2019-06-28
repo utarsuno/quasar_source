@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -7,7 +7,7 @@
  */
 
 namespace QuasarSource\Traits\PatternParentChild;
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
+use QuasarSource\Utilities\Exception\LogicException;
 
 
 trait TraitPatternParent {
@@ -24,9 +24,14 @@ trait TraitPatternParent {
         return false;
     }
 
+    /**
+     * @param $child
+     * @param bool $raise_exception_if_child_exists
+     * @throws LogicException
+     */
     public function add_child($child, bool $raise_exception_if_child_exists=true): void {
         if ($raise_exception_if_child_exists && $this->has_child($child)) {
-            DBG::throw_exception('Can not add child to parent when it already exists!');
+            throw LogicException::invalid_function_call('add_child', 'Can not add child to parent when it already exists!');
         }
         $this->children[] = $child;
         if (!$child->has_parent()) {

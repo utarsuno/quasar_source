@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Repository\EntityFileRepository;
-use CodeManager\Repository\EntityQAReportRepository;
+use CodeManager\Repository\CodeManager\EntityFileRepository;
+use CodeManager\Repository\CodeManager\EntityQAReportRepository;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
-use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
+use QuasarSource\Utilities\Exception\ParameterException;
 
 
 class QAReportBuildSection extends BuildSection {
@@ -19,20 +19,20 @@ class QAReportBuildSection extends BuildSection {
     /**
      * QAReportBuildSection constructor.
      * @param CodeBuilderService $code_builder
-     * @throws ExceptionInvalidConfigurationFile
+     * @throws ParameterException
      */
     public function __construct(CodeBuilderService $code_builder) {
         parent::__construct('QA Report', $code_builder);
         $this->config_initialize(
             ['stats' => ['unit_tests' => null]],
-            $code_builder->config_get('qa_report')
+            $code_builder->config_yaml_get('qa_report')
         );
         $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
         $this->repo              = $this->get_repo(EntityQAReportRepository::class);
     }
 
     protected function perform_work() : void {
-        foreach ($this->config_get('stats') as $stat => $file_path) {
+        foreach ($this->config_yaml_get('stats') as $stat => $file_path) {
             if (!$this->repo_entity_files->has_entity($file_path)) {
                 $this->event_qa_entity_file_not_stored_in_db($file_path);
             } else {

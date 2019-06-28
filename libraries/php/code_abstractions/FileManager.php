@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -19,9 +19,8 @@ use QuasarSource\CodeAbstractions\File\Discrete\JS\FileJavascript;
 use QuasarSource\CodeAbstractions\File\Discrete\PHP\FilePHP;
 use QuasarSource\CodeAbstractions\File\Discrete\System\FileDS_Store;
 use QuasarSource\CodeAbstractions\File\FileText;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as UPO;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\File\PathUtilities as UPO;
+use QuasarSource\Utilities\StringUtilities    as STR;
 use QuasarSource\CodeAbstractions\Directory\DirectoryInstance;
 
 
@@ -68,7 +67,7 @@ class FileManager {
 
     public static function get_needed_file_class_type(string $file_path, DirectoryInstance $parent_directory) : ?FileAbstraction {
         $extension = UPO::get_ending_extension($file_path);
-        $path      = STR::get_matches_removed($file_path, $extension);
+        $path      = STR::remove($file_path, $extension);
 
         if ($path === null || $path === '') {
             // --------------------------------------------------------------------------------------------------
@@ -86,14 +85,14 @@ class FileManager {
             // --------------------------------------------------------------------------------------------------
         } else if ($extension === '.yml' || $extension === '.yaml') {
             // --------------------------------------------------------------------------------------------------
-            if (STR::contains($path, 'docker-compose')) {
+            if (STR::has($path, 'docker-compose')) {
                 return new FileDockerCompose($path, $extension, $parent_directory);
             }
             return new FileYAML($path, $extension, $parent_directory);
             // --------------------------------------------------------------------------------------------------
         } else if ($extension === '.js') {
             // --------------------------------------------------------------------------------------------------
-            if (STR::contains($path, 'eslintrc')) {
+            if (STR::has($path, 'eslintrc')) {
                 return new FileESLint($path, $extension, $parent_directory);
             }
             return new FileJavascript($path, $extension, $parent_directory);

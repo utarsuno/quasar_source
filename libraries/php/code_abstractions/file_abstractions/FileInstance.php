@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -9,7 +9,7 @@
 namespace QuasarSource\CodeAbstractions\File;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\Traits\PatternParentChild\TraitPatternChild;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\File\FileUtilities as UFO;
 
 
 abstract class FileInstance extends FileAbstraction {
@@ -33,7 +33,7 @@ abstract class FileInstance extends FileAbstraction {
 
     public function get_lines() : array {
         if (!$this->loaded_lines) {
-            $this->file_lines = UFO::get_as_list($this->get_path_full());
+            $this->file_lines = UFO::get($this->get_path_full());
             $this->loaded_lines = true;
         }
         return $this->file_lines;

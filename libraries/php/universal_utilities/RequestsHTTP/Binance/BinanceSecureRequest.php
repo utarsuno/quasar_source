@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Utilities\RequestsHTTP\Binance;
-use QuasarSource\Utilities\CryptographyUtilities as HASH;
-use QuasarSource\Utilities\DateTimeUtilities     as TIME;
+use QuasarSource\Utilities\CryptographyUtilities  as HASH;
+use QuasarSource\Utilities\Time\UnixTimeUtilities as UNIX;
 use QuasarSource\Utilities\RequestsHTTP\AbstractRequest;
 
 
@@ -18,7 +18,7 @@ abstract class BinanceSecureRequest extends BinanceRequest {
     private $secure_query_url;
 
     public function __construct(string $endpoint, string $api_key, string $api_secret, string $request_type=AbstractRequest::REQUEST_TYPE_GET) {
-        parent::__construct($endpoint, $request_type);
+        parent::__construct('v3/' . $endpoint, $request_type);
         $this->api_secret = $api_secret;
         $this->api_key    = $api_key;
     }
@@ -36,7 +36,7 @@ abstract class BinanceSecureRequest extends BinanceRequest {
     protected function get_stream_context_settings(): array {
         $settings = parent::get_stream_context_settings();
         $settings['http']['ignore_errors'] = true;
-        if ($this->is_post()) {
+        if ($this->request_type === self::REQUEST_TYPE_POST || $this->request_type === self::REQUEST_TYPE_DELETE) {
             $settings['http']['content'] = $this->secure_query_url;
         }
         return $settings;
@@ -64,9 +64,9 @@ abstract class BinanceSecureRequest extends BinanceRequest {
      * @return mixed|void
      */
     protected function parse_args($args = null) {
-        $this->param_set('timestamp', TIME::unix_timestamp());
+        $this->param_set('timestamp', UNIX::now_as_string());
         $this->process_args($args);
-        $query = $this->get_params_as_query();
+        $query                  = $this->get_params_as_query();
         $this->secure_query_url = $query . '&signature=' . $this->get_signature($query);
     }
 

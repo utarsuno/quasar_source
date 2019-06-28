@@ -1,25 +1,46 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Repository\CodeManager;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\CodeManager\EntityCodeBuild;
 use CodeManager\Repository\Abstractions\AbstractRepository;
-use CodeManager\Repository\Abstractions\QueryableRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping;
+use CodeManager\Entity\Abstractions\Traits\Enum\EntityTableNames as TABLE;
+use CodeManager\Entity\Abstractions\Traits\Enum\EntityFields     as FIELD;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
-
-class EntityCodeBuildRepository extends QueryableRepository {
+/**
+ * Class EntityCodeBuildRepository
+ * @package CodeManager\Repository\CodeManager
+ */
+class EntityCodeBuildRepository extends AbstractRepository {
 
     protected $entity_class = EntityCodeBuild::class;
     #protected $default_search_attribute = 'username';
 
-    public function __construct(EntityManagerInterface $em, Mapping\ClassMetadata $class) {
+    public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
         parent::__construct($em, $class);
-        $this->set_table_name(EntityCodeBuild::TABLE_NAME);
-        $this->set_sort_field_time(EntityCodeBuild::SORT_FIELD_TIME);
+        $this->query_manager->set_table_name(TABLE::CODE_BUILDS);
+        $this->query_manager->set_sort_field(FIELD::TIME_START);
+    }
+
+    public function fetch_or_generate_last_build(): EntityCodeBuild {
+        var_dump($this->get_table_size());
+
+        exit(3);
+
+        #var_dump($this->get_table_num_rows());
+
+        var_dump($this->analyze_table());
+
+        $table_rows = $this->get_table_num_rows();
+        if ($table_rows === 0) {
+            return new EntityCodeBuild();
+        }
+        var_dump('ELSE, HANDLE THIS!');
+        exit(2);
     }
 
     public function get_datetime_of_last_successful_build(): ?DateTime {
@@ -28,14 +49,16 @@ class EntityCodeBuildRepository extends QueryableRepository {
         #var_dump($results);
 
         #var_dump($this->get_table_size());
+        #var_dump($this->get_table_num_rows());
+        return null;
         #var_dump($this->get_newest_entity());
         #var_dump($this->get_oldest_entity());
 
-        $entity = $this->get_newest_entity();
+        #$entity = $this->get_newest_entity();
         #var_dump('The newest entity is:');
-        #ar_dump($entity);
+        #var_dump($entity);
 
-        return $entity;
+        #return $entity;
     }
 
     protected function event_before_remove_entity(EntityInterface $entity): void {

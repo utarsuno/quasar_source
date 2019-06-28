@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -9,9 +9,9 @@
 namespace CodeManager\Entity\Users;
 
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldInt;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldRank;
-use Doctrine\ORM\Mapping\Index;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
@@ -20,18 +20,12 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Users
  *
  * @Entity(repositoryClass="CodeManager\Repository\Users\EntityUserRoleRepository")
- * @Table(
- *     name="user_roles",
- *     indexes={
- *         @Index(
- *             name="search_entity_user_roles",
- *             columns={"name", "rank"}
- *         )
- *     }
- * )
+ * @Table(name="user_roles")
  */
 class EntityUserRole {
     use FieldID;
-    use FieldName;
-    use FieldRank;
+    // Name.
+    use FieldText;
+    // RankID.
+    use FieldInt;
 }

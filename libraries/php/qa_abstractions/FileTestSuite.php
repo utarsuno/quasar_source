@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -7,10 +7,12 @@
  */
 
 namespace QuasarSource\QualityAssurance;
-use PHPUnit\Framework\TestCase;
+#use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
-abstract class FileTestSuite extends TestCase {
+#abstract class FileTestSuite extends TestCase {
+abstract class FileTestSuite extends WebTestCase {
 
     protected $class_to_test;
     private $function_to_test;

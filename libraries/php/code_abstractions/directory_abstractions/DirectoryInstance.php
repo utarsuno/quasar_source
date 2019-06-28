@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -11,10 +11,9 @@ namespace QuasarSource\CodeAbstractions\Directory;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
-use QuasarSource\Utilities\Exceptions\ExceptionUtilities as DBG;
-use QuasarSource\Utilities\Files\FileUtilities      as UFO;
-use QuasarSource\Utilities\Files\PathUtilities      as UPO;
-use QuasarSource\Utilities\Files\DirectoryUtilities as UDO;
+use QuasarSource\Utilities\Exception\LogicException;
+use QuasarSource\Utilities\File\PathUtilities      as UPO;
+use QuasarSource\Utilities\File\DirectoryUtilities as UDO;
 use QuasarSource\Utilities\StringUtilities          as STR;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 use QuasarSource\Utilities\EchoUtilities            as L;
@@ -25,7 +24,7 @@ class DirectoryInstance extends FileAbstraction {
     use TraitPatternParentAndChild;
 
     public function __construct(string $path, FileAbstraction $parent=null) {
-        $path = STR::get_matches_removed($path, DIRECTORY_SEPARATOR);
+        $path = STR::remove($path, DIRECTORY_SEPARATOR);
         parent::__construct($path, $path . DIRECTORY_SEPARATOR, false, $parent);
     }
 
@@ -40,20 +39,23 @@ class DirectoryInstance extends FileAbstraction {
         }
     }
 
+    /**
+     * @param string $path
+     * @throws LogicException
+     */
     private function add_file_from_path(string $path): void {
-
         $instance = FileManager::get_needed_file_class_type($path, $this);
         if ($instance === null) {
-            #DBG::throw_exception('No file created for path {' . $path . '}');
-            L::l('Warning: no file created for path {' . $path . '}');
+            throw LogicException::invalid_function_call('add_file_from_path', 'Warning: no file created for path {' . $path . '}');
+            #L::l('Warning: no file created for path {' . $path . '}');
         }
     }
 
-    private function contains_directory_path(string $path) : bool {
-        return STR::contains($this->get_path_full(), $path);
+    private function contains_directory_path(string $path): bool {
+        return STR::has($this->get_path_full(), $path);
     }
 
-    public function get_local_files_of_type($file_type) : array {
+    public function get_local_files_of_type($file_type): array {
         $files = [];
         foreach ($this->children as $child) {
             if ($child->is_file() && get_class($child) === $file_type) {
@@ -70,8 +72,9 @@ class DirectoryInstance extends FileAbstraction {
             $path = DIRECTORY_SEPARATOR . $path;
         }
         $p = UPO::get_directory($path);
-        $f = STR::get_matches_removed($path, $p);
+        $f = STR::remove($path, $p);
 
+        /** @var DirectoryInstance $child */
         foreach ($this->children as $child) {
             if (!$child->is_file() && $child->contains_directory_path($p)) {
                 $child->load_cache(true);
@@ -87,7 +90,7 @@ class DirectoryInstance extends FileAbstraction {
 
     private function find_file(string $path) {
         foreach ($this->children as $child) {
-            if ($child->is_file() && STR::contains($child->get_path_full(), $path)) {
+            if ($child->is_file() && STR::has($child->get_path_full(), $path)) {
                 return $child;
             }
         }
@@ -103,37 +106,18 @@ class DirectoryInstance extends FileAbstraction {
             UDO::get_all_contents($path_full, $use_recursion, $path_files, $path_directories);
 
             foreach ($path_files as $path) {
-                $p = STR::get_matches_removed($path, $path_full);
-                if (!STR::contains($p, DIRECTORY_SEPARATOR)) {
-                    $this->add_file_from_path(STR::get_matches_removed($path, $path_full));
+                $p = STR::remove($path, $path_full);
+                if (!STR::has($p, DIRECTORY_SEPARATOR)) {
+                    $this->add_file_from_path(STR::remove($path, $path_full));
                 }
             }
 
             foreach ($path_directories as $path) {
-                $directory = new DirectoryInstance(STR::get_matches_removed($path, $path_full), $this);
+                $directory = new DirectoryInstance(STR::remove($path, $path_full), $this);
                 if ($use_recursion) {
                     $directory->load_cache(true);
                 }
             }
         }
-    }
-
-    public function is_cached() : bool {
-        return $this->cached;
-    }
-
-    public function clean(): void
-    {
-        // TODO: Implement clean() method.
-    }
-
-    public function is_cleanable(): bool
-    {
-        // TODO: Implement is_cleanable() method.
-    }
-
-    public function is_clean(): ?bool
-    {
-        // TODO: Implement is_clean() method.
     }
 }

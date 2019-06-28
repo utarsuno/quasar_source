@@ -1,17 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\File\EntityFile;
-use CodeManager\Repository\EntityFileRepository;
+use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS;
+use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
+use CodeManager\Repository\CodeManager\EntityFileRepository;
 use CodeManager\Service\CodeBuilderService;
-use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
+use QuasarSource\Utilities\Exception\ParameterException;
 
-
+/**
+ * Class AssetBuildSection
+ * @package QuasarSource\BuildProcess\Abstractions
+ */
 abstract class AssetBuildSection extends BuildSection {
-
-    public const CONFIG_KEY_DIR_OUTPUT = 'output_directory';
-    public const CONFIG_KEY_DIR_DATA   = 'data_directory';
 
     /** @var EntityFileRepository */
     protected $repo_entity_files;
@@ -19,29 +21,28 @@ abstract class AssetBuildSection extends BuildSection {
     protected $file_builds = [];
 
     /**
-     * AssetBuildSection constructor.
-     * @param string $name
-     * @param CodeBuilderService $code_builder
-     * @throws ExceptionInvalidConfigurationFile
+     * @param  string $name
+     * @param  CodeBuilderService $code_builder
+     * @throws ParameterException
      */
     public function __construct(string $name, CodeBuilderService $code_builder) {
         parent::__construct($name, $code_builder);
-        $this->config_initialize(
-            [self::CONFIG_KEY_DIR_OUTPUT => null, self::CONFIG_KEY_DIR_DATA => null, 'files' => null],
-            $code_builder->config_get(['assets', $name])
+        $this->config_yaml_set_data(
+            $this->config_universal_get(SCHEMAS::YAML_ASSETS), $code_builder->config_yaml_get(['assets', $name])
         );
+
         $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
-        $directory_data          = $this->config_get(self::CONFIG_KEY_DIR_DATA);
-        foreach ($this->config_get('files') as $k => $v) {
+        $directory_data          = $this->config_yaml_get(PATHS::DIRECTORY_DATA);
+        foreach ($this->config_yaml_get('files') as $k => $v) {
             $this->file_builds[$directory_data . $k] = $v;
         }
     }
 
     private function parse_file(string $file, array $flags) {
-        if (!$this->repo_entity_files->has_entity($file)) {
-            $f = $this->repo_entity_files->create_new_entity($file);
-        } else {
+        if ($this->repo_entity_files->has_entity($file)) {
             $f = $this->process_entity($this->repo_entity_files->get_entity($file));
+        } else {
+            $f = $this->repo_entity_files->create_new_entity($file);
         }
 
         if ($this->has_flag_processed($flags)) {
@@ -67,20 +68,28 @@ abstract class AssetBuildSection extends BuildSection {
     }
 
     protected function has_flag_processed(array $flags) : bool {
-        return in_array(EntityFile::FLAG_PRE_PROCESS, $flags, true);
+        return \in_array(EntityFile::FLAG_PRE_PROCESS, $flags, true);
     }
 
     protected function has_flag_minified(array $flags) : bool {
-        return in_array(EntityFile::FLAG_MINIFY, $flags, true);
+        return \in_array(EntityFile::FLAG_MINIFY, $flags, true);
     }
 
     protected function has_flag_gzipped(array $flags) : bool {
-        return in_array(EntityFile::FLAG_GZIP, $flags, true);
+        return \in_array(EntityFile::FLAG_GZIP, $flags, true);
     }
 
     protected function get_path_output(): string {
-        return $this->config_get(self::CONFIG_KEY_DIR_OUTPUT);
+        return $this->config_yaml_get(PATHS::DIRECTORY_OUTPUT);
     }
 
     abstract protected function handle_step_processed(EntityFile $file, string $output_file_path) : ?EntityFile;
+
+    protected function pre_work(): void {
+
+    }
+
+    protected function post_work(): void {
+
+    }
 }

@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Entity\Users;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldDescription;
+use CodeManager\Entity\Abstractions\Traits\Boolean\FieldBoolean;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldName;
-use CodeManager\Entity\Abstractions\Traits\Boolean\FieldOptional;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldTextTwo;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -13,11 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package CodeManager\Entity\Users
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Users\EntityVendorRepository")
- * @ORM\Table(name="vendors")
+ * @ORM\Table(name="vendor_categories")
  */
 class EntityVendorCategory {
     use FieldID;
-    use FieldName;
-    use FieldDescription;
-    use FieldOptional;
+    // Name and description.
+    use FieldTextTwo;
+    use FieldBoolean;
 }

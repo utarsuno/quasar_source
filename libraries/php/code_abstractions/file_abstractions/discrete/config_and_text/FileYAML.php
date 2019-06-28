@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -7,14 +7,14 @@
  */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\File\Discrete\YAMLUtilities as YAML;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 
 
 class FileYAML extends FileInstance {
 
     protected function load_contents() : array {
-        return UFO::get_yaml($this->get_path_full());
+        return YAML::get($this->get_path_full());
     }
 
 }

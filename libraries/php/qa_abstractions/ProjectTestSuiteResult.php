@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\QualityAssurance;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
+use QuasarSource\Utilities\File\Discrete\XMLUtilities as XML;
 
 
 class ProjectTestSuiteResult extends TestResultAbstract {
@@ -29,7 +29,7 @@ class ProjectTestSuiteResult extends TestResultAbstract {
     }
 
     public function __construct(string $path_qa_report) {
-        $nodes    = UFO::parse_xml_contents($path_qa_report);
+        $nodes    = XML::get($path_qa_report);
         $raw_data = $nodes->children[0];
         parent::__construct($nodes->children[0]);
         $this->num_tests      = (int) $raw_data->attributes['TESTS'];

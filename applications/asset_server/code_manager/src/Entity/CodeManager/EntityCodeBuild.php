@@ -1,15 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Entity\CodeManager;
 
-use CodeManager\Entity\Abstractions\Traits\Boolean\FieldLibVersionUpdated;
-use CodeManager\Entity\Abstractions\Traits\Boolean\FieldOptional;
-use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldDuration;
+use CodeManager\Entity\Abstractions\Traits\Boolean\FieldBoolean;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldHasPointerToDBSnapshot;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldHasPointerToQAReport;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldJSONMetaData;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldRanAt;
+use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldFloat;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldInt;
+use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointerTwo;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
@@ -22,16 +21,34 @@ use Doctrine\ORM\Mapping\Table;
  */
 class EntityCodeBuild {
     use FieldID;
-    use FieldRanAt;
-    use FieldDuration;
-    use FieldJSONMetaData;
-    use FieldHasPointerToDBSnapshot;
-    use FieldHasPointerToQAReport;
-    use FieldLibVersionUpdated;
+    // Build typeID.
+    use FieldInt;
+    //
+    use FieldText;
+    // Duration in seconds.
+    use FieldFloat;
+    // A pointer to EntityDBSnapshot and EntityQAReport.
+    use FieldEntityPointerTwo;
+    // Time the build ran at.
+    use FieldUnixTime;
     // Did the code build pass or not.
-    use FieldOptional;
+    use FieldBoolean;
 
-    public const TABLE_NAME      = 'code_builds';
-    public const SORT_FIELD_TIME = 'started_at';
+    public const BUILD_TYPE_FULL    = 1;
+    public const BUILD_TYPE_DEFAULT = 2;
+    public const BUILD_TYPE_RUSH    = 3;
+
+    public function __construct(int $build_type=self::BUILD_TYPE_FULL) {
+        $this->setUnixTimestamp0(-1);
+        $this->setInt0($build_type);
+    }
+
+    public function is_mode_rushed(): bool {
+        return $this->isInt0EqualTo(self::BUILD_TYPE_RUSH);
+    }
+
+    #public function get_current_db_snapshot(): EntityDBSnapshot {
+    #    return
+    #}
 
 }

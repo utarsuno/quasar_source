@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -9,11 +9,11 @@
 namespace QuasarSource\CodeAbstractions;
 
 use QuasarSource\Traits\PatternParentChild\InterfacePatternChild;
-use QuasarSource\Traits\TraitPatternName;
+use QuasarSource\Traits\TraitName;
 
 
 abstract class FileAbstraction implements InterfacePatternChild {
-    use TraitPatternName;
+    use TraitName;
 
     protected $is_type_file;
     protected $path_relative;

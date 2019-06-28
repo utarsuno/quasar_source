@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,14 +8,45 @@
 
 namespace QuasarSource\Utilities;
 
-
+/**
+ * Class ArrayUtilities
+ * @package QuasarSource\Utilities
+ */
 abstract class ArrayUtilities {
+
+    /**
+     * @param $arg
+     * @return array
+     */
+    public static function parse($arg): array {
+        if (is_scalar($arg) || is_object($arg) || is_resource($arg) || $arg === null) {
+            return [$arg];
+        }
+        if (is_array($arg)) {
+            return $arg;
+        }
+        return null;
+    }
+
+    /**
+     * @param array $nums
+     * @return int|float
+     */
+    public static function max(array $nums) {
+        $max = 0;
+        foreach ($nums as $num) {
+            if ($num > $max) {
+                $max = $num;
+            }
+        }
+        return $max;
+    }
 
     /**
      * Remove the first n elements from the provided array.
      *
-     * @param array $array             < The array to remove elements from.                                >
-     * @param int   $number_to_remove  < The number of elements to be removed from the start of the array. >
+     * @param array $array             [The array to remove elements from.                               ]
+     * @param int   $number_to_remove  [The number of elements to be removed from the start of the array.]
      */
     public static function remove_first_n(array & $array, int $number_to_remove): void {
         if ($number_to_remove <= 0 || !isset($array)) {
@@ -30,9 +61,9 @@ abstract class ArrayUtilities {
     /**
      * Returns a boolean indicating if two arrays comprised of strings have the same elements (but not necessarily in the same order).
      *
-     * @param array $a0 < The first array to compare to.                                   >
-     * @param array $a1 < The second array to compare to.                                  >
-     * @return bool     < True if both arrays have the same values, order does not matter. >
+     * @param array $a0 [The first array to compare to.                                  ]
+     * @param array $a1 [The second array to compare to.                                 ]
+     * @return bool     [True if both arrays have the same values, order does not matter.]
      */
     public static function string_arrays_have_same_values(array $a0, array $a1): bool {
         /** @noinspection TypeUnsafeComparisonInspection */

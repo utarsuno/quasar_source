@@ -4,30 +4,30 @@ global_information:
 
 assets:
   .css:
-    data_directory  : '/quasar_source/assets/css/'
-    output_directory: '/quasar_source/var/web_assets/'
-    files           :
+    PATH_DIRECTORY_DATA  : '/quasar_source/assets/css/'
+    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
+    files                :
       nexus_local.css: ['minify', 'gzipped']
       dev.css        : ['minify', 'gzipped']
   .html:
-    data_directory  : '/quasar_source/assets/html/'
-    output_directory: '/quasar_source/var/web_assets/'
-    files           :
+    PATH_DIRECTORY_DATA  : '/quasar_source/assets/html/'
+    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
+    files                :
       nexus_local.html: ['pre_process', '/quasar_source/var/web_assets/nexus_local.min.css', 'minify', 'gzipped']
       dev.html        : ['pre_process', '/quasar_source/var/web_assets/dev.min.css'        , 'minify', 'gzipped']
   .json:
-    data_directory  : '/quasar_source/assets/fonts/three_js_fonts/'
-    output_directory: '/quasar_source/var/web_assets/'
-    files           :
+    PATH_DIRECTORY_DATA  : '/quasar_source/assets/fonts/three_js_fonts/'
+    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
+    files                :
       gentilis_regular.typeface.json: ['gzipped']
   .vert:
-    data_directory  : '/quasar_source/assets/shaders/'
-    output_directory: '/quasar_source/var/web_assets/'
-    files           : []
+    PATH_DIRECTORY_DATA  : '/quasar_source/assets/shaders/'
+    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
+    files                : []
   .frag:
-    data_directory  : '/quasar_source/assets/shaders/'
-    output_directory: '/quasar_source/var/web_assets/'
-    files           : []
+    PATH_DIRECTORY_DATA  : '/quasar_source/assets/shaders/'
+    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
+    files                : []
 
 npm:
   - 'css-tree'

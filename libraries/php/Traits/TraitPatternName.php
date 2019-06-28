@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,12 +8,16 @@
 
 namespace QuasarSource\Traits;
 
+/**
+ * Trait TraitName
+ * @package QuasarSource\Traits
+ */
+trait TraitName {
 
-trait TraitPatternName {
-
-    /** @var string < A basic string name commonly needed across maybe different types of classes.                    > */
+    /** @var string [A basic string name commonly needed across maybe different types of classes.                   ]*/
     protected $name;
-    /** @var string < Utility variable to set a label (often the Class name) for printing format such as LABEL{NAME}. > */
+
+    /** @var string [Utility variable to set a label (often the Class name) for printing format such as LABEL{NAME}.]*/
     protected $label;
 
     /**

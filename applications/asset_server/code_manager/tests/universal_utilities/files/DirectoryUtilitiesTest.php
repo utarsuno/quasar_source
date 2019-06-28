@@ -9,9 +9,8 @@
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
 use QuasarSource\Utilities\ArrayUtilities;
-use QuasarSource\Utilities\Files\DirectoryUtilities as DIR;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as PATH;
+use QuasarSource\Utilities\File\DirectoryUtilities as DIR;
+use QuasarSource\Utilities\File\PathUtilities as PATH;
 
 
 class DirectoryUtilitiesTest extends FileTestSuite {

@@ -18,7 +18,6 @@ services:
     environment   :
       _SERVICE_NAME: 'asset_server'
       DATABASE_URL : 'pgsql://postgres:password@postgres_server:5432/postgres'
-      SYMFONY_ENV  : 'dev'
 
   postgres_server:
     tty           : true

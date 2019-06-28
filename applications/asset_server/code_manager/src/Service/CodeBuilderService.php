@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -8,44 +8,53 @@
 
 namespace CodeManager\Service;
 
-use CodeManager\Command\Abstractions\PreparedCommand;
 use CodeManager\Entity\CodeManager\EntityCodeBuild;
 use CodeManager\Entity\File\EntityFile;
 use CodeManager\Repository\CodeManager\EntityCodeBuildRepository;
-use CodeManager\Repository\EntityFileRepository;
-use CodeManager\Service\Abstractions\BaseAbstractService;
-use CodeManager\Service\Abstractions\OwnsCommands;
-use CodeManager\Service\Abstractions\OwnsManagers;
-use CodeManager\Service\Manager\BuildStepManagerService;
-use CodeManager\Service\Manager\CommandManagerService;
-use CodeManager\Service\Manager\ManagerService;
-use CodeManager\Service\Manager\RepositoryManagerService;
+use CodeManager\Repository\CodeManager\EntityFileRepository;
+use CodeManager\Service\Feature\AbstractService;
+use CodeManager\Service\Feature\Repository\OwnsReposInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
-use CodeManager\Service\Abstractions\OwnsRepos;
-use Psr\Log\LoggerInterface;
+use QuasarSource\BuildProcess\Abstractions\BuildSection;
+use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
+use CodeManager\Service\Feature\Config\FeatureConfigUniversalInterface;
+use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
+use QuasarSource\Utilities\File\PathUtilities    as PATH;
+use QuasarSource\Utilities\File\PathUtilities;
+use QuasarSource\Utilities\SystemUtilities       as SYS;
+use QuasarSource\Utilities\StringUtilities       as STR;
+use QuasarSource\Utilities\File\FileUtilities    as UFO;
+use QuasarSource\Enums\EnumFileTypeExtensions    as EXTENSION;
+use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS_ENUM;
+use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS_ENUM;
+
+use QuasarSource\BuildProcess\CSSBuildSection;
+use QuasarSource\BuildProcess\HTMLBuildSection;
+use QuasarSource\BuildProcess\JSONBuildSection;
+use QuasarSource\BuildProcess\NPMLibBuildSection;
+use QuasarSource\BuildProcess\QAReportBuildSection;
+
+use Symfony\Component\DependencyInjection\ContainerInterface; // <- Add this
+
 use QuasarSource\Finance\Binance\BinanceAccountAPI;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumPairsToTrack as COIN_RATIO;
-use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
-use QuasarSource\Traits\TraitConfigParams;
-use QuasarSource\Utilities\Exceptions\ExceptionInvalidConfigurationFile;
-use QuasarSource\Utilities\Files\FileUtilities as UFO;
-use QuasarSource\Utilities\Files\PathUtilities as PATH;
-use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
-class CodeBuilderService extends BaseAbstractService implements OwnsRepos, OwnsManagers, OwnsCommands {
-    use TraitConfigParams;
+/**
+ * @Service
+ */
+class CodeBuilderService extends AbstractService implements OwnsReposInterface, FeatureConfigUniversalInterface {
+    use FeatureConfigYAMLTrait;
 
-    public static $SINGLETON;
+    /** @var ParameterBagInterface $configs_universal */
+    private $configs_universal;
 
-    /** @var RepositoryManagerService */
-    private $manager_repo;
-    /** @var BuildStepManagerService */
-    private $manager_build_step;
-    /** @var ManagerService */
-    private $manager_service;
-    /** @var CommandManagerService */
-    private $manager_commands;
+    /** @var DBService */
+    private $service_db_health;
 
     /** @var EntityCodeBuildRepository */
     private $repo_code_builds;
@@ -53,65 +62,90 @@ class CodeBuilderService extends BaseAbstractService implements OwnsRepos, OwnsM
     /** @var EntityCodeBuild */
     private $current_code_build;
 
+    #private $container;
+
+    /** @var array */
+    private $all_build_sections = [];
+
+    /** @var DBService $service_db */
+    private $service_db;
+
     /**
-     * CodeBuilderService constructor.
-     *
-     * @param  LoggerInterface                   $logger
-     * @param  ManagerService                    $manager_service
-     * @throws ExceptionInvalidConfigurationFile
+     * @var array < N O T E : the order will dictate order ran in >
      */
-    public function __construct(LoggerInterface $logger, ManagerService $manager_service) {
-        parent::__construct($logger);
-        self::$SINGLETON       = $this;
-        $this->manager_service = $manager_service;
-        $this->config_initialize(
-            [
-                'global_information' => null,
-                'assets'             => [
-                    UFO::EXTENSION_CSS             => null,
-                    UFO::EXTENSION_HTML            => null,
-                    UFO::EXTENSION_JSON            => null,
-                    UFO::EXTENSION_SHADER_VERTEX   => null,
-                    UFO::EXTENSION_SHADER_FRAGMENT => null
-                ],
-                'npm'                => null,
-                'qa_report'          => null,
-                'docker'             => null,
-                'projects'           => null
-            ],
-            UFO::get_yaml(PATH::get(PATH::PROJECT_CONFIG))
-        );
+    private const BUILD_STEPS = [
+        #CSSBuildSection::class,
+        #HTMLBuildSection::class,
+        #JSONBuildSection::class,
+        #NPMLibBuildSection::class,
+        #QAReportBuildSection::class
+    ];
+
+    /**
+     * @param ContainerInterface    $container
+     * @param ParameterBagInterface $bag
+     * @param LoggerService         $logger_service
+     * @param DBService       $service_db
+     * @throws \Exception
+     */
+    public function __construct(ContainerInterface $container, ParameterBagInterface $bag, LoggerService $logger_service, DBService $service_db) {
+        parent::__construct($logger_service);
+        $this->configs_universal = $bag;
+        $this->service_db        = $service_db;
+
+        $apple = '/hello/world/how/are/you?/';
+        var_dump(PathUtilities::remove_layer($apple));
+
+        var_dump('Early exit!');
+        exit();
+
+        #$this->config_yaml_load($this->configs_universal->get(SCHEMAS_ENUM::YAML_CODE_MANAGER), getenv(PATHS_ENUM::PROJECT_CONFIG));
+
+        #$this->container = $container;
+        #var_dump($this->container);
+        #exit();
+
+        $this->all_build_sections[] = $this->service_db_health;
+        foreach (self::BUILD_STEPS as $build_section_class) {
+            $this->all_build_sections[] = new $build_section_class($this);
+        }
+
+        $this->repo_code_builds = $this->service_db->get_repo(EntityCodeBuildRepository::class);
+
+        $this->repo_code_builds->fetch_or_generate_last_build();
+
+        #var_dump($this->repo_code_builds);
+        exit();
+    }
+
+    /**
+     * @param  string $key
+     * @return mixed
+     */
+    public function config_universal_get(string $key) {
+        return $this->configs_universal->get($key);
     }
 
     public function get_test_hi(): string {
         return 'wow, it freaking works :o';
     }
 
-    public function prepare_code_health_check(Application $application): void {
-        $this->manager_service->set_application($application);
-        $this->manager_commands   = $this->get_manager(CommandManagerService::class);
-        $this->manager_repo       = $this->get_manager(RepositoryManagerService::class);
-        $this->manager_build_step = $this->get_manager(BuildStepManagerService::class);
-        $this->repo_code_builds   = $this->get_repo(EntityCodeBuildRepository::class);
-    }
-
-    public function run_code_health_check(): void {
-        $last_datetime = $this->repo_code_builds->get_datetime_of_last_successful_build();
-
-        if ($last_datetime === null) {
-            var_dump('TODO: Create new EntityCodeBuild object!');
-        }
+    public function run_code_health_check(DBService $db_health_service): void {
+        $this->service_db_health = $db_health_service;
 
 
-        $binance = new BinanceAccountAPI(PATH::get(PATH::API));
-        var_dump('Binance created!');
-
-        $this->current_code_build = new EntityCodeBuild();
 
 
+        #$last_datetime = $this->repo_code_builds->get_datetime_of_last_successful_build();
+        #if ($last_datetime === null) {
+        #    var_dump('TODO: Create new EntityCodeBuild object!');
+        #}
+
+        # TODO: Utilize this!
+        #$this->current_code_build = new EntityCodeBuild();
 
         #$path = '/quasar_source/var/data/orders.json';
-        #$content = FileUtilities::get_json_contents($path);
+        #$content = JSONUtilities::get($path);
         #var_dump($content);
 
         #$output = RUN::run_webpack_build();
@@ -119,8 +153,18 @@ class CodeBuilderService extends BaseAbstractService implements OwnsRepos, OwnsM
         #exit();
 
         #var_dump('Code Health Check disabled');
-        $this->manager_build_step->run_all_builds();
-        $this->print_final_results();
+        $this->run_all_builds();
+        #$this->print_final_results();
+    }
+
+    private function run_all_builds(): void {
+        $previous_step_failed = false;
+        # TODO: Add try-catch.
+        /** @var BuildSection $build_section */
+        foreach ($this->all_build_sections as $build_section) {
+            # TODO: Check if the previous step failed or not.
+            $build_section->run_unit_of_work();
+        }
     }
 
     public function get_current_code_build(): EntityCodeBuild {
@@ -142,25 +186,17 @@ class CodeBuilderService extends BaseAbstractService implements OwnsRepos, OwnsM
             }
         }
 
-        $qa_results = new ProjectTestSuiteResult(PATH::get(PATH::QA_REPORT));
+        $qa_results = new ProjectTestSuiteResult(SYS::get_env(PATHS_ENUM::QA_REPORT));
         var_dump($qa_results->get_qa_report());
     }
 
-    // ------------------------- I N T E R F A C E {OwnsCommands} -------------------------
+    // ----------------------------------------- I N T E R F A C E {OwnsRepos} -----------------------------------------
 
-    public function get_command(string $command_name): PreparedCommand {
-        return $this->manager_commands->get_command($command_name);
-    }
-
-    // ------------------------- I N T E R F A C E {OwnsManagers} -------------------------
-
-    public function get_manager(string $manager_class): BaseAbstractService {
-        return $this->manager_service->get_manager($manager_class);
-    }
-
-    // --------------------------- I N T E R F A C E {OwnsRepos} ---------------------------
-
+    /**
+     * @param string $repo_key
+     * @return ObjectRepository
+     */
     public function get_repo(string $repo_key): ObjectRepository {
-        return $this->manager_repo->get_repo($repo_key);
+        return $this->service_db->get_repo($repo_key);
     }
 }

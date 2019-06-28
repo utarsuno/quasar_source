@@ -1,27 +1,33 @@
 {
-    "type": "project",
-    "license": "MIT",
-    "require": {
-        "php": "7.3.*",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
+    "type"       : "project",
+    "license"    : "MIT",
+    "name"       : "code_manager/code_manager",
+    "description": "Automated processes to manage and build Quasar Source.",
+    "require"    : {
+        "php"                     : "7.2.*",
+        "ext-ctype"               : "*",
+        "ext-iconv"               : "*",
         "doctrine/doctrine-bundle": "^1.10",
-        "symfony/console": "4.2.*",
-        "symfony/dotenv": "4.2.*",
-        "symfony/event-dispatcher": "4.2.*",
-        "symfony/flex": "^1.1",
+        "doctrine/persistence"    : "1.*",
+        "doctrine/reflection"     : "1.*",
+        "symfony/config"          : "4.2.*",
+        "symfony/console"         : "4.*",
+        "symfony/doctrine-bridge" : "4.*",
+        "symfony/dotenv"          : "4.*",
+        "symfony/event-dispatcher": "4.*",
+        "symfony/flex"            : "^1.1",
         "symfony/framework-bundle": "4.2.*",
-        "symfony/monolog-bundle": "^3.3",
-        "symfony/orm-pack": "^1.0",
-        "symfony/phpunit-bridge": "4.2.*",
-        "symfony/process": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "symfony/monolog-bundle"  : "^3.3",
+        "symfony/orm-pack"        : "^1.0",
+        "symfony/phpunit-bridge"  : "4.*",
+        "symfony/process"         : "4.*",
+        "symfony/yaml"            : "4.*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": false
     },
     "autoload": {
         "psr-4": {

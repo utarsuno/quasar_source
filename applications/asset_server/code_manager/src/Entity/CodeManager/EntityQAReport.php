@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -10,20 +10,16 @@ namespace CodeManager\Entity\CodeManager;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldDuration;
 use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Relations\FieldHasPointerToEntityFile;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldNumErrors;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldJSONMetaData;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldNumElements;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldRanAt;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldNumFailed;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldNumSkipped;
-use Doctrine\ORM\Mapping\Index;
+use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldFloat;
+use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntFour;
+use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\DataStructures\Cached;
-use QuasarSource\DataStructures\TraitCached;
+use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
+use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 
 
@@ -31,40 +27,23 @@ use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
  * Class EntityDirectory
  * @package CodeManager\Entity
  *
- * @Entity(repositoryClass="CodeManager\Repository\EntityQAReportRepository")
- * @Table(
- *     name="qa_report",
- *     indexes={
- *         @Index(
- *             name="search_entity_qa_report",
- *             columns={"ran_at", "num_errors"}
- *         )
- *     }
- * )
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityQAReportRepository")
+ * @Table(name="qa_report")
  */
-class EntityQAReport extends EntityState implements EntityInterface, Cached {
-    use TraitCached;
+class EntityQAReport extends EntityState implements EntityInterface, CacheTableInterface {
+    use TraitCacheTable;
 
     use FieldID;
-    // The DateTime that this test was ran at.
-    use FieldRanAt;
+    // The time instance that this test was ran at.
+    use FieldUnixTime;
     // The total time taken (in seconds) for all unit-tests.
-    use FieldDuration;
-    // The number of unit-tests that failed.
-    use FieldNumFailed;
-    // The number of unit-tests that had errors.
-    use FieldNumErrors;
-    // The number of unit-tests were skipped.
-    use FieldNumSkipped;
-    // The number of unit-tests overall.
-    use FieldNumElements;
+    use FieldFloat;
+    // Num unit-tests failed, errored, skipped, overall.
+    use FieldIntFour;
     // Raw output of QA run.
-    use FieldJSONMetaData;
-    // The reference to the physical file containing the QA report.
-    use FieldHasPointerToEntityFile;
-
-    public const TABLE_NAME      = 'qa_report';
-    public const SORT_FIELD_TIME = 'ran_at';
+    use FieldText;
+    // A pointer to the EntityFile (the reference to the physical file containing the QA report).
+    use FieldEntityPointer;
 
     private const CACHE_KEY_QA_TEST_SUITE = 'cache_qa_test_suite';
 
@@ -78,10 +57,14 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
         return false;
     }
 
-    public function cache_set(string $key): void {
+    /**
+     * @inheritDoc
+     */
+    public function cache_calculate(string $key) {
         if ($key === self::CACHE_KEY_QA_TEST_SUITE) {
-            $this->cached_values[$key] = new ProjectTestSuiteResult($this->entity_file->getFullPath());
+            return new ProjectTestSuiteResult($this->entity_file->getFullPath());
         }
+        return null;
     }
 
     public function cache_update(bool $update_state=true) : void {
@@ -94,7 +77,7 @@ class EntityQAReport extends EntityState implements EntityInterface, Cached {
             ->setDuration($qa_results->get_time_taken())
             ->setNumElements($qa_results->get_num_tests())
             ->setNumSkipped($qa_results->get_num_skipped())
-            ->setRanAtNow()
+            ->setUnixTimestamp(-1)
             ->setJSONMetaData($qa_results->get_qa_report());
     }
 

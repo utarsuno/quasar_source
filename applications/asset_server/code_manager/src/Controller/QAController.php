@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Controller;
 
 use CodeManager\Service\CodeBuilderService;
-use QuasarSource\Utilities\Processes\ProcessUtilities;
+use QuasarSource\Utilities\Process\ProcessUtilities;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 

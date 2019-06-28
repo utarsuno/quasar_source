@@ -12,6 +12,8 @@
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="KERNEL_CLASS" value="src\Kernel.php" />
+        <server name="TEST_CONSTANT2" value="hello_world-lul2222222" />
+        <env name="TEST_CONSTANT" value="hello_world-lul" />
     </php>
 
     <testsuites>

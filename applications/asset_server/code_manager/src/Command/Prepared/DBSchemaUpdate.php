@@ -1,18 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CodeManager\Command\Prepared;
-use CodeManager\Command\Abstractions\PreparedCommand;
 use QuasarSource\Utilities\StringUtilities;
 use Symfony\Component\Console\Command\Command;
 
-
+/**
+ * Class DBSchemaUpdate
+ * @package CodeManager\Command\Prepared
+ */
 class DBSchemaUpdate extends PreparedCommand {
 
     /** @var bool */
     private $db_schema_was_updated = false;
 
+    /**
+     * @param Command $command
+     */
     public function __construct(Command $command) {
-        parent::__construct(PreparedCommand::CMD_DB_SCHEMA_UPDATE, $command, [
+        parent::__construct($command, [
             '-vvv'              => null,
             '--no-interaction'  => null,
             '--force'           => null

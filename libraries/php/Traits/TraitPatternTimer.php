@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: utarsuno
@@ -7,7 +7,7 @@
  */
 
 namespace QuasarSource\Traits;
-use QuasarSource\Utilities\SimpleTimer;
+use QuasarSource\Utilities\Time\SimpleTimer;
 
 
 trait TraitPatternTimer {

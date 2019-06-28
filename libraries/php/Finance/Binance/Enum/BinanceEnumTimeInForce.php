@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace QuasarSource\Finance\Binance\Enum;
 
@@ -10,13 +10,13 @@ namespace QuasarSource\Finance\Binance\Enum;
  */
 abstract class BinanceEnumTimeInForce {
     // good till cancelled
-    public const GTC      = 'GTC';
+    public const GOOD_TILL_CANCELLED  = 'GTC';
     // fill or kill
-    public const IOC      = 'IOC';
+    public const IMMEDIATE_OR_CANCEL  = 'IOC';
     // immediate or cancel
-    public const FOK      = 'FOK';
+    public const FORK_OR_KILL         = 'FOK';
 
     public const ENUM_ALL = [
-        self::GTC, self::IOC, self::FOK
+        self::GOOD_TILL_CANCELLED, self::IMMEDIATE_OR_CANCEL, self::FORK_OR_KILL
     ];
 }

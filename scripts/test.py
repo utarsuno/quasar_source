@@ -26,3 +26,6 @@ api = DockerAPI()
 #print(api)
 
 api.print_status()
+
+
+
