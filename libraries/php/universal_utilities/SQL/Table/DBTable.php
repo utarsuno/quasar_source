@@ -2,7 +2,6 @@
 
 namespace QuasarSource\Utilities\SQL\Table;
 
-use Doctrine\DBAL\Connection;
 use QuasarSource\Utilities\SQL\Representation\SQLQuery;
 use QuasarSource\Utilities\SQL\Representation\SQLQueryGroup;
 use QuasarSource\Utilities\StringUtilities as STR;
@@ -24,23 +23,6 @@ final class DBTable extends SQLQueryGroup {
 
     /** @var SQLQuery $query_get_oldest */
     private $query_get_oldest;
-
-    /** @var string $sql_table_size */
-    private $sql_table_size;
-
-    /** @var string $sql_table_size_pretty */
-    private $sql_table_size_pretty;
-
-    /**
-     * DBTable constructor.
-     * @param string     $table_name
-     * @param Connection $connection
-     */
-    public function __construct(string $table_name, Connection $connection) {
-        parent::__construct($table_name, $connection);
-        $this->sql_table_size        = 'pg_total_relation_size' . $this->name_sql_wrapped;
-        $this->sql_table_size_pretty = STR::parentheses('pg_size_pretty', $this->sql_table_size);
-    }
 
     /**
      * @param string $field
@@ -98,7 +80,7 @@ final class DBTable extends SQLQueryGroup {
      * @return SQLQuery
      */
     protected function query_set_get_size(SQLQuery $query): SQLQuery {
-        return $query->SELECT($this->sql_table_size);
+        return $query->SELECT('pg_total_relation_size' . $this->name_sql_wrapped);
     }
 
     /**
@@ -106,7 +88,7 @@ final class DBTable extends SQLQueryGroup {
      * @return SQLQuery
      */
     protected function query_set_get_size_pretty(SQLQuery $query): SQLQuery {
-        return $query->SELECT($this->sql_table_size_pretty);
+        return $query->SELECT(STR::parentheses('pg_size_pretty', 'pg_total_relation_size' . $this->name_sql_wrapped));
     }
 
     /**

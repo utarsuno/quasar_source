@@ -23,20 +23,12 @@ final class DBSchema extends SQLQueryGroup {
     /** @var SQLQuery $query_get_table_names */
     private $query_get_table_names;
 
-    /** @var string $sql_db_size */
-    private $sql_db_size;
-
-    /** @var string $sql_db_size_pretty */
-    private $sql_db_size_pretty;
-
     /**
      * DBSchema constructor.
      * @param Connection $connection
      */
     public function __construct(Connection $connection) {
         parent::__construct(SYS::get_env('DB_NAME'), $connection);
-        $this->sql_db_size        = 'pg_database_size' . STR::parentheses('', $this->db_name_quotes);
-        $this->sql_db_size_pretty = STR::parentheses('pg_size_pretty', $this->sql_db_size);
     }
 
     /**
@@ -73,7 +65,7 @@ final class DBSchema extends SQLQueryGroup {
      * @return SQLQuery
      */
     protected function query_set_get_size(SQLQuery $query): SQLQuery {
-        return $query->SELECT($this->sql_db_size);
+        return $query->SELECT('pg_database_size' . STR::parentheses('', $this->db_name_quotes));
     }
 
     /**
@@ -81,9 +73,9 @@ final class DBSchema extends SQLQueryGroup {
      * @return SQLQuery
      */
     protected function query_set_get_size_pretty(SQLQuery $query): SQLQuery {
-        return $query->SELECT($this->sql_db_size_pretty);
+        return $query->SELECT(STR::parentheses('pg_size_pretty', 'pg_database_size' . STR::parentheses('', $this->db_name_quotes)));
     }
-    
+
     /**
      * @param SQLQuery $query
      * @return SQLQuery
