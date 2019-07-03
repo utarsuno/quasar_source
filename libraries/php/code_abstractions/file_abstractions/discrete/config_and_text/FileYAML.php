@@ -7,7 +7,7 @@
  */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
-use QuasarSource\Utilities\File\Discrete\YAMLUtilities as YAML;
+use QuasarSource\Utilities\File\Discrete\YAMLUtils as YAML;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 
 

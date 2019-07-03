@@ -29,7 +29,7 @@ use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
  * @package CodeManager\Entity\File
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityDirectoryRepository")
- * @Table(name="entity_directory")
+ * @Table(name="_Code_Manager___Entity___File___Entity_Directory")
  */
 class EntityDirectory extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;

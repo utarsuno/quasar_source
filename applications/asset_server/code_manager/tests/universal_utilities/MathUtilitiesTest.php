@@ -8,7 +8,7 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\MathUtilities as MATH;
+use QuasarSource\Utilities\UtilsMath as MATH;
 
 
 class MathUtilitiesTest extends FileTestSuite {

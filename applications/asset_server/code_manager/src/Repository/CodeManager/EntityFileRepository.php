@@ -18,8 +18,8 @@ use Doctrine\ORM\Mapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use QuasarSource\Utilities\Exception\ParameterException;
 use QuasarSource\Utilities\File\Discrete\CSSUtilities;
-use QuasarSource\Utilities\File\Discrete\HTMLUtilities;
-use QuasarSource\Utilities\File\FileUtilities                    as UFO;
+use QuasarSource\Utilities\File\Discrete\HTMLUtils;
+use QuasarSource\Utilities\File\UtilsFile                    as UFO;
 use CodeManager\Entity\Abstractions\Traits\Enum\EntityFields     as FIELD;
 use CodeManager\Entity\Abstractions\Traits\Enum\EntityTableNames as TABLE;
 
@@ -93,7 +93,7 @@ class EntityFileRepository extends AbstractRepository {
                     switch ($file->getType()) {
                         case EntityFile::TYPE_HTML:
                             #UFO::minify_html($file->getFullPath(), $path_to_child);
-                            HTMLUtilities::minify($file->getFullPath(), $path_to_child);
+                            HTMLUtils::minify($file->getFullPath(), $path_to_child);
                             break;
                         case EntityFile::TYPE_CSS:
                             #UFO::minify_css($file->getFullPath(), $path_to_child);

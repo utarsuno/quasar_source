@@ -9,8 +9,8 @@
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
 use QuasarSource\Utilities\File\Discrete\CSSUtilities;
-use QuasarSource\Utilities\File\Discrete\HTMLUtilities;
-use QuasarSource\Utilities\File\FileUtilities as UFO;
+use QuasarSource\Utilities\File\Discrete\HTMLUtils;
+use QuasarSource\Utilities\File\UtilsFile as UFO;
 
 
 class FileUtilitiesTest extends FileTestSuite {
@@ -43,7 +43,7 @@ class FileUtilitiesTest extends FileTestSuite {
 
     public function test_minify_html(): void {
         #UFO::minify_html(self::PATH_HTML_PRE, self::PATH_HTML_POST);
-        HTMLUtilities::minify(self::PATH_HTML_PRE, self::PATH_HTML_POST);
+        HTMLUtils::minify(self::PATH_HTML_PRE, self::PATH_HTML_POST);
         $this->assert_compression(self::PATH_HTML_PRE, self::PATH_HTML_POST, 0.30);
     }
 
@@ -60,10 +60,6 @@ class FileUtilitiesTest extends FileTestSuite {
 
     public function test_get_sha512sum(): void {
         $this->assertSame(self::EXPECTED_HASH_VALUE, UFO::get_sha512sum(self::PATH_CSS_PRE));
-    }
-
-    public function test_matches_sha512sum(): void {
-        $this->assertTrue(UFO::matches_sha512sum(self::PATH_CSS_PRE, self::EXPECTED_HASH_VALUE));
     }
 
     public function test_get_size(): void {

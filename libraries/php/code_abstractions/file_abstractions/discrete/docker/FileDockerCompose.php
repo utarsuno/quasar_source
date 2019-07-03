@@ -9,9 +9,8 @@
 namespace QuasarSource\CodeAbstractions\File\Discrete\Docker;
 use QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments\CodeSegments;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
-use QuasarSource\Utilities\EchoUtilities as L;
-use QuasarSource\Utilities\StringUtilities as STR;
-use QuasarSource\Utilities\File\FileUtilities as UFO;
+use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\File\UtilsFile as UFO;
 
 class FileDockerCompose extends FileYAML {
 
@@ -55,7 +54,8 @@ class FileDockerCompose extends FileYAML {
     }
 
     public function clean(): void {
-        L::ll('TODO: CLEAN DOCKER FILE!', $this);
+        var_dump('TODO: CLEAN DOCKER FILE!');
+        var_dump($this);
 
         $lines = $this->get_lines();
 

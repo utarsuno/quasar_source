@@ -28,8 +28,11 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use QuasarSource\BuildProcess\Abstractions\UnitOfWork;
 #use Symfony\Component\Console\Command\Command;
-use QuasarSource\Utilities\SQL\Representation\SQLQueryGroup;
-use QuasarSource\Utilities\SQL\Schema\DBSchema;
+use QuasarSource\SQL\Representation\SQLQueryGroup;
+use QuasarSource\SQL\Schema\DBSchema;
+use QuasarSource\SQL\Table\DBTable;
+use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\UtilsSystem as SYS;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Application;
 
@@ -80,8 +83,48 @@ class DBService extends AbstractService implements OwnsReposInterface{ #extends 
     public function __construct(LoggerService $logger, EntityManagerInterface $entity_manager) {
         parent::__construct($logger);
         $this->entity_manager = $entity_manager;
+        $this->queries_schema = new DBSchema(SYS::get_env('DB_NAME'), $this->entity_manager->getConnection());
 
-        $this->queries_schema = new DBSchema($this->entity_manager->getConnection());
+        var_dump('Created DB Service!');
+
+        #var_dump(EntityUser::class);
+        #exit(4);
+
+        #var_dump($this->queries_schema->execute('get_num_tables'));
+
+        /*
+        $table_names = $this->queries_schema->execute(DBSchema::QUERY_GET_TABLE_NAMES);
+        foreach ($table_names as $table_name) {
+            $name = STR::replace($table_name, '_', '\\');
+            var_dump($name);
+        }
+        exit();*/
+        #var_dump($table_names);
+
+        #$db_tables = $this->queries_schema->get_all_db_tables();
+
+        /** @var DBTable $d $d */
+        #foreach ($db_tables as $d) {
+            #var_dump(get_class($d));
+        #    var_dump($d->get_name());
+        #    var_dump($d->execute(SQLQueryGroup::QUERY_GET_SIZE_PRETTY));
+        #    var_dump($d->execute(DBTable::QUERY_GET_NUM_ROWS_EXPENSIVE));
+        #    var_dump(PHP_EOL);
+            #var_dump($d->execute(SQLQueryGroup::QUERY_GET_SIZE_PRETTY));
+        #}
+
+        #foreach ($table_names as $name) {
+            #$res = $this->queries_schema->execute(DBSchema::);
+        #}
+
+        #$tn2 = $this->queries_schema->execute('get_table_names');
+
+        #var_dump($table_names);
+        #var_dump($tn2);
+
+
+        #exit();
+
 
         #$this->query_manager  = new QueryManager($this->entity_manager->getConnection());
         #parent::__construct('DB Health Check', $logger);

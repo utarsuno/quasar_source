@@ -3,7 +3,7 @@
 namespace CodeManager\Controller;
 
 use CodeManager\Service\CodeBuilderService;
-use QuasarSource\Utilities\Process\ProcessUtilities;
+use QuasarSource\Utilities\Process\UtilsProcess;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -14,7 +14,7 @@ class QAController {
     }
 
     public function run_unit_tests(KernelInterface $kernel) {
-        $content = ProcessUtilities::run_qa_tests();
+        $content = UtilsProcess::run_qa_tests();
         return new Response($content);
     }
 

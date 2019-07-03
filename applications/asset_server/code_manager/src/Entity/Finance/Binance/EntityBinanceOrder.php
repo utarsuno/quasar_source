@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Finance\Binance
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Finance\EntityCashFlowRepository")
- * @Table(name="binance_order")
+ * @Table(name="_Code_Manager___Entity___Finance___Binance___Entity_Binance_Order")
  */
 class EntityBinanceOrder {
     use FieldID;

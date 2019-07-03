@@ -15,13 +15,12 @@ use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
-
 /**
  * Class EntityUser
  * @package CodeManager\Entity\Users
  *
  * @Entity(repositoryClass="CodeManager\Repository\Users\EntityUserRepository")
- * @Table(name="users")
+ * @Table(name="_Code_Manager___Entity___Users___Entity_User")
  */
 class EntityUser {
     use FieldID;

@@ -8,9 +8,9 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\ArrayUtilities;
-use QuasarSource\Utilities\File\DirectoryUtilities as DIR;
-use QuasarSource\Utilities\File\PathUtilities as PATH;
+use QuasarSource\Utilities\UtilsArray;
+use QuasarSource\Utilities\File\UtilsDirectory as DIR;
+use QuasarSource\Utilities\File\UtilsPath as PATH;
 
 
 class DirectoryUtilitiesTest extends FileTestSuite {
@@ -38,7 +38,7 @@ class DirectoryUtilitiesTest extends FileTestSuite {
 
         // Positive test cases.
         $this->assertSame(self::$dirs, [$search_directory . 'files']);
-        $this->assertTrue(ArrayUtilities::string_arrays_have_same_values(self::$files, $all_files)
+        $this->assertTrue(UtilsArray::string_arrays_have_same_values(self::$files, $all_files)
         );
 
         // Negative test cases.
@@ -47,7 +47,7 @@ class DirectoryUtilitiesTest extends FileTestSuite {
         DIR::get_all_contents($search_directory, false, self::$files, self::$dirs);
         // Positive test cases.
         $this->assertSame(self::$dirs, [$search_directory . 'files']);
-        $this->assertTrue(ArrayUtilities::string_arrays_have_same_values(self::$files, $base_files));
+        $this->assertTrue(UtilsArray::string_arrays_have_same_values(self::$files, $base_files));
     }
 
 

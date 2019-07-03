@@ -19,11 +19,12 @@ use QuasarSource\BuildProcess\Abstractions\BuildSection;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use CodeManager\Service\Feature\Config\FeatureConfigUniversalInterface;
 use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
-use QuasarSource\Utilities\File\PathUtilities    as PATH;
-use QuasarSource\Utilities\File\PathUtilities;
-use QuasarSource\Utilities\SystemUtilities       as SYS;
-use QuasarSource\Utilities\StringUtilities       as STR;
-use QuasarSource\Utilities\File\FileUtilities    as UFO;
+use QuasarSource\Utilities\File\UtilsPath    as PATH;
+use QuasarSource\Utilities\File\UtilsPath;
+use QuasarSource\Utilities\FTP\FTPInstance;
+use QuasarSource\Utilities\UtilsSystem       as SYS;
+use QuasarSource\Utilities\UtilsString       as STR;
+use QuasarSource\Utilities\File\UtilsFile    as UFO;
 use QuasarSource\Enums\EnumFileTypeExtensions    as EXTENSION;
 use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS_ENUM;
 use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS_ENUM;
@@ -34,6 +35,7 @@ use QuasarSource\BuildProcess\JSONBuildSection;
 use QuasarSource\BuildProcess\NPMLibBuildSection;
 use QuasarSource\BuildProcess\QAReportBuildSection;
 
+use QuasarSource\Utilities\UtilsSystem;
 use Symfony\Component\DependencyInjection\ContainerInterface; // <- Add this
 
 use QuasarSource\Finance\Binance\BinanceAccountAPI;
@@ -85,24 +87,19 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
      * @param ContainerInterface    $container
      * @param ParameterBagInterface $bag
      * @param LoggerService         $logger_service
-     * @param DBService       $service_db
+     * @param DBService             $service_db
      * @throws \Exception
      */
     public function __construct(ContainerInterface $container, ParameterBagInterface $bag, LoggerService $logger_service, DBService $service_db) {
         parent::__construct($logger_service);
         $this->configs_universal = $bag;
         $this->service_db        = $service_db;
+        $this->config_yaml_load(
+            $this->configs_universal->get(SCHEMAS_ENUM::YAML_CODE_MANAGER),
+            SYS::get_env(PATHS_ENUM::PROJECT_CONFIG)
+        );
 
-        $apple = '/hello/world/how/are/you?/';
-        var_dump(PathUtilities::remove_layer($apple));
-
-        var_dump('Early exit!');
-        exit();
-
-        #$this->config_yaml_load($this->configs_universal->get(SCHEMAS_ENUM::YAML_CODE_MANAGER), getenv(PATHS_ENUM::PROJECT_CONFIG));
-
-        #$this->container = $container;
-        #var_dump($this->container);
+        #var_dump('Early exit!');
         #exit();
 
         $this->all_build_sections[] = $this->service_db_health;
@@ -112,10 +109,12 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
 
         $this->repo_code_builds = $this->service_db->get_repo(EntityCodeBuildRepository::class);
 
-        $this->repo_code_builds->fetch_or_generate_last_build();
+        #$this->repo_code_builds->fetch_or_generate_last_build();
 
         #var_dump($this->repo_code_builds);
-        exit();
+        #exit();
+
+        var_dump('Created code builder!');
     }
 
     /**
@@ -163,7 +162,7 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
         /** @var BuildSection $build_section */
         foreach ($this->all_build_sections as $build_section) {
             # TODO: Check if the previous step failed or not.
-            $build_section->run_unit_of_work();
+        #    $build_section->run_unit_of_work();
         }
     }
 

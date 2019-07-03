@@ -15,6 +15,12 @@ export DB_NAME='postgres'
 export PATH_RELATIVE_NODE_MINIFY_HTML='applications/asset_server/js/minify_html_file.js'
 export PATH_RELATIVE_NODE_MINIFY_CSS='applications/asset_server/js/minify_css_file.js'
 export PATH_RELATIVE_NODE_MINIFY_JS='applications/asset_server/js/minify_js_file.js'
+# ---- FTP ----
+export FTP_HOST='192.168.1.170'
+export FTP_USER='l0_c4_m4'
+export FTP_PASS='sudoadmin'
+export FTP_TIMEOUT='5' # Default{90} (seconds)
+export FTP_PORT='21'   # Default{21}
 #-----------------------------------------------------------------------------------------------------------------------
 
 #PATH_RELATIVE_PROJECT_CONFIGS='configs/code_manager.yml'
@@ -41,21 +47,21 @@ RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/c
 cd ${PATH_DIRECTORY_CODE_MANAGER}
 #php -S "0.0.0.0:80"
 
-php -v
-
 #composer self-update
 #composer validate
 #composer update
-#composer install -o
+#composer install -o --verbose
 #composer install -o   #--enable-opcache --enable-opcache-file
+
+#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
+#${RUN_CONSOLE_CMD} doctrine:database:create -vvv
+#${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
+${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #apk add --update php-opcache@php
 
 
 #composer require symfony/config
-
-#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
-${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #${RUN_CONSOLE} cache:clear
 
@@ -63,7 +69,6 @@ ${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #${RUN_CONSOLE_CMD} doctrine:cache:delete
 
-#${RUN_CONSOLE_CMD} doctrine:database:create -vvv
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force --no-interaction
 
 #${RUN_CONSOLE_CMD} doctrine:mapping:info

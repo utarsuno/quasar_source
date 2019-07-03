@@ -3,7 +3,7 @@
 namespace CodeManager\Entity\Abstractions\Traits\Time;
 
 use Doctrine\ORM\Mapping\Column;
-use QuasarSource\Utilities\Time\UnixTimeUtilities as UNIX;
+use QuasarSource\Utilities\Time\UtilsUnixTime as UNIX;
 
 
 trait FieldUnixTimeTwo {

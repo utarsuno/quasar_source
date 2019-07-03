@@ -15,6 +15,13 @@ interface CacheTableInterface {
 
     /**
      * @param string $key
+     * @return bool
+     */
+    public function cache_has(string $key): bool;
+
+    /**
+     * @param string $key
+     * @return void
      */
     public function cache_set(string $key): void;
 

@@ -50,10 +50,14 @@ class Kernel extends BaseKernel {
      * @throws Exception
      */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void {
-        var_dump('CONFIGURE CONTAINER!');
-        foreach ([PATHS::DIRECTORY_PROJECT, PATHS::DIRECTORY_CODE_MANAGER, PATHS::PROJECT_CONFIG, PATHS::PROJECT_BUNDLES, PATHS::NODE_MINIFY_CSS, PATHS::NODE_MINIFY_HTML, PATHS::NODE_MINIFY_JS] as $key) {
-            $container->setParameter($key, getenv($key));
-        }
+        #var_dump('CONFIGURE CONTAINER!');
+        $container->setParameter(PATHS::DIRECTORY_PROJECT, getenv(PATHS::DIRECTORY_PROJECT));
+        $container->setParameter(PATHS::DIRECTORY_CODE_MANAGER, getenv(PATHS::DIRECTORY_CODE_MANAGER));
+        $container->setParameter(PATHS::PROJECT_CONFIG, getenv(PATHS::PROJECT_CONFIG));
+        $container->setParameter(PATHS::PROJECT_BUNDLES, getenv(PATHS::PROJECT_BUNDLES));
+        $container->setParameter(PATHS::NODE_MINIFY_CSS, getenv(PATHS::NODE_MINIFY_CSS));
+        $container->setParameter(PATHS::NODE_MINIFY_HTML, getenv(PATHS::NODE_MINIFY_HTML));
+        $container->setParameter(PATHS::NODE_MINIFY_JS, getenv(PATHS::NODE_MINIFY_JS));
 
         $container->setParameter(SCHEMAS::YAML_CODE_MANAGER, [
             'global_information' => null,

@@ -19,8 +19,8 @@ use QuasarSource\CodeAbstractions\File\Discrete\JS\FileJavascript;
 use QuasarSource\CodeAbstractions\File\Discrete\PHP\FilePHP;
 use QuasarSource\CodeAbstractions\File\Discrete\System\FileDS_Store;
 use QuasarSource\CodeAbstractions\File\FileText;
-use QuasarSource\Utilities\File\PathUtilities as UPO;
-use QuasarSource\Utilities\StringUtilities    as STR;
+use QuasarSource\Utilities\File\UtilsPath as UPO;
+use QuasarSource\Utilities\UtilsString    as STR;
 use QuasarSource\CodeAbstractions\Directory\DirectoryInstance;
 
 

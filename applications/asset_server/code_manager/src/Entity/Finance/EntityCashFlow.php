@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Finance
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Finance\EntityCashFlowRepository")
- * @Table(name="cash_flows")
+ * @Table(name="_Code_Manager___Entity___Finance___Entity_Cash_Flow")
  */
 class EntityCashFlow {
     use FieldID;

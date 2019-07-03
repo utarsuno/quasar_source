@@ -7,11 +7,15 @@ services:
   asset_server:
     tty           : true
     container_name: asset_server
+    #network_mode  : host # Temp solution for connecting to the LAN FTP server
     build         :
       context   : '.'
       dockerfile: './applications/asset_server/Dockerfile'
     ports         :
       - '80:80'
+      - '21:21'
+      - '20:20'
+      - '40000-50000:40000-50000'
     volumes       :
       - 'nexus_volume:/v'
       - './:/quasar_source'

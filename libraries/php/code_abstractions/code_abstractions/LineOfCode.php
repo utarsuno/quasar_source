@@ -7,7 +7,7 @@
  */
 
 namespace QuasarSource\CodeAbstractions\CodeAbstractions;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\UtilsString as STR;
 
 class LineOfCode {
 

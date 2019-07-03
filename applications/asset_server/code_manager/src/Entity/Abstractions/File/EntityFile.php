@@ -24,12 +24,12 @@ use Exception;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\File\FileUtilities as UFO;
-use QuasarSource\Utilities\File\PathUtilities as UPO;
-use QuasarSource\Utilities\File\PathUtilities as PATH;
-use QuasarSource\Utilities\MathUtilities      as MATH;
+use QuasarSource\Utilities\File\UtilsFile as UFO;
+use QuasarSource\Utilities\File\UtilsPath as UPO;
+use QuasarSource\Utilities\File\UtilsPath as PATH;
+use QuasarSource\Utilities\UtilsMath      as MATH;
 use QuasarSource\Enums\EnumFileTypeExtensions as EXTENSION;
-use QuasarSource\Utilities\ArrayUtilities     as ARY;
+use QuasarSource\Utilities\UtilsArray     as ARY;
 
 
 /**
@@ -38,7 +38,7 @@ use QuasarSource\Utilities\ArrayUtilities     as ARY;
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityFileRepository")
  * @ORM\HasLifecycleCallbacks()
- * @Table(name="entity_file")
+ * @Table(name="_Code_Manager___Entity___File___Entity_File")
  */
 class EntityFile extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;

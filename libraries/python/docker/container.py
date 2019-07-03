@@ -4,6 +4,7 @@
 
 from libraries.python.common_traits.trait_name   import TraitName
 from libraries.python.universal_utilities.system import colored_output as L
+from time import sleep
 
 
 class Container(TraitName):
@@ -37,6 +38,9 @@ class Container(TraitName):
         if not self.is_running():
             L.Green(self.get_name() + ' is being ran').p()
             self.run()
+            if 'postgres' in self.get_name():
+                L.Green('Sleeping for 10 seconds to give the DB time to start up.').p()
+                sleep(10)
         else:
             L.Yellow(self.current_status()).p()
 

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Finance\Bank
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Finance\Bank\EntityBankTransactionTypeRepository")
- * @Table(name="bank_transaction_types")
+ * @Table(name="_Code_Manager___Entity___Finance___Bank___Entity_Bank_Transaction_Type")
  */
 class EntityBankTransactionType {
     use FieldID;

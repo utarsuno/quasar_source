@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\CodeManager
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityDBSnapshotRepository")
- * @Table(name="db_snapshot")
+ * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_D_B_Snapshot")
  */
 class EntityDBSnapshot {
     use FieldID;

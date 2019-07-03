@@ -20,10 +20,15 @@ class EntityCodeBuildRepository extends AbstractRepository {
     protected $entity_class = EntityCodeBuild::class;
     #protected $default_search_attribute = 'username';
 
+    /**
+     * EntityCodeBuildRepository constructor.
+     * @param EntityManagerInterface $em
+     * @param ClassMetadata $class
+     */
     public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
         parent::__construct($em, $class);
-        $this->query_manager->set_table_name(TABLE::CODE_BUILDS);
-        $this->query_manager->set_sort_field(FIELD::TIME_START);
+        #$this->query_manager->set_table_name(TABLE::CODE_BUILDS);
+        #$this->query_manager->set_sort_field(FIELD::TIME_START);
     }
 
     public function fetch_or_generate_last_build(): EntityCodeBuild {

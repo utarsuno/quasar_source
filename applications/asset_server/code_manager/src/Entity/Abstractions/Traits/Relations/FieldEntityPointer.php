@@ -8,7 +8,7 @@ trait FieldEntityPointer {
 
     /**
      * @var int
-     * @Column(name="entity_pointer0", type="int", nullable=true, unique=false)
+     * @Column(name="entity_pointer0", type="integer", nullable=true, unique=false)
      */
     protected $entity_pointer0;
 

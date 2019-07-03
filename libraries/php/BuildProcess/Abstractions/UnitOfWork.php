@@ -4,8 +4,8 @@ namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Service\LoggerService;
 use CodeManager\Service\Feature\Logging\FeatureLoggingTrait;
 use QuasarSource\Traits\TraitName;
-use QuasarSource\Traits\TraitPatternTimer;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Traits\TraitTimer;
+use QuasarSource\Utilities\UtilsString as STR;
 
 
 /**
@@ -14,7 +14,7 @@ use QuasarSource\Utilities\StringUtilities as STR;
  */
 abstract class UnitOfWork {
     use TraitName;
-    use TraitPatternTimer;
+    use TraitTimer;
     use FeatureLoggingTrait;
 
     // TEMP

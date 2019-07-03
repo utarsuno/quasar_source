@@ -3,7 +3,7 @@
 namespace CodeManager\Command\Prepared;
 use QuasarSource\Utilities\Exception\LogicException;
 use Symfony\Component\Console\Command\Command;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\UtilsString as STR;
 
 /**
  * Class DBSchemaValidate

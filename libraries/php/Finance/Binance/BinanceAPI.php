@@ -3,7 +3,7 @@
 namespace QuasarSource\Finance\Binance;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumAPIKeys as KEYS;
 use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
-use QuasarSource\Utilities\File\Discrete\YAMLUtilities   as YAML;
+use QuasarSource\Utilities\File\Discrete\YAMLUtils   as YAML;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceOrderBook;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceAveragePrice;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceExchangeInfo;

@@ -8,7 +8,7 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\ArrayUtilities as ARY;
+use QuasarSource\Utilities\UtilsArray as ARY;
 
 
 class ArrayUtilitiesTest extends FileTestSuite {

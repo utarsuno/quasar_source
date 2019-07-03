@@ -8,6 +8,8 @@ DataStructureBitwiseFlagsMax60.prototype = {
     },
 
     flag_set: function(flag_number, b) {
+        // TODO: For fun, run benchmarks on ternary operators vs if-else
+        //b === true ? this.cached_ints[flag_number & 1] |= (flag_number - (flag_number & 1)) : this.cached_ints[flag_number & 1] &= (~(flag_number - (flag_number & 1)));
         if (b) {
             this.cached_ints[flag_number & 1] |= (flag_number - (flag_number & 1));
         } else {

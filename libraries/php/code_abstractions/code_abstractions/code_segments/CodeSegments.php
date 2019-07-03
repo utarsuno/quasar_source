@@ -10,8 +10,8 @@ namespace QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments;
 use QuasarSource\CodeAbstractions\CodeAbstractions\Comment;
 use QuasarSource\CodeAbstractions\CodeAbstractions\EmptyLine;
 use QuasarSource\CodeAbstractions\CodeAbstractions\LineOfCode;
-use QuasarSource\Utilities\StringUtilities as STR;
-use QuasarSource\Utilities\ArrayUtilities as ARY;
+use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\UtilsArray as ARY;
 
 class CodeSegments {
 

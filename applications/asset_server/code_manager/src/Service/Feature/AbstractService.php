@@ -19,5 +19,4 @@ abstract class AbstractService {
     public function __construct(LoggerService $logger_service) {
         $this->service_set_logger($logger_service);
     }
-
 }

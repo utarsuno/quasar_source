@@ -17,8 +17,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
-use QuasarSource\Utilities\File\PathUtilities       as PATH;
-use QuasarSource\Utilities\Process\ProcessUtilities as RUN;
+use QuasarSource\Utilities\File\UtilsPath       as PATH;
+use QuasarSource\Utilities\Process\UtilsProcess as RUN;
 
 
 /**
@@ -26,7 +26,7 @@ use QuasarSource\Utilities\Process\ProcessUtilities as RUN;
  * @package CodeManager\Entity\CodeManager
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityNPMLibRepository")
- * @Table(name="npm_library")
+ * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_N_P_M_Lib")
  */
 class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;

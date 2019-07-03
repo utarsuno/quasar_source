@@ -12,11 +12,10 @@ use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
 use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\File\PathUtilities      as UPO;
-use QuasarSource\Utilities\File\DirectoryUtilities as UDO;
-use QuasarSource\Utilities\StringUtilities          as STR;
+use QuasarSource\Utilities\File\UtilsPath      as UPO;
+use QuasarSource\Utilities\File\UtilsDirectory as UDO;
+use QuasarSource\Utilities\UtilsString          as STR;
 use QuasarSource\CodeAbstractions\File\FileInstance;
-use QuasarSource\Utilities\EchoUtilities            as L;
 
 
 class DirectoryInstance extends FileAbstraction {
@@ -29,10 +28,10 @@ class DirectoryInstance extends FileAbstraction {
     }
 
     public function print_tree(string $offset=''): void {
-        L::ll($offset . 'D', $this->get_path_full());
+        #L::ll($offset . 'D', $this->get_path_full());
         foreach ($this->children as $child) {
             if ($child->is_file()) {
-                L::ll($offset . '  F', $child);
+                #L::ll($offset . '  F', $child);
             } else {
                 $child->print_tree('  ' . $offset);
             }

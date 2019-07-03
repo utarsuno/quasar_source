@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace CodeManager\Command\Prepared;
-use QuasarSource\Utilities\StringUtilities;
+use QuasarSource\Utilities\UtilsString;
 use Symfony\Component\Console\Command\Command;
 
 /**
@@ -26,7 +26,7 @@ class DBSchemaUpdate extends PreparedCommand {
 
     protected function on_command_completed(): void {
         #var_dump($this->results);
-        if (StringUtilities::contains($this->results, 'Updating database schema')) {
+        if (UtilsString::contains($this->results, 'Updating database schema')) {
             $this->db_schema_was_updated = true;
         }
     }

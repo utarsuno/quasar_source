@@ -6,7 +6,7 @@ use function array_key_exists;
 use function is_array;
 use function is_string;
 use QuasarSource\Utilities\Exception\ParameterException;
-use QuasarSource\Utilities\File\Discrete\YAMLUtilities as YAML;
+use QuasarSource\Utilities\File\Discrete\YAMLUtils as YAML;
 
 /**
  * Trait FeatureConfigYAMLTrait

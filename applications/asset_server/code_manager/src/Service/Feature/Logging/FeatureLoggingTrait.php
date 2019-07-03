@@ -3,7 +3,7 @@
 namespace CodeManager\Service\Feature\Logging;
 
 use CodeManager\Service\LoggerService;
-use QuasarSource\Utilities\StringUtilities as STR;
+use QuasarSource\Utilities\UtilsString as STR;
 
 /**
  * Trait FeatureLoggingTrait

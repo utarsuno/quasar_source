@@ -12,12 +12,13 @@ use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
+#CodeManager\Entity\Users\EntityUser
 
 /**
  * Class EntityCodeBuild
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityCodeBuildRepository")
- * @Table(name="code_builds")
+ * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_Code_Build")
  */
 class EntityCodeBuild {
     use FieldID;
