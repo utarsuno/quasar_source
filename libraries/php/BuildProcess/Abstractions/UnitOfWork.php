@@ -3,9 +3,9 @@
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Service\LoggerService;
 use CodeManager\Service\Feature\Logging\FeatureLoggingTrait;
-use QuasarSource\Traits\TraitName;
-use QuasarSource\Traits\TraitTimer;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\CommonFeatures\TraitName;
+use QuasarSource\CommonFeatures\TraitTimer;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 
 /**

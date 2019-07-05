@@ -28,7 +28,7 @@ use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
  * @package CodeManager\Entity
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityQAReportRepository")
- * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_Q_A_Report")
+ * @Table(name="qa_report")
  */
 class EntityQAReport extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;

@@ -51,14 +51,6 @@ class Kernel extends BaseKernel {
      */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void {
         #var_dump('CONFIGURE CONTAINER!');
-        $container->setParameter(PATHS::DIRECTORY_PROJECT, getenv(PATHS::DIRECTORY_PROJECT));
-        $container->setParameter(PATHS::DIRECTORY_CODE_MANAGER, getenv(PATHS::DIRECTORY_CODE_MANAGER));
-        $container->setParameter(PATHS::PROJECT_CONFIG, getenv(PATHS::PROJECT_CONFIG));
-        $container->setParameter(PATHS::PROJECT_BUNDLES, getenv(PATHS::PROJECT_BUNDLES));
-        $container->setParameter(PATHS::NODE_MINIFY_CSS, getenv(PATHS::NODE_MINIFY_CSS));
-        $container->setParameter(PATHS::NODE_MINIFY_HTML, getenv(PATHS::NODE_MINIFY_HTML));
-        $container->setParameter(PATHS::NODE_MINIFY_JS, getenv(PATHS::NODE_MINIFY_JS));
-
         $container->setParameter(SCHEMAS::YAML_CODE_MANAGER, [
             'global_information' => null,
             'assets'             => [
@@ -77,7 +69,7 @@ class Kernel extends BaseKernel {
             [PATHS::DIRECTORY_OUTPUT => null, PATHS::DIRECTORY_DATA => null, 'files' => null]
         ]);
 
-        $container->addResource(new FileResource($container->getParameter(PATHS::PROJECT_BUNDLES)));
+        $container->addResource(new FileResource(getenv(PATHS::PROJECT_BUNDLES)));
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
         $loader->load($confDir.'/{packages}/*.yaml', 'glob');

@@ -8,8 +8,8 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\File\UtilsPath as PATH;
-use QuasarSource\Utilities\UtilsString     as STR;
+use QuasarSource\Utilities\File\UtilsPath       as PATH;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 
 class PathUtilitiesTest extends FileTestSuite {

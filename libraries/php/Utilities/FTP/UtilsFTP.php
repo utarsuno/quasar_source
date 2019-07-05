@@ -2,7 +2,7 @@
 
 namespace QuasarSource\Utilities\FTP;
 
-use QuasarSource\Utilities\UtilsResource;
+use QuasarSource\Utilities\DataType\UtilsResource;
 
 /**
  * Class MathUtilities
@@ -17,15 +17,15 @@ abstract class UtilsFTP {
     public const FTP_FUNC_QUIT    = 'close'; // Alias to close
 
     /**
-     * @param $variable
+     * @param  mixed $variable
      * @return bool
      */
     public static function is_resource_a_connected_ftp_stream($variable): bool {
-        return UtilsResource::is_type($variable, 'FTP Buffer');
+        return UtilsResource::is_type($variable, UtilsResource::RESOURCE_TYPE_FTP);
     }
 
     /**
-     * @param $variable
+     * @param  mixed $variable
      * @return bool
      */
     public static function is_resource_a_disconnected_ftp_stream($variable): bool {

@@ -61,6 +61,16 @@ trait TraitFlagTable {
     }
 
     /**
+     * @param array $flags
+     * @param $value
+     */
+    public function flags_set_all(array $flags, $value=false): void {
+        foreach ($flags as $flag) {
+            $this->table_flags[$flag] = $value;
+        }
+    }
+
+    /**
      * @param string $flag
      * @return bool
      */

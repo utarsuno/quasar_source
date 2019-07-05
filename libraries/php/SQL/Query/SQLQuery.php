@@ -3,7 +3,7 @@
 namespace QuasarSource\SQL\Representation;
 
 use QuasarSource\SQL\Enum\SQLFunctions;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class SQLQuery
@@ -43,6 +43,7 @@ final class SQLQuery extends SQLQueryRaw {
      * @return mixed
      */
     public function LIMIT($limit=1): self {
+        # TODO: dynamically adjust num of row output?
         return $this->raw_add(' LIMIT ' . ((string) $limit));
     }
 

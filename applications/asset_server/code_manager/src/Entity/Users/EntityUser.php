@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Users
  *
  * @Entity(repositoryClass="CodeManager\Repository\Users\EntityUserRepository")
- * @Table(name="_Code_Manager___Entity___Users___Entity_User")
+ * @Table(name="user")
  */
 class EntityUser {
     use FieldID;

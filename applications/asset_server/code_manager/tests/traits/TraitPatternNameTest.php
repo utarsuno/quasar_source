@@ -9,7 +9,7 @@
 namespace CodeManager\Traits;
 
 use PHPUnit\Framework\TestCase;
-use QuasarSource\Traits\TraitName;
+use QuasarSource\CommonFeatures\TraitName;
 
 
 class TraitPatternNameTest extends TestCase {

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\Finance\Binance
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Finance\Binance\EntityBinanceTradeRepository")
- * @Table(name="_Code_Manager___Entity___Finance___Binance___Entity_Binance_Trade")
+ * @Table(name="binance_trade")
  */
 class EntityBinanceTrade {
     use FieldID;

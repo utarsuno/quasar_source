@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package CodeManager\Entity\Users
  *
  * @ORM\Entity(repositoryClass="CodeManager\Repository\Users\EntityVendorRepository")
- * @ORM\Table(name="_Code_Manager___Entity___Users___Entity_Vendor_Category")
+ * @ORM\Table(name="vendor_category")
  */
 class EntityVendorCategory {
     use FieldID;

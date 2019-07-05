@@ -1,16 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\DataType;
 
 /**
  * Class UtilsResource
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\DataType
  */
 abstract class UtilsResource {
 
+    public const RESOURCE_TYPE_UNKNOWN = 'Unknown';
+    public const RESOURCE_TYPE_FTP     = 'FTP Buffer';
+
     /**
-     * @param $variable
-     * @param string $resource_type
+     * @param  mixed  $variable
+     * @param  string $resource_type
      * @return bool
      */
     public static function is_type($variable, string $resource_type): bool {
@@ -18,11 +21,11 @@ abstract class UtilsResource {
     }
 
     /**
-     * @param $variable
+     * @param  $variable
      * @return bool
      */
     public static function is_unknown($variable): bool {
-        return self::is_type($variable, 'Unknown');
+        return self::is_type($variable, self::RESOURCE_TYPE_UNKNOWN);
     }
 
 }

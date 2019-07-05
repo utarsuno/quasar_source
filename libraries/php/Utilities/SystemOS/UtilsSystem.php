@@ -6,15 +6,16 @@
  * Time: 16:29
  */
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\SystemOS;
+
 use http\Exception\RuntimeException;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class UtilsSystem
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\SystemOS
  */
-final class UtilsSystem {
+abstract class UtilsSystem {
 
     /**
      * @return string
@@ -67,7 +68,7 @@ final class UtilsSystem {
      */
     public static function put_env(string $env_key, $value): void {
         if (is_string($value)) {
-            putenv($env_key . '=' . UtilsString::in_quotes($value));
+            putenv($env_key . '=' . STR::in_quotes($value));
         }
         putenv($env_key . '=' . $value);
     }

@@ -9,7 +9,7 @@
 namespace QuasarSource\CodeAbstractions;
 
 use QuasarSource\Traits\PatternParentChild\InterfacePatternChild;
-use QuasarSource\Traits\TraitName;
+use QuasarSource\CommonFeatures\TraitName;
 
 
 abstract class FileAbstraction implements InterfacePatternChild {

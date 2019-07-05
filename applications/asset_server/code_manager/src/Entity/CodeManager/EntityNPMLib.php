@@ -26,7 +26,7 @@ use QuasarSource\Utilities\Process\UtilsProcess as RUN;
  * @package CodeManager\Entity\CodeManager
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityNPMLibRepository")
- * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_N_P_M_Lib")
+ * @Table(name="npm_lib")
  */
 class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;

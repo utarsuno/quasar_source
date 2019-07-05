@@ -1,5 +1,5 @@
-parameters:
-    env(DATABASE_URL): 'pgsql://postgres:password@postgres_server:5432/postgres'
+#parameters:
+#    env(DATABASE_URL): 'pgsql://postgres:password@postgres_server:5432/postgres'
 
 doctrine:
     dbal:

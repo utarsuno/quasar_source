@@ -8,7 +8,7 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\UtilsArray;
+use QuasarSource\Utilities\DataType\UtilsArray;
 use QuasarSource\Utilities\File\UtilsDirectory as DIR;
 use QuasarSource\Utilities\File\UtilsPath as PATH;
 

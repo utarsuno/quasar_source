@@ -6,7 +6,10 @@ use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\CodeManager\EntityDBSnapshot;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 
-
+/**
+ * Class EntityDBSnapshotRepository
+ * @package CodeManager\Repository\CodeManager
+ */
 class EntityDBSnapshotRepository extends AbstractRepository {
 
     protected $entity_class = EntityDBSnapshot::class;

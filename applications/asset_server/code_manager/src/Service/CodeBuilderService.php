@@ -22,8 +22,9 @@ use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
 use QuasarSource\Utilities\File\UtilsPath    as PATH;
 use QuasarSource\Utilities\File\UtilsPath;
 use QuasarSource\Utilities\FTP\FTPInstance;
-use QuasarSource\Utilities\UtilsSystem       as SYS;
-use QuasarSource\Utilities\UtilsString       as STR;
+use QuasarSource\Utilities\Time\TimerSimple;
+use QuasarSource\Utilities\SystemOS\UtilsSystem    as SYS;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 use QuasarSource\Utilities\File\UtilsFile    as UFO;
 use QuasarSource\Enums\EnumFileTypeExtensions    as EXTENSION;
 use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS_ENUM;
@@ -35,7 +36,6 @@ use QuasarSource\BuildProcess\JSONBuildSection;
 use QuasarSource\BuildProcess\NPMLibBuildSection;
 use QuasarSource\BuildProcess\QAReportBuildSection;
 
-use QuasarSource\Utilities\UtilsSystem;
 use Symfony\Component\DependencyInjection\ContainerInterface; // <- Add this
 
 use QuasarSource\Finance\Binance\BinanceAccountAPI;
@@ -98,16 +98,16 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
             $this->configs_universal->get(SCHEMAS_ENUM::YAML_CODE_MANAGER),
             SYS::get_env(PATHS_ENUM::PROJECT_CONFIG)
         );
-
         #var_dump('Early exit!');
         #exit();
+
 
         $this->all_build_sections[] = $this->service_db_health;
         foreach (self::BUILD_STEPS as $build_section_class) {
             $this->all_build_sections[] = new $build_section_class($this);
         }
-
         $this->repo_code_builds = $this->service_db->get_repo(EntityCodeBuildRepository::class);
+
 
         #$this->repo_code_builds->fetch_or_generate_last_build();
 
@@ -132,7 +132,10 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
     public function run_code_health_check(DBService $db_health_service): void {
         $this->service_db_health = $db_health_service;
 
+        var_dump('Running code health check!');
 
+        $schema_is_valid = $this->service_db->is_schema_valid();
+        var_dump($schema_is_valid);
 
 
         #$last_datetime = $this->repo_code_builds->get_datetime_of_last_successful_build();

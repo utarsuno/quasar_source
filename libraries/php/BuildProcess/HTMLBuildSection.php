@@ -5,8 +5,8 @@ use CodeManager\Entity\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
 use QuasarSource\Utilities\File\Discrete\CSSUtilities as CSS;
-use QuasarSource\Utilities\File\UtilsFile         as UFO;
-use QuasarSource\Utilities\UtilsString            as STR;
+use QuasarSource\Utilities\File\UtilsFile             as UFO;
+use QuasarSource\Utilities\DataType\UtilsString       as STR;
 use QuasarSource\Enums\EnumFileTypeExtensions         as EXTENSION;
 
 

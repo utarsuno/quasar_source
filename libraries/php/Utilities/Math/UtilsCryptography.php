@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\Math;
 
 /**
  * Class UtilsCryptography
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\Math
  */
 abstract class UtilsCryptography {
 

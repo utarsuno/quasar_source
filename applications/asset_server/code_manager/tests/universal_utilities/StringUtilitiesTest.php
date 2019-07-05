@@ -8,7 +8,7 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 
 class StringUtilitiesTest extends FileTestSuite {

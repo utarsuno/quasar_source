@@ -6,20 +6,21 @@
  * Time: 17:43
  */
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\DataType;
 
 use function is_string;
 use function strlen;
+use QuasarSource\Utilities\InterfaceDivisible;
 
 /**
  * Class UtilsString
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\DataType
  */
-abstract class UtilsString {
+abstract class UtilsString implements InterfaceDivisible {
 
     /**
-     * @param string|array $lines
-     * @param string       $align_on
+     * @param  string|array $lines
+     * @param  string       $align_on
      * @return array
      */
     public static function column_aligned($lines, string $align_on): array {
@@ -53,9 +54,9 @@ abstract class UtilsString {
     /**
      * Returns the provided string with any matches replaced.
      *
-     * @param string $base        [The string to return a modified version of.]
-     * @param string $match       [Text instance to find and replace.         ]
-     * @param string $replacement [Content for replaced text instances.       ]
+     * @param  string $base        [The string to return a modified version of.]
+     * @param  string $match       [Text instance to find and replace.         ]
+     * @param  string $replacement [Content for replaced text instances.       ]
      * @return string
      */
     public static function replace(string $base, string $match, string $replacement): string {
@@ -67,9 +68,9 @@ abstract class UtilsString {
      | | \| .__/ |___ |  \  |  .__/ */
 
     /**
-     * @param string $text
-     * @param string $insert
-     * @param string $after
+     * @param  string $text
+     * @param  string $insert
+     * @param  string $after
      * @return string
      */
     public static function insert_before(string $text, string $insert, string $after): string {
@@ -77,9 +78,9 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param string $insert
-     * @param string $after
+     * @param  string $text
+     * @param  string $insert
+     * @param  string $after
      * @return string
      */
     public static function insert_after(string $text, string $insert, string $after): string {
@@ -91,29 +92,28 @@ abstract class UtilsString {
      \__> |___  |   |  |___ |  \ .__/ */
 
     /**
-     * @param string $base
-     * @param string $match
+     * @param  string $base
+     * @param  string $match
      * @return int
      */
     public static function position_of_last_match(string $base, string $match): int {
-        $pos = strrpos($base, $match);
-        return $pos;
+        return strpos($base, $match);
     }
 
     /**
-     * @param string $base
+     * @param  string $base
      * @return bool
      */
     public static function has_content(string $base): bool {
-        return !($base && !trim($base));
+        return $base && trim($base);
     }
 
     /**
      * Checks if provided string has any occurrences of the secondary string provided.
      *
-     * @param string $base  [The string to search.    ]
-     * @param string $match [The string to search for.]
-     * @return bool         [True if contained.       ]
+     * @param  string $base  [The string to search.    ]
+     * @param  string $match [The string to search for.]
+     * @return bool          [True if contained.       ]
      */
     public static function has(string $base, string $match): bool {
         if ($match === '') {
@@ -125,9 +125,9 @@ abstract class UtilsString {
     /**
      * Checks if the provided string starts with the prefix to match.
      *
-     * @param string $base   [The string to search.    ]
-     * @param string $prefix [The prefix to search for.]
-     * @return bool          [True if prefix matched.  ]
+     * @param  string $base   [The string to search.    ]
+     * @param  string $prefix [The prefix to search for.]
+     * @return bool           [True if prefix matched.  ]
      */
     public static function starts_with(string $base, string $prefix): bool {
         if ($prefix === '') {
@@ -139,9 +139,9 @@ abstract class UtilsString {
     /**
      * Checks if the provided string ends with the suffix to match.
      *
-     * @param string $base   [The string to search.    ]
-     * @param string $suffix [The suffix to search for.]
-     * @return bool          [True if suffix matched.  ]
+     * @param  string $base   [The string to search.    ]
+     * @param  string $suffix [The suffix to search for.]
+     * @return bool           [True if suffix matched.  ]
      */
     public static function ends_with(string $base, string $suffix): bool {
         if ($suffix === '') {
@@ -157,17 +157,17 @@ abstract class UtilsString {
     /**
      * Returns an array with the provided string split based of the pattern to match.
      *
-     * @param string $base      [The string to base contents off of.]
-     * @param string $delimiter [The string to match and split by.  ]
-     * @return array            [An array of string segments.       ]
+     * @param  string $base      [The string to base contents off of.]
+     * @param  string $delimiter [The string to match and split by.  ]
+     * @return array             [An array of string segments.       ]
      */
     public static function split(string $base, string $delimiter=PHP_EOL): array {
         return explode($delimiter, $base, PHP_INT_MAX);
     }
 
     /**
-     * @param string $base
-     * @param string $delimiter
+     * @param  string $base
+     * @param  string $delimiter
      * @return array
      */
     public static function split_clean(string $base, string $delimiter=PHP_EOL): array {
@@ -181,20 +181,6 @@ abstract class UtilsString {
         return $cleaned;
     }
 
-    /**
-     * @param string $base
-     * @return array
-     */
-    public static function split_into_non_empty_lines(string $base): array {
-        $lines = [];
-        foreach (self::split($base) as $line) {
-            if ($line !== '') {
-                $lines[] = $line;
-            }
-        }
-        return $lines;
-    }
-
     /*__   ___        __                  __
      |__) |__   |\/| /  \ \  /  /\  |    /__`
      |  \ |___  |  | \__/  \/  /~~\ |___ .__/ */
@@ -202,8 +188,8 @@ abstract class UtilsString {
     /**
      * Returns a string having the contents of the base string with any occurrences of secondary string provided removed.
      *
-     * @param string       $base  [The string to base contents off of.                     ]
-     * @param string|array $match [The string (or array of strings) to find occurrences of.]
+     * @param  string       $base  [The string to base contents off of.                     ]
+     * @param  string|array $match [The string (or array of strings) to find occurrences of.]
      * @return string             [A new string.                                           ]
      */
     public static function remove(string $base, $match): string {
@@ -221,7 +207,7 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public static function remove_last_character(string $text): string {
@@ -229,7 +215,7 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public static function remove_first_character(string $text): string {
@@ -237,17 +223,26 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param int $num_digits
+     * @param  string $text
+     * @param  int    $num_digits
      * @return string
      */
-    public static function remove_first_n(string $text, int $num_digits): string {
+    public static function remove_first_n($text, int $num_digits): string {
         return substr($text, $num_digits);
     }
 
     /**
-     * @param string $text
-     * @param int    $num_digits
+     * @param  string $text
+     * @param  int    $num_digits
+     * @return string
+     */
+    public static function ref_remove_first_n(& $text, int $num_digits): void {
+        $text = substr($text, $num_digits);
+    }
+
+    /**
+     * @param  string $text
+     * @param  int    $num_digits
      * @return string
      */
     public static function remove_last_n(string $text, int $num_digits): string {
@@ -255,7 +250,7 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $base
+     * @param  string $base
      * @return string
      */
     public static function remove_newline(string $base): string {
@@ -267,9 +262,9 @@ abstract class UtilsString {
      |/\| |  \ /~~\ |    |    |___ |__/    | | \| */
 
     /**
-     * @param string $base
-     * @param bool   $single_quotes
-     * @param bool   $replace_incorrect_quotes
+     * @param  string $base
+     * @param  bool   $single_quotes
+     * @param  bool   $replace_incorrect_quotes
      * @return string
      */
     public static function in_quotes(string $base, bool $single_quotes=true, bool $replace_incorrect_quotes=true): string {
@@ -287,8 +282,8 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param $value
+     * @param  string $text
+     * @param  $value
      * @return string
      */
     public static function parentheses(string $text, $value): string {
@@ -305,9 +300,9 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param string $start_with
-     * @param string $end_with
+     * @param  string $text
+     * @param  string $start_with
+     * @param  string $end_with
      * @return string
      */
     public static function ensure_wrapped_in(string $text, string $start_with, string $end_with): string {
@@ -319,8 +314,8 @@ abstract class UtilsString {
      |___ | \| .__/ \__/ |  \ |___ */
 
     /**
-     * @param string $base
-     * @param string $match
+     * @param  string $base
+     * @param  string $match
      * @return string
      */
     public static function ensure_start_is_not(string $base, string $match): string {
@@ -331,8 +326,8 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $base
-     * @param string $match
+     * @param  string $base
+     * @param  string $match
      * @return string
      */
     public static function ensure_ending_is_not(string $base, string $match): string {
@@ -343,8 +338,8 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param string $start_with
+     * @param  string $text
+     * @param  string $start_with
      * @return string
      */
     public static function ensure_start(string $text, string $start_with): string {
@@ -355,8 +350,8 @@ abstract class UtilsString {
     }
 
     /**
-     * @param string $text
-     * @param string $ends_with
+     * @param  string $text
+     * @param  string $ends_with
      * @return string
      */
     public static function ensure_ending(string $text, string $ends_with): string {

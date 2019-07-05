@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\Table;
  * @package CodeManager\Entity\File
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityFileTypeRepository")
- * @Table(name="_Code_Manager___Entity___File___Entity_File_Type")
+ * @Table(name="file_type")
  */
 class EntityFileType {
     use FieldID;

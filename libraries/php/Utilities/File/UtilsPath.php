@@ -3,7 +3,7 @@
 namespace QuasarSource\Utilities\File;
 
 use function count;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class UtilsPath

@@ -5,7 +5,7 @@ namespace QuasarSource\QualityAssurance;
 
 
 use QuasarSource\Utilities\File\Discrete\XMLElement;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 class TestSuiteResult extends TestResultAbstract {
 

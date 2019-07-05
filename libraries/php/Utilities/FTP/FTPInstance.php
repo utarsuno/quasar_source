@@ -4,8 +4,8 @@ namespace QuasarSource\Utilities\FTP;
 
 use QuasarSource\DataStructure\ConnectionState\TraitConnectionState;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
-use QuasarSource\Utilities\UtilsArray  as ARY;
-use QuasarSource\Utilities\UtilsSystem as SYS;
+use QuasarSource\Utilities\DataType\UtilsArray  as ARY;
+use QuasarSource\Utilities\SystemOS\UtilsSystem as SYS;
 
 /**
  * Class FTPInstance

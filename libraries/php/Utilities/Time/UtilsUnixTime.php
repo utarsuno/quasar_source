@@ -9,6 +9,14 @@ namespace QuasarSource\Utilities\Time;
 abstract class UtilsUnixTime {
 
     /**
+     * @param float $time_instance_from
+     * @return float
+     */
+    public static function delta_to_now(float $time_instance_from): float {
+        return microtime(true) - $time_instance_from;
+    }
+
+    /**
      * @return string
      */
     public static function now_as_string(): string {
@@ -20,6 +28,13 @@ abstract class UtilsUnixTime {
      */
     public static function now(): int {
         return time();
+    }
+
+    /**
+     * @return float
+     */
+    public static function now_as_float(): float {
+        return microtime(true);
     }
 
     public static function difference_in_days(int $t0, int $t1): float {

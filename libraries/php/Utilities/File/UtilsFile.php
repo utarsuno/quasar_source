@@ -11,8 +11,8 @@ use function is_array;
 use Exception;
 use QuasarSource\Utilities\Exception\ExceptionSystem;
 use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\Process\UtilsProcess as RUN;
-use QuasarSource\Utilities\UtilsCryptography    as HASH;
+use QuasarSource\Utilities\Process\UtilsProcess   as RUN;
+use QuasarSource\Utilities\Math\UtilsCryptography as HASH;
 
 /**
  * Class UtilsFile
@@ -31,6 +31,18 @@ abstract class UtilsFile {
             throw LogicException::invalid_function_call('is_valid{file_path}', $path);
         }
         return $is_path_valid;
+    }
+
+    /**
+     * @param  string $path_base
+     * @param  string $path_new
+     * @return void
+     */
+    public static function rename(string $path_base, string $path_new): void {
+        self::is_valid($path_base);
+        if ($path_base !== $path_new) {
+            rename($path_base, $path_new);
+        }
     }
 
     /**

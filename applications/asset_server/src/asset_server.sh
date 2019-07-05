@@ -11,17 +11,23 @@ export PATH_NODE_MINIFY_HTML='/quasar_source/libraries/node/minifier_html.js'
 export PATH_NODE_MINIFY_CSS='/quasar_source/libraries/node/minifier_css.js'
 export PATH_NODE_MINIFY_JS='/quasar_source/libraries/node/minifier_css.js'
 export SYMFONY_ENV='dev'
-export DB_NAME='postgres'
 export PATH_RELATIVE_NODE_MINIFY_HTML='applications/asset_server/js/minify_html_file.js'
 export PATH_RELATIVE_NODE_MINIFY_CSS='applications/asset_server/js/minify_css_file.js'
 export PATH_RELATIVE_NODE_MINIFY_JS='applications/asset_server/js/minify_js_file.js'
+# ---- DB -----
+#export DATABASE_URL='pgsql://postgres:password@postgres_server:5432/postgres'
+export DATABASE_URL='pgsql://postgres:password@172.18.0.2:5432/postgres'
+export DB_NAME='postgres'
 # ---- FTP ----
 export FTP_HOST='192.168.1.170'
 export FTP_USER='l0_c4_m4'
 export FTP_PASS='sudoadmin'
 export FTP_TIMEOUT='5' # Default{90} (seconds)
 export FTP_PORT='21'   # Default{21}
+# ---- Session Settings ----
+export DB_CHECKS='true'
 #-----------------------------------------------------------------------------------------------------------------------
+
 
 #PATH_RELATIVE_PROJECT_CONFIGS='configs/code_manager.yml'
 
@@ -46,6 +52,11 @@ RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/c
 
 cd ${PATH_DIRECTORY_CODE_MANAGER}
 #php -S "0.0.0.0:80"
+
+#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
+#${RUN_CONSOLE_CMD} doctrine:schema:update --force --complete --dump-sql -vvv
+#${RUN_CONSOLE_CMD} doctrine:schema:update --dump-sql -vvv
+
 
 #composer self-update
 #composer validate

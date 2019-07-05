@@ -6,9 +6,9 @@ use Doctrine\DBAL\Connection;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\DataStructure\ConstTable\TraitConstTable;
-use QuasarSource\Traits\TraitName;
-use QuasarSource\Utilities\UtilsString as STR;
-use QuasarSource\Utilities\UtilsSystem as SYS;
+use QuasarSource\CommonFeatures\TraitName;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utilities\SystemOS\UtilsSystem as SYS;
 
 /**
  * Class SQLQueryGroup

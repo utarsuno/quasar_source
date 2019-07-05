@@ -6,11 +6,11 @@
  * Time: 15:21
  */
 
-namespace QuasarSource\Traits;
+namespace QuasarSource\CommonFeatures;
 
 /**
  * Trait TraitName
- * @package QuasarSource\Traits
+ * @package QuasarSource\CommonFeatures
  */
 trait TraitName {
 
@@ -34,7 +34,7 @@ trait TraitName {
     /**
      * Set the name of this object.
      *
-     * @param string $name < The name to be set to for this object. >
+     * @param string $name [The name to be set to for this object.]
      * @return self
      */
     public function set_name(string $name): self {
@@ -56,16 +56,16 @@ trait TraitName {
     /**
      * Get the name of this object.
      *
-     * @return string < The current name of this object. >
+     * @return string [The current name of this object.]
      */
     public function get_name(): string {
         return $this->name;
     }
 
     /**
-     * Provide a default implementation for the strval(object_instance) call. Simply returns this objects name.
+     * Provide a default implementation for the strval(object_instance)/(string) call. Simply returns this objects name.
      *
-     * @return string < The current name of this object. >
+     * @return string [The current name of this object.]
      */
     public function __toString(): string {
         if ($this->label !== null) {

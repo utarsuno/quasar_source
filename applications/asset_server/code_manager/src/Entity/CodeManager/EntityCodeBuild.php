@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping\Table;
  * Class EntityCodeBuild
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityCodeBuildRepository")
- * @Table(name="_Code_Manager___Entity___Code_Manager___Entity_Code_Build")
+ * @Table(name="code_build")
  */
 class EntityCodeBuild {
     use FieldID;

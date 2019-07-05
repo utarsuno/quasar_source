@@ -12,9 +12,9 @@ use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
 use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\File\UtilsPath      as UPO;
-use QuasarSource\Utilities\File\UtilsDirectory as UDO;
-use QuasarSource\Utilities\UtilsString          as STR;
+use QuasarSource\Utilities\File\UtilsPath       as UPO;
+use QuasarSource\Utilities\File\UtilsDirectory  as UDO;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 use QuasarSource\CodeAbstractions\File\FileInstance;
 
 

@@ -8,13 +8,16 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\Time\SimpleTimer;
+use QuasarSource\Utilities\Time\TimerSimple;
 
-
-class SimpleTimerTest extends FileTestSuite {
+/**
+ * Class TimerSimpleTest
+ * @package CodeManager\Tests
+ */
+class TimerSimpleTest extends FileTestSuite {
 
     public function test_simple_timer(): void {
-        $timer = new SimpleTimer(true);
+        $timer = new TimerSimple(true);
         usleep(250000);
         $this->assertLessThan(.35, $timer->get_delta());
         usleep(500000);
@@ -27,7 +30,7 @@ class SimpleTimerTest extends FileTestSuite {
     }
 
     public function test_simple_timer_syntax(): void {
-        $timer = new SimpleTimer(true);
+        $timer = new TimerSimple(true);
         $this->assertSame('0s', strval($timer));
     }
 

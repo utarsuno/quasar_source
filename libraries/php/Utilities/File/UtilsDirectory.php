@@ -4,8 +4,8 @@
 namespace QuasarSource\Utilities\File;
 use Exception;
 use QuasarSource\Utilities\Exception\ExceptionDoesNotExist as DNE;
-use QuasarSource\Utilities\UtilsString                 as STR;
-use QuasarSource\Utilities\File\UtilsPath              as UPO;
+use QuasarSource\Utilities\DataType\UtilsString            as STR;
+use QuasarSource\Utilities\File\UtilsPath                  as UPO;
 
 
 /**

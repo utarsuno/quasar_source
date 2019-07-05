@@ -8,29 +8,60 @@
 
 namespace QuasarSource\Utilities\Process;
 use CodeManager\Enum\ProjectParameterKeys\Path;
-use QuasarSource\Enums\EnumFileTypeExtensions as EXTENSION;
-use QuasarSource\Utilities\UtilsString    as STR;
-use QuasarSource\Utilities\UtilsSystem    as SYS;
+use QuasarSource\Enums\EnumFileTypeExtensions   as EXTENSION;
+use QuasarSource\Utilities\DataType\UtilsArray;
+use QuasarSource\Utilities\File\UtilsFile       as UFO;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utilities\SystemOS\UtilsSystem as SYS;
 
 /**
  * Class UtilsProcess
  * @package QuasarSource\Utilities\Process
  */
-class UtilsProcess {
+abstract class UtilsProcess {
 
-    public static function run_cmd(array $command, ?string $cwd=null): string {
+    /**
+     * @param array $command
+     * @param string $cwd
+     * @param bool $raise_exception_on_error
+     * @param bool $pretty_output
+     * @return array
+     */
+    public static function run_process(
+        array  $command,
+        string $cwd=null,
+        bool   $raise_exception_on_error=true,
+        bool   $pretty_output=false
+    ): array {
+        flush();
+        #ob_clean();
+        $p = new ProcessRunner($command, $raise_exception_on_error, 20, $cwd);
+        $p->run();
+        if (!$pretty_output) {
+            return [$p->get_output(), $p->get_error_output()];
+        }
+        $output = $p->get_output();
+        $errors = $p->get_error_output();
+        $output = STR::split_clean($output);
+        $errors = STR::split_clean($errors);
+        return [$output, $errors];
+    }
+
+    public static function run_cmd(array $command, string $cwd=null): string {
         $p = new ProcessRunner($command, true, 20, $cwd);
         $p->run();
         #var_dump($p->get_error_output());
         return $p->get_output();
     }
 
+    /**
+     * @param  string $path_input
+     * @param  string $path_output
+     * @return void
+     */
     public static function gzip_file_to(string $path_input, string $path_output): void {
         self::run_cmd(['gzip', '-f', '-k', '-9', $path_input]);
-        $gzip_output_path = $path_input . EXTENSION::GZIPPED;
-        if ($gzip_output_path !== $path_output) {
-            rename($gzip_output_path, $path_output);
-        }
+        UFO::rename($path_input . EXTENSION::GZIPPED, $path_output);
     }
 
     // Q A.

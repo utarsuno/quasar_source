@@ -23,7 +23,7 @@ class EntityCodeBuildRepository extends AbstractRepository {
     /**
      * EntityCodeBuildRepository constructor.
      * @param EntityManagerInterface $em
-     * @param ClassMetadata $class
+     * @param ClassMetadata          $class
      */
     public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
         parent::__construct($em, $class);

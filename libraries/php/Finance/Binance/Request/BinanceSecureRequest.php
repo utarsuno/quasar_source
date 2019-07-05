@@ -2,8 +2,8 @@
 
 namespace QuasarSource\Utilities\RequestsHTTP\Binance;
 use QuasarSource\Utilities\HTTP\UtilsHTTP;
-use QuasarSource\Utilities\UtilsCryptography  as HASH;
-use QuasarSource\Utilities\Time\UtilsUnixTime as UNIX;
+use QuasarSource\Utilities\Math\UtilsCryptography as HASH;
+use QuasarSource\Utilities\Time\UtilsUnixTime     as UNIX;
 
 /**
  * Class BinanceSecureRequest

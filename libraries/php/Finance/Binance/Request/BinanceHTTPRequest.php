@@ -3,7 +3,7 @@
 namespace QuasarSource\Utilities\RequestsHTTP\Binance;
 use QuasarSource\Utilities\HTTP\UtilsHTTP;
 use QuasarSource\Utilities\HTTP\AbstractHTTPRequest;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class BinanceRequest

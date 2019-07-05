@@ -17,19 +17,18 @@ use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 use Exception;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\File\UtilsFile as UFO;
-use QuasarSource\Utilities\File\UtilsPath as UPO;
-use QuasarSource\Utilities\File\UtilsPath as PATH;
-use QuasarSource\Utilities\UtilsMath      as MATH;
-use QuasarSource\Enums\EnumFileTypeExtensions as EXTENSION;
-use QuasarSource\Utilities\UtilsArray     as ARY;
+use QuasarSource\Utilities\File\UtilsFile      as UFO;
+use QuasarSource\Utilities\File\UtilsPath      as UPO;
+use QuasarSource\Utilities\File\UtilsPath      as PATH;
+use QuasarSource\Utilities\Math\UtilsMath      as MATH;
+use QuasarSource\Enums\EnumFileTypeExtensions  as EXTENSION;
+use QuasarSource\Utilities\DataType\UtilsArray as ARY;
 
 
 /**
@@ -38,7 +37,7 @@ use QuasarSource\Utilities\UtilsArray     as ARY;
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityFileRepository")
  * @ORM\HasLifecycleCallbacks()
- * @Table(name="_Code_Manager___Entity___File___Entity_File")
+ * @Table(name="file")
  */
 class EntityFile extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;
@@ -103,10 +102,10 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
      */
     private $full_path;
 
-    /**
-     * @ManyToOne(targetEntity="CodeManager\Entity\File\EntityDirectory", inversedBy="files")
-     */
-    private $directory;
+    #/**
+    # * @ManyToOne(targetEntity="CodeManager\Entity\File\EntityDirectory", inversedBy="files")
+    # */
+    #private $directory;
 
     /**
      * @var EntityFile

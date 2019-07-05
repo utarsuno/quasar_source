@@ -1,12 +1,48 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\Math;
 
 /**
  * Class UtilsMath
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\Math
  */
 abstract class UtilsMath {
+
+    /**
+     * @param  $num
+     * @param  int   $number_of_decimals
+     * @param  float $min_cutoff
+     * @return string
+     */
+    public static function as_seconds_pretty($num, int $number_of_decimals=3, float $min_cutoff=0.01): string {
+        if ($num === null || $num === 0) {
+            return '0s';
+        }
+        if ($num > 0 && $num <= $min_cutoff) {
+            return '~0s';
+        }
+        if (is_int($num)) {
+            return $num . 's';
+        }
+        $num = (float) $num;
+        return self::formatted($num, $number_of_decimals) . 's';
+    }
+
+    /**
+     * @param  $num
+     * @param  int $number_of_decimals
+     * @return string
+     */
+    public static function as_seconds($num, int $number_of_decimals=6): string {
+        if ($num === null || $num === 0) {
+            return '0s';
+        }
+        if (is_int($num)) {
+            return $num . 's';
+        }
+        $num = (float) $num;
+        return self::formatted($num, $number_of_decimals) . 's';
+    }
 
     /**
      * Utility function to get either a numerical or string representation on the % decreases from $base to $new.

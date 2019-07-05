@@ -6,13 +6,50 @@
  * Time: 17:43
  */
 
-namespace QuasarSource\Utilities;
+namespace QuasarSource\Utilities\DataType;
+
+use QuasarSource\Utilities\InterfaceDivisible;
 
 /**
  * Class UtilsArray
- * @package QuasarSource\Utilities
+ * @package QuasarSource\Utilities\DataType
  */
-abstract class UtilsArray {
+abstract class UtilsArray implements InterfaceDivisible {
+
+    /**
+     * @param  array $base
+     * @param  array $values
+     * @return array
+     */
+    public static function append_values(array $base, array $values): array {
+        foreach ($values as $value) {
+            $base[] = $value;
+        }
+        return $base;
+    }
+
+    /**
+     * @param  array $base
+     * @param  array $pattern
+     * @return int
+     */
+    public static function position_after_pattern(array $base, array $pattern): int {
+        $num_lines = count($base);
+        $sub_lines = count($pattern);
+        for ($i = 0; $i < $num_lines; $i++) {
+            $matched = true;
+            for ($j = 0; $j < $sub_lines; $j++) {
+                if ($base[$i + $j] !== $pattern[$j]) {
+                    $matched = false;
+                    break;
+                }
+            }
+            if ($matched) {
+                return $i + $sub_lines;
+            }
+        }
+        return -1;
+    }
 
     /**
      * @param $arg
@@ -45,10 +82,24 @@ abstract class UtilsArray {
     /**
      * Remove the first n elements from the provided array.
      *
+     * @param  array $array            [The array to remove elements from.                               ]
+     * @param  int   $number_to_remove [The number of elements to be removed from the start of the array.]
+     * @return array                   [An array of the remaining elements.                              ]
+     */
+    public static function remove_first_n($array, int $number_to_remove): array {
+        if ($number_to_remove <= 0 || !isset($array) || $number_to_remove >= count($array)) {
+            return null;
+        }
+        return array_slice($array, $number_to_remove);
+    }
+
+    /**
+     * Remove the first n elements from the provided array.
+     *
      * @param array $array             [The array to remove elements from.                               ]
      * @param int   $number_to_remove  [The number of elements to be removed from the start of the array.]
      */
-    public static function remove_first_n(array & $array, int $number_to_remove): void {
+    public static function ref_remove_first_n(& $array, int $number_to_remove): void {
         if ($number_to_remove <= 0 || !isset($array)) {
             return;
         }

@@ -2,8 +2,7 @@
 
 namespace QuasarSource\Finance\Binance;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumSymbolsToTrack as COINS;
-use QuasarSource\Utilities\UtilsMath                        as MATH;
-use QuasarSource\Utilities\UtilsString                      as STR;
+use QuasarSource\Utilities\Math\UtilsMath                       as MATH;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceCancelOrder;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccount;
 use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountAllOrders;

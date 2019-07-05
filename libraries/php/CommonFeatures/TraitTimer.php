@@ -6,8 +6,8 @@
  * Time: 15:21
  */
 
-namespace QuasarSource\Traits;
-use QuasarSource\Utilities\Time\SimpleTimer;
+namespace QuasarSource\CommonFeatures;
+use QuasarSource\Utilities\Time\TimerSimple;
 
 /**
  * Trait TraitTimer
@@ -15,7 +15,7 @@ use QuasarSource\Utilities\Time\SimpleTimer;
  */
 trait TraitTimer {
 
-    /** @var SimpleTimer */
+    /** @var TimerSimple */
     protected $timer;
 
     /**
@@ -24,7 +24,7 @@ trait TraitTimer {
      * @param bool $auto_start
      */
     public function init_trait_timer(bool $auto_start=false): void {
-        $this->timer = new SimpleTimer($auto_start);
+        $this->timer = new TimerSimple($auto_start);
     }
 
 }

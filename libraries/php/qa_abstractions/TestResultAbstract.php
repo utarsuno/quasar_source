@@ -2,7 +2,7 @@
 
 
 namespace QuasarSource\QualityAssurance;
-use QuasarSource\Traits\TraitName;
+use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\Utilities\File\Discrete\XMLElement;
 
 

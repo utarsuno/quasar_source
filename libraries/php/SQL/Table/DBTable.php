@@ -5,7 +5,7 @@ namespace QuasarSource\SQL\Table;
 use Doctrine\DBAL\Connection;
 use QuasarSource\SQL\Representation\SQLQuery;
 use QuasarSource\SQL\Representation\SQLQueryGroup;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class DBTable

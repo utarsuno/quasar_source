@@ -8,7 +8,7 @@ use Doctrine\DBAL\FetchMode;
 use QuasarSource\DataStructure\ConstTable\TraitConstTable;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
 use QuasarSource\SQL\Enum\SQLFetchModes;
-use QuasarSource\Utilities\UtilsString as STR;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
  * Class SQLQueryRaw
@@ -52,14 +52,6 @@ abstract class SQLQueryRaw {
      * @return mixed|mixed[]
      */
     public function execute() {
-        $response = $this->statement->execute();
-        #var_dump($response);
-        #var_dump(gettype($response));
-
-        $num_rows_affects = $this->statement->rowCount();
-        #var_dump($num_rows_affects);
-
-        #var_dump($this->response_num_rows);
         if ($this->response_num_cols === 1) {
             if ($this->response_num_rows <= 1) {
                 return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
@@ -102,7 +94,10 @@ abstract class SQLQueryRaw {
      * @return mixed
      */
     private function execute_and_free_query(Statement $query, string $fetch_mode) {
-        #$results = $query->execute();
+        #$num_rows_affects = $this->statement->rowCount();
+        if (!$query->execute()) {
+            throw new \RuntimeException('Query failed: {' . ((string) $query) . '}');
+        }
         switch ($fetch_mode) {
             case SQLFetchModes::FETCH:
                 $results = $query->fetch();

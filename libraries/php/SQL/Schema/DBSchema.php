@@ -13,11 +13,12 @@ use QuasarSource\SQL\Table\DBTable;
  */
 final class DBSchema extends SQLQueryGroup {
 
-    private const INFO_SCHEMA          = 'information_schema';
-    private const INFO_SCHEMA_TABLES   = 'information_schema.tables';
+    private const INFO_SCHEMA              = 'information_schema';
+    private const INFO_SCHEMA_TABLES       = 'information_schema.tables';
 
-    public const QUERY_GET_NUM_TABLES  = 'get_num_tables';
-    public const QUERY_GET_TABLE_NAMES = 'get_table_names';
+    public const QUERY_GET_NUM_TABLES      = 'get_num_tables';
+    public const QUERY_GET_TABLE_NAMES     = 'get_table_names';
+    public const QUERY_GET_TABLE_NAMES_ALL = 'get_all_table_names';
     #public const QUERY_GET_TABLE_SIZE
 
     /**
@@ -59,7 +60,15 @@ final class DBSchema extends SQLQueryGroup {
      * @return mixed
      */
     public function query_set_get_table_names(SQLQuery $query): SQLQuery {
-        return $this->query_func_public_tables_only($query->SELECT('table_name'));
+        return $this->query_func_public_tables_only($query->SELECT('table_name'))->expecting_multiple_rows();
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @return mixed
+     */
+    public function query_set_get_all_table_names(SQLQuery $query): SQLQuery {
+        return $query->SELECT('table_name')->FROM(self::INFO_SCHEMA_TABLES)->expecting_multiple_rows();
     }
 
     /**
@@ -82,7 +91,7 @@ final class DBSchema extends SQLQueryGroup {
     # --------------------------------------- P R I V A T E -- U T I L I T I E S ---------------------------------------
 
     /**
-     * @param SQLQuery $query
+     * @param  SQLQuery $query
      * @return SQLQuery
      */
     private function query_func_public_tables_only(SQLQuery $query): SQLQuery {
