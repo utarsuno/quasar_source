@@ -83,10 +83,10 @@ final class SQLQuery extends SQLQueryRaw {
         $owner_type = $this->get_owner_type();
         $sql        = '(' . $this->get_owner_name() . ')';
         if ($owner_type === self::VAL_TYPE_TABLE) {
-            $sql = SQLFunctions::SIZE_OF_TABLE . $sql;
+            $sql = SQLFunctions::SIZE_OF_TABLE . STR::replace($sql, '"', '\'');
         }
         if ($owner_type === self::VAL_TYPE_SCHEMA) {
-            $sql = SQLFunctions::SIZE_OF_DB . $sql;
+            $sql = SQLFunctions::SIZE_OF_DB . STR::replace($sql, '"', '\'');
         }
         if ($pretty_output) {
             return $this->raw_add(SQLFunctions::SIZE_OF_OUTPUT_MADE_PRETTY . '(' . $sql . ')');
@@ -157,29 +157,12 @@ final class SQLQuery extends SQLQueryRaw {
 
     /**
      * @param string $field
-     * @return SQLQuery
-     */
-    public function ORDER_BY_DESC(string $field): self {
-        return $this->ORDER_BY($field)->DESC();
-    }
-
-    /**
-     * @param string $field
-     * @return SQLQuery
-     */
-    public function ORDER_BY_ASC(string $field): self {
-        return $this->ORDER_BY($field)->ASC();
-    }
-
-    /**
-     * @param string $field
      * @param $limit
      * @return SQLQuery
      */
     public function ORDER_BY_DESC_LIMIT(string $field, $limit=1): self {
         $this->sql .= ' ORDER BY ' . $field . ' DESC ';
         return $this->LIMIT($limit);
-        #return $this->ORDER_BY_DESC()->LIMIT()
     }
 
     /**
@@ -309,6 +292,7 @@ final class SQLQuery extends SQLQueryRaw {
      * @return mixed
      */
     public function SELECT_ALL(): self {
+        $this->response_num_cols = 2;
         return $this->raw_add('SELECT *');
     }
 
@@ -346,7 +330,7 @@ final class SQLQuery extends SQLQueryRaw {
      * @return string
      */
     public function get_owner_name(): string {
-        return STR::in_quotes($this->query_owner->get_attribute(self::ATTRIBUTE_SELF_NAME));
+        return STR::in_quotes($this->query_owner->get_attribute(self::ATTRIBUTE_SELF_NAME), false);
     }
 
     /**

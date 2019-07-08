@@ -1,19 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\DataStructure\UnitOfWork;
-use CodeManager\Service\LoggerService;
-use CodeManager\Service\Feature\Logging\FeatureLoggingTrait;
+namespace QuasarSource\DataStructure\BuildStep;
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
-
 
 /**
- * Class UnitOfWork
- * @package QuasarSource\DataStructure\UnitOfWork
+ * Class BuildStep
+ * @package QuasarSource\DataStructure\BuildStep
  */
-abstract class UnitOfWork {
+final class BuildStep {
     use TraitName;
     use TraitTimer;
     use TraitFlagTable;
@@ -30,24 +26,60 @@ abstract class UnitOfWork {
     private const HEADER_COMPLETED   = 'completed';
     // TEMP
 
-    #@param LoggerService $logger
+    private $output    = [];
+
+    private $errors    = [];
+
+    private $callbacks = [];
+
     /**
      * @param string $name
      */
-    protected function __construct(string $name) { #, LoggerService $logger
-        #$this->service_set_logger($logger);
-        $this->set_name_and_label($name, 'UnitOfWork');
-        $this->init_trait_timer(false);
+    public function __construct(string $name) { #, LoggerService $logger
+        $this->set_name_and_label($name, 'BuildStep');
+        $this->init_trait_timer(false, true);
         $this->flags_set_all([self::FLAG_STARTED, self::FLAG_FAILED, self::FLAG_INTERRUPTED, self::FLAG_COMPLETED]);
+    }
+
+    /**
+     * @param callable $callback
+     * @param string   $description
+     */
+    public function add_sub_step(callable $callback, string $description): void {
+        $this->callbacks[$description] = $callback;
+    }
+
+    public function run(): void {
+        $this->pre_run();
+        $failed = false;
+        var_dump('There are {' . count($this->callbacks) . '} callbacks!');
+        foreach ($this->callbacks as $description => $callback) {
+            var_dump('Executing callback{' . $description . '}!');
+            try {
+                $callback();
+                $this->timer->mark_lap($description);
+            } catch (\Throwable $e) {
+                $this->mark_as_failed();
+                $failed = true;
+                # TODO: Temporary.
+                throw $e;
+                #break;
+            }
+        }
+        if (!$failed) {
+            $this->flag_set_on(self::FLAG_COMPLETED);
+        }
+        $this->post_run();
+        if ($this->passed()) {
+            var_dump($this . ' passed in {' . $this->timer . '}!');
+            $this->output[] = [$this . ' passed in {' . $this->timer . '}!'];
+        } else {
+            var_dump('Did not pass??');
+        }
     }
 
     public function run_unit_of_work(): void {
         #$this->header($this->name);
-        $this->timer->start();
-        $this->pre_work();
-        $this->perform_work();
-        $this->post_work();
-        $this->timer->stop();
         if ($this->failed()) {
             #$this->log('--- ' . $this->name . ' failed in {' . $this->timer->get_delta() . '}---');
             #$this->header(STR::brackets($this->name . ' failed in ', $this->timer->get_delta()));
@@ -68,6 +100,7 @@ abstract class UnitOfWork {
 
     protected function mark_as_failed(): void {
         $this->flag_set_on(self::FLAG_FAILED);
+        $this->flag_set_off(self::FLAG_COMPLETED);
     }
 
     /**
@@ -84,10 +117,13 @@ abstract class UnitOfWork {
         return $this->flag_is_off(self::FLAG_FAILED) && $this->flag_is_on(self::FLAG_COMPLETED);
     }
 
-    abstract protected function pre_work(): void;
+    protected function pre_run(): void {
+        $this->timer->start();
+        $this->flag_set_on(self::FLAG_STARTED);
+    }
 
-    abstract protected function perform_work(): void;
-
-    abstract protected function post_work(): void;
+    protected function post_run(): void {
+        $this->timer->stop();
+    }
 
 }

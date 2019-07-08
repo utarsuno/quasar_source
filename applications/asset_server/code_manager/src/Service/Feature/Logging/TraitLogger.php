@@ -9,7 +9,7 @@ use QuasarSource\Utilities\DataType\UtilsString as STR;
  * Trait FeatureLoggingTrait
  * @package QuasarSource\Service\Feature\Logging
  */
-trait FeatureLoggingTrait {
+trait TraitLogger {
 
     /** @var LoggerService */
     private $service_logger;
@@ -23,7 +23,7 @@ trait FeatureLoggingTrait {
 
     /**
      * @param  LoggerService $logger_service
-     * @return FeatureLoggingTrait
+     * @return TraitLogger
      */
     protected function service_set_logger(LoggerService $logger_service): self {
         $this->service_logger = $logger_service;

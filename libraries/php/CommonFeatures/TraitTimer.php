@@ -7,6 +7,7 @@
  */
 
 namespace QuasarSource\CommonFeatures;
+use QuasarSource\Utilities\Time\TimerAdvanced;
 use QuasarSource\Utilities\Time\TimerSimple;
 
 /**
@@ -15,16 +16,21 @@ use QuasarSource\Utilities\Time\TimerSimple;
  */
 trait TraitTimer {
 
-    /** @var TimerSimple */
+    /** @var TimerSimple|TimerAdvanced */
     protected $timer;
 
     /**
      * Initialize the timer.
      *
      * @param bool $auto_start
+     * @param bool $advanced_timer
      */
-    public function init_trait_timer(bool $auto_start=false): void {
-        $this->timer = new TimerSimple($auto_start);
+    public function init_trait_timer(bool $auto_start=false, bool $advanced_timer=false): void {
+        if ($advanced_timer) {
+            $this->timer = new TimerAdvanced($auto_start);
+        } else {
+            $this->timer = new TimerSimple($auto_start);
+        }
     }
 
 }

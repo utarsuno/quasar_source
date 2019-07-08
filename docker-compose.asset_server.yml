@@ -7,7 +7,7 @@ services:
   asset_server:
     tty           : true
     container_name: asset_server
-    network_mode  : host
+    #network_mode  : host
     build         :
       context   : '.'
       dockerfile: './applications/asset_server/Dockerfile'

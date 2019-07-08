@@ -3,7 +3,7 @@
 namespace CodeManager\Service;
 
 use Psr\Log\LoggerInterface;
-use CodeManager\Service\Feature\Logging\FeatureLoggingInterface;
+use CodeManager\Service\Feature\Logging\InterfaceLogger;
 
 /**
  * Class LoggerService
@@ -12,7 +12,7 @@ use CodeManager\Service\Feature\Logging\FeatureLoggingInterface;
  *
  * @package CodeManager\Service
  */
-class LoggerService implements FeatureLoggingInterface {
+class LoggerService implements InterfaceLogger {
 
     /** @var LoggerInterface $logger */
     private $logger;

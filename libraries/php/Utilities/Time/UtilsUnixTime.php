@@ -8,12 +8,39 @@ namespace QuasarSource\Utilities\Time;
  */
 abstract class UtilsUnixTime {
 
+    private const ONE_DAY_IN_SECONDS  = 86400.0;
+    private const ONE_HOUR_IN_SECONDS = 3600;
+
     /**
-     * @param float $time_instance_from
+     * @param  float $unix_time
+     * @return float
+     */
+    public static function convert_to_days(float $unix_time): float {
+        return $unix_time / self::ONE_DAY_IN_SECONDS;
+    }
+
+    /**
+     * @param  float $unix_time
+     * @return float
+     */
+    public static function convert_to_hours(float $unix_time): float {
+        return $unix_time / self::ONE_HOUR_IN_SECONDS;
+    }
+
+    /**
+     * @param  float $time_instance_from
      * @return float
      */
     public static function delta_to_now(float $time_instance_from): float {
         return microtime(true) - $time_instance_from;
+    }
+
+    /**
+     * @param  float $time_instance_from
+     * @return float
+     */
+    public static function delta_to_now_in_hours(float $time_instance_from): float {
+        return (microtime(true) - $time_instance_from) / self::ONE_HOUR_IN_SECONDS;
     }
 
     /**
@@ -37,8 +64,13 @@ abstract class UtilsUnixTime {
         return microtime(true);
     }
 
+    /**
+     * @param  int $t0
+     * @param  int $t1
+     * @return float
+     */
     public static function difference_in_days(int $t0, int $t1): float {
-        return ($t1 - $t0) / 86400.0;
+        return ($t1 - $t0) / self::ONE_DAY_IN_SECONDS;
     }
 
 }

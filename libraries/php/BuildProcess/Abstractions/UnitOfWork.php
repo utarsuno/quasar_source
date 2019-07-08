@@ -2,7 +2,7 @@
 
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Service\LoggerService;
-use CodeManager\Service\Feature\Logging\FeatureLoggingTrait;
+use CodeManager\Service\Feature\Logging\TraitLogger;
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\Utilities\DataType\UtilsString as STR;
@@ -15,7 +15,7 @@ use QuasarSource\Utilities\DataType\UtilsString as STR;
 abstract class UnitOfWork {
     use TraitName;
     use TraitTimer;
-    use FeatureLoggingTrait;
+    use TraitLogger;
 
     // TEMP
     private const HEADER_START     = 'start';

@@ -2,7 +2,7 @@
 
 namespace CodeManager\Service\Feature;
 
-use CodeManager\Service\Feature\Logging\FeatureLoggingTrait;
+use CodeManager\Service\Feature\Logging\TraitLogger;
 use CodeManager\Service\LoggerService;
 
 /**
@@ -10,7 +10,7 @@ use CodeManager\Service\LoggerService;
  * @package CodeManager\Service\Feature
  */
 abstract class AbstractService {
-    use FeatureLoggingTrait;
+    use TraitLogger;
 
     /**
      * AbstractService constructor.

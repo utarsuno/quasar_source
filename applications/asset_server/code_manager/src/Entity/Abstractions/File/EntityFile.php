@@ -183,7 +183,7 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
      * @throws Exception
      */
     public function on_event_born($full_path): void {
-        $this->setUnixTimestamp0(-1);
+        $this->setUnixTime0(-1);
         $this->setFullPath($full_path);
         $this->setTypeID(self::get_file_type_from_path($full_path));
         $this->setRank(0);

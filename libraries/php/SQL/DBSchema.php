@@ -1,11 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\SQL\Schema;
+namespace QuasarSource\SQL;
 
 use Doctrine\DBAL\Connection;
 use QuasarSource\SQL\Representation\SQLQuery;
 use QuasarSource\SQL\Representation\SQLQueryGroup;
-use QuasarSource\SQL\Table\DBTable;
 
 /**
  * Class DBSchema
@@ -16,10 +15,11 @@ final class DBSchema extends SQLQueryGroup {
     private const INFO_SCHEMA              = 'information_schema';
     private const INFO_SCHEMA_TABLES       = 'information_schema.tables';
 
-    public const QUERY_GET_NUM_TABLES      = 'get_num_tables';
-    public const QUERY_GET_TABLE_NAMES     = 'get_table_names';
-    public const QUERY_GET_TABLE_NAMES_ALL = 'get_all_table_names';
-    #public const QUERY_GET_TABLE_SIZE
+    private const QUERY_GET_NUM_TABLES      = 'get_num_tables';
+    private const QUERY_GET_TABLE_NAMES     = 'get_table_names';
+    private const QUERY_GET_TABLE_NAMES_ALL = 'get_all_table_names';
+
+    private $cached_db_tables = [];
 
     /**
      * DBSchema constructor.
@@ -33,16 +33,37 @@ final class DBSchema extends SQLQueryGroup {
     }
 
     /**
+     * @return mixed
+     */
+    public function execute_num_created_tables() {
+        return $this->execute(self::QUERY_GET_NUM_TABLES)[0];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function execute_names_of_created_tables() {
+        return $this->execute(self::QUERY_GET_TABLE_NAMES);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function execute_names_of_all_tables() {
+        return $this->execute(self::QUERY_GET_TABLE_NAMES_ALL);
+    }
+
+    /**
      * @return array
      */
     public function get_all_db_tables(): array {
-        $table_names = $this->execute(self::QUERY_GET_TABLE_NAMES);
-        $tables      = [];
-        foreach ($table_names as $name) {
-            var_dump($name);
-            #$tables[] = new DBTable($name, $this->connection);
+        if (count($this->cached_db_tables) === 0) {
+            $table_names = $this->execute_names_of_created_tables();
+            foreach ($table_names as $name) {
+                $this->cached_db_tables[$name] = new DBTable($name, $this->connection);
+            }
         }
-        return $tables;
+        return $this->cached_db_tables;
     }
 
     # ---

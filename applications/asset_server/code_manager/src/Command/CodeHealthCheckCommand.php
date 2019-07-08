@@ -24,18 +24,13 @@ class CodeHealthCheckCommand extends Command {
     /** @var CodeBuilderService */
     private $code_builder;
 
-    /** @var DBService */
-    private $db_health;
-
     /**
      * CodeHealthCheckCommand constructor.
      * @param CodeBuilderService $code_builder
-     * @param DBService $db_health
      */
-    public function __construct(CodeBuilderService $code_builder, DBService $db_health) {
+    public function __construct(CodeBuilderService $code_builder) {
         parent::__construct();
         $this->code_builder = $code_builder;
-        $this->db_health    = $db_health;
     }
 
     protected function configure(): void {
@@ -59,8 +54,7 @@ class CodeHealthCheckCommand extends Command {
      * @see setCode()
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int {
-        $this->db_health->prepare_for_build_step($this->getApplication(), $this->code_builder);
-        $this->code_builder->run_code_health_check($this->db_health);
+        $this->code_builder->run_code_health_check();
 
         #var_dump('TODO: run_composer_self_update');
         #$c = RUN::run_composer_self_update();

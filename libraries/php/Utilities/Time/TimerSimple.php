@@ -34,10 +34,16 @@ class TimerSimple {
      * @param bool $auto_start [If set to true, the timer will begin recording immediately upon object creation.]
      */
     public function __construct(bool $auto_start=false) {
-        $this->init_trait_state_machine([self::STATE_RUNNING, self::STATE_STOPPED]);
+        $this->state_add(self::STATE_RUNNING, true);
+        $this->state_add(self::STATE_STOPPED, true);
         if ($auto_start) {
             $this->start();
         }
+    }
+
+    public function __destruct() {
+        $this->destruct_trait_state_machine();
+        unset($this->time_started_at, $this->time_accumulated);
     }
 
     /**
@@ -82,17 +88,9 @@ class TimerSimple {
      */
     public function get_delta(): float {
         if ($this->time_accumulated === null || $this->is_running()) {
-            $this->set_time_accumulated();
+            $this->time_accumulated = TIME::delta_to_now($this->time_started_at);
         }
         return $this->time_accumulated;
-    }
-
-    # ------------------------------------------------- P R I V A T E --------------------------------------------------
-    /**
-     * @return void
-     */
-    private function set_time_accumulated(): void {
-        $this->time_accumulated = TIME::delta_to_now($this->time_started_at);
     }
 
     # ---------------------------------- OptionalMethods{ S T A T E -- E V E N T S } -----------------------------------
@@ -100,7 +98,7 @@ class TimerSimple {
      * @param  string|null $previous_state
      * @return void
      */
-    private function state_on_enter_running(string $previous_state=null): void {
+    protected function state_on_enter_running(string $previous_state=null): void {
         $this->time_started_at = TIME::now_as_float();
     }
 
@@ -108,7 +106,7 @@ class TimerSimple {
      * @param  string|null $next_state
      * @return void
      */
-    private function state_on_exit_running(string $next_state=null): void {
-        $this->set_time_accumulated();
+    protected function state_on_exit_running(string $next_state=null): void {
+        $this->time_accumulated = TIME::delta_to_now($this->time_started_at);
     }
 }

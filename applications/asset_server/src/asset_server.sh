@@ -51,7 +51,7 @@ RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/c
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_BUILD_NEXUS_COURIER}
 
 cd ${PATH_DIRECTORY_CODE_MANAGER}
-#php -S "0.0.0.0:80"
+#php -S "0.0.0.0:1337"
 
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 #${RUN_CONSOLE_CMD} doctrine:schema:update --force --complete --dump-sql -vvv
@@ -61,13 +61,13 @@ cd ${PATH_DIRECTORY_CODE_MANAGER}
 #composer self-update
 #composer validate
 #composer update
-#composer install -o --verbose
+composer install -o --verbose
 #composer install -o   #--enable-opcache --enable-opcache-file
 
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 #${RUN_CONSOLE_CMD} doctrine:database:create -vvv
 #${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
-${RUN_CONSOLE_CMD} code:health_check -vvv
+#${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #apk add --update php-opcache@php
 

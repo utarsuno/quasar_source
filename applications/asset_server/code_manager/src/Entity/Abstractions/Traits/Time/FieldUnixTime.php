@@ -5,7 +5,10 @@ namespace CodeManager\Entity\Abstractions\Traits\Time;
 use Doctrine\ORM\Mapping\Column;
 use QuasarSource\Utilities\Time\UtilsUnixTime as UNIX;
 
-
+/**
+ * Trait FieldUnixTime
+ * @package CodeManager\Entity\Abstractions\Traits\Time
+ */
 trait FieldUnixTime {
 
     /**
@@ -17,7 +20,7 @@ trait FieldUnixTime {
     /**
      * @return int|null
      */
-    public function getUnixTimestamp0(): ?int {
+    public function getUnixTime0(): ?int {
         return $this->unix_timestamp0;
     }
 
@@ -25,7 +28,7 @@ trait FieldUnixTime {
      * @param int $unix_timestamp0
      * @return self
      */
-    public function setUnixTimestamp0(int $unix_timestamp0=-1): self {
+    public function setUnixTime0(int $unix_timestamp0=-1): self {
         if ($unix_timestamp0 === -1) {
             $this->unix_timestamp0 = UNIX::now();
         } else {

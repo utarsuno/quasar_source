@@ -19,8 +19,8 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     // Used to cache SQLQuery objects for re-use.
     use TraitCacheTable;
 
-    public const QUERY_GET_SIZE        = 'get_size';
-    public const QUERY_GET_SIZE_PRETTY = 'get_size_pretty';
+    protected const QUERY_GET_SIZE        = 'get_size';
+    protected const QUERY_GET_SIZE_PRETTY = 'get_size_pretty';
 
     /** @var \Doctrine\DBAL\Driver\Connection */
     protected $connection;
@@ -31,7 +31,17 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     ];
 
     /**
-     * @param string $query_name
+     * SQLQueryGroup constructor.
+     * @param string     $table_name
+     * @param Connection $connection
+     */
+    public function __construct(string $table_name, Connection $connection) {
+        $this->connection       = $connection;
+        $this->set_name_and_label($table_name, static::class);
+    }
+
+    /**
+     * @param  string $query_name
      * @return mixed
      */
     public function execute(string $query_name) {
@@ -46,15 +56,20 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
         return $this->cache_get($query_name)->execute();
     }
 
+    //
+
     /**
-     * SQLQueryGroup constructor.
-     * @param string     $table_name
-     * @param Connection $connection
+     * @param  bool $pretty
+     * @return mixed
      */
-    public function __construct(string $table_name, Connection $connection) {
-        $this->connection       = $connection;
-        $this->set_name_and_label($table_name, static::class);
+    public function execute_get_size(bool $pretty) {
+        if ($pretty) {
+            return $this->execute(self::QUERY_GET_SIZE_PRETTY);
+        }
+        return $this->execute(self::QUERY_GET_SIZE);
     }
+
+    //
 
     /**
      * @param SQLQuery $query

@@ -7,18 +7,14 @@ set('allow_anonymous_stats', false);
 
 set('path_base'        , '/quasar_source/libraries/php');
 set('cd_to_base'       , 'cd /quasar_source/libraries/php;');
-set('path_php_unit'    , './vendor/bin/simple-phpunit');
-set('path_php_unit_xml', './phpunit.xml');
 set('path_composer'    , './composer.phar');
 set('path_console'     , './console.php');
-
 
 set('path_websocket', '/quasar_source/generated_output/third_party_libraries/uWebSocketsv0_14_8/');
 set('path_rabbitmq', '/quasar_source/generated_output/third_party_libraries/AMQP_CPP_3_1_0/');
 set('path_q_websocket', '/quasar_source/applications/nexus_courier/courier_websocket/');
 set('path_q_rabbitmq', '/quasar_source/applications/nexus_courier/courier_rabbitmq/');
 set('path_q_nexus', '/quasar_source/applications/nexus_courier/');
-
 
 task('build_nexus_courier', function() {
     $path_nexus         = get('path_q_nexus');
@@ -54,11 +50,6 @@ task('build_nexus_courier', function() {
     );
 })->desc('Builds the Nexus Courier C++ project.');
 
-task('debug', function() {
-    $console = get('cd_to_base') . ' php ' . get('path_console');
-    runLocally("$console list --raw");
-})->desc('Temporary debugging.');
-
 task('run_health_check', function() {
     $composer = get('cd_to_base') . ' ' . get('path_composer');
     runLocally("$composer self-update --clean-backups");
@@ -73,16 +64,6 @@ task('full_build', function() {
     runLocally("$composer update $args_composer");
     runLocally("$composer install $args_composer");
 })->desc('Fully updates and builds this project.');
-
-task('run_all_tests', function() {
-    $_run                  = get('cd_to_base');
-    $path_php_unit         = get('path_php_unit');
-    $path_php_unit_configs = get('path_php_unit_xml');
-    run("$_run php $path_php_unit -c $path_php_unit_configs");
-})->desc('Run all PHP unit tests.');
-
-
-
 
 /*
 TODOs: Docker related builds and operations
@@ -99,8 +80,6 @@ echo 'y' | docker image prine
 echo "Removing stopped containers."
 docker ps -aq --no-trunc -f status=exited | xargs docker rm
  */
-
-
 
 // Project name
 //set('application', 'my_project');

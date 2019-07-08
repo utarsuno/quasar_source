@@ -8,7 +8,7 @@ use CodeManager\Service\LoggerService;
  * Interface FeatureLoggingInterface
  * @package QuasarSource\Service\Feature\Logging
  */
-interface FeatureLoggingInterface {
+interface InterfaceLogger {
 
     /**
      * @return LoggerService

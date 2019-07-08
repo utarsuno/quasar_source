@@ -1,17 +1,13 @@
 <?php declare(strict_types=1);
 
-
 namespace CodeManager\Repository\Abstractions;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use QuasarSource\Utilities\Exception\ExceptionDB;
-
 
 /**
  * Class AbstractRepository
@@ -20,15 +16,9 @@ use QuasarSource\Utilities\Exception\ExceptionDB;
 abstract class AbstractRepository extends EntityRepository {
 
     protected $default_search_attribute;
-    protected $entity_class;
 
-    /**
-     * @param EntityManagerInterface $em
-     * @param Mapping\ClassMetadata  $class
-     */
-    public function __construct(EntityManagerInterface $em, Mapping\ClassMetadata $class) {
-        parent::__construct($em, $class);
-    }
+    /** @var string $entity_class */
+    protected $entity_class;
 
     public function get_entity($search_value): ?EntityInterface {
         return $this->findOneBy([$this->default_search_attribute => $search_value]);
@@ -54,8 +44,8 @@ abstract class AbstractRepository extends EntityRepository {
     }
 
     /**
-     * @param $entity
-     * @param bool $save_db_state
+     * @param  mixed $entity
+     * @param  bool  $save_db_state
      * @throws ExceptionDB
      */
     public function remove_entity($entity, bool $save_db_state=false): void {
@@ -71,8 +61,8 @@ abstract class AbstractRepository extends EntityRepository {
     }
 
     /**
-     * @param $entity
-     * @param bool $save_db_state
+     * @param  mixed $entity
+     * @param  bool  $save_db_state
      * @throws ExceptionDB
      */
     public function save_entity($entity, bool $save_db_state=false): void {
@@ -98,7 +88,5 @@ abstract class AbstractRepository extends EntityRepository {
             throw ExceptionDB::doctrine_error($e->getMessage());
         }
     }
-
-    abstract protected function event_before_remove_entity(EntityInterface $entity): void;
 
 }

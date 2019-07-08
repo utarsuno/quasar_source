@@ -44,6 +44,8 @@ abstract class SQLQueryRaw {
         $this->statement = $connection->prepare($this->sql);
         if ($this->response_num_cols === 1) {
             $this->statement->setFetchMode(FetchMode::COLUMN, 0);
+        } else if ($this->response_num_cols > 1) {
+            $this->statement->setFetchMode(FetchMode::NUMERIC);
         }
         return $this;
     }
@@ -57,6 +59,8 @@ abstract class SQLQueryRaw {
                 return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
             }
             return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
+        } else if ($this->response_num_cols > 1 && $this->response_num_rows <= 1) {
+            return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
         }
         return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
     }

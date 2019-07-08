@@ -43,12 +43,51 @@ abstract class UtilsString implements InterfaceDivisible {
         return json_decode($raw, true);
     }
 
+    /**
+     * @param  string $base
+     * @return string
+     */
+    public static function to_lower(string $base): string {
+        return strtolower($base);
+    }
+
+    /**
+     * @param  string $base
+     * @return void
+     */
+    public static function ref_to_lower(string & $base): void {
+        $base = strtolower($base);
+    }
+
     public static function indexed(string $base, int $start, int $end=-1): string {
         // TODO: Error checks on bad sizes given.
         if ($end === -1) {
             $end = strlen($base) - 1;
         }
         return substr($base, $start, $end);
+    }
+
+    /**
+     * @param  string $base
+     * @param  array  $matches
+     * @return string
+     */
+    public static function replace_many(string $base, array $matches): string {
+        foreach ($matches as $find => $replace_as) {
+            $base = str_replace($find, $replace_as, $base);
+        }
+        return $base;
+    }
+
+    /**
+     * @param  string $base
+     * @param  array  $matches
+     * @return void
+     */
+    public static function ref_replace_many(string & $base, array $matches): void {
+        foreach ($matches as $find => $replace_as) {
+            $base = str_replace($find, $replace_as, $base);
+        }
     }
 
     /**
@@ -61,6 +100,16 @@ abstract class UtilsString implements InterfaceDivisible {
      */
     public static function replace(string $base, string $match, string $replacement): string {
         return str_replace($match, $replacement, $base);
+    }
+
+    /**
+     * @param  string $base
+     * @param  string $match
+     * @param  string $replacement
+     * @return void
+     */
+    public static function ref_replace(string & $base, string $match, string $replacement): void {
+        $base = str_replace($match, $replacement, $base);
     }
 
     /*       __   ___  __  ___  __
@@ -97,7 +146,7 @@ abstract class UtilsString implements InterfaceDivisible {
      * @return int
      */
     public static function position_of_last_match(string $base, string $match): int {
-        return strpos($base, $match);
+        return strrpos($base, $match);
     }
 
     /**
@@ -190,7 +239,7 @@ abstract class UtilsString implements InterfaceDivisible {
      *
      * @param  string       $base  [The string to base contents off of.                     ]
      * @param  string|array $match [The string (or array of strings) to find occurrences of.]
-     * @return string             [A new string.                                           ]
+     * @return string              [A new string.                                           ]
      */
     public static function remove(string $base, $match): string {
         if (is_string($match)) {
@@ -202,8 +251,39 @@ abstract class UtilsString implements InterfaceDivisible {
         return $base;
     }
 
+    /**
+     * @param string $base
+     * @param $match
+     */
+    public static function ref_remove(string & $base, $match): void {
+        $base = self::remove($base, $match);
+    }
+
+    /**
+     * @param string $base
+     * @param string $match
+     * @return string
+     */
     public static function remove_after_last_match(string $base, string $match): string {
         return self::indexed($base, 0, self::position_of_last_match($base, $match) + strlen($match));
+    }
+
+    /**
+     * @param string $base
+     * @param string $match
+     * @return string
+     */
+    public static function remove_up_to_last_match_inclusive(string $base, string $match): string {
+        return self::indexed($base, self::position_of_last_match($base, $match) + strlen($match), strlen($base) - 1);
+    }
+
+    /**
+     * @param string $base
+     * @param string $match
+     * @return void
+     */
+    public static function ref_remove_up_to_last_match_inclusive(string & $base, string $match): void {
+        $base = self::indexed($base, self::position_of_last_match($base, $match) + strlen($match), strlen($base) - 1);
     }
 
     /**
@@ -234,7 +314,7 @@ abstract class UtilsString implements InterfaceDivisible {
     /**
      * @param  string $text
      * @param  int    $num_digits
-     * @return string
+     * @return void
      */
     public static function ref_remove_first_n(& $text, int $num_digits): void {
         $text = substr($text, $num_digits);

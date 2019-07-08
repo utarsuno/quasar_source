@@ -7,7 +7,6 @@
  */
 
 namespace CodeManager\Repository\CodeManager;
-use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\CodeManager\EntityNPMLib;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 
@@ -16,7 +15,5 @@ class EntityNPMLibRepository extends AbstractRepository {
 
     protected $default_search_attribute = 'name';
     protected $entity_class             = EntityNPMLib::class;
-
-    protected function event_before_remove_entity(EntityInterface $entity): void {}
 
 }

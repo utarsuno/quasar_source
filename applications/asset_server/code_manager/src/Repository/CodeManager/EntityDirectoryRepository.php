@@ -14,6 +14,4 @@ use CodeManager\Repository\Abstractions\AbstractRepository;
 
 class EntityDirectoryRepository extends AbstractRepository {
 
-    protected function event_before_remove_entity(EntityInterface $entity): void {}
-
 }
