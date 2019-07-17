@@ -4,7 +4,10 @@ namespace CodeManager\Entity\Abstractions\Traits\Text;
 
 use Doctrine\ORM\Mapping\Column;
 
-
+/**
+ * Trait FieldTextTwo
+ * @package CodeManager\Entity\Abstractions\Traits\Text
+ */
 trait FieldTextTwo {
     use FieldText;
 
@@ -29,8 +32,4 @@ trait FieldTextTwo {
         $this->text1 = $text1;
         return $this;
     }
-
 }
-
-
-

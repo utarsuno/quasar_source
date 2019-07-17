@@ -20,12 +20,11 @@ use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\Utilities\File\UtilsPath       as PATH;
 use QuasarSource\Utilities\Process\UtilsProcess as RUN;
 
-
 /**
  * Class EntityNPMLib
  * @package CodeManager\Entity\CodeManager
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityNPMLibRepository")
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoNPMLib")
  * @Table(name="npm_lib")
  */
 class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInterface {
@@ -35,6 +34,9 @@ class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInt
     use FieldTextThree;
     // Represents the last time it was checked.
     use FieldUnixTime;
+
+    /** @var string $db_table_name */
+    public static $db_table_name = 'npm_lib';
 
     private const CACHE_KEY_LATEST_VERSION = 'cache_latest_version';
 

@@ -2,7 +2,7 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Repository\CodeManager\EntityNPMLibRepository;
+use CodeManager\Repository\CodeManager\RepoNPMLib;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
 use QuasarSource\Utilities\Exception\ParameterException;
@@ -10,7 +10,7 @@ use QuasarSource\Utilities\Exception\ParameterException;
 
 class NPMLibBuildSection extends BuildSection {
 
-    /** @var EntityNPMLibRepository */
+    /** @var RepoNPMLib */
     protected $repo;
 
     /**
@@ -24,7 +24,7 @@ class NPMLibBuildSection extends BuildSection {
             ['npm' => null],
             $code_builder->config_yaml_get_all()
         );
-        $this->repo = $this->get_repo(EntityNPMLibRepository::class);
+        $this->repo = $this->get_repo(RepoNPMLib::class);
     }
 
     protected function perform_work(): void {

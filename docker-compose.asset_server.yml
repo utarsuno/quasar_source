@@ -26,6 +26,7 @@ services:
   postgres_server:
     tty           : true
     container_name: postgres_server
+    hostname      : postgres
     image         : postgres
     ports         :
       - '5432:5432'

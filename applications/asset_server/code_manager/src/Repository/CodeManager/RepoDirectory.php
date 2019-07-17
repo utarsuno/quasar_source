@@ -8,12 +8,15 @@
 
 namespace CodeManager\Repository\CodeManager;
 
-use CodeManager\Entity\CodeManager\EntityQAReport;
+use CodeManager\Entity\File\EntityDirectory;
 use CodeManager\Repository\Abstractions\AbstractRepository;
 
-class EntityQAReportRepository extends AbstractRepository {
+/**
+ * Class RepoDirectory
+ * @package CodeManager\Repository\CodeManager
+ */
+class RepoDirectory extends AbstractRepository {
 
-    //protected $default_search_attribute = 'name';
-    protected $entity_class = EntityQAReport::class;
+    public const ENTITY_CLASS = EntityDirectory::class;
 
 }

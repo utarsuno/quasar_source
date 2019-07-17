@@ -53,6 +53,9 @@ class TimerAdvanced extends TimerSimple {
         #$time_total   = MATH::as_seconds_pretty($this->time_accumulated + $this->time_accumulated_paused);
         $time_running = MATH::as_seconds_pretty($this->get_delta(), 6);
         $time_paused  = MATH::as_seconds_pretty($this->time_accumulated_paused, 6);
+        if ($time_paused === '0s' || $time_paused === '~0s') {
+            return 'Ran for{' . $time_running . '}, laps' . json_encode($this->laps);
+        }
         return 'Ran for{' . $time_running . '}, paused for{' . $time_paused . '}, laps' . json_encode($this->laps);
     }
 

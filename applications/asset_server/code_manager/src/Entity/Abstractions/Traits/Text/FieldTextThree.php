@@ -4,8 +4,12 @@ namespace CodeManager\Entity\Abstractions\Traits\Text;
 
 use Doctrine\ORM\Mapping\Column;
 
-
+/**
+ * Trait FieldTextThree
+ * @package CodeManager\Entity\Abstractions\Traits\Text
+ */
 trait FieldTextThree {
+    use FieldTextTwo;
 
     /**
      * @var string
@@ -29,6 +33,3 @@ trait FieldTextThree {
         return $this;
     }
 }
-
-
-

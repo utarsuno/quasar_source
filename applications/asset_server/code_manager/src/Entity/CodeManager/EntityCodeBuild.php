@@ -12,11 +12,12 @@ use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimestamp;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Class EntityCodeBuild
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityCodeBuildRepository")
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoCodeBuild")
  * @Table(name="code_build")
  */
 class EntityCodeBuild extends AbstractEntity {
@@ -35,6 +36,9 @@ class EntityCodeBuild extends AbstractEntity {
     use FieldBoolean;
 
     public static $sort_field_time = 'unix_timestamp0';
+
+    /** @var string $db_table_name */
+    public static $db_table_name = 'code_build';
 
     public const BUILD_TYPE_FULL     = 1;
     public const BUILD_TYPE_NOT_SAFE = 2;

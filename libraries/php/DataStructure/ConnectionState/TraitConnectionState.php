@@ -2,7 +2,6 @@
 
 namespace QuasarSource\DataStructure\ConnectionState;
 
-use http\Exception\RuntimeException;
 
 /**
  * Trait TraitConnectionState
@@ -16,7 +15,7 @@ trait TraitConnectionState {
         if (!$this->state_connected) {
 
         } else {
-            throw new RuntimeException();
+            throw new \RuntimeException();
         }
     }
 }

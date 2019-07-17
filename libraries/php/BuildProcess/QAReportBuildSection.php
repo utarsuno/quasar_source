@@ -2,8 +2,8 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Repository\CodeManager\EntityFileRepository;
-use CodeManager\Repository\CodeManager\EntityQAReportRepository;
+use CodeManager\Repository\CodeManager\RepoFile;
+use CodeManager\Repository\CodeManager\RepoSnapshotQA;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
 use QuasarSource\Utilities\Exception\ParameterException;
@@ -11,9 +11,9 @@ use QuasarSource\Utilities\Exception\ParameterException;
 
 class QAReportBuildSection extends BuildSection {
 
-    /** @var EntityFileRepository */
+    /** @var RepoFile */
     protected $repo_entity_files;
-    /** @var EntityQAReportRepository */
+    /** @var RepoSnapshotQA */
     protected $repo;
 
     /**
@@ -27,8 +27,8 @@ class QAReportBuildSection extends BuildSection {
             ['stats' => ['unit_tests' => null]],
             $code_builder->config_yaml_get('qa_report')
         );
-        $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
-        $this->repo              = $this->get_repo(EntityQAReportRepository::class);
+        $this->repo_entity_files = $this->get_repo(RepoFile::class);
+        $this->repo              = $this->get_repo(RepoSnapshotQA::class);
     }
 
     protected function perform_work() : void {

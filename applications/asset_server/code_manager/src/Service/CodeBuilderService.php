@@ -10,8 +10,8 @@ namespace CodeManager\Service;
 
 use CodeManager\Entity\CodeManager\EntityCodeBuild;
 use CodeManager\Entity\File\EntityFile;
-use CodeManager\Repository\CodeManager\EntityCodeBuildRepository;
-use CodeManager\Repository\CodeManager\EntityFileRepository;
+use CodeManager\Repository\CodeManager\RepoCodeBuild;
+use CodeManager\Repository\CodeManager\RepoFile;
 use CodeManager\Service\Feature\AbstractService;
 use CodeManager\Service\Feature\Repository\OwnsReposInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -35,7 +35,7 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
     /** @var ParameterBagInterface $configs_universal */
     private $configs_universal;
 
-    /** @var EntityCodeBuildRepository */
+    /** @var RepoCodeBuild */
     private $repo_code_builds;
 
     /** @var EntityCodeBuild */
@@ -82,7 +82,7 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
         #foreach (self::BUILD_STEPS as $build_section_class) {
         #    $this->all_build_sections[] = new $build_section_class($this);
         #}
-        $this->repo_code_builds = $this->service_db->get_repo(EntityCodeBuildRepository::class);
+        $this->repo_code_builds = $this->service_db->get_repo(RepoCodeBuild::class);
 
         #$this->repo_code_builds->fetch_or_generate_last_build();
     }
@@ -133,7 +133,7 @@ class CodeBuilderService extends AbstractService implements OwnsReposInterface, 
     }
 
     private function print_final_results(): void {
-        $repo_entity_files = $this->get_repo(EntityFileRepository::class);
+        $repo_entity_files = $this->get_repo(RepoFile::class);
         $all_db_files      = $repo_entity_files->get_all_entities();
 
         foreach ($all_db_files as $entity_file) {

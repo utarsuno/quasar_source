@@ -14,10 +14,11 @@ use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntTwo;
 use CodeManager\Entity\Abstractions\Traits\Text\FieldTextTwo;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\PreRemove;
 use Doctrine\ORM\Mapping\Table;
 use Exception;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
@@ -35,8 +36,8 @@ use QuasarSource\Utilities\DataType\UtilsArray as ARY;
  * Class EntityFile
  * @package CodeManager\Entity\File
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityFileRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoFile")
+ * @HasLifecycleCallbacks()
  * @Table(name="file")
  */
 class EntityFile extends EntityState implements EntityInterface, CacheTableInterface {
@@ -49,9 +50,11 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
     // Rank, SizeInBytes.
     use FieldIntTwo;
 
+    public static $db_table_name = 'file';
+
     // TESTING
 
-    /** @ORM\PreRemove() */
+    /** @PreRemove() */
     public function before_remove(): void {
         var_dump('Entity{' . $this->getName() . '}');
         var_dump($this->hasChild());

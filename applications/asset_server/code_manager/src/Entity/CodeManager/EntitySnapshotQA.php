@@ -22,15 +22,14 @@ use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 
-
 /**
  * Class EntityDirectory
  * @package CodeManager\Entity
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityQAReportRepository")
- * @Table(name="qa_report")
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoSnapshotQA")
+ * @Table(name="snapshot_qa")
  */
-class EntityQAReport extends EntityState implements EntityInterface, CacheTableInterface {
+class EntitySnapshotQA extends EntityState implements EntityInterface, CacheTableInterface {
     use TraitCacheTable;
 
     use FieldID;
@@ -44,6 +43,9 @@ class EntityQAReport extends EntityState implements EntityInterface, CacheTableI
     use FieldText;
     // A pointer to the EntityFile (the reference to the physical file containing the QA report).
     use FieldEntityPointer;
+
+    /** @var string $db_table_name */
+    public static $db_table_name = 'snapshot_qa';
 
     private const CACHE_KEY_QA_TEST_SUITE = 'cache_qa_test_suite';
 

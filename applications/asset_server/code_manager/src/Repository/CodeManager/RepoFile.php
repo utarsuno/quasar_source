@@ -24,21 +24,21 @@ use CodeManager\Entity\Abstractions\Traits\Enum\EntityFields     as FIELD;
 use CodeManager\Entity\Abstractions\Traits\Enum\EntityTableNames as TABLE;
 
 /**
- * Class EntityFileRepository
+ * Class RepoFile
  * @package CodeManager\Repository\CodeManager
  */
-class EntityFileRepository extends AbstractRepository {
+class RepoFile extends AbstractRepository {
 
     protected $default_search_attribute = 'full_path';
+    public const ENTITY_CLASS           = EntityFile::class;
     protected $entity_class             = EntityFile::class;
 
     /**
      * @param EntityManagerInterface $em
      * @param ClassMetadata          $class
-     * @param DBService $service_db
      */
-    public function __construct(EntityManagerInterface $em, ClassMetadata $class, DBService $service_db) {
-        parent::__construct($em, $class, $service_db);
+    public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
+        parent::__construct($em, $class);
         #$this->query_manager->set_table_name(TABLE::CODE_BUILDS);
         #$this->query_manager->set_sort_field(FIELD::TIME_END);
     }

@@ -4,7 +4,10 @@ namespace CodeManager\Entity\Abstractions\Traits\Number\Whole;
 
 use Doctrine\ORM\Mapping\Column;
 
-
+/**
+ * Trait FieldIntTwo
+ * @package CodeManager\Entity\Abstractions\Traits\Number\Whole
+ */
 trait FieldIntTwo {
     use FieldInt;
 
@@ -31,4 +34,3 @@ trait FieldIntTwo {
     }
 
 }
-

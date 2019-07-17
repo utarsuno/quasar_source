@@ -18,12 +18,13 @@ use Doctrine\ORM\Mapping;
 use QuasarSource\Utilities\Exception\LogicException;
 
 /**
- * Class EntityFileTypeRepository
+ * Class RepoFileType
  * @package CodeManager\Repository\CodeManager
  */
-class EntityFileTypeRepository extends AbstractRepository {
+class RepoFileType extends AbstractRepository {
 
-    protected $entity_class = EntityFileType::class;
+    public const ENTITY_CLASS = EntityFileType::class;
+    protected $entity_class   = EntityFileType::class;
 
     public function populate_enum_if_empty(): void {
         // TODO: query abstraction/table abstraction to see if table is empty

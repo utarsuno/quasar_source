@@ -8,7 +8,6 @@
 
 namespace QuasarSource\Utilities\SystemOS;
 
-use http\Exception\RuntimeException;
 use QuasarSource\Utilities\DataType\UtilsString as STR;
 
 /**
@@ -38,7 +37,7 @@ abstract class UtilsSystem {
         if (is_array($value)) {
             return (int) $value[0];
         }
-        throw new RuntimeException();
+        throw new \RuntimeException();
     }
 
     /**
@@ -59,7 +58,7 @@ abstract class UtilsSystem {
         if (is_string($value) || is_array($value)) {
             return $value;
         }
-        throw new RuntimeException();
+        throw new \RuntimeException();
     }
 
     /**

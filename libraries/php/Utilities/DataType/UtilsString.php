@@ -39,6 +39,21 @@ abstract class UtilsString implements InterfaceDivisible {
         return $lines;
     }
 
+    /**
+     * @param  string $val
+     * @return bool
+     */
+    public static function to_bool(string $val): bool {
+        if ($val === '') {
+            return false;
+        }
+        $lower = self::to_lower($val);
+        if ($lower === 'true' || $lower === 'yes' || $lower === 'y') {
+            return true;
+        }
+        return false;
+    }
+
     public static function to_associative(string $raw): array {
         return json_decode($raw, true);
     }
@@ -160,15 +175,19 @@ abstract class UtilsString implements InterfaceDivisible {
     /**
      * Checks if provided string has any occurrences of the secondary string provided.
      *
-     * @param  string $base  [The string to search.    ]
-     * @param  string $match [The string to search for.]
-     * @return bool          [True if contained.       ]
+     * @param  string $base
+     * @param  string $match
+     * @param  bool   $case_sensitive
+     * @return bool
      */
-    public static function has(string $base, string $match): bool {
-        if ($match === '') {
+    public static function has(string $base, string $match, bool $case_sensitive=true): bool {
+        if ($match === '' || $base === '') {
             return false;
         }
-        return strpos($base, $match) !== false;
+        if ($case_sensitive) {
+            return strpos($base, $match) !== false;
+        }
+        return stripos($base, $match) !== false;
     }
 
     /**

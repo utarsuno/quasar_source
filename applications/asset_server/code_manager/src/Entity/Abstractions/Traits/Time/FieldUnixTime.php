@@ -21,6 +21,9 @@ trait FieldUnixTime {
      * @return int|null
      */
     public function getUnixTime0(): ?int {
+        if (is_string($this->unix_timestamp0)) {
+            $this->unix_timestamp0 = (int) $this->unix_timestamp0;
+        }
         return $this->unix_timestamp0;
     }
 

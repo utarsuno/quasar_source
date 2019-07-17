@@ -37,6 +37,14 @@ abstract class SQLQueryRaw {
     }
 
     /**
+     * @return SQLQueryRaw
+     */
+    public function expecting_multiple_cols(): self {
+        $this->response_num_cols = 2;
+        return $this;
+    }
+
+    /**
      * @param Connection $connection
      * @return self
      */
@@ -59,14 +67,15 @@ abstract class SQLQueryRaw {
                 return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
             }
             return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
-        } else if ($this->response_num_cols > 1 && $this->response_num_rows <= 1) {
+        }
+        if ($this->response_num_cols > 1 && $this->response_num_rows <= 1) {
             return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
         }
         return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
     }
 
     /**
-     * @param string $sql
+     * @param  string $sql
      * @return SQLQueryRaw
      */
     public function raw_set(string $sql): self {

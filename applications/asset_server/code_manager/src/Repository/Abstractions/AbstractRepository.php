@@ -4,7 +4,10 @@ namespace CodeManager\Repository\Abstractions;
 
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use QuasarSource\Utilities\Exception\ExceptionDB;
@@ -14,6 +17,34 @@ use QuasarSource\Utilities\Exception\ExceptionDB;
  * @package CodeManager\Repository\Abstractions
  */
 abstract class AbstractRepository extends EntityRepository {
+
+    public const ENTITY_CLASS = '';
+
+    /**
+     * Initializes a new <tt>EntityRepository</tt>.
+     *
+     * @param EntityManagerInterface $em    The EntityManager to use.
+     * @param ClassMetadata          $class The class descriptor.
+     */
+    public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
+        parent::__construct($em, $class);
+    }
+
+    /**
+     * @param  string $repo_class
+     * @return ObjectRepository
+     */
+    protected function get_repo(string $repo_class): ObjectRepository {
+        return $this->_em->getRepository($repo_class);
+    }
+
+    /**
+     * @param  int $id
+     * @return object|null
+     */
+    protected function get_entity_by_id(int $id) {
+        return $this->findOneBy(['id' => $id]);
+    }
 
     protected $default_search_attribute;
 

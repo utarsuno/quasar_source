@@ -4,6 +4,9 @@ namespace QuasarSource\DataStructure\BuildStep;
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
+use QuasarSource\Utilities\DataType\UtilsArray  as ARY;
+use QuasarSource\Utilities\DataType\UtilsString as STR;
+use Throwable;
 
 /**
  * Class BuildStep
@@ -26,16 +29,25 @@ final class BuildStep {
     private const HEADER_COMPLETED   = 'completed';
     // TEMP
 
-    private $output    = [];
+    /** @var array $output */
+    private $output              = [];
 
-    private $errors    = [];
+    /** @var array $errors */
+    private $errors              = [];
 
-    private $callbacks = [];
+    /** @var array $callbacks */
+    private $callbacks           = [];
+
+    /** @var array $callbacks_on_failed */
+    private $callbacks_on_failed = [];
+
+    /** @var array $callbacks_on_passed */
+    private $callbacks_on_passed = [];
 
     /**
      * @param string $name
      */
-    public function __construct(string $name) { #, LoggerService $logger
+    public function __construct(string $name) {
         $this->set_name_and_label($name, 'BuildStep');
         $this->init_trait_timer(false, true);
         $this->flags_set_all([self::FLAG_STARTED, self::FLAG_FAILED, self::FLAG_INTERRUPTED, self::FLAG_COMPLETED]);
@@ -43,27 +55,59 @@ final class BuildStep {
 
     /**
      * @param callable $callback
-     * @param string   $description
+     * @param string $description
+     * @param callable|null $callback_on_failed
+     * @param callable|null $callback_on_passed
      */
-    public function add_sub_step(callable $callback, string $description): void {
+    public function add_sub_step(
+        callable $callback,
+        string $description,
+        callable $callback_on_failed=null,
+        callable $callback_on_passed=null
+    ): void {
         $this->callbacks[$description] = $callback;
+        ARY::ref_add_non_null_pair($this->callbacks_on_passed, $description, $callback_on_passed);
+        ARY::ref_add_non_null_pair($this->callbacks_on_failed, $description, $callback_on_failed);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function run(): void {
         $this->pre_run();
         $failed = false;
         var_dump('There are {' . count($this->callbacks) . '} callbacks!');
         foreach ($this->callbacks as $description => $callback) {
-            var_dump('Executing callback{' . $description . '}!');
-            try {
-                $callback();
-                $this->timer->mark_lap($description);
-            } catch (\Throwable $e) {
-                $this->mark_as_failed();
-                $failed = true;
-                # TODO: Temporary.
-                throw $e;
-                #break;
+            $max_attempts           = 1;
+            $current_attempt        = 0;
+            $function_name          = $callback[1];
+            $current_attempt_passed = false;
+            if (STR::ends_with($function_name, '_allow_one_retry')) {
+                $max_attempts = 2;
+            }
+
+            while ($current_attempt < $max_attempts) {
+                ++$current_attempt;
+                if ($current_attempt_passed || $this->flag_is_on(self::FLAG_COMPLETED)) {
+                    break;
+                }
+                try {
+                    var_dump('Executing callback{' . $description . '}!');
+                    $callback();
+                    $this->timer->mark_lap($description);
+                    #$this->mark_as_passed();
+                    $current_attempt_passed = true;
+                } catch (Throwable $e) {
+                    $current_attempt_passed = false;
+                    if ($current_attempt === $max_attempts) {
+                        $this->mark_as_failed();
+                        $this->timer->mark_lap($e->getMessage());
+                        # TODO: Temporary.
+                        throw $e;
+                    }
+                    var_dump('TODO: log this error');
+                    var_dump($e->getMessage());
+                }
             }
         }
         if (!$failed) {
@@ -96,6 +140,11 @@ final class BuildStep {
      */
     private function print_header(string $result): void {
         #$this->header(STR::brackets($this->name . ' ' . $result . ' in ', $this->timer->get_delta()));
+    }
+
+    protected function mark_as_passed(): void {
+        $this->flag_set_on(self::FLAG_COMPLETED);
+        $this->flag_set_off(self::FLAG_FAILED);
     }
 
     protected function mark_as_failed(): void {

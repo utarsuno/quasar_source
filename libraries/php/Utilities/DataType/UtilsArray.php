@@ -17,6 +17,29 @@ use QuasarSource\Utilities\InterfaceDivisible;
 abstract class UtilsArray implements InterfaceDivisible {
 
     /**
+     * @param  array $array
+     * @param  mixed $value
+     * @return void
+     */
+    public static function ref_add_non_null(array & $array, $value): void {
+        if ($value !== null) {
+            $array[] = $value;
+        }
+    }
+
+    /**
+     * @param  array  $array
+     * @param  string $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public static function ref_add_non_null_pair(array & $array, string $key, $value): void {
+        if ($value !== null) {
+            $array[$key] = $value;
+        }
+    }
+
+    /**
      * @param  array $base
      * @param  array $values
      * @return array

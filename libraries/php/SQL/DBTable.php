@@ -47,6 +47,14 @@ final class DBTable extends SQLQueryGroup {
     # --------------------------------------------- P U B L I C -- A P I -----------------------------------------------
 
     /**
+     * @param  SQLQuery $query
+     * @return mixed
+     */
+    public function execute_custom_query(SQLQuery $query) {
+        return $this->execute_custom($query);
+    }
+
+    /**
      * @return mixed
      */
     public function execute_get_oldest() {

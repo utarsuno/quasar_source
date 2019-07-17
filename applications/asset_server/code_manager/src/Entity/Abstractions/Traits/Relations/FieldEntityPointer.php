@@ -3,7 +3,10 @@
 namespace CodeManager\Entity\Abstractions\Traits\Relations;
 use Doctrine\ORM\Mapping\Column;
 
-
+/**
+ * Trait FieldEntityPointer
+ * @package CodeManager\Entity\Abstractions\Traits\Relations
+ */
 trait FieldEntityPointer {
 
     /**

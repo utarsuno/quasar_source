@@ -8,8 +8,8 @@
 
 namespace CodeManager\Entity\File;
 
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Boolean\FieldBooleanThree;
-use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
 use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -18,13 +18,15 @@ use Doctrine\ORM\Mapping\Table;
  * Class EntityFileType
  * @package CodeManager\Entity\File
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityFileTypeRepository")
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoFileType")
  * @Table(name="file_type")
  */
-class EntityFileType {
-    use FieldID;
+class EntityFileType extends AbstractEntity {
     // Represents the entire extension (ex: '.min.html.gz')
     use FieldText;
     // gzipped, minified, pre_processed.
     use FieldBooleanThree;
+
+    /** @var string $db_table_name */
+    public static $db_table_name = 'file_type';
 }

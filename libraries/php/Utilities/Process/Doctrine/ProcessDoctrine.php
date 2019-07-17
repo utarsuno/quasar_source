@@ -9,7 +9,6 @@
 namespace QuasarSource\Utilities\Process\Doctrine;
 
 use CodeManager\Enum\ProjectParameterKeys\Path;
-use http\Exception\RuntimeException;
 use QuasarSource\Utilities\DataType\UtilsTextLines;
 use QuasarSource\Utilities\Process\ProcessRunner;
 use QuasarSource\Utilities\DataType\UtilsString as STR;
@@ -27,6 +26,8 @@ final class ProcessDoctrine extends ProcessRunner {
     private const ROUTINE_SCHEMA_VALIDATE = 'doctrine:schema:validate';
     private const ROUTINE_SCHEMA_UPDATE   = 'doctrine:schema:update';
     private const ROUTINE_SCHEMA_CREATE   = 'doctrine:schema:create';
+
+    private const CACHED_FLAGS            = ['--no-interaction', '--force', '-vvv', '--complete', '--dump-sql'];
 
     /**
      * @return array
@@ -86,9 +87,9 @@ final class ProcessDoctrine extends ProcessRunner {
         if ($command === self::ROUTINE_SCHEMA_VALIDATE) {
             $cmd[] = '-vvv';
         } else if ($command === self::ROUTINE_SCHEMA_UPDATE) {
-            $cmd = ARY::append_values($cmd, ['--no-interaction', '--force', '-vvv']);
+            $cmd = ARY::append_values($cmd, self::CACHED_FLAGS);
         } else if ($command === self::ROUTINE_SCHEMA_CREATE) {
-            $cmd = ARY::append_values($cmd, ['--no-interaction', '--force', '-vvv']);
+            $cmd = ARY::append_values($cmd, self::CACHED_FLAGS);
         }
         parent::__construct($cmd, false, 20, self::$cmd_cwd);
         if ($auto_run) {
@@ -96,7 +97,7 @@ final class ProcessDoctrine extends ProcessRunner {
         }
         $err = $this->get_error_output();
         if (count($err) !== 0) {
-            throw new RuntimeException('TODO: investigate{' . json_encode($err) . '}');
+            throw new \RuntimeException('TODO: investigate{' . json_encode($err) . '}');
         }
     }
 

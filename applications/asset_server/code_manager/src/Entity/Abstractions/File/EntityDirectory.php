@@ -28,7 +28,7 @@ use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
  * Class EntityDirectory
  * @package CodeManager\Entity\File
  *
- * @Entity(repositoryClass="CodeManager\Repository\CodeManager\EntityDirectoryRepository")
+ * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoDirectory")
  * @Table(name="directory")
  */
 class EntityDirectory extends EntityState implements EntityInterface, CacheTableInterface {
@@ -42,6 +42,9 @@ class EntityDirectory extends EntityState implements EntityInterface, CacheTable
     use FieldInt;
     // Parent directory.
     use FieldEntityPointer;
+
+    /** @var string $db_table_name */
+    public static $db_table_name = 'directory';
 
     public const TYPE_NO_MATCH = -1;
     public const TYPE_IGNORE   = 1;

@@ -6,7 +6,7 @@ FROM alpine:3.9
 # Base OS libs.
 # ----------------------------------------------------------------------------------------------------------------
 RUN apk update && apk upgrade && apk --no-cache add bash bash-completion nodejs nodejs-npm curl gzip postgresql-dev \
- && apk add --update alpine-sdk wget
+ && apk add --update alpine-sdk wget coreutils
 
 # ----------------------------------------------------------------------------------------------------------------
 #  __        __

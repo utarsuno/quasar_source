@@ -3,7 +3,6 @@
 namespace QuasarSource\DataStructure\ConstTable;
 
 use function array_key_exists;
-use http\Exception\RuntimeException;
 
 /**
  * Trait TraitConstTable
@@ -20,7 +19,7 @@ trait TraitConstTable {
      */
     public function const_get(string $key) {
         if (!$this->const_has($key)) {
-            throw new RuntimeException('TODO: Exception for TraitConstTable ');
+            throw new \RuntimeException('TODO: Exception for TraitConstTable ');
         }
         return $this->const_table[$key];
     }
@@ -32,7 +31,7 @@ trait TraitConstTable {
      */
     public function const_set(string $key, $value): void {
         if ($this->const_has($key)) {
-            throw new RuntimeException('TODO: Exception for TraitConstTable ');
+            throw new \RuntimeException('TODO: Exception for TraitConstTable ');
         }
         if ($value === null) {
             $this->const_table[$key] = $this->const_calculate($key);

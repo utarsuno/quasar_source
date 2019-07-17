@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source /quasar_source/libraries/bash/common.sh;
+
 #-----------------------------------------------------------------------------------------------------------------------
 export PATH_DIRECTORY_PROJECT_BASE='/quasar_source/'
 export PATH_DIRECTORY_CODE_MANAGER='/quasar_source/applications/asset_server/code_manager/'
@@ -18,6 +20,9 @@ export PATH_RELATIVE_NODE_MINIFY_JS='applications/asset_server/js/minify_js_file
 #export DATABASE_URL='pgsql://postgres:password@postgres_server:5432/postgres'
 export DATABASE_URL='pgsql://postgres:password@172.18.0.2:5432/postgres'
 export DB_NAME='postgres'
+export DB_MIGRATIONS='/quasar_source/var/db/migrations'
+export DB_EXTRA_DATA='/quasar_source/var/db/extra_data'
+export DB_DATA_CSV='/quasar_source/var/db/extra_data/data.csv'
 # ---- FTP ----
 export FTP_HOST='192.168.1.170'
 export FTP_USER='l0_c4_m4'
@@ -26,6 +31,7 @@ export FTP_TIMEOUT='5' # Default{90} (seconds)
 export FTP_PORT='21'   # Default{21}
 # ---- Session Settings ----
 export DB_CHECKS='true'
+export DB_CHECKS_FORCED='false'
 #-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -53,21 +59,21 @@ RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/c
 cd ${PATH_DIRECTORY_CODE_MANAGER}
 #php -S "0.0.0.0:1337"
 
+#composer install -o --verbose
+${RUN_CONSOLE_CMD} code:health_check -vvv
+
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 #${RUN_CONSOLE_CMD} doctrine:schema:update --force --complete --dump-sql -vvv
 #${RUN_CONSOLE_CMD} doctrine:schema:update --dump-sql -vvv
 
-
 #composer self-update
 #composer validate
 #composer update
-composer install -o --verbose
 #composer install -o   #--enable-opcache --enable-opcache-file
 
 #${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
 #${RUN_CONSOLE_CMD} doctrine:database:create -vvv
 #${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
-#${RUN_CONSOLE_CMD} code:health_check -vvv
 
 #apk add --update php-opcache@php
 
@@ -92,3 +98,22 @@ composer install -o --verbose
 #${RUN_CONSOLE_CMD} doctrine:migrations:execute --down 20190421062410 -vvv --no-interaction
 #${RUN_CONSOLE_CMD} doctrine:migrations:execute --up 20190421062410 -vvv --no-interaction
 #${RUN_CONSOLE_CMD} doctrine:migrations:dump-schema
+
+
+#stdbuf -oL ${RUN_CONSOLE_CMD} code:health_check -vvv |
+#    while IFS= read -r line
+#    do
+#        CLEAN_LINE="$(esc ${line})"
+#        CONTAINED="$(str_contains '"'${CLEAN_LINE}'"' 'PHP Warning:')"
+#        #let CONTAINED=str_contains ${CLEAN_LINE} 'PHP Warning:'
+#        if [[ ${CONTAINED} -ne 0 ]]; then
+#            echo 'ERROR!'
+#            echo ${line}
+#            echo 'ERROR!'
+#            echo 'ERROR!'
+#            exit
+#        fi
+#        #echo "lol at this[$line]"
+#    done
+#*/
+

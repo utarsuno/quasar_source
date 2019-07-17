@@ -4,13 +4,16 @@ namespace CodeManager\Entity\Abstractions\Traits\Number\Whole;
 
 use Doctrine\ORM\Mapping\Column;
 
-
+/**
+ * Trait FieldIntThree
+ * @package CodeManager\Entity\Abstractions\Traits\Number\Whole
+ */
 trait FieldIntThree {
     use FieldIntTwo;
 
     /**
      * @var int
-     * @Column(name="int2", type="integer", nullable=false, unique=false)
+     * @Column(name="int2", type="integer", nullable=true, unique=false)
      */
     protected $int2;
 

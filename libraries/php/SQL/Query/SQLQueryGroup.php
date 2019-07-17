@@ -41,6 +41,16 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     }
 
     /**
+     * @param  SQLQuery $query
+     * @return mixed|mixed[]
+     */
+    public function execute_custom(SQLQuery $query) {
+        $query->expecting_multiple_rows()->expecting_multiple_cols();
+        $query->prepare($this->connection);
+        return $query->execute();
+    }
+
+    /**
      * @param  string $query_name
      * @return mixed
      */
@@ -87,6 +97,7 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
         return $query->SELECT()->SIZE_OF_SELF(true);
     }
 
+    # ----------------------------------- C O N T R A C T {InterfaceSQLQueryOwner} -----------------------------------
     /**
      * @param string $key
      * @return mixed
@@ -94,7 +105,6 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     public function get_attribute(string $key) {
         return $this->attributes[$key];
     }
-
     # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
 
 }

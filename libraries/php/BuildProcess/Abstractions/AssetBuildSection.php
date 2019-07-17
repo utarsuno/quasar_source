@@ -5,7 +5,7 @@ use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\File\EntityFile;
 use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS;
 use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
-use CodeManager\Repository\CodeManager\EntityFileRepository;
+use CodeManager\Repository\CodeManager\RepoFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\Utilities\Exception\ParameterException;
 
@@ -15,7 +15,7 @@ use QuasarSource\Utilities\Exception\ParameterException;
  */
 abstract class AssetBuildSection extends BuildSection {
 
-    /** @var EntityFileRepository */
+    /** @var RepoFile */
     protected $repo_entity_files;
     /** @var array */
     protected $file_builds = [];
@@ -31,7 +31,7 @@ abstract class AssetBuildSection extends BuildSection {
             $this->config_universal_get(SCHEMAS::YAML_ASSETS), $code_builder->config_yaml_get(['assets', $name])
         );
 
-        $this->repo_entity_files = $this->get_repo(EntityFileRepository::class);
+        $this->repo_entity_files = $this->get_repo(RepoFile::class);
         $directory_data          = $this->config_yaml_get(PATHS::DIRECTORY_DATA);
         foreach ($this->config_yaml_get('files') as $k => $v) {
             $this->file_builds[$directory_data . $k] = $v;
