@@ -1,15 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-27
- * Time: 22:21
- */
+<?php declare(strict_types=1);
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\DataType\UtilsArray as ARY;
-
+use QuasarSource\Utils\DataType\UtilsArray as ARY;
 
 class ArrayUtilitiesTest extends FileTestSuite {
 

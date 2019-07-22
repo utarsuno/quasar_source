@@ -7,6 +7,7 @@ use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
 /**
  * Class AbstractEntity
  * @package CodeManager\Entity\Abstractions
+ * @method int getID()
  */
 abstract class AbstractEntity {
     use FieldID;

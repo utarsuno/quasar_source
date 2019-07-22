@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 str_contains () {
     echo $1

@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess\Abstractions;
+
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\File\EntityFile;
+use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS;
 use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
-use CodeManager\Repository\CodeManager\RepoFile;
+use CodeManager\Repository\CodeManager\File\RepoFile;
 use CodeManager\Service\CodeBuilderService;
-use QuasarSource\Utilities\Exception\ParameterException;
+use QuasarSource\Utils\Exception\ParameterException;
 
 /**
  * Class AssetBuildSection

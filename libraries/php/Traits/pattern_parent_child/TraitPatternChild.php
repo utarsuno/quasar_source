@@ -8,8 +8,7 @@
 
 namespace QuasarSource\Traits\PatternParentChild;
 
-use QuasarSource\Utilities\Exception\LogicException;
-
+use QuasarSource\Utils\Exception\LogicException;
 
 trait TraitPatternChild {
 

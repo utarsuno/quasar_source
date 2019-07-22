@@ -25,6 +25,13 @@ class LoggerService implements InterfaceLogger {
     }
 
     /**
+     * @param string $message
+     */
+    public function info(string $message): void {
+        $this->logger->info($message);
+    }
+
+    /**
      * @param string $message [Any kind of section title/header/divider, etc.]
      */
     public function header(string $message): void {

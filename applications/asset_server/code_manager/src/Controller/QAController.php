@@ -3,11 +3,18 @@
 namespace CodeManager\Controller;
 
 use CodeManager\Service\CodeBuilderService;
-use QuasarSource\Utilities\Process\UtilsProcess;
+use QuasarSource\Utils\Process\UtilsProcess;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class QAController {
+
+    /*
+    // In code builder.
+    public function get_test_hi(): string {
+        return 'wow, it freaking works :o';
+    }
+     */
 
     public function test_response(CodeBuilderService $code_builder) {
         return new Response('<html><body>' . $code_builder->get_test_hi() . '</body></html>');

@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\ReturnSingleValue;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint;
+
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\NoArgs;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Output\ReturnSingleValue;
 
 /**
  * Class BinancePrice
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint
  */
 class BinancePrice extends BinancePublicEndpoint {
     use ParameterSymbol;

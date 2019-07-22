@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-
-source /quasar_source/libraries/bash/common.sh;
-
 #-----------------------------------------------------------------------------------------------------------------------
 export PATH_DIRECTORY_PROJECT_BASE='/quasar_source/'
 export PATH_DIRECTORY_CODE_MANAGER='/quasar_source/applications/asset_server/code_manager/'
@@ -30,14 +27,24 @@ export FTP_PASS='sudoadmin'
 export FTP_TIMEOUT='5' # Default{90} (seconds)
 export FTP_PORT='21'   # Default{21}
 # ---- Session Settings ----
+export EXTERNAL_VOLUME='/v/'
 export DB_CHECKS='true'
 export DB_CHECKS_FORCED='false'
+# ---- B U I L D S ----
+export BUILD_CSS='/quasar_source/assets/css/'
+export BUILD_CSS_OUTPUT='/v/'
+export LOG_FILE='/quasar_source/applications/asset_server/code_manager/var/log/dev.log'
 #-----------------------------------------------------------------------------------------------------------------------
-
+BASH_LIBS='/quasar_source/libraries/bash/'
+source ${BASH_LIBS}common.sh;
+source ${BASH_LIBS}utils_composer.sh;
+source '/quasar_source/applications/asset_server/src/utils_console.sh'
+#-----------------------------------------------------------------------------------------------------------------------
+cd ${PATH_DIRECTORY_CODE_MANAGER}
+#-----------------------------------------------------------------------------------------------------------------------
 
 #PATH_RELATIVE_PROJECT_CONFIGS='configs/code_manager.yml'
 
-RUN_CONSOLE="php /quasar_source/libraries/php/console.php"
 RUN_DEPLOYER="./dep --file=/quasar_source/libraries/php/deploy.php"
 CMD_DEPLOYER_RUN_ALL_TESTS="run_all_tests -vvv"
 CMD_DEPLOYER_FULL_BUILD="full_build -vvv"
@@ -46,59 +53,24 @@ CMD_DEPLOYER_BUILD_NEXUS_COURIER="build_nexus_courier -vvv"
 FILE_CSS_NEXUS_LOCAL=/quasar_source/assets/css/nexus_local.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT=/quasar_source/var/web_assets/nexus_local.min.css
 FILE_CSS_NEXUS_LOCAL_OUTPUT_FINAL=/quasar_source/var/web_assets/nexus_local.min.css.gz
-RUN_CONSOLE_CMD="php /quasar_source/applications/asset_server/code_manager/bin/console"
-
 
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_FULL_BUILD}
-
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_RUN_ALL_TESTS}
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_DEBUG}
-
 #${RUN_DEPLOYER} ${CMD_DEPLOYER_BUILD_NEXUS_COURIER}
 
-cd ${PATH_DIRECTORY_CODE_MANAGER}
 #php -S "0.0.0.0:1337"
 
-#composer install -o --verbose
-${RUN_CONSOLE_CMD} code:health_check -vvv
+#php -v
 
-#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
-#${RUN_CONSOLE_CMD} doctrine:schema:update --force --complete --dump-sql -vvv
-#${RUN_CONSOLE_CMD} doctrine:schema:update --dump-sql -vvv
-
+#console_db_schema_update
+#composer_install
+#console_list
+#composer_health_check
+#composer -V
 #composer self-update
-#composer validate
-#composer update
-#composer install -o   #--enable-opcache --enable-opcache-file
-
-#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force
-#${RUN_CONSOLE_CMD} doctrine:database:create -vvv
-#${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
-
-#apk add --update php-opcache@php
-
-
-#composer require symfony/config
-
-#${RUN_CONSOLE} cache:clear
-
-#${RUN_CONSOLE_CMD} list
-
-#${RUN_CONSOLE_CMD} doctrine:cache:delete
-
-#${RUN_CONSOLE_CMD} doctrine:database:drop -vvv --force --no-interaction
-
-#${RUN_CONSOLE_CMD} doctrine:mapping:info
-
-#${RUN_CONSOLE_CMD} doctrine:schema:update -vvv --no-interaction --force
-#${RUN_CONSOLE_CMD} doctrine:schema:create -vvv --no-interaction
-
-#${RUN_CONSOLE_CMD} doctrine:migrations:migrate -vvv --no-interaction
-#${RUN_CONSOLE_CMD} doctrine:migrations:status
-#${RUN_CONSOLE_CMD} doctrine:migrations:execute --down 20190421062410 -vvv --no-interaction
-#${RUN_CONSOLE_CMD} doctrine:migrations:execute --up 20190421062410 -vvv --no-interaction
-#${RUN_CONSOLE_CMD} doctrine:migrations:dump-schema
-
+#composer_optimize
+console_code_manager
 
 #stdbuf -oL ${RUN_CONSOLE_CMD} code:health_check -vvv |
 #    while IFS= read -r line

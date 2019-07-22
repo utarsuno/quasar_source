@@ -1,15 +1,9 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-27
- * Time: 22:21
- */
+<?php declare(strict_types=1);
 
 namespace CodeManager\Tests;
-use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\Math\UtilsMath as MATH;
 
+use QuasarSource\QualityAssurance\FileTestSuite;
+use QuasarSource\Utils\Math\UtilsMath as MATH;
 
 class MathUtilitiesTest extends FileTestSuite {
 

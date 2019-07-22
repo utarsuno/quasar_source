@@ -10,17 +10,17 @@ namespace CodeManager\Repository\Users;
 
 use CodeManager\Entity\Users\EntityEntity;
 use CodeManager\Entity\Users\EntityEntityEntityAlias;
-use CodeManager\Repository\Abstractions\AbstractRepository;
+use CodeManager\Repository\Abstractions\AbstractRepo;
 use CodeManager\Service\DBService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 
 /**
  * Class RepoUser
  * @package CodeManager\Repository\Users
  */
-class RepoEntityEntity extends AbstractRepository {
+class RepoEntityEntity extends AbstractRepo {
 
     public const ENTITY_CLASS = EntityEntity::class;
     protected $entity_class   = EntityEntity::class;
@@ -51,17 +51,17 @@ class RepoEntityEntity extends AbstractRepository {
     /**
      * @param  DBService $db_service
      * @param  string $search_text
-     * @return object|null
+     * @return object
      */
     public function find_user_match(DBService $db_service, string $search_text) {
         if ($this->cache_aliases === null) {
             $this->cache_aliases = $this->repo_entity_entity_aliases->get_all_aliases($db_service);
         }
         foreach ($this->cache_aliases as $alias => $data) {
-            if (STR::has($search_text, $alias, $data[1])) {
+            if (STR::has($search_text, (string) $alias, $data[1])) {
                 return $this->get_entity_by_id($data[0]);
             }
         }
-        return null;
+        throw new \RuntimeException('No user matched for search text{' . $search_text . '}');
     }
 }

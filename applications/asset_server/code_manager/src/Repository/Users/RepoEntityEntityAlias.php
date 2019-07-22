@@ -9,14 +9,14 @@
 namespace CodeManager\Repository\Users;
 
 use CodeManager\Entity\Users\EntityEntityEntityAlias;
-use CodeManager\Repository\Abstractions\QueryableRepository;
+use CodeManager\Repository\Abstractions\QueryableRepo;
 use CodeManager\Service\DBService;
 
 /**
  * Class RepoEntityEntityAlias
  * @package CodeManager\Repository\Users
  */
-class RepoEntityEntityAlias extends QueryableRepository {
+class RepoEntityEntityAlias extends QueryableRepo {
 
     public const ENTITY_CLASS = EntityEntityEntityAlias::class;
 
@@ -38,7 +38,6 @@ class RepoEntityEntityAlias extends QueryableRepository {
      * @return array
      */
     public function get_all_aliases(DBService $db_service): array {
-        $this->ensure_db_table_exists($db_service);
         $aliases = [];
         $data    = $this->execute_custom_query(
             'SELECT entity_pointer0, text0, bool0 FROM entity_entity_alias;'
@@ -49,10 +48,6 @@ class RepoEntityEntityAlias extends QueryableRepository {
         return $aliases;
     }
 
-    private function ensure_db_table_exists(DBService $db_service): void {
-        if ($this->db_table === null) {
-            $this->set_db_table($db_service, EntityEntityEntityAlias::class);
-        }
-    }
-
+    # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
+    public function set_needed_repos(): void {}
 }

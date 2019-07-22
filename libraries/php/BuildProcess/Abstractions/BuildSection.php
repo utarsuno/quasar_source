@@ -3,21 +3,21 @@
 namespace QuasarSource\BuildProcess\Abstractions;
 use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Repository\Abstractions\AbstractRepository;
+use CodeManager\Repository\Abstractions\AbstractRepo;
 use CodeManager\Service\CodeBuilderService;
-use CodeManager\Service\Feature\Repository\OwnsReposInterface;
+use CodeManager\Service\Feature\Repository\InterfaceOwnsRepos;
 use Doctrine\Common\Persistence\ObjectRepository;
-use CodeManager\Service\Feature\Config\FeatureConfigUniversalInterface;
-use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
+use CodeManager\Service\Feature\Config\InterfaceConfigUniversal;
+use CodeManager\Service\Feature\Config\TraitConfigYAML;
 
 /**
  * Class BuildSection
  * @package QuasarSource\BuildProcess\Abstractions
  */
-abstract class BuildSection extends UnitOfWork implements OwnsReposInterface, FeatureConfigUniversalInterface {
-    use FeatureConfigYAMLTrait;
+abstract class BuildSection extends UnitOfWork implements InterfaceOwnsRepos, InterfaceConfigUniversal {
+    use TraitConfigYAML;
 
-    /** @var AbstractRepository */
+    /** @var AbstractRepo */
     protected $repo;
 
     /** @var CodeBuilderService */

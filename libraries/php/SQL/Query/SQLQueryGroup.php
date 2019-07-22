@@ -3,12 +3,8 @@
 namespace QuasarSource\SQL\Representation;
 
 use Doctrine\DBAL\Connection;
-use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
-use QuasarSource\DataStructure\ConstTable\TraitConstTable;
 use QuasarSource\CommonFeatures\TraitName;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
-use QuasarSource\Utilities\SystemOS\UtilsSystem as SYS;
 
 /**
  * Class SQLQueryGroup
@@ -22,7 +18,7 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     protected const QUERY_GET_SIZE        = 'get_size';
     protected const QUERY_GET_SIZE_PRETTY = 'get_size_pretty';
 
-    /** @var \Doctrine\DBAL\Driver\Connection */
+    /** @var Connection */
     protected $connection;
 
     protected $attributes = [
@@ -31,13 +27,16 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
     ];
 
     /**
-     * SQLQueryGroup constructor.
      * @param string     $table_name
      * @param Connection $connection
+     * @param array      $attributes
      */
-    public function __construct(string $table_name, Connection $connection) {
-        $this->connection       = $connection;
+    public function __construct(string $table_name, Connection $connection, array $attributes) {
+        $this->connection = $connection;
         $this->set_name_and_label($table_name, static::class);
+        foreach ($attributes as $k => $v) {
+            $this->attributes[$k] = $v;
+        }
     }
 
     /**
@@ -45,8 +44,10 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
      * @return mixed|mixed[]
      */
     public function execute_custom(SQLQuery $query) {
-        $query->expecting_multiple_rows()->expecting_multiple_cols();
-        $query->prepare($this->connection);
+        if (!$query->prepared()) {
+            $query->multi_row()->multi_cols();
+            $query->prepare($this->connection);
+        }
         return $query->execute();
     }
 
@@ -63,48 +64,68 @@ abstract class SQLQueryGroup implements InterfaceSQLQueryOwner {
             $query->prepare($this->connection);
             return $query->execute();
         }
-        return $this->cache_get($query_name)->execute();
+        /** @var SQLQuery $query */
+        $query = $this->cache_get($query_name);
+        if (!$query->prepared()) {
+            $query->prepare($this->connection);
+        }
+        return $query->execute();
     }
 
-    //
+    /**
+     * @param  SQLQuery $query
+     * @return mixed|mixed[]
+     */
+    public function execute_query(SQLQuery $query) {
+        if (!$query->prepared()) {
+            $query->prepare($this->connection);
+        }
+        return $query->execute();
+    }
 
     /**
      * @param  bool $pretty
      * @return mixed
      */
-    public function execute_get_size(bool $pretty) {
+    public function get_size(bool $pretty) {
         if ($pretty) {
             return $this->execute(self::QUERY_GET_SIZE_PRETTY);
         }
         return $this->execute(self::QUERY_GET_SIZE);
     }
 
-    //
-
-    /**
-     * @param SQLQuery $query
-     * @return SQLQuery
-     */
-    public function query_set_get_size(SQLQuery $query): SQLQuery {
-        return $query->SELECT()->SIZE_OF_SELF(false);
-    }
-
-    /**
-     * @param SQLQuery $query
-     * @return SQLQuery
-     */
-    public function query_set_get_size_pretty(SQLQuery $query): SQLQuery {
-        return $query->SELECT()->SIZE_OF_SELF(true);
-    }
-
     # ----------------------------------- C O N T R A C T {InterfaceSQLQueryOwner} -----------------------------------
     /**
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function get_attribute(string $key) {
         return $this->attributes[$key];
     }
+
     # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
 
+    /**
+     * @param  SQLQuery $query
+     * @return mixed
+     */
+    public function query_set_get_size(SQLQuery $query) {
+        $name = '(' . $query->get_owner_name(true) . ')';
+        if ($query->owner_is_table()) {
+            return $query->SELECT()->raw_add(' pg_total_relation_size' . $name);
+        }
+        return $query->SELECT()->raw_add(' pg_database_size' . $name);
+    }
+
+    /**
+     * @param  SQLQuery $query
+     * @return mixed
+     */
+    public function query_set_get_size_pretty(SQLQuery $query) {
+        $name = '(' . $query->get_owner_name(true) . ')';
+        if ($query->owner_is_table()) {
+            return $query->SELECT()->PRETTY_SIZE(' pg_total_relation_size' . $name);
+        }
+        return $query->SELECT()->PRETTY_SIZE(' pg_database_size' . $name);
+    }
 }

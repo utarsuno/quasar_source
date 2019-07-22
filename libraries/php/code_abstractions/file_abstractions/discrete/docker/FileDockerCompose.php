@@ -9,8 +9,8 @@
 namespace QuasarSource\CodeAbstractions\File\Discrete\Docker;
 use QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments\CodeSegments;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
-use QuasarSource\Utilities\File\UtilsFile       as UFO;
+use QuasarSource\Utils\DataType\UtilsString as STR;
+use QuasarSource\Utils\File\UtilsFile       as UFO;
 
 class FileDockerCompose extends FileYAML {
 

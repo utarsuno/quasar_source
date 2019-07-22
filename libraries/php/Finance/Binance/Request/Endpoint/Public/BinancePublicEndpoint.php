@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint;
-use QuasarSource\Utilities\RequestsHTTP\Binance\BinanceHTTPRequest;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint;
+use QuasarSource\Utils\RequestsHTTP\Binance\BinanceHTTPRequest;
 
 /**
  * Class BinancePublicEndpoint
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint
  */
 abstract class BinancePublicEndpoint extends BinanceHTTPRequest {
 

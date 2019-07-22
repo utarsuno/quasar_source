@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders;
 
 /**
  * Class BinanceSell
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders
  */
 class BinanceSell extends BinanceOrderAbstract {
 

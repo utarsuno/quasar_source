@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders;
-use QuasarSource\Utilities\HTTP\UtilsHTTP;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderID;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders;
+
+use QuasarSource\Utils\HTTP\UtilsHTTP;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderID;
 
 /**
  * Class BinanceCancelOrder
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders
  */
 class BinanceCancelOrder extends BinanceOrderAbstract {
     use ParameterOrderID;

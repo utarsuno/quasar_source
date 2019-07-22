@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
-use CodeManager\Entity\File\EntityFile;
+use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
-use QuasarSource\Utilities\File\Discrete\CSSUtilities as CSS;
-use QuasarSource\Utilities\File\UtilsFile             as UFO;
-use QuasarSource\Utilities\DataType\UtilsString       as STR;
-use QuasarSource\Enums\EnumFileTypeExtensions         as EXTENSION;
+use QuasarSource\Utils\File\Discrete\CSSUtilities as CSS;
+use QuasarSource\Utils\File\UtilsFile             as UFO;
+use QuasarSource\Utils\DataType\UtilsString       as STR;
+use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions     as EXTENSION;
 
 
 class HTMLBuildSection extends AssetBuildSection {

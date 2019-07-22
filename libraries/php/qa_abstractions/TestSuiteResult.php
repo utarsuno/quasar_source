@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
 
-
 namespace QuasarSource\QualityAssurance;
 
-
-use QuasarSource\Utilities\File\Discrete\XMLElement;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utils\File\Discrete\XMLElement;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 
 class TestSuiteResult extends TestResultAbstract {
 

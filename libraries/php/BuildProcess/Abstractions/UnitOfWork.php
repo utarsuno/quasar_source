@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess\Abstractions;
+
 use CodeManager\Service\LoggerService;
 use CodeManager\Service\Feature\Logging\TraitLogger;
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
-
+use QuasarSource\Utils\DataType\UtilsString as STR;
 
 /**
  * Class UnitOfWork

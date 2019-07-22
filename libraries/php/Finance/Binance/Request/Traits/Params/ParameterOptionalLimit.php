@@ -1,8 +1,7 @@
 <?php declare(strict_types=1); /** @noinspection PhpUndefinedFieldInspection */
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params;
-use QuasarSource\Utilities\Exception\ParameterException;
-
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params;
+use QuasarSource\Utils\Exception\ParameterException;
 
 trait ParameterOptionalLimit {
 

@@ -9,7 +9,7 @@
 namespace QuasarSource\CodeAbstractions\File;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\Traits\PatternParentChild\TraitPatternChild;
-use QuasarSource\Utilities\File\UtilsFile as UFO;
+use QuasarSource\Utils\File\UtilsFile as UFO;
 
 
 abstract class FileInstance extends FileAbstraction {

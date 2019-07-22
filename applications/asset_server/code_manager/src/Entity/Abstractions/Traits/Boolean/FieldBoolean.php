@@ -12,7 +12,7 @@ trait FieldBoolean {
 
     /**
      * @var bool
-     * @Column(name="bool0", type="boolean", nullable=false, unique=false)
+     * @Column(name="bool0", type="boolean", nullable=true, unique=false)
      */
     protected $bool0;
 

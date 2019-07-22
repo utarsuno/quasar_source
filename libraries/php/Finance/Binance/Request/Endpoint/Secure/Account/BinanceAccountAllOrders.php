@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure;
-use QuasarSource\Utilities\RequestsHTTP\Binance\BinanceSecureRequest;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOptionalLimit;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterStartOrderID;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\ReturnResultAsIs;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure;
+
+use QuasarSource\Utils\RequestsHTTP\Binance\BinanceSecureRequest;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\NoArgs;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOptionalLimit;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterStartOrderID;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Output\ReturnResultAsIs;
 
 /**
  * Class BinanceAccountAllOrders
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure
  */
 class BinanceAccountAllOrders extends BinanceSecureRequest {
     use ReturnResultAsIs;

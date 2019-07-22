@@ -1,23 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders;
+
 use QuasarSource\Finance\Binance\Enum\BinanceEnumOrderSide   as ORDER_SIDE;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumTimeInForce as TIME_IN_FORCE;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumOrderTypes  as ORDER_TYPES;
-use QuasarSource\Utilities\HTTP\UtilsHTTP;
-use QuasarSource\Utilities\RequestsHTTP\Binance\BinanceSecureRequest;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\ReturnResultAsIs;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderPrice;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderSide;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderTimeInForce;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderType;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterOrderQuantity;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
+use QuasarSource\Utils\HTTP\UtilsHTTP;
+use QuasarSource\Utils\RequestsHTTP\Binance\BinanceSecureRequest;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Output\ReturnResultAsIs;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\NoArgs;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderPrice;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderSide;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderTimeInForce;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderType;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterOrderQuantity;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\ParameterSymbol;
 
 /**
  * Class BinanceOrderAbstract
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders
  */
 class BinanceOrderAbstract extends BinanceSecureRequest {
     use ReturnResultAsIs;

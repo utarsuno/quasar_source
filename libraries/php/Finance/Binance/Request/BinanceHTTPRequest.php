@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance;
-use QuasarSource\Utilities\HTTP\UtilsHTTP;
-use QuasarSource\Utilities\HTTP\AbstractHTTPRequest;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+namespace QuasarSource\Utils\RequestsHTTP\Binance;
+
+use QuasarSource\Utils\HTTP\UtilsHTTP;
+use QuasarSource\Utils\HTTP\AbstractHTTPRequest;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 
 /**
  * Class BinanceRequest
- * @package QuasarSource\Utilities\RequestsHTTP\Binance
+ * @package QuasarSource\Utils\RequestsHTTP\Binance
  */
 abstract class BinanceHTTPRequest extends AbstractHTTPRequest {
 

@@ -8,9 +8,9 @@
 
 namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\File\Discrete\CSSUtilities;
-use QuasarSource\Utilities\File\Discrete\HTMLUtils;
-use QuasarSource\Utilities\File\UtilsFile as UFO;
+use QuasarSource\Utils\File\Discrete\CSSUtilities;
+use QuasarSource\Utils\File\Discrete\HTMLUtils;
+use QuasarSource\Utils\File\UtilsFile as UFO;
 
 
 class FileUtilitiesTest extends FileTestSuite {

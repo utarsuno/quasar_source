@@ -7,12 +7,12 @@ use CodeManager\Entity\Abstractions\Traits\Boolean\FieldBoolean;
 use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldFloat;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldInt;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointerTwo;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldBigText;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldBigTextTwo;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimestamp;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Class EntityCodeBuild
@@ -23,11 +23,13 @@ use Doctrine\ORM\Mapping\ManyToOne;
 class EntityCodeBuild extends AbstractEntity {
     // Build typeID.
     use FieldInt;
-    // Stores the output of individual build steps.
-    use FieldText;
+
+    // Output of individual build steps, logging for this session.
+    use FieldBigTextTwo;
+
     // Duration in seconds.
     use FieldFloat;
-    // A pointer to EntityDBSnapshot and EntityQAReport.
+    // A pointer to EntitySnapshotDB and EntitySnapshotQA.
     use FieldEntityPointerTwo;
     // Time the build ran at.
     use FieldUnixTime;
@@ -41,15 +43,32 @@ class EntityCodeBuild extends AbstractEntity {
     public static $db_table_name = 'code_build';
 
     public const BUILD_TYPE_FULL     = 1;
-    public const BUILD_TYPE_NOT_SAFE = 2;
+    public const BUILD_TYPE_DEFAULT  = 2;
+    public const BUILD_TYPE_RUSHED   = 3;
 
     /**
      * EntityCodeBuild constructor.
      * @param int $build_type
      */
-    public function __construct(int $build_type=self::BUILD_TYPE_FULL) {
+    public function __construct(int $build_type=self::BUILD_TYPE_DEFAULT) {
         $this->set_timestamp(-1)
             ->set_build_type($build_type);
+    }
+
+    /**
+     * @param  string|array $logs
+     * @return EntityCodeBuild
+     */
+    public function set_session_logging_records($logs): self {
+        $this->setBlob1(is_array($logs) ? json_encode($logs) : $logs);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function get_session_logging_records(): string {
+        return $this->getBlob1();
     }
 
     /**
@@ -64,7 +83,7 @@ class EntityCodeBuild extends AbstractEntity {
      * @return bool
      */
     public function is_mode_rushed(): bool {
-        return $this->isInt0EqualTo(self::BUILD_TYPE_NOT_SAFE);
+        return $this->isInt0EqualTo(self::BUILD_TYPE_RUSHED);
     }
 
     #public function get_current_db_snapshot(): EntityDBSnapshot {

@@ -37,6 +37,4 @@ class EntityEntityEntityAlias extends AbstractEntity {
 
     public static $db_table_name = 'entity_entity_alias';
 
-
-
 }

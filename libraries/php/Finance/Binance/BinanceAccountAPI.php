@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\Finance\Binance;
-use QuasarSource\Finance\Binance\Enum\BinanceEnumSymbolsToTrack as COINS;
-use QuasarSource\Utilities\Math\UtilsMath                       as MATH;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceCancelOrder;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccount;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountAllOrders;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountOpenOrders;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountTradeHistory;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceBuy;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceSell;
 
+use QuasarSource\Finance\Binance\Enum\BinanceEnumSymbolsToTrack as COINS;
+use QuasarSource\Utils\Math\UtilsMath                       as MATH;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceCancelOrder;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccount;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountAllOrders;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountOpenOrders;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\BinanceAccountTradeHistory;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceBuy;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\Secure\Orders\BinanceSell;
 
 /**
  * An extension of {BinanceAPI} to include account calls.

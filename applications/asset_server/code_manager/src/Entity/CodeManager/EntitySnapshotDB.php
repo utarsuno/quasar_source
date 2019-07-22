@@ -4,7 +4,7 @@ namespace CodeManager\Entity\CodeManager;
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Boolean\FieldBoolean;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntThree;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldBigText;
+use CodeManager\Entity\Abstractions\Traits\Text\FieldBigTextTwo;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimestamp;
 use Doctrine\ORM\Mapping\Entity;
@@ -18,8 +18,8 @@ use Doctrine\ORM\Mapping\Table;
  * @Table(name="snapshot_db")
  */
 class EntitySnapshotDB extends AbstractEntity {
-    // The size of individual tables.
-    use FieldBigText;
+    // The size of individual tables, output of schema update command (if any present)
+    use FieldBigTextTwo;
     // The time instance that the snapshot occurred.
     use FieldUnixTime;
     use FieldUnixTimestamp;
@@ -51,6 +51,21 @@ class EntitySnapshotDB extends AbstractEntity {
      */
     public function set_migration_version(int $version): self {
         return $this->setInt2($version);
+    }
+
+    /**
+     * @param  string $output
+     * @return EntitySnapshotDB
+     */
+    public function set_schema_command_output(string $output): self {
+        return $this->setBlob1($output);
+    }
+
+    /**
+     * @return string
+     */
+    public function get_schema_command_output(): string {
+        return $this->getBlob1();
     }
 
     /**

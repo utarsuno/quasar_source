@@ -53,7 +53,14 @@ class EntityEntity extends AbstractEntity {
      * @return EntityEntity
      */
     public function set_username(string $username): self {
-        return $this->setText0($username);
+        return $this->setText2($username);
+    }
+
+    /**
+     * @return string
+     */
+    public function get_username(): string {
+        return $this->getText2();
     }
 
     /**

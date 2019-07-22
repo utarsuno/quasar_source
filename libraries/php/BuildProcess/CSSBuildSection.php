@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
-use CodeManager\Entity\File\EntityFile;
+use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
-use QuasarSource\Enums\EnumFileTypeExtensions as EXTENSION;
+use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions as EXTENSION;
 
 /**
  * Class CSSBuildSection

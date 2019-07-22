@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params;
-
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params;
 
 trait ParameterOrderTimeInForce {
 

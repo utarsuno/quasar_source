@@ -1,15 +1,9 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 15:21
- */
 
 namespace QuasarSource\CommonFeatures;
 
-use QuasarSource\Utilities\DataType\UtilsString as STR;
-use QuasarSource\Utilities\SystemOS\UtilsSystem as SYS;
+use QuasarSource\Utils\DataType\UtilsString as STR;
+use QuasarSource\Utils\SystemOS\UtilsSystem as SYS;
 
 /**
  * Trait TraitAliveOrDead
@@ -66,7 +60,4 @@ trait TraitEnvironmentVariablesAsFields {
         $this->$field_key = STR::to_bool(SYS::get_env($env_key));
     }
 
-    public function trait_destruct_env_vars_as_fields(): void {
-        #unset($this->environments_variables);
-    }
 }

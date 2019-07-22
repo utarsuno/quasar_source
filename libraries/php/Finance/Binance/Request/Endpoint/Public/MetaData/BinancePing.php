@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\BooleanResponse;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint;
+
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Output\BooleanResponse;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\NoArgs;
 
 /**
  * Class BinancePing
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint
  */
 class BinancePing extends BinancePublicEndpoint {
     use NoArgs;

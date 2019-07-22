@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Params\NoArgs;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Traits\Output\ReturnSingleValue;
+namespace QuasarSource\Utils\RequestsHTTP\Binance\Endpoint;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Params\NoArgs;
+use QuasarSource\Utils\RequestsHTTP\Binance\Traits\Output\ReturnSingleValue;
 
 /**
  * Class BinanceTime
- * @package QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint
+ * @package QuasarSource\Utils\RequestsHTTP\Binance\Endpoint
  */
 class BinanceTime extends BinancePublicEndpoint {
     use NoArgs;

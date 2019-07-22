@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace QuasarSource\Utilities\RequestsHTTP\Binance;
-use QuasarSource\Utilities\HTTP\UtilsHTTP;
-use QuasarSource\Utilities\Math\UtilsCryptography as HASH;
-use QuasarSource\Utilities\Time\UtilsUnixTime     as UNIX;
+namespace QuasarSource\Utils\RequestsHTTP\Binance;
+
+use QuasarSource\Utils\HTTP\UtilsHTTP;
+use QuasarSource\Utils\Math\UtilsCryptography as HASH;
+use QuasarSource\Utils\Time\UtilsUnixTime     as UNIX;
 
 /**
  * Class BinanceSecureRequest
- * @package QuasarSource\Utilities\RequestsHTTP\Binance
+ * @package QuasarSource\Utils\RequestsHTTP\Binance
  */
 abstract class BinanceSecureRequest extends BinanceHTTPRequest {
 

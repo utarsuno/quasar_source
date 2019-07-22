@@ -11,12 +11,11 @@ namespace QuasarSource\CodeAbstractions\Directory;
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
-use QuasarSource\Utilities\Exception\LogicException;
-use QuasarSource\Utilities\File\UtilsPath       as UPO;
-use QuasarSource\Utilities\File\UtilsDirectory  as UDO;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utils\Exception\LogicException;
+use QuasarSource\Utils\File\UtilsPath       as UPO;
+use QuasarSource\Utils\File\UtilsDirectory  as UDO;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 use QuasarSource\CodeAbstractions\File\FileInstance;
-
 
 class DirectoryInstance extends FileAbstraction {
     // The directory can be a parent to and a child of other directories.

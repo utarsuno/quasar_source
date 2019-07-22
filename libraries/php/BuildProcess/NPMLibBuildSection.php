@@ -5,8 +5,7 @@ use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Repository\CodeManager\RepoNPMLib;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
-use QuasarSource\Utilities\Exception\ParameterException;
-
+use QuasarSource\Utils\Exception\ParameterException;
 
 class NPMLibBuildSection extends BuildSection {
 

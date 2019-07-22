@@ -12,12 +12,11 @@ use QuasarSource\SQL\Representation\SQLQueryGroup;
  */
 final class DBSchema extends SQLQueryGroup {
 
-    private const INFO_SCHEMA               = 'information_schema';
-    private const INFO_SCHEMA_TABLES        = 'information_schema.tables';
-
     private const QUERY_GET_NUM_TABLES      = 'get_num_tables';
     private const QUERY_GET_TABLE_NAMES     = 'get_table_names';
     private const QUERY_GET_TABLE_NAMES_ALL = 'get_all_table_names';
+
+    private $db_tables = [];
 
     /**
      * DBSchema constructor.
@@ -25,74 +24,56 @@ final class DBSchema extends SQLQueryGroup {
      * @param Connection $connection
      */
     public function __construct(string $db_name, Connection $connection) {
-        parent::__construct($db_name, $connection);
-        $this->attributes[SQLQuery::ATTRIBUTE_SELF_TYPE] = SQLQuery::VAL_TYPE_SCHEMA;
-        $this->attributes[SQLQuery::ATTRIBUTE_SELF_NAME] = $this->get_name();
+        parent::__construct(
+            $db_name,
+            $connection,
+            [SQLQuery::ATTRIBUTE_SELF_TYPE => SQLQuery::VAL_TYPE_SCHEMA, SQLQuery::ATTRIBUTE_SELF_NAME => $db_name]
+        );
+        $table_names = $this->get_names_of_created_tables();
+        foreach ($table_names as $table_name) {
+            $this->db_tables[$table_name] = new DBTable($table_name, $this->connection);
+        }
     }
 
     /**
-     * @return mixed
+     * @param  string $table_name
+     * @return DBTable
      */
-    public function execute_num_created_tables() {
-        //return $this->execute(self::QUERY_GET_NUM_TABLES);
-        return $this->execute(self::QUERY_GET_NUM_TABLES)[0];
+    public function get_db_table(string $table_name): DBTable {
+        return $this->db_tables[$table_name];
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function execute_names_of_created_tables() {
+    public function get_num_created_tables(): int {
+        return $this->execute(self::QUERY_GET_NUM_TABLES);
+    }
+
+    /**
+     * @return array
+     */
+    public function get_names_of_created_tables(): array {
         return $this->execute(self::QUERY_GET_TABLE_NAMES);
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function execute_names_of_all_tables() {
+    public function get_names_of_all_tables(): array {
         return $this->execute(self::QUERY_GET_TABLE_NAMES_ALL);
     }
 
-    # ---
-
     /**
-     * @param SQLQuery $query
-     * @return SQLQuery
+     * @return array
      */
-    public function query_set_get_num_tables(SQLQuery $query): SQLQuery {
-        return $this->query_func_public_tables_only($query->SELECT()->COUNT());
-    }
-
-    /**
-     * @param SQLQuery $query
-     * @return mixed
-     */
-    public function query_set_get_table_names(SQLQuery $query): SQLQuery {
-        return $this->query_func_public_tables_only($query->SELECT('table_name'))->expecting_multiple_rows();
-    }
-
-    /**
-     * @param SQLQuery $query
-     * @return mixed
-     */
-    public function query_set_get_all_table_names(SQLQuery $query): SQLQuery {
-        return $query->SELECT('table_name')->FROM(self::INFO_SCHEMA_TABLES)->expecting_multiple_rows();
-    }
-
-    /**
-     * @param SQLQuery $query
-     * @return SQLQuery
-     */
-    public function query_set_analyze_db(SQLQuery $query): SQLQuery {
-        return $query->ANALYZE_DB();
-    }
-
-    /**
-     * @param SQLQuery $query
-     * @param DBTable $table
-     * @return SQLQuery
-     */
-    public function query_set_analyze_table(SQLQuery $query, DBTable $table): SQLQuery {
-        return $query->ANALYZE_TABLE($table->get_name());
+    public function get_table_names_and_sizes(): array {
+        $tables = [];
+        /** @var DBTable $table */
+        foreach ($this->db_tables as $name => $table) {
+            $tables[$name] = $table->get_size(false);
+        }
+        return $tables;
     }
 
     # --------------------------------------- P R I V A T E -- U T I L I T I E S ---------------------------------------
@@ -101,10 +82,56 @@ final class DBSchema extends SQLQueryGroup {
      * @param  SQLQuery $query
      * @return SQLQuery
      */
-    private function query_func_public_tables_only(SQLQuery $query): SQLQuery {
-        return $query->FROM(self::INFO_SCHEMA_TABLES)->WHERE_EQUAL_TO_STR('table_schema', 'public')
+    private function public_tables_only(SQLQuery $query): SQLQuery {
+        return $query->FROM('information_schema.tables')
+            ->WHERE_EQUAL_TO_STR('table_schema', 'public')
             ->AND_EQUAL_TO_STR('table_type', 'BASE TABLE');
     }
 
     # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
+
+    /**
+     * @param  SQLQuery $query
+     * @return SQLQuery
+     */
+    public function query_set_get_num_tables(SQLQuery $query): SQLQuery {
+        return $this->public_tables_only($query->SELECT()->COUNT());
+    }
+
+    /**
+     * @param  SQLQuery $query
+     * @return mixed
+     */
+    public function query_set_get_table_names(SQLQuery $query): SQLQuery {
+        return $this->public_tables_only($query->SELECT('table_name'))->multi_row();
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @return mixed
+     */
+    public function query_set_get_all_table_names(SQLQuery $query): SQLQuery {
+        return $query->SELECT('table_name')->FROM('information_schema.tables')->multi_row();
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @return SQLQuery
+     */
+    public function query_set_analyze_db(SQLQuery $query): SQLQuery {
+        /** @var SQLQuery $q */
+        $q = $query->raw_set('ANALYZE VERBOSE');
+        return $q;
+    }
+
+    /**
+     * @param SQLQuery $query
+     * @param DBTable $table
+     * @return SQLQuery
+     */
+    public function query_set_analyze_table(SQLQuery $query, DBTable $table): SQLQuery {
+        /** @var SQLQuery $q */
+        $q = $query->raw_set('ANALYZE VERBOSE ' . $table->get_name());
+        return $q;
+    }
 }

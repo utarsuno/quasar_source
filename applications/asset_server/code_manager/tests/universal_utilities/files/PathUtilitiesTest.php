@@ -1,15 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-27
- * Time: 22:21
- */
+<?php declare(strict_types=1);
 
 namespace CodeManager\Tests;
+
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utilities\File\UtilsPath       as PATH;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utils\File\UtilsPath       as PATH;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 
 
 class PathUtilitiesTest extends FileTestSuite {

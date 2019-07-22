@@ -5,10 +5,7 @@ namespace QuasarSource\SQL\Representation;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\FetchMode;
-use QuasarSource\DataStructure\ConstTable\TraitConstTable;
-use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
-use QuasarSource\SQL\Enum\SQLFetchModes;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use RuntimeException;
 
 /**
  * Class SQLQueryRaw
@@ -16,32 +13,50 @@ use QuasarSource\Utilities\DataType\UtilsString as STR;
  */
 abstract class SQLQueryRaw {
 
+    private const FETCH     = 'fetch';
+    private const FETCH_ALL = 'fetch_all';
+    private const FETCH_NUM = 'fetch_num';
+
     /** @var Statement $statement */
     protected $statement;
 
     /** @var string $sql */
-    protected $sql               = '';
+    protected $sql          = '';
 
-    /** @var int $response_num_rows */
-    protected $response_num_rows = -1;
+    /** @var bool $is_multi_row */
+    protected $is_multi_row = false;
 
-    /** @var int $response_num_cols */
-    protected $response_num_cols = 1;
+    /** @var int $is_multi_col */
+    protected $is_multi_col = false;
+
+    /** @var bool $is_prepared */
+    private $is_prepared    = false;
+
+    public function __destruct() {
+        unset($this->statement, $this->sql, $this->is_multi_col, $this->is_multi_row, $this->is_prepared);
+    }
 
     /**
      * @return SQLQueryRaw
      */
-    public function expecting_multiple_rows(): self {
-        $this->response_num_rows = 2;
+    public function multi_row(): self {
+        $this->is_multi_row = true;
         return $this;
     }
 
     /**
      * @return SQLQueryRaw
      */
-    public function expecting_multiple_cols(): self {
-        $this->response_num_cols = 2;
+    public function multi_cols(): self {
+        $this->is_multi_col = true;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function prepared(): bool {
+        return $this->is_prepared;
     }
 
     /**
@@ -49,10 +64,14 @@ abstract class SQLQueryRaw {
      * @return self
      */
     public function prepare(Connection $connection): self {
-        $this->statement = $connection->prepare($this->sql);
-        if ($this->response_num_cols === 1) {
+        if ($this->is_prepared) {
+            throw new RuntimeException('SQLQuery is already prepared!');
+        }
+        $this->is_prepared = true;
+        $this->statement   = $connection->prepare($this->sql);
+        if (!$this->is_multi_col) {
             $this->statement->setFetchMode(FetchMode::COLUMN, 0);
-        } else if ($this->response_num_cols > 1) {
+        } else if ($this->is_multi_col) {
             $this->statement->setFetchMode(FetchMode::NUMERIC);
         }
         return $this;
@@ -62,16 +81,19 @@ abstract class SQLQueryRaw {
      * @return mixed|mixed[]
      */
     public function execute() {
-        if ($this->response_num_cols === 1) {
-            if ($this->response_num_rows <= 1) {
-                return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
+        if (!$this->is_prepared) {
+            throw new RuntimeException('Can\'t execute a SQLQuery that isn\'t prepared!');
+        }
+        if (!$this->is_multi_col) {
+            if (!$this->is_multi_row) {
+                return $this->execute_and_free_query(self::FETCH);
             }
-            return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
+            return $this->execute_and_free_query(self::FETCH_ALL);
         }
-        if ($this->response_num_cols > 1 && $this->response_num_rows <= 1) {
-            return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH);
+        if ($this->is_multi_col && !$this->is_multi_row) {
+            return $this->execute_and_free_query(self::FETCH);
         }
-        return $this->execute_and_free_query($this->statement, SQLFetchModes::FETCH_ALL);
+        return $this->execute_and_free_query(self::FETCH_ALL);
     }
 
     /**
@@ -87,7 +109,7 @@ abstract class SQLQueryRaw {
      * @param string $sql
      * @return SQLQueryRaw
      */
-    protected function raw_add(string $sql): self {
+    public function raw_add(string $sql): self {
         $this->sql .= $sql . ' ';
         return $this;
     }
@@ -102,27 +124,26 @@ abstract class SQLQueryRaw {
     # --------------------------------------- P R I V A T E -- U T I L I T I E S ---------------------------------------
 
     /**
-     * @param Statement $query
-     * @param string $fetch_mode
+     * @param  string $fetch_mode
      * @return mixed
      */
-    private function execute_and_free_query(Statement $query, string $fetch_mode) {
+    private function execute_and_free_query(string $fetch_mode) {
         #$num_rows_affects = $this->statement->rowCount();
-        if (!$query->execute()) {
-            throw new \RuntimeException('Query failed: {' . ((string) $query) . '}');
+        if (!$this->statement->execute()) {
+            throw new RuntimeException('Query failed: {' . ((string) $this->statement) . '}');
         }
         switch ($fetch_mode) {
-            case SQLFetchModes::FETCH:
-                $results = $query->fetch();
+            case self::FETCH:
+                $results = $this->statement->fetch();
                 break;
-            case SQLFetchModes::FETCH_ALL:
-                $results = $query->fetchAll();
+            case self::FETCH_ALL:
+                $results = $this->statement->fetchAll();
                 break;
             default:
-                $results = $query->execute();
+                $results = $this->statement->execute();
                 break;
         }
-        $query->closeCursor();
+        $this->statement->closeCursor();
         return $results;
     }
 

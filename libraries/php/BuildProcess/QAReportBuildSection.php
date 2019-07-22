@@ -2,12 +2,11 @@
 
 namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Repository\CodeManager\RepoFile;
+use CodeManager\Repository\CodeManager\File\RepoFile;
 use CodeManager\Repository\CodeManager\RepoSnapshotQA;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
-use QuasarSource\Utilities\Exception\ParameterException;
-
+use QuasarSource\Utils\Exception\ParameterException;
 
 class QAReportBuildSection extends BuildSection {
 

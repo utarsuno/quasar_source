@@ -2,23 +2,23 @@
 
 namespace QuasarSource\Finance\Binance;
 use QuasarSource\Finance\Binance\Enum\BinanceEnumAPIKeys as KEYS;
-use CodeManager\Service\Feature\Config\FeatureConfigYAMLTrait;
-use QuasarSource\Utilities\File\Discrete\YAMLUtils   as YAML;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceOrderBook;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceAveragePrice;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceExchangeInfo;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinancePing;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinancePrice;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceStatistics;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceTime;
-use QuasarSource\Utilities\RequestsHTTP\Binance\Endpoint\BinanceTrades;
+use CodeManager\Service\Feature\Config\TraitConfigYAML;
+use QuasarSource\Utils\File\Discrete\YAMLUtils   as YAML;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceOrderBook;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceAveragePrice;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceExchangeInfo;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinancePing;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinancePrice;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceStatistics;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceTime;
+use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceTrades;
 
 /**
  * Class BinanceAPI
  * @package QuasarSource\Finance\Binance
  */
 abstract class BinanceAPI {
-    use FeatureConfigYAMLTrait;
+    use TraitConfigYAML;
 
     /** @var string */
     protected $api_key;

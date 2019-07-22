@@ -6,10 +6,14 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 
-
+/**
+ * Trait FieldID
+ * @package CodeManager\Entity\Abstractions\Traits\MetaData
+ */
 trait FieldID {
 
     /**
+     * @var int $id
      * @Id
      * @Column(type="integer", nullable=false, unique=true)
      * @GeneratedValue(strategy="IDENTITY")
@@ -17,22 +21,10 @@ trait FieldID {
     protected $id;
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId() {
+    public function getID(): int {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     * @return self
-     */
-    public function setId($id): self {
-        $this->id = $id;
-        return $this;
-    }
-
 }
-
-
-

@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\DataStructure\BuildStep;
+
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
-use QuasarSource\Utilities\DataType\UtilsArray  as ARY;
-use QuasarSource\Utilities\DataType\UtilsString as STR;
+use QuasarSource\Utils\DataType\UtilsArray  as ARY;
+use QuasarSource\Utils\DataType\UtilsString as STR;
 use Throwable;
 
 /**
@@ -19,21 +20,9 @@ final class BuildStep {
 
     public const FLAG_STARTED     = 'started';
     public const FLAG_FAILED      = 'failed';
+    public const FLAG_RECOVERED   = 'recovered';
     public const FLAG_INTERRUPTED = 'interrupted';
     public const FLAG_COMPLETED   = 'completed';
-
-    // TEMP
-    private const HEADER_START       = 'start';
-    private const HEADER_FAILED      = 'failed';
-    private const HEADER_INTERRUPTED = 'interrupted';
-    private const HEADER_COMPLETED   = 'completed';
-    // TEMP
-
-    /** @var array $output */
-    private $output              = [];
-
-    /** @var array $errors */
-    private $errors              = [];
 
     /** @var array $callbacks */
     private $callbacks           = [];
@@ -44,102 +33,146 @@ final class BuildStep {
     /** @var array $callbacks_on_passed */
     private $callbacks_on_passed = [];
 
+    private $callback_executions = [];
+
+    private $last_exception_thrown;
+
     /**
      * @param string $name
      */
     public function __construct(string $name) {
         $this->set_name_and_label($name, 'BuildStep');
         $this->init_trait_timer(false, true);
-        $this->flags_set_all([self::FLAG_STARTED, self::FLAG_FAILED, self::FLAG_INTERRUPTED, self::FLAG_COMPLETED]);
+        $this->flags_set_all([self::FLAG_STARTED, self::FLAG_FAILED, self::FLAG_INTERRUPTED, self::FLAG_COMPLETED, self::FLAG_RECOVERED]);
     }
 
     /**
-     * @param callable $callback
-     * @param string $description
-     * @param callable|null $callback_on_failed
+     * @return mixed
+     */
+    public function get_last_exception() {
+        return $this->last_exception_thrown;
+    }
+
+    /**
+     * @param callable      $callback
+     * @param string        $description
      * @param callable|null $callback_on_passed
+     * @param callable|null $callback_on_failed
      */
     public function add_sub_step(
         callable $callback,
-        string $description,
-        callable $callback_on_failed=null,
-        callable $callback_on_passed=null
+        string   $description,
+        callable $callback_on_passed=null,
+        callable $callback_on_failed=null
     ): void {
-        $this->callbacks[$description] = $callback;
+        $this->callback_executions[$description] = 0;
+        $this->callbacks[$description]           = $callback;
         ARY::ref_add_non_null_pair($this->callbacks_on_passed, $description, $callback_on_passed);
         ARY::ref_add_non_null_pair($this->callbacks_on_failed, $description, $callback_on_failed);
+    }
+
+    /**
+     * @param  string   $description
+     * @param  callable $callback
+     * @return bool
+     * @throws Throwable
+     */
+    private function execute_callback(string $description, callable $callback): bool {
+        ++$this->callback_executions[$description];
+        try {
+            $callback();
+            $this->timer->mark_lap($description);
+            return true;
+        } catch (Throwable $e) {
+            $this->timer->mark_lap($e->getMessage());
+            $this->mark_as_failed();
+            $this->last_exception_thrown = $e;
+            return false;
+        }
+    }
+
+    /**
+     * @param  int $n
+     * @throws Throwable
+     */
+    public function run_step(int $n): void {
+        $index = 0;
+        foreach ($this->callbacks as $desc => $callback) {
+            if ($index === $n) {
+                var_dump('Executing{' . $desc . '}');
+                $passed = $this->execute_callback($desc, $callback);
+                if (!$passed) {
+                    $this->run_on_failed_if_exists($desc);
+                } else {
+                    $this->run_on_passed_if_exists($desc);
+                }
+            }
+            ++$index;
+        }
     }
 
     /**
      * @throws Throwable
      */
     public function run(): void {
-        $this->pre_run();
-        $failed = false;
-        var_dump('There are {' . count($this->callbacks) . '} callbacks!');
+        $this->timer->start();
+        $this->flag_set_on(self::FLAG_STARTED);
+        #var_dump('There are {' . count($this->callbacks) . '} callbacks!');
+
         foreach ($this->callbacks as $description => $callback) {
-            $max_attempts           = 1;
-            $current_attempt        = 0;
-            $function_name          = $callback[1];
-            $current_attempt_passed = false;
-            if (STR::ends_with($function_name, '_allow_one_retry')) {
-                $max_attempts = 2;
+            #$function_name = $callback[1];
+            if ($this->has_step_already_ran($description)) {
+                var_dump('Skipping step{' . $description . '}, it has already been executed.');
+                continue;
             }
-
-            while ($current_attempt < $max_attempts) {
-                ++$current_attempt;
-                if ($current_attempt_passed || $this->flag_is_on(self::FLAG_COMPLETED)) {
-                    break;
-                }
-                try {
-                    var_dump('Executing callback{' . $description . '}!');
-                    $callback();
-                    $this->timer->mark_lap($description);
-                    #$this->mark_as_passed();
-                    $current_attempt_passed = true;
-                } catch (Throwable $e) {
-                    $current_attempt_passed = false;
-                    if ($current_attempt === $max_attempts) {
-                        $this->mark_as_failed();
-                        $this->timer->mark_lap($e->getMessage());
-                        # TODO: Temporary.
-                        throw $e;
-                    }
-                    var_dump('TODO: log this error');
-                    var_dump($e->getMessage());
-                }
+            var_dump('Executing{' . $description . '}');
+            $passed = $this->execute_callback($description, $callback);
+            if (!$passed) {
+                $this->run_on_failed_if_exists($description);
+            } else {
+                $this->run_on_passed_if_exists($description);
             }
         }
-        if (!$failed) {
-            $this->flag_set_on(self::FLAG_COMPLETED);
-        }
-        $this->post_run();
-        if ($this->passed()) {
-            var_dump($this . ' passed in {' . $this->timer . '}!');
-            $this->output[] = [$this . ' passed in {' . $this->timer . '}!'];
-        } else {
-            var_dump('Did not pass??');
-        }
-    }
-
-    public function run_unit_of_work(): void {
-        #$this->header($this->name);
-        if ($this->failed()) {
-            #$this->log('--- ' . $this->name . ' failed in {' . $this->timer->get_delta() . '}---');
-            #$this->header(STR::brackets($this->name . ' failed in ', $this->timer->get_delta()));
-            $this->print_header(self::HEADER_FAILED);
-            # TODO: stop the rest of the build!
-        } else {
-            #$this->log('--- ' . $this->name . ' completed in {' . $this->timer->get_delta() . '}---');
-            #$this->header(STR::brackets($this->name . ' completed in ', $this->timer->get_delta()));
-        }
+        $this->flag_set_on(self::FLAG_COMPLETED);
+        $this->timer->stop();
     }
 
     /**
-     * @param string $result
+     * @param  string $description
+     * @throws Throwable
      */
-    private function print_header(string $result): void {
-        #$this->header(STR::brackets($this->name . ' ' . $result . ' in ', $this->timer->get_delta()));
+    private function run_on_failed_if_exists(string $description): void {
+        if (!$this->has_on_failed($description)) {
+            throw $this->last_exception_thrown;
+        }
+        $on_failed = $this->execute_callback($description, $this->callbacks_on_failed[$description]);
+        if (!$on_failed) {
+            throw $this->last_exception_thrown;
+        }
+        $this->mark_as_recovered();
+        $this->timer->mark_lap($description);
+    }
+
+    /**
+     * @param  string $description
+     * @return bool
+     */
+    private function has_step_already_ran(string $description): bool {
+        return $this->callback_executions[$description] !== 0;
+    }
+
+    /**
+     * @param  string $description
+     * @throws Throwable
+     */
+    private function run_on_passed_if_exists(string $description): void {
+        if ($this->has_on_passed($description)) {
+            $on_passed = $this->execute_callback($description, $this->callbacks_on_passed[$description]);
+            if (!$on_passed) {
+                throw $this->last_exception_thrown;
+            }
+        }
+        $this->timer->mark_lap($description);
     }
 
     protected function mark_as_passed(): void {
@@ -150,6 +183,11 @@ final class BuildStep {
     protected function mark_as_failed(): void {
         $this->flag_set_on(self::FLAG_FAILED);
         $this->flag_set_off(self::FLAG_COMPLETED);
+    }
+
+    private function mark_as_recovered(): void {
+        $this->flag_set_off(self::FLAG_FAILED);
+        $this->flag_set_on(self::FLAG_RECOVERED);
     }
 
     /**
@@ -166,13 +204,20 @@ final class BuildStep {
         return $this->flag_is_off(self::FLAG_FAILED) && $this->flag_is_on(self::FLAG_COMPLETED);
     }
 
-    protected function pre_run(): void {
-        $this->timer->start();
-        $this->flag_set_on(self::FLAG_STARTED);
+    /**
+     * @param  string $desc
+     * @return bool
+     */
+    private function has_on_failed(string $desc): bool {
+        return array_key_exists($desc, $this->callbacks_on_failed);
     }
 
-    protected function post_run(): void {
-        $this->timer->stop();
+    /**
+     * @param  string $desc
+     * @return bool
+     */
+    private function has_on_passed(string $desc): bool {
+        return array_key_exists($desc, $this->callbacks_on_passed);
     }
 
 }

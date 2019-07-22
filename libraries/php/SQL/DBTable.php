@@ -3,6 +3,7 @@
 namespace QuasarSource\SQL;
 
 use Doctrine\DBAL\Connection;
+use InvalidArgumentException;
 use QuasarSource\SQL\Representation\SQLQuery;
 use QuasarSource\SQL\Representation\SQLQueryGroup;
 
@@ -25,9 +26,11 @@ final class DBTable extends SQLQueryGroup {
      * @param Connection $connection
      */
     public function __construct(string $table_name, Connection $connection) {
-        parent::__construct($table_name, $connection);
-        $this->attributes[SQLQuery::ATTRIBUTE_SELF_TYPE] = SQLQuery::VAL_TYPE_TABLE;
-        $this->attributes[SQLQuery::ATTRIBUTE_SELF_NAME] = $this->get_name();
+        parent::__construct(
+            $table_name,
+            $connection,
+            [SQLQuery::ATTRIBUTE_SELF_TYPE => SQLQuery::VAL_TYPE_TABLE, SQLQuery::ATTRIBUTE_SELF_NAME => $table_name]
+        );
     }
 
     /**
@@ -102,6 +105,9 @@ final class DBTable extends SQLQueryGroup {
         if ($field === null) {
             $field = $this->sort_field_time;
         }
+        if ($field === null) {
+            throw new InvalidArgumentException('The provided sort time field is null!');
+        }
         return $query->SELECT_ALL()->FROM_SELF()->DESCENDING_ON($field)->LIMIT(1);
     }
 
@@ -119,6 +125,6 @@ final class DBTable extends SQLQueryGroup {
      * @return SQLQuery
      */
     public function query_set_get_num_rows_expensive(SQLQuery $query): SQLQuery {
-        return $query->SELECT_COUNT_FROM_SELF('id');
+        return $query->SELECT_COUNT_FROM('id', $query->get_owner_name(false));
     }
 }

@@ -17,8 +17,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
-use QuasarSource\Utilities\File\UtilsPath       as PATH;
-use QuasarSource\Utilities\Process\UtilsProcess as RUN;
+use QuasarSource\Utils\File\UtilsPath       as PATH;
+use QuasarSource\Utils\Process\UtilsProcess as RUN;
 
 /**
  * Class EntityNPMLib

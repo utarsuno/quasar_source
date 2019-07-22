@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-
 namespace QuasarSource\QualityAssurance;
 use QuasarSource\CommonFeatures\TraitName;
-use QuasarSource\Utilities\File\Discrete\XMLElement;
-
+use QuasarSource\Utils\File\Discrete\XMLElement;
 
 abstract class TestResultAbstract {
     use TraitName;
