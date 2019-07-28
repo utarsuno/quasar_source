@@ -10,6 +10,10 @@ console_list () {
     ${RUN_CONSOLE_CMD} list
 }
 
+console_db_schema_validate () {
+    ${RUN_CONSOLE_CMD} doctrine:schema:validate -vvv
+}
+
 console_db_schema_update () {
     ${RUN_CONSOLE_CMD} doctrine:schema:update --force --complete --dump-sql -vvv
 }

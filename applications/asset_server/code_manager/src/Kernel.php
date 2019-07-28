@@ -53,13 +53,7 @@ class Kernel extends BaseKernel {
         #var_dump('CONFIGURE CONTAINER!');
         $container->setParameter(SCHEMAS::YAML_CODE_MANAGER, [
             'global_information' => null,
-            'assets'             => [
-                '.css'  => null,
-                '.html' => null,
-                '.json' => null,
-                '.vert' => null,
-                '.frag' => null
-            ],
+            'assets'             => ['.vert' => null, '.frag' => null],
             'npm'                => null,
             'qa_report'          => null,
             'docker'             => null,

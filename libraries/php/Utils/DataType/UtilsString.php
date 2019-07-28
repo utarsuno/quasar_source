@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 17:43
- */
 
 namespace QuasarSource\Utils\DataType;
 
@@ -38,6 +32,15 @@ abstract class UtilsString implements InterfaceDivisible {
             $lines[$i] = self::insert_before($lines[$i], str_repeat(' ', $max_depth - $depths[$i]), $align_on);
         }
         return $lines;
+    }
+
+    /**
+     * @param  string $text
+     * @param  string $match
+     * @return bool
+     */
+    public static function has_only_one(string $text, string $match): bool {
+        return substr_count($text, $match) === 1;
     }
 
     /**
@@ -181,19 +184,49 @@ abstract class UtilsString implements InterfaceDivisible {
     }
 
     /**
-     * @param  string $base
-     * @param  array  $text_matches
-     * @return int [0 is returned if no match was found]
+     * @param  string $base         [The text to search through                  ]
+     * @param  array  $text_matches [The text matches (sub-strings) to find/match]
+     * @return int                  [-1 is returned if no match was found        ]
+     */
+    public static function get_starts_with_index(string $base, array $text_matches): int {
+        $index = 0;
+        foreach ($text_matches as $text) {
+            if (self::starts_with($base, $text)) {
+                return $index;
+            }
+            ++$index;
+        }
+        return -1;
+    }
+
+    /**
+     * @param  string $base         [The text to search through                  ]
+     * @param  array  $text_matches [The text matches (sub-strings) to find/match]
+     * @return string               [the found match or null '' if no match found]
+     */
+    public static function get_starts_with_match(string $base, array $text_matches): string {
+        foreach ($text_matches as $text) {
+            if (self::starts_with($base, $text)) {
+                return $text;
+            }
+        }
+        return '';
+    }
+
+    /**
+     * @param  string $base         [The text to search through                  ]
+     * @param  array  $text_matches [The text matches (sub-strings) to find/match]
+     * @return int                  [-1 is returned if no match was found        ]
      */
     public static function get_match_index(string $base, array $text_matches): int {
         $index = 0;
         foreach ($text_matches as $text) {
-            ++$index;
             if (self::has($base, $text)) {
                 return $index;
             }
+            ++$index;
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -233,6 +266,15 @@ abstract class UtilsString implements InterfaceDivisible {
             return strpos($base, $match) !== false;
         }
         return stripos($base, $match) !== false;
+    }
+
+    /**
+     * @param  string $base
+     * @param  string $match
+     * @return bool
+     */
+    public static function does_not_have(string $base, string $match): bool {
+        return !self::has($base, $match);
     }
 
     /**
@@ -278,11 +320,20 @@ abstract class UtilsString implements InterfaceDivisible {
     /**
      * Returns an array with the provided string split based of the pattern to match.
      *
-     * @param  string $base      [The string to base contents off of.]
-     * @param  string $delimiter [The string to match and split by.  ]
-     * @return array             [An array of string segments.       ]
+     * @param  string $base           {string to base contents off of            }
+     * @param  string $delimiter      {string to match and split by              }
+     * @param  bool   $keep_delimiter {if true, prepend delimiter to each segment}
+     * @return array                  {array of string segments                  }
      */
-    public static function split(string $base, string $delimiter=PHP_EOL): array {
+    public static function split(string $base, string $delimiter=PHP_EOL, bool $keep_delimiter=false): array {
+        if ($keep_delimiter) {
+            $segments                = explode($delimiter, $base, PHP_INT_MAX);
+            $segments_with_delimiter = [];
+            foreach ($segments as $segment) {
+                $segments_with_delimiter[] = $delimiter . $segment;
+            }
+            return $segments_with_delimiter;
+        }
         return explode($delimiter, $base, PHP_INT_MAX);
     }
 
@@ -342,6 +393,16 @@ abstract class UtilsString implements InterfaceDivisible {
             $base = str_replace($m, '', $base);
         }
         return $base;
+    }
+
+    /**
+     * @param  string       $base
+     * @param  string|array $patterns0
+     * @param  string|array $patterns1
+     * @return string
+     */
+    public static function remove_twice(string $base, $patterns0, $patterns1): string {
+        return self::remove(self::remove($base, $patterns0), $patterns1);
     }
 
     /**

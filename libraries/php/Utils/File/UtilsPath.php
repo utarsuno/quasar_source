@@ -2,7 +2,7 @@
 
 namespace QuasarSource\Utils\File;
 
-use function count;
+use InvalidArgumentException;
 use QuasarSource\Utils\DataType\UtilsString as STR;
 
 /**
@@ -12,6 +12,18 @@ use QuasarSource\Utils\DataType\UtilsString as STR;
 abstract class UtilsPath {
 
     private static $cwd;
+
+    /**
+     * @param  string $path
+     * @param  bool   $raise_exception_if_not
+     * @return bool
+     */
+    public static function is_valid(string $path, bool $raise_exception_if_not=true): bool {
+        if ($raise_exception_if_not && !is_file($path) && !is_dir($path)) {
+            throw new InvalidArgumentException('Path{' . $path . '} does not exist!');
+        }
+        return true;
+    }
 
     /**
      * Returns a string representing the provided path with 1 less directory depth (if not already at base directory).
@@ -48,43 +60,51 @@ abstract class UtilsPath {
         chdir($path);
     }
 
+    /**
+     * @param  string $path
+     * @return string
+     */
     public static function get_directory(string $path): string {
         return pathinfo($path, PATHINFO_DIRNAME) . '/';
     }
 
+    /**
+     * @param  string $path
+     * @return string
+     */
     public static function get_file_full_name(string $path): string {
-        return self::get_file_name($path) . self::get_ending_extension($path);
+        return pathinfo($path, PATHINFO_FILENAME) . self::get_ending_extension($path);
     }
 
     /**
-     * @param string $path
+     * @param  string $path
      * @return string
      */
-    public static function get_file_name(string $path): string {
-        return pathinfo($path, PATHINFO_FILENAME);
+    public static function get_extensions_as_string(string $path): string {
+        if (STR::does_not_have($path, '.')) {
+            return '';
+        }
+        $full_name = self::get_file_full_name($path);
+        return STR::remove($full_name, STR::keep_all_before($full_name, '.'));
     }
 
-    public static function get_all_extensions(string $path): ?array {
-        $file_full_name = self::get_file_full_name($path);
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
-        if ($extension === null || $extension === '') {
-            return null;
+    /**
+     * @param  string $path
+     * @return array
+     */
+    public static function get_extensions(string $path): array {
+        $full_name  = self::get_file_full_name($path);
+        if (!STR::has($path, '.') || (STR::has_only_one($path, '.') && STR::ends_with($path, '.'))) {
+            return [];
         }
-        if ($extension === '.') {
-            return ['.'];
-        }
-        $extensions     = STR::split($file_full_name, '.');
-        $num_extensions = count($extensions);
-        if ($num_extensions > 1) {
-            $return_extensions = [];
-            for ($i = 1; $i < $num_extensions; $i++) {
-                $return_extensions[] = '.' . $extensions[$i];
-            }
-            return $return_extensions;
-        }
-        return null;
+        $extensions = STR::remove($full_name, STR::keep_all_before($full_name, '.'));
+        return STR::split($extensions, '.', true);
     }
 
+    /**
+     * @param  string $path
+     * @return string
+     */
     public static function get_ending_extension(string $path): string {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         if ($extension === null || $extension === '') {
@@ -94,6 +114,17 @@ abstract class UtilsPath {
             return $extension;
         }
         return '.' . $extension;
+    }
+
+    /**
+     * @param  string $path
+     * @return array
+     */
+    public static function get_all_path_segments(string $path): array {
+        $directory  = self::get_directory($path);
+        $extensions = self::get_extensions_as_string($path);
+        $file_name  = STR::remove_twice($path, $directory, $extensions);
+        return [$directory, $file_name, $extensions];
     }
 
 }

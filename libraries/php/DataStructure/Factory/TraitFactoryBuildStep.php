@@ -18,6 +18,10 @@ trait TraitFactoryBuildStep {
     /** @var BuildStep $build_step */
     protected $build_step;
 
+    public function trait_destruct_factory_build_step(): void {
+        unset($this->build_step);
+    }
+
     /**
      * @param  string $name
      * @return BuildStep
@@ -27,6 +31,7 @@ trait TraitFactoryBuildStep {
         $function_names   = UtilsObject::get_functions($this, 'build_step');
         $build_steps_data = [];
         $callback_types   = ['on_passed', 'on_failed'];
+        $index            = null;
         foreach ($function_names as $name) {
             $step_num = STR::remove($name, 'build_step');
             if (STR::has_underscore($step_num)) {
@@ -35,19 +40,16 @@ trait TraitFactoryBuildStep {
                 throw new RuntimeException('Invalid build step function naming syntax! {' . $name . '}');
             }
             if (ARY::is_key_missing($build_steps_data, $step_num)) {
+                // TODO: Only perform the out of order safety checks in DEV and QA, not in PROD.
+                if ($index !== null && $index > (int) $step_num) {
+                    throw new RuntimeException('Build steps are not in the correct order!');
+                }
                 $build_steps_data[$step_num] = [null, null, null, $description];
             }
             // 0 --> callback, 1 --> callback_on_passed, 2 --> callback_on_failed
-            $build_steps_data[$step_num][STR::get_match_index($description, $callback_types)] = [$this, $name];
+            $build_steps_data[$step_num][STR::get_match_index($description, $callback_types) + 1] = [$this, $name];
         }
-        // TODO: Only perform the out of order safety checks in DEV and QA, not in PROD.
-        $index = null;
-        foreach ($build_steps_data as $step_num => $callbacks) {
-            $current_index = (int) $step_num;
-            if ($index !== null && $index > $current_index) {
-                throw new RuntimeException('Build steps are not in the correct order!');
-            }
-            $index = $current_index;
+        foreach ($build_steps_data as $callbacks) {
             // $callbacks[3] --> the description
             $step->add_sub_step($callbacks[0], $callbacks[3], $callbacks[1], $callbacks[2]);
         }

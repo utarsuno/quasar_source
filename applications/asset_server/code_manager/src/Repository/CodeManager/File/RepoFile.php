@@ -1,130 +1,157 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-20
- * Time: 23:15
- */
 
 namespace CodeManager\Repository\CodeManager\File;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
+use CodeManager\Entity\CodeManager\File\EntityDirectory;
 use CodeManager\Entity\CodeManager\File\EntityFile;
-use CodeManager\Repository\Abstractions\AbstractRepo;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use QuasarSource\Utils\Exception\ParameterException;
-use QuasarSource\Utils\File\Discrete\CSSUtilities;
-use QuasarSource\Utils\File\Discrete\HTMLUtils;
-use QuasarSource\Utils\File\UtilsFile as UFO;
+use CodeManager\Entity\CodeManager\File\EntityFileType;
+use CodeManager\Repository\Abstractions\QueryableRepo;
+use RuntimeException;
+use QuasarSource\SQL\Doctrine\Fields\EnumFields as FIELD;
+use QuasarSource\Utils\File\UtilsFile           as UFO;
+use QuasarSource\Utils\DataType\UtilsString     as STR;
+use QuasarSource\Utils\File\UtilsPath           as PATH;
 
 /**
  * Class RepoFile
  * @package CodeManager\Repository\CodeManager\File
  */
-class RepoFile extends AbstractRepo {
+class RepoFile extends QueryableRepo {
 
-    protected $default_search_attribute = 'full_path';
+    protected $default_search_attribute = FIELD::FULL_PATH_AS_SQL;
     public const ENTITY_CLASS           = EntityFile::class;
     protected $entity_class             = EntityFile::class;
 
+    /** @var RepoFileType $repo_file_types */
+    private $repo_file_types;
+
     /**
-     * @param EntityManagerInterface $em
-     * @param ClassMetadata          $class
+     * @param  string          $path
+     * @param  EntityDirectory $directory
+     * @return bool
      */
-    public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
-        parent::__construct($em, $class);
-        #$this->query_manager->set_table_name(TABLE::CODE_BUILDS);
-        #$this->query_manager->set_sort_field(FIELD::TIME_END);
+    public function sync(string $path, EntityDirectory $directory): bool {
+        /** @var EntityFile $file */
+        $file        = $this->findOneBy([FIELD::FULL_PATH_AS_SQL => $path]);
+        $out_of_date = false;
+        if ($file->has_sha512sum_changed()) {
+            $out_of_date = true;
+            $file->sync();
+            $this->save_entity($file, true);
+        }
+        return $out_of_date;
     }
 
-    public function does_child_file_exist_as_needed(EntityFile $file, string $path_to_child) : bool {
+    /**
+     * @param  string $path
+     * @return bool
+     */
+    public function does_entity_exist(string $path): bool {
+        return $this->findOneBy([FIELD::FULL_PATH_AS_SQL => $path]) !== null;
+    }
+
+    /**
+     * @param  string          $path
+     * @param  EntityDirectory $parent_directory
+     * @return EntityFile
+     */
+    public function create_new_fully_cached_entity(string $path, EntityDirectory $parent_directory): EntityFile {
+        var_dump('create_new_fully_cached_entity');
+        $entity = $this->create_new_file_entity($path);
+        $parent_directory->addFile($entity);
+        $entity->sync();
+        $entity->setDirectory($parent_directory);
+        if (!$entity->hasParent()) {
+            $entity->set_rank(0);
+        }
+        return $this->fully_save_entity($entity, $this->repo_file_types->get_entity_needed_file_type($entity));
+    }
+
+    /**
+     * @param  EntityFile      $parent_file
+     * @param  EntityFileType  $child_file_type
+     * @param  string          $child_path
+     * @param  EntityDirectory $parent_directory
+     * @return EntityFile
+     */
+    public function create_new_fully_cached_entity_child(
+        EntityFile      $parent_file,
+        EntityFileType  $child_file_type,
+        string          $child_path,
+        EntityDirectory $parent_directory=null
+    ): EntityFile {
+        var_dump('create_new_fully_cached_child_entity');
+        if ($this->does_entity_exist($child_path)) {
+            throw new RuntimeException('Trying to create EntityFile for path{' . $child_path . '} which already exists in the DB!');
+        }
+        $entity = $this->create_new_file_entity($child_path);
+        if ($parent_directory !== null) {
+            $parent_directory->addFile($entity);
+        }
+        $entity->sync();
+        if ($parent_directory !== null) {
+            $entity->setDirectory($parent_directory);
+        }
+        $entity = $this->fully_save_entity($entity, $child_file_type);
+        if ($parent_file !== null) {
+            $this->set_parent_and_child($parent_file, $entity);
+        }
+        return $entity;
+    }
+
+    /**
+     * @param  EntityFile $file
+     * @param  string     $output_directory
+     * @return EntityFile
+     */
+    public function ensure_file_has_gzipped_child(EntityFile $file, string $output_directory): EntityFile {
         if (!$file->hasChild()) {
-            if ($this->has_entity($path_to_child)) {
-                var_dump($file->getFullName());
-                var_dump('EntityFile{' . $file->getFullName() . '} did not have a child ID but cached path{' . $path_to_child . '} exists as a DB record, deleting the record!');
-                exit();
-                $this->remove_entity($this->get_entity($path_to_child));
-            }
-            return false;
-        }
-        return true;
-    }
-
-    protected function set_entity_file_child(EntityFile $parent, EntityFile $child): void {
-        if ($parent->getChild() === null) {
-            $parent->setChild($child);
-        }
-        if ($child->getParent() === null) {
-            $child->setParent($parent);
-        }
-        $this->save_entity($parent);
-        $this->save_entity($child, true);
-    }
-
-    private function create_new_child_entity(EntityFile $file, string $path_to_child, array $options): EntityInterface {
-        $child = $this->create_new_entity($path_to_child, false);
-        $child->set_flags($options);
-        $this->set_entity_file_child($file, $child);
-        return $child;
-    }
-
-    /**
-     * @param EntityFile $file
-     * @param string $path_to_child
-     * @param string $flag
-     * @return EntityInterface
-     * @throws ParameterException
-     */
-    public function ensure_file_has_child(EntityFile $file, string $path_to_child, string $flag): EntityInterface {
-        if (!$this->does_child_file_exist_as_needed($file, $path_to_child)) {
-            $options        = $file->get_flags();
-            $options[$flag] = true;
-            switch ($flag) {
-                case EntityFile::FLAG_GZIP:
-                    UFO::gzip($file->getFullPath(), $path_to_child);
-                    return $this->create_new_child_entity($file, $path_to_child, $options);
-                case EntityFile::FLAG_MINIFY:
-                    switch ($file->getType()) {
-                        case EntityFile::TYPE_HTML:
-                            #UFO::minify_html($file->getFullPath(), $path_to_child);
-                            HTMLUtils::minify($file->getFullPath(), $path_to_child);
-                            break;
-                        case EntityFile::TYPE_CSS:
-                            #UFO::minify_css($file->getFullPath(), $path_to_child);
-                            CSSUtilities::minify($file->getFullPath(), $path_to_child);
-                            break;
-                        default:
-                            throw ParameterException::invalid_function_parameter('ensure_file_has_child', 'file type not supported {' . $path_to_child . '}');
-                            break;
-                    }
-                    return $this->create_new_child_entity($file, $path_to_child, $options);
-                case EntityFile::FLAG_PRE_PROCESS:
-                    return $this->create_new_child_entity($file, $path_to_child, $options);
-            }
-            $file->set_state(EntityState::STATE_UPDATED);
-            $file->getChild()->set_state(EntityState::STATE_CREATED);
-        } else {
-            // TODO: probably wrong logic here
-            $file->getChild()->set_state(EntityState::STATE_NO_CHANGE);
+            $needed_type = $this->repo_file_types->get_type_as_gzipped($file);
+            $output_path = $output_directory . STR::replace(PATH::get_file_full_name($file->getFullPath()), $file->getFileTypeString(), $needed_type->getAsString());
+            UFO::gzip($file->getFullPath(), $output_path);
+            return $this->create_new_fully_cached_entity_child($file, $needed_type, $output_path);
         }
         return $file->getChild();
     }
 
-    protected function event_before_remove_entity(EntityInterface $entity): void {
-        var_dump('REMOVING CHILD!');
-        var_dump($entity->getName());
-        #var_dump($entity);
-        if ($entity->hasParent()) {
-            $parent = $entity->getParent();
-            $parent->remove_child();
-            $entity->remove_parent();
-            $this->save_entity($parent);
-            $this->save_entity($entity);
-        }
-        if ($entity->hasChild()) {
-            $this->remove_entity($entity->getChild());
-        }
+    # ------------------------------------------------- P R I V A T E --------------------------------------------------
+
+    /**
+     * @param  EntityFile $parent
+     * @param  EntityFile $child
+     * @return void
+     */
+    private function set_parent_and_child(EntityFile $parent, EntityFile $child): void {
+        $parent->setChild($child);
+        $child->setParent($parent);
+        $this->save_entity($parent, false);
+        $this->save_entity($child, true);
+    }
+
+    /**
+     * @param  string $path
+     * @return EntityFile
+     */
+    private function create_new_file_entity(string $path): EntityFile {
+        $file = new EntityFile();
+        $file->setFullPath($path);
+        return $file;
+    }
+
+    /**
+     * @param  EntityFile     $file
+     * @param  EntityFileType $file_type
+     * @return EntityFile
+     */
+    private function fully_save_entity(EntityFile $file, EntityFileType $file_type): EntityFile {
+        $file_type->mark_entity_file($file);
+        $this->save_entity($file, true);
+        $this->repo_file_types->save_entity($file_type);
+        return $file;
+    }
+
+    # ----------------------------------- A B S T R A C T I O N -- C O N T R A C T S -----------------------------------
+    public function set_needed_repos(): void {
+        $this->repo_file_types = $this->db_service->get_repo(RepoFileType::class);
     }
 }

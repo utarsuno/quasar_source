@@ -6,13 +6,12 @@ use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntTwo;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointerTwo;
 use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimestamp;
 use CodeManager\Entity\Users\EntityEntity;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\Finance\UtilsFinance;
-use QuasarSource\Utils\Time\UtilsUnixTime;
+use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Utils\Time\UtilsUnixTime as TIME;
 
 /**
  * Class EntityAssetFlow
@@ -29,8 +28,7 @@ class EntityAssetFlow extends AbstractEntity {
     // A pointer from Entity and pointer to Entity.
     use FieldEntityPointerTwo;
     // Optional, time of transaction.
-    use FieldUnixTime;
-    use FieldUnixTimestamp;
+    use TraitUnixTime0;
 
     // TODO: TRANSACTION TYPE
 
@@ -83,7 +81,7 @@ class EntityAssetFlow extends AbstractEntity {
      */
     public function set_raw_timestamp(string $timestamp): self {
         $this->cache_raw_timestamp = $timestamp;
-        return $this->set_timestamp(UtilsUnixTime::parse_string_date($timestamp));
+        return $this->set_timestamp(TIME::parse_string_date($timestamp));
     }
 
     /**

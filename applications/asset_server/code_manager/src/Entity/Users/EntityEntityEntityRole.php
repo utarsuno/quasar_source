@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-21
- * Time: 00:06
- */
 
 namespace CodeManager\Entity\Users;
 

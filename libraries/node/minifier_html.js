@@ -5,9 +5,9 @@
 // Used for HTML minification.
 let lib_html = require('./../../applications/asset_server/js/node_modules/html-minifier');
 // File utilities.
-let lib_file = require('./utilities_file.js');
+let lib_file = require('./utils_file.js');
 
-let minify = function(html) {
+let minify_html = function(html) {
     return lib_html.minify(html, {
         collapseBooleanAttributes    : true,
         collapseInlineTagWhitespace  : true,
@@ -44,7 +44,7 @@ let _minify_html_file = function(path) {
     return new Promise(function (resolve, reject) {
         let promise = lib_file.get_contents_promise(path);
         promise.then(function(file_contents) {
-            resolve(minify(file_contents));
+            resolve(minify_html(file_contents));
         }).catch(function(error) {
             reject(error);
         });
@@ -64,8 +64,8 @@ let minify_html_file = function(path_html_file, path_output_file=null) {
 };
 
 module.exports = {
-    'minify'          : minify,
-    'minify_html_file': minify_html_file
+    'minify'     : minify_html,
+    'minify_file': minify_html_file
 };
 
 

@@ -19,16 +19,23 @@ use QuasarSource\Utils\Process\UtilsProcess;
 abstract class UtilsFile {
 
     /**
-     * @param  string $path                   [The path to check for a valid file.                 ]
-     * @param  bool   $raise_exception_if_not [If provided true, exception thrown on in-valid path.]
-     * @return bool                           [True if a file actually exists at provided path.    ]
+     * @param  string $path                   {path to check for a valid file                     }
+     * @param  bool   $raise_exception_if_not {if provided true, exception thrown on in-valid path}
+     * @return bool                           {true if a file actually exists at provided path    }
      */
-    public static function is_valid(string $path, bool $raise_exception_if_not = true): bool {
-        $is_path_valid = is_file($path);
-        if ($raise_exception_if_not && !$is_path_valid) {
+    public static function is_valid(string $path, bool $raise_exception_if_not=true): bool {
+        if ($raise_exception_if_not && !is_file($path)) {
             throw new InvalidArgumentException('FileDNE{' . $path . '}');
         }
-        return $is_path_valid;
+        return true;
+    }
+
+    /**
+     * @param  array $array
+     * @return void
+     */
+    public static function ref_sort_alphabetically_by_key(array & $array): void {
+        ksort($array);
     }
 
     /**
@@ -58,8 +65,8 @@ abstract class UtilsFile {
     /**
      * Return the sha512sum of a file as a string hex number.
      *
-     * @param string $path [The path to the file to get a hash value for.]
-     * @return string      [Hex digits.                                  ]
+     * @param  string $path [path to the file to get a hash value for]
+     * @return string       [128 hex digits                          ]
      * @throws ExceptionSystem
      */
     public static function get_sha512sum(string $path): string {
@@ -74,8 +81,8 @@ abstract class UtilsFile {
     /**
      * Return the size (in bytes) of the file provided.
      *
-     * @param string $path [The path to the file to get size of.]
-     * @return int         [The number of bytes used by file.   ]
+     * @param  string $path [path to the file to get size of]
+     * @return int          [number of bytes used by file   ]
      * @throws ExceptionSystem
      */
     public static function get_size(string $path): int {
@@ -90,8 +97,8 @@ abstract class UtilsFile {
     /**
      * Take the contents of the provided file and create a gzipped version at provided output path.
      *
-     * @param string $path_base   [The path to the file to get contents of.]
-     * @param string $path_output [The path to create a gzipped file at.   ]
+     * @param  string $path_base   [path to the file to get contents of]
+     * @param  string $path_output [path to create a gzipped file at   ]
      * @throws ExceptionSystem
      */
     public static function gzip(string $path_base, string $path_output): void {
@@ -104,7 +111,7 @@ abstract class UtilsFile {
     }
 
     /**
-     * @param string $path
+     * @param  string $path
      * @throws ExceptionSystem
      */
     public static function delete(string $path): void {
@@ -138,7 +145,7 @@ abstract class UtilsFile {
     }
 
     /**
-     * @param string $path
+     * @param  string $path
      * @return array
      * @throws ExceptionSystem
      */
@@ -175,8 +182,8 @@ abstract class UtilsFile {
     }
 
     /**
-     * @param string $function_name
-     * @param $data
+     * @param  string $function_name
+     * @param  $data
      * @return ExceptionSystem
      */
     protected static function exception(string $function_name, $data): ExceptionSystem {

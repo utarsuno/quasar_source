@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-21
- * Time: 21:56
- */
 
 namespace CodeManager\Service;
 
@@ -12,12 +6,13 @@ use CodeManager\Entity\CodeManager\EntityCodeBuild;
 use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Repository\CodeManager\File\RepoDirectory;
 use CodeManager\Repository\CodeManager\File\RepoFile;
+use CodeManager\Repository\CodeManager\File\RepoFileType;
 use CodeManager\Repository\CodeManager\RepoCodeBuild;
 use CodeManager\Service\Feature\AbstractFactoryService;
 use CodeManager\Service\Task\Minification;
+use CodeManager\Service\Task\TaskBuildWebAssets;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Exception;
-use QuasarSource\BuildProcess\Abstractions\BuildSection;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
 use CodeManager\Service\Feature\Config\InterfaceConfigUniversal;
 use CodeManager\Service\Feature\Config\TraitConfigYAML;
@@ -49,6 +44,9 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
     /** @var DBService $service_db */
     private $service_db;
 
+    /** @var RepoCodeBuild $repo_code_build */
+    private $repo_code_build;
+
     /**
      * @param  ContainerInterface    $container
      * @param  ParameterBagInterface $bag
@@ -74,9 +72,6 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
         #}
     }
 
-    #CSSBuildSection::class,
-    #HTMLBuildSection::class,
-    #JSONBuildSection::class,
     #NPMLibBuildSection::class,
     #QAReportBuildSection::class
 
@@ -105,8 +100,12 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
 
         $this->service_db->run_build_step_n(0);
         $this->service_db->run_build_step_n(1);
+        $this->service_db->run_build_step_n(2);
+        $this->service_db->run_build_step_n(3);
 
         $this->run_build_step_n(0);
+        $this->run_build_step_n(4);
+        $this->run_build_step_n(5);
 
         #$next_step = $this->generate_build_step('Code Manager');
         #$next_step->run();
@@ -123,16 +122,14 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
     }
 
     public function build_step0_code_build_entity(): void {
-        #$this->current_code_build = $this->repo_code_builds->get_new_code_build();
-        /** @var RepoCodeBuild $repo_code_builds */
-        $repo_code_builds = $this->get_repo(RepoCodeBuild::class);
-
-        $this->current_code_build = $repo_code_builds->get_new_code_build();
+        $this->repo_code_build    = $this->get_repo(RepoCodeBuild::class);
+        $this->current_code_build = $this->repo_code_build->get_new_entity();
     }
 
     // TODO: Only run this step if the DB health check would otherwise be naturally skipped
     // If full build is being forced, then this step can be skipped.
-    public function aabuild_step1_log_file_checking(): void {
+    public function build_step1_log_file_checking(): void {
+        return;
 
         // TODO:!!!!! THE FILE PROCESSING NEEDS TO BE DONE WITH A DIRECTORY AND FILE ENTITY PAIR!
         // The entity file should perform hash-sum comparions to see if the logs have changed.
@@ -145,7 +142,7 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
         $last_section  = ARY::get_last($sections);
         var_dump('There are {' . count($sections) . '} sections!');
         var_dump('LAST SECTION');
-        var_dump($last_section);
+        #var_dump($last_section);
 
         $last_build_failed = false;
         $error_covered     = false;
@@ -166,8 +163,7 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
                         $this->service_db->update_db_schema();
                     } else {
                         var_dump('NO MATCH FOUND!');
-                        var_dump($last_section);
-
+                        #var_dump($last_section);
 
                         exit();
                     }
@@ -178,7 +174,8 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
 
     }
 
-    public function aabuild_step2_DB_Health_Checks(): void {
+    public function build_step2_DB_Health_Checks(): void {
+        return;
         $build_step = $this->service_db->generate_build_step('DB Health Check');
         $build_step->run();
     }
@@ -186,7 +183,8 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
     /**
      * @throws Throwable
      */
-    public function aabuild_step3_Temporary_Testing(): void {
+    public function build_step3_Temporary_Testing(): void {
+        return;
         // TODO: Use a DirectoryEntity to get the contents of the Docker volume!
 
         #$path_volume = SYS::get_env('EXTERNAL_VOLUME');
@@ -198,6 +196,25 @@ class CodeBuilderService extends AbstractFactoryService implements InterfaceConf
         $min  = new Minification($repo);
         $step = $min->generate_build_step('minification');
         $step->run();
+    }
+
+    public function build_step4_css_build(): void {
+        /** @var RepoDirectory $repo_directory */
+        $repo_directory  = $this->get_repo(RepoDirectory::class);
+        /** @var RepoFileType $repo_file_type */
+        $repo_file_type  = $this->get_repo(RepoFileType::class);
+        /** @var RepoFile $repo_file */
+        $repo_file       = $this->get_repo(RepoFile::class);
+        $min             = new TaskBuildWebAssets($repo_directory, $repo_file, $repo_file_type);
+        $step            = $min->generate_build_step('minification');
+        $step->run();
+
+        #$min_html        = #HTMLBuildSection
+    }
+
+    public function build_step5_save_code_build(): void {
+        var_dump('Saving entity!');
+        $this->repo_code_build->save_entity($this->current_code_build, true);
     }
 
     private function print_final_results(): void {

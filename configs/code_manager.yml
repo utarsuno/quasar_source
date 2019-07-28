@@ -3,23 +3,12 @@ global_information:
   theme_color: '#6fff9a'
 
 assets:
-  .css:
-    PATH_DIRECTORY_DATA  : '/quasar_source/assets/css/'
-    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
-    files                :
-      nexus_local.css: ['minify', 'gzipped']
-      dev.css        : ['minify', 'gzipped']
   .html:
     PATH_DIRECTORY_DATA  : '/quasar_source/assets/html/'
     PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
     files                :
       nexus_local.html: ['pre_process', '/quasar_source/var/web_assets/nexus_local.min.css', 'minify', 'gzipped']
       dev.html        : ['pre_process', '/quasar_source/var/web_assets/dev.min.css'        , 'minify', 'gzipped']
-  .json:
-    PATH_DIRECTORY_DATA  : '/quasar_source/assets/fonts/three_js_fonts/'
-    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
-    files                :
-      gentilis_regular.typeface.json: ['gzipped']
   .vert:
     PATH_DIRECTORY_DATA  : '/quasar_source/assets/shaders/'
     PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'

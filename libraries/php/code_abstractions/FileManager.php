@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 15:58
- */
 
 namespace QuasarSource\CodeAbstractions;
 
@@ -19,10 +13,9 @@ use QuasarSource\CodeAbstractions\File\Discrete\JS\FileJavascript;
 use QuasarSource\CodeAbstractions\File\Discrete\PHP\FilePHP;
 use QuasarSource\CodeAbstractions\File\Discrete\System\FileDS_Store;
 use QuasarSource\CodeAbstractions\File\FileText;
+use QuasarSource\CodeAbstractions\Directory\DirectoryInstance;
 use QuasarSource\Utils\File\UtilsPath       as UPO;
 use QuasarSource\Utils\DataType\UtilsString as STR;
-use QuasarSource\CodeAbstractions\Directory\DirectoryInstance;
-
 
 class FileManager {
 

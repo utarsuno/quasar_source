@@ -34,6 +34,20 @@ final class DBTable extends SQLQueryGroup {
     }
 
     /**
+     * @return bool
+     */
+    public function is_sort_field_set(): bool {
+        return $this->sort_field_time !== null && is_string($this->sort_field_time);
+    }
+
+    /**
+     * @return string
+     */
+    public function get_sort_field_time(): string {
+        return $this->sort_field_time;
+    }
+
+    /**
      * @param string $sort_field
      */
     public function set_sort_field_time(string $sort_field): void {

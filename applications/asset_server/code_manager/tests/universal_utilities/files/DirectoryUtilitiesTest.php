@@ -5,8 +5,7 @@ namespace CodeManager\Tests;
 use QuasarSource\QualityAssurance\FileTestSuite;
 use QuasarSource\Utils\DataType\UtilsArray;
 use QuasarSource\Utils\File\UtilsDirectory as DIR;
-use QuasarSource\Utils\File\UtilsPath as PATH;
-
+use QuasarSource\Utils\File\UtilsPath      as PATH;
 
 class DirectoryUtilitiesTest extends FileTestSuite {
 

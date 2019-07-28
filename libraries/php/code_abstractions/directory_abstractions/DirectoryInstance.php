@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 15:19
- */
 
 namespace QuasarSource\CodeAbstractions\Directory;
 
@@ -12,10 +6,10 @@ use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\CodeAbstractions\FileManager;
 use QuasarSource\Traits\PatternParentChild\TraitPatternParentAndChild;
 use QuasarSource\Utils\Exception\LogicException;
+use QuasarSource\CodeAbstractions\File\FileInstance;
 use QuasarSource\Utils\File\UtilsPath       as UPO;
 use QuasarSource\Utils\File\UtilsDirectory  as UDO;
 use QuasarSource\Utils\DataType\UtilsString as STR;
-use QuasarSource\CodeAbstractions\File\FileInstance;
 
 class DirectoryInstance extends FileAbstraction {
     // The directory can be a parent to and a child of other directories.

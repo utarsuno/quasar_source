@@ -1,10 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 17:43
- */
 
 namespace QuasarSource\Utils\DataType;
 
@@ -15,6 +9,18 @@ use QuasarSource\Utils\InterfaceDivisible;
  * @package QuasarSource\Utils\DataType
  */
 abstract class UtilsArray implements InterfaceDivisible {
+
+    /**
+     * @param  array $array
+     * @return string
+     */
+    public static function associative_to_single_continuous_string(array $array): string {
+        $s = '';
+        foreach ($array as $key => $value) {
+            $s .= $key . $value;
+        }
+        return $s;
+    }
 
     /**
      * @param  array  $array {associative array to search through                          }
@@ -69,6 +75,15 @@ abstract class UtilsArray implements InterfaceDivisible {
     }
 
     /**
+     * @param  array $a0
+     * @param  array $a1
+     * @return array
+     */
+    public static function combine(array $a0, array $a1): array {
+        return array_merge($a0, $a1);
+    }
+
+    /**
      * @param  array $base
      * @param  array $values
      * @return array
@@ -78,6 +93,33 @@ abstract class UtilsArray implements InterfaceDivisible {
             $base[] = $value;
         }
         return $base;
+        #return array_merge($base, $values);
+    }
+
+    /**
+     * @param  array $base
+     * @param  array $values
+     * @return void
+     */
+    public static function ref_append_values(array & $base, array $values): void {
+        foreach ($values as $value) {
+            $base[] = $value;
+        }
+    }
+
+    /**
+     * @param  array $base
+     * @param  array $v0
+     * @param  array $v1
+     * @return void
+     */
+    public static function ref_append_both(array & $base, array $v0, array $v1): void {
+        foreach ($v0 as $v) {
+            $base[] = $v;
+        }
+        foreach ($v1 as $v) {
+            $base[] = $v;
+        }
     }
 
     /**
@@ -104,7 +146,7 @@ abstract class UtilsArray implements InterfaceDivisible {
     }
 
     /**
-     * @param $arg
+     * @param  $arg
      * @return array
      */
     public static function parse($arg): array {

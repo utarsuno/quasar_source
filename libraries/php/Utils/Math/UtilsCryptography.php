@@ -12,12 +12,20 @@ abstract class UtilsCryptography {
     public const SHA256SUM = 'sha256';
 
     /**
-     * @param  string $data [The data to hash.                                   ]
-     * @param  string $key  [The key to hash against.                            ]
-     * @return string       [A {256} length string representing the hashed value.]
+     * @param  string $data [data to hash                                   ]
+     * @param  string $key  [key to hash against                            ]
+     * @return string       [a {256} length string representing hashed value]
      */
     public static function hmac_sha256(string $data, string $key): string {
         return hash_hmac(self::SHA256SUM, $data, $key);
+    }
+
+    /**
+     * @param  string $data
+     * @return string
+     */
+    public static function sha512sum_of(string $data): string {
+        return hash(self::SHA512SUM, $data);
     }
 
     /**

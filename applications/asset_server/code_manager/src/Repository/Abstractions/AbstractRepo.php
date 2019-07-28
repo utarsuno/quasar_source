@@ -2,13 +2,11 @@
 
 namespace CodeManager\Repository\Abstractions;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use QuasarSource\Utils\Exception\ExceptionDB;
 
@@ -35,6 +33,26 @@ abstract class AbstractRepo extends EntityRepository {
     }
 
     /**
+     * @return array
+     */
+    public function get_all(): array {
+        return $this->findAll();
+    }
+
+    /**
+     * @param  bool $auto_save
+     * @return AbstractEntity
+     */
+    public function get_new_entity(bool $auto_save=false): AbstractEntity {
+        $entity_class = static::ENTITY_CLASS;
+        $entity       = new $entity_class();
+        if ($auto_save) {
+            $this->save_entity($entity, true);
+        }
+        return $entity;
+    }
+
+    /**
      * @param  string $repo_class
      * @return ObjectRepository
      */
@@ -55,7 +73,7 @@ abstract class AbstractRepo extends EntityRepository {
     /** @var string $entity_class */
     protected $entity_class;
 
-    public function get_entity($search_value): ?EntityInterface {
+    public function get_entity($search_value) {
         return $this->findOneBy([$this->default_search_attribute => $search_value]);
     }
 
@@ -63,15 +81,13 @@ abstract class AbstractRepo extends EntityRepository {
         return $this->get_entity($search_value) !== null;
     }
 
-    public function get_all_entities(): array {
-        return $this->findAll();
-    }
-
-    public function create_new_entity($value, bool $save=true): EntityInterface {
-        /** @var EntityInterface $entity */
+    /**
+     * @param  $value
+     * @param  bool $save
+     */
+    public function create_new_entity($value, bool $save=true) {
         $entity = new $this->entity_class();
-        $entity->on_event_born($value);
-        $entity->set_state(EntityState::STATE_CREATED);
+        //$entity->on_event_born($value);
         if ($save) {
             $this->save_entity($entity, true);
         }
@@ -81,47 +97,27 @@ abstract class AbstractRepo extends EntityRepository {
     /**
      * @param  mixed $entity
      * @param  bool  $save_db_state
-     * @throws ExceptionDB
      */
     public function remove_entity($entity, bool $save_db_state=false): void {
-        #$this->event_before_remove_entity($entity);
-        try {
-            $this->em->remove($entity);
-        } catch (ORMException $e) {
-            throw ExceptionDB::doctrine_error($e->getMessage());
-        }
+        $this->em->remove($entity);
         if ($save_db_state) {
-            $this->flush();
+            $this->em->flush();
         }
     }
 
     /**
      * @param  mixed $entity
      * @param  bool  $save_db_state
-     * @throws ExceptionDB
      */
     public function save_entity($entity, bool $save_db_state=false): void {
-        try {
-            $this->em->persist($entity);
-        } catch (ORMException $e) {
-            throw ExceptionDB::doctrine_error($e->getMessage());
-        }
+        $this->em->persist($entity);
         if ($save_db_state) {
-            $this->flush();
+            $this->em->flush();
         }
     }
 
-    /**
-     * @throws ExceptionDB
-     */
     protected function flush(): void {
-        try {
-            $this->em->flush();
-        } catch (OptimisticLockException $e) {
-            throw ExceptionDB::doctrine_error($e->getMessage());
-        } catch (ORMException $e) {
-            throw ExceptionDB::doctrine_error($e->getMessage());
-        }
+        $this->em->flush();
     }
 
 }

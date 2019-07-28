@@ -5,7 +5,7 @@ namespace CodeManager\Service\Feature\Config;
 use function is_array;
 use function is_string;
 use QuasarSource\Utils\Exception\ParameterException;
-use QuasarSource\Utils\File\Discrete\YAMLUtils as YAML;
+use QuasarSource\Utils\File\Discrete\UtilsYAML as YAML;
 use QuasarSource\Utils\DataType\UtilsArray     as ARY;
 
 /**

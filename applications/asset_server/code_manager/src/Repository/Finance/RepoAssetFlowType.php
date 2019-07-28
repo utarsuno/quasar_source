@@ -14,7 +14,5 @@ class RepoAssetFlowType extends QueryableRepo {
     protected $entity_class   = EntityAssetFlowType::class;
 
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
-
-    public function set_needed_repos(): void {
-    }
+    public function set_needed_repos(): void {}
 }

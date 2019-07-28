@@ -10,6 +10,10 @@ use QuasarSource\Utils\DataType\UtilsString as STR;
  */
 abstract class UtilsSystem {
 
+    public static function ask_for_garbage_collection(): void {
+        gc_collect_cycles();
+    }
+
     /**
      * @return string
      */

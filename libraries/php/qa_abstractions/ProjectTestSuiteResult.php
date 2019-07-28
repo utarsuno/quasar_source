@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\QualityAssurance;
-use QuasarSource\Utils\File\Discrete\XMLUtils as XML;
+use QuasarSource\Utils\File\Discrete\UtilsXML as XML;
 
 class ProjectTestSuiteResult extends TestResultAbstract {
 

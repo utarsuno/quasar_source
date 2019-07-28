@@ -1,7 +1,7 @@
 // Used for JS minification.
 let lib_browserify = require('./../../applications/asset_server/js/node_modules/browserify');
 // File utilities.
-//let lib_file = require('./utilities_file.js');
+//let lib_file = require('./utils_file.js');
 
 //let PATH = require('./../../libraries/front_end');
 

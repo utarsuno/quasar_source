@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\Utils\HTTP;
+
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\Utils\Exception\ParameterException;
 

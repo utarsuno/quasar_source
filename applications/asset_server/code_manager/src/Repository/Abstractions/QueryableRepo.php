@@ -3,6 +3,7 @@
 namespace CodeManager\Repository\Abstractions;
 
 use CodeManager\Service\DBService;
+use CodeManager\Service\LoggerService;
 use QuasarSource\SQL\DBTable;
 use QuasarSource\SQL\Representation\InterfaceSQLQueryOwner;
 use QuasarSource\SQL\Representation\SQLQuery;
@@ -20,11 +21,21 @@ abstract class QueryableRepo extends AbstractRepo implements InterfaceSQLQueryOw
     /** @var DBService $db_service */
     protected $db_service;
 
+    /** @var LoggerService $logger */
+    protected $logger;
+
+    /**
+     * @return mixed
+     */
+    public function get_latest() {
+        return $this->get_db_table()->execute_get_latest();
+    }
+
     /**
      * @return bool
      */
     public function is_empty(): bool {
-        return $this->get_db_table()->execute_get_num_rows() === 0;
+        return !$this->get_db_table()->has_rows();
     }
 
     /**
@@ -32,6 +43,7 @@ abstract class QueryableRepo extends AbstractRepo implements InterfaceSQLQueryOw
      */
     public function set_db_service(DBService $db_service): void {
         $this->db_service = $db_service;
+        $this->logger     = $db_service->service_get_logger();
         $this->set_needed_repos();
     }
 
@@ -50,34 +62,22 @@ abstract class QueryableRepo extends AbstractRepo implements InterfaceSQLQueryOw
      * @return mixed|mixed[]
      */
     protected function execute_custom_query(string $query) {
-        return $this->db_table->execute_custom($this->raw_query($query));
+        return $this->get_db_table()->execute_custom($this->raw_query($query));
     }
 
     /**
      * @return DBTable
      */
     protected function get_db_table(): DBTable {
-        /*
-        if ($this->db_table === null) {
-            $entity_class = static::ENTITY_CLASS;
-            if (!isset($entity_class::$db_table_name)) {
-                throw new RuntimeException('{' . $entity_class . '} does not have a table name public const set.');
-            }
-            $this->db_table = $this->db_service->get_db_table_by_name($entity_class::$db_table_name);
-            if (isset($entity_class::$sort_field_time)) {
-                $this->db_table->set_sort_field_time($entity_class::$sort_field_time);
-            }
-            // TODO: Eventually investigate if it's worth having this duplicate return statement.
-            // Logic of having it is that while branch prediction pains will happen, exiting the scope fully instead of
-            // bubbling to the scope outside the if statement MIGHT be faster by a TINY amount lol.
-            return $this->db_table;
-        }
-        return $this->db_table;*/
         $entity_class = static::ENTITY_CLASS;
         if (!isset($entity_class::$db_table_name)) {
             throw new RuntimeException('{' . $entity_class . '} does not have a table name public const set.');
         }
-        return $this->db_service->get_db_table_by_name($entity_class::$db_table_name);
+        $db_table = $this->db_service->get_db_table_by_name($entity_class::$db_table_name);
+        if (isset($entity_class::$sort_field_time) && !$db_table->is_sort_field_set()) {
+            $db_table->set_sort_field_time($entity_class::$sort_field_time);
+        }
+        return $db_table;
     }
 
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------

@@ -106,6 +106,16 @@ abstract class SQLQueryRaw {
     }
 
     /**
+     * @param  string $function_name
+     * @param  mixed  $value
+     * @return SQLQueryRaw
+     */
+    public function raw_func(string $function_name, $value): self {
+        $this->sql .= $function_name . '(' . $value . ') ';
+        return $this;
+    }
+
+    /**
      * @param string $sql
      * @return SQLQueryRaw
      */

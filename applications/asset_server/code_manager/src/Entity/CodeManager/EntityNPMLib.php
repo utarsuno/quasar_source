@@ -1,22 +1,14 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-21
- * Time: 00:06
- */
 
 namespace CodeManager\Entity\CodeManager;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Text\FieldTextThree;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
+use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
 use QuasarSource\Utils\File\UtilsPath       as PATH;
 use QuasarSource\Utils\Process\UtilsProcess as RUN;
 
@@ -27,13 +19,12 @@ use QuasarSource\Utils\Process\UtilsProcess as RUN;
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoNPMLib")
  * @Table(name="npm_lib")
  */
-class EntityNPMLib extends EntityState implements EntityInterface, CacheTableInterface {
+class EntityNPMLib extends AbstractEntity implements CacheTableInterface {
     use TraitCacheTable;
-    use FieldID;
     // Name, VersionLatest, VersionLocal.
     use FieldTextThree;
     // Represents the last time it was checked.
-    use FieldUnixTime;
+    use TraitUnixTime0;
 
     /** @var string $db_table_name */
     public static $db_table_name = 'npm_lib';

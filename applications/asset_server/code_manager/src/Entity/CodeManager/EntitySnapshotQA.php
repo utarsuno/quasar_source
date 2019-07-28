@@ -1,26 +1,18 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-21
- * Time: 00:06
- */
 
 namespace CodeManager\Entity\CodeManager;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Number\Decimal\FieldFloat;
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntFour;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
 use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTime;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
+use QuasarSource\SQL\Doctrine\Entity\Field\Number\Float\TraitFloat0;
+use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
 
 /**
  * Class EntityDirectory
@@ -29,14 +21,13 @@ use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\RepoSnapshotQA")
  * @Table(name="snapshot_qa")
  */
-class EntitySnapshotQA extends EntityState implements EntityInterface, CacheTableInterface {
+class EntitySnapshotQA extends AbstractEntity implements CacheTableInterface {
     use TraitCacheTable;
 
-    use FieldID;
     // The time instance that this test was ran at.
-    use FieldUnixTime;
-    // The total time taken (in seconds) for all unit-tests.
-    use FieldFloat;
+    use TraitUnixTime0;
+    // {total time, in seconds, for all unit-tests}
+    use TraitFloat0;
     // Num unit-tests failed, errored, skipped, overall.
     use FieldIntFour;
     // Raw output of QA run.
@@ -81,10 +72,5 @@ class EntitySnapshotQA extends EntityState implements EntityInterface, CacheTabl
             ->setNumSkipped($qa_results->get_num_skipped())
             ->setUnixTimestamp(-1)
             ->setJSONMetaData($qa_results->get_qa_report());
-    }
-
-    public function on_event_born($data): void {
-        $this->setEntityFile($data);
-        $this->cache_update();
     }
 }

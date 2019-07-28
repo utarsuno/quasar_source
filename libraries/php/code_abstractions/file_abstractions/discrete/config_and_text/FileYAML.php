@@ -1,15 +1,9 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 13:47
- */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText;
-use QuasarSource\Utils\File\Discrete\YAMLUtils as YAML;
-use QuasarSource\CodeAbstractions\File\FileInstance;
 
+use QuasarSource\Utils\File\Discrete\UtilsYAML as YAML;
+use QuasarSource\CodeAbstractions\File\FileInstance;
 
 class FileYAML extends FileInstance {
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-04-14
- * Time: 23:27
- */
 
 namespace CodeManager\Traits;
 

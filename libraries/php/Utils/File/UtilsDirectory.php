@@ -3,9 +3,11 @@
 namespace QuasarSource\Utils\File;
 
 use Exception;
+use QuasarSource\Utils\DataType\UtilsArray             as ARY;
 use QuasarSource\Utils\Exception\ExceptionDoesNotExist as DNE;
 use QuasarSource\Utils\DataType\UtilsString            as STR;
-use QuasarSource\Utils\File\UtilsPath                  as UPO;
+use QuasarSource\Utils\File\UtilsFile                  as UFO;
+use QuasarSource\Utils\Math\UtilsCryptography;
 
 /**
  * Class UtilsDirectory
@@ -15,23 +17,37 @@ abstract class UtilsDirectory {
 
     /**
      * Does the path provided actually exist.
+     *
      * @param  string $path
      * @param  bool   $raise_exception_if_not
      * @return bool
      */
     public static function is_valid(string $path, bool $raise_exception_if_not = true): bool {
-        $is_path_valid = is_dir($path);
-        if ($raise_exception_if_not && !$is_path_valid) {
+        if ($raise_exception_if_not && !is_dir($path)) {
             throw DNE::exception('is_valid', 'path provided{' . $path . '} does not exist!');
         }
-        return is_dir($path);
+        return true;
     }
 
-    // TODO: Get sha512sum!
-
-    public static function get_sha512sum(string $path_directory, bool $include_file_names_in_calculation, bool $use_recursion): string {
-
-        return 'TODO!';
+    /**
+     * @param  string $path_directory
+     * @param  bool   $use_recursion
+     * @return string
+     * @throws Exception
+     */
+    public static function get_sha512sum(string $path_directory, bool $use_recursion): string {
+        $files  = [];
+        $dirs   = [];
+        $paths  = [];
+        self::get_all_contents($path_directory, $use_recursion, $files, $dirs);
+        foreach ($dirs as $dir) {
+            $paths[$dir] = $dir;
+        }
+        foreach ($files as $file) {
+            $paths[$file] = UFO::get_sha512sum($file);
+        }
+        UFO::ref_sort_alphabetically_by_key($paths);
+        return UtilsCryptography::sha512sum_of(ARY::associative_to_single_continuous_string($paths));
     }
 
     /**
@@ -39,10 +55,10 @@ abstract class UtilsDirectory {
      *
      * @Documentation: https://stackoverflow.com/questions/24783862/list-all-the-files-and-folders-in-a-directory-with-php-recursive-function
      *
-     * @param string $path_directory  < The base directory to fetch all file and directory paths from.     >
-     * @param bool   $use_recursion   < If set to true, any sub-directories will be recursively traversed. >
-     * @param array  $all_files       < A provided array to insert file paths into.                        >
-     * @param array  $all_directories < A provided array to insert directory paths into.                   >
+     * @param  string $path_directory  [base directory to fetch all file and directory paths from ]
+     * @param  bool   $use_recursion   [if true, any sub-directories will be recursively traversed]
+     * @param  array  $all_files       [a referenced array to insert file paths into              ]
+     * @param  array  $all_directories [a referenced array to insert directory paths into         ]
      * @throws Exception
      */
     public static function get_all_contents(string $path_directory, bool $use_recursion, array & $all_files, array & $all_directories): void {
@@ -66,6 +82,19 @@ abstract class UtilsDirectory {
                 }
             }
         }
+    }
+
+    /**
+     * @param  string $path_directory
+     * @param  bool   $use_recursion
+     * @return array
+     * @throws Exception
+     */
+    public static function get_all_paths(string $path_directory, bool $use_recursion): array {
+        $all_files = [];
+        $all_dirs  = [];
+        self::get_all_contents($path_directory, $use_recursion, $all_files, $all_dirs);
+        return ARY::combine($all_files, $all_dirs);
     }
 
 }

@@ -1,12 +1,7 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 13:45
- */
 
 namespace QuasarSource\CodeAbstractions\File;
+
 use QuasarSource\CodeAbstractions\FileAbstraction;
 use QuasarSource\Traits\PatternParentChild\TraitPatternChild;
 use QuasarSource\Utils\File\UtilsFile as UFO;

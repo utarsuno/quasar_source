@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
-use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Repository\CodeManager\File\RepoFile;
 use CodeManager\Repository\CodeManager\RepoSnapshotQA;
 use CodeManager\Service\CodeBuilderService;
@@ -40,7 +39,7 @@ class QAReportBuildSection extends BuildSection {
         }
     }
 
-    protected function on_entity_update(EntityInterface $entity) {
+    protected function on_entity_update($entity) {
         $this->repo->create_new_entity($entity);
     }
 

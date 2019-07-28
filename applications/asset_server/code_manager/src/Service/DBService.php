@@ -7,18 +7,20 @@ use CodeManager\Entity\CodeManager\EntitySnapshotDB;
 use CodeManager\Entity\Users\EntityEntity;
 use CodeManager\Repository\Abstractions\AbstractRepo;
 use CodeManager\Repository\Abstractions\QueryableRepo;
+use CodeManager\Repository\CodeManager\File\RepoFileType;
 use CodeManager\Repository\CodeManager\RepoSnapshotDB;
 use CodeManager\Repository\Finance\RepoAssetFlow;
 use CodeManager\Repository\Users\RepoEntityEntity;
 use CodeManager\Service\Feature\AbstractFactoryService;
 use Doctrine\Common\Persistence\ObjectRepository;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use QuasarSource\CommonFeatures\TraitEnvironmentVariablesAsFields;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
 use QuasarSource\SQL\DBSchema;
 use QuasarSource\SQL\DBTable;
+use QuasarSource\SQL\TraitDBConnection;
 use QuasarSource\Utils\Process\ProcessDoctrine as DOCTRINE;
+use QuasarSource\Utils\Process\ProcessDoctrine;
 use RuntimeException;
 
 /**
@@ -27,14 +29,11 @@ use RuntimeException;
 class DBService extends AbstractFactoryService {
     use TraitFlagTable;
     use TraitEnvironmentVariablesAsFields;
+    use TraitDBConnection;
 
     private const FLAG_HEALTHY_DB_MAPPING = 'db_entity_mapping';
     private const FLAG_HEALTHY_DB_SCHEMA  = 'db_schema';
     private const FLAG_DB_SCHEMA_UPDATED  = 'db_schema_was_updated';
-
-    private $new_db_snapshot_entity_created = false;
-
-    private $db_connection;
 
     /** @var EntityManagerInterface */
     private $entity_manager;
@@ -48,11 +47,8 @@ class DBService extends AbstractFactoryService {
     /** @var RepoSnapshotDB $repo_db_snapshot */
     private $repo_db_snapshot;
 
-    /** @var EntitySnapshotDB $db_snapshot */
-    private $db_snapshot;
-
-    /** @var DOCTRINE $cached_doctrine_cmd_results */
-    private $cached_doctrine_cmd_results;
+    /** @var DOCTRINE $cached_doctrine_cmd */
+    private $cached_doctrine_cmd;
 
     /** @var bool */
     private $env_db_checks;
@@ -60,6 +56,12 @@ class DBService extends AbstractFactoryService {
     private $env_db_checks_forced;
     /** @var string $env_path_transactions_file */
     private $env_path_transactions_file;
+
+
+    // TODO: REMOVE? This is the 'singleton' entity from repo_snapshotDB
+    /** @var EntitySnapshotDB $db_snapshot */
+    private $db_snapshot;
+
 
     /**
      * @param LoggerService          $logger
@@ -73,39 +75,34 @@ class DBService extends AbstractFactoryService {
     }
 
     public function __destruct() {
+        var_dump('DBService destruct!');
+        $this->trait_destruct_db_connection();
     }
 
     public function update_db_schema(): void {
-        #$result = DOCTRINE::execute_update_and_return_object();
-        if ($this->cached_doctrine_cmd_results === null) {
-            $this->cached_doctrine_cmd_results = DOCTRINE::execute_update_and_return_object();
+        if ($this->cached_doctrine_cmd === null) {
+            $this->log('DBService is running Doctrine schema update.');
+            $this->cached_doctrine_cmd = DOCTRINE::execute_update_and_return_object();
+        } else {
+            $this->log('DBService has already ran Doctrine schema update this session.');
         }
-
-        #var_dump('HERE IS THE OUTPUT OF DOCTRINE!');
-        #var_dump($output);
-
         // Set to true only after actual schema update to ensure no exception was thrown for it.
         //$this->db_snapshot->set_did_db_schema_update(true);
     }
 
-    /**
-     * @return EntitySnapshotDB
-     */
-    public function get_db_snapshot(): EntitySnapshotDB {
-        return $this->db_snapshot;
-    }
-
     public function build_step0_LazyLoad(): void {
-        $this->db_connection    = $this->entity_manager->getConnection();
+        $this->trait_construct_db_connection($this->entity_manager);
+        $this->get_repo(RepoFileType::class);
         $this->repo_db_snapshot = $this->get_repo(RepoSnapshotDB::class);
         $this->queries_schema   = $this->repo_db_snapshot->get_queries_db_schema();
     }
 
     public function build_step1_MetaData_Analysis(): void {
-        [$this->db_snapshot, $this->new_db_snapshot_entity_created] = $this->repo_db_snapshot->get_db_snapshot($this->service_logger, $this->cached_doctrine_cmd_results);
-        if ($this->new_db_snapshot_entity_created) {
-            $this->log('A new SnapshotDB was created');
-        }
+        #[$this->db_snapshot, $this->new_db_snapshot_entity_created] = $this->repo_db_snapshot->get_db_snapshot();
+        #if ($this->new_db_snapshot_entity_created) {
+        #    $this->log('A new SnapshotDB was created');
+        #}
+        $this->db_snapshot = $this->repo_db_snapshot->get_current_entity();
     }
 
     public function build_step1_on_failed(): void {
@@ -120,7 +117,12 @@ class DBService extends AbstractFactoryService {
     }
 
     public function build_step2_DB_Health_Check(): void {
-        if ($this->new_db_snapshot_entity_created && $this->env_db_checks) {
+        // TODO: REMOVE FLAGS, MOVE THEM INTO MORE NICHE OBJECT!
+        // TODO: REMOVE FLAGS, MOVE THEM INTO MORE NICHE OBJECT!
+        // TODO: REMOVE FLAGS, MOVE THEM INTO MORE NICHE OBJECT!
+
+
+        if ($this->env_db_checks && $this->repo_db_snapshot->was_current_entity_created()) {
             [$mapping, $schema] = DOCTRINE::execute_validate_checks();
             $this->flag_set(self::FLAG_HEALTHY_DB_MAPPING, $mapping);
             $this->flag_set(self::FLAG_HEALTHY_DB_SCHEMA, $schema);
@@ -137,9 +139,12 @@ class DBService extends AbstractFactoryService {
     }
 
     public function build_step3_DB_Snapshot_Entity(): void {
-        if ($this->new_db_snapshot_entity_created) {
-            $this->db_snapshot->set_did_db_schema_update(false);
+        if ($this->repo_db_snapshot->was_current_entity_created()) {
+            #$this->db_snapshot->set_did_db_schema_update(false);
+
+            // TODO: CHANGE HOW THIS IS HANDLED! DBService SHOULD LIKELY NOT HOLD THESE FLAGS!
             if ($this->flag_is_off(self::FLAG_HEALTHY_DB_SCHEMA)) {
+                $this->log('Flag HealthDB Schema was off so running Update DB Schema!');
                 $this->update_db_schema();
             }
             $this->repo_db_snapshot->save_entity($this->db_snapshot, true);
@@ -156,20 +161,20 @@ class DBService extends AbstractFactoryService {
         #$repo_cash_flows->parse_bank_transactions_for($user_base, $this->env_path_transactions_file);
     }
 
+    // ------------------------------------------------ G E T T E R S ------------------------------------------------
+
+    /**
+     * @return ProcessDoctrine|null
+     */
+    public function get_doctrine_process(): ?ProcessDoctrine {
+        return $this->cached_doctrine_cmd;
+    }
+
     /**
      * @return bool
      */
     public function is_schema_valid(): bool {
         return $this->flag_is_on(self::FLAG_HEALTHY_DB_MAPPING) && $this->flag_is_on(self::FLAG_HEALTHY_DB_SCHEMA);
-    }
-
-    // ------------------------------------------------ G E T T E R S ------------------------------------------------
-
-    /**
-     * @return Connection
-     */
-    public function get_db_connection(): Connection {
-        return $this->db_connection;
     }
 
     // ------------------------------------------------ D B T A B L E S ------------------------------------------------

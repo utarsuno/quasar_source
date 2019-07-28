@@ -4,23 +4,20 @@ namespace QuasarSource\BuildProcess;
 use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\AssetBuildSection;
-use QuasarSource\Utils\File\Discrete\CSSUtilities as CSS;
 use QuasarSource\Utils\File\UtilsFile             as UFO;
 use QuasarSource\Utils\DataType\UtilsString       as STR;
 use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions     as EXTENSION;
 
-
 class HTMLBuildSection extends AssetBuildSection {
 
     private const PRE_PROCESS                  = '#pre-process-';
-    private const PRE_PROCESS_MANIFEST         = self::PRE_PROCESS . 'manifest';
     private const PRE_PROCESS_CSS              = self::PRE_PROCESS . 'style{';
 
     private const PATTERN_CSS                  = '/*' . self::PRE_PROCESS_CSS;
     private const PATTERN_SUB_CSS_FILE_NAME    = ['/*', '}*/', '<style>', '</style>', self::PRE_PROCESS_CSS];
     private const PATTERN_SUB_CSS_FILE_LINE    = ['/*', '}*/', self::PRE_PROCESS_CSS];
 
-    private const PATTERN_MANIFEST             = '/*' . self::PRE_PROCESS_MANIFEST;
+    private const PATTERN_MANIFEST             = '/*' . self::PRE_PROCESS . 'manifest';
     private const PATTERN_SUB_MANIFEST_REPLACE = '/*#pre-process-manifest{default}*/';
 
     private const RAW_WEB_MANIFEST             = [
@@ -49,18 +46,6 @@ class HTMLBuildSection extends AssetBuildSection {
     }
 
     protected function handle_step_processed(EntityFile $file, string $output_file_path): ?EntityFile {
-        #var_dump($output_file_path);
-        #exit();
-
-        #if ($this->repo_entity_files->does_child_file_exist_as_needed($file, $output_file_path)) {
-        #    return null;
-        #}
-
-        if (!$this->repo_entity_files->has_entity($output_file_path)) {
-            var_dump('ERROR! HANDLE THIS!');
-            exit();
-        }
-
         $file_path       = $file->getFullPath();
         $processed_lines = [];
         $lines           = UFO::get($file_path);
@@ -85,7 +70,7 @@ class HTMLBuildSection extends AssetBuildSection {
         #    DBG::throw_exception('Needed pre-process file not found in memory {' . $css_file_name . '}');
         #}
         $modified_line     = STR::remove($line, self::PATTERN_SUB_CSS_FILE_LINE);
-        $processed_lines[] = STR::replace($modified_line, $css_file_name, CSS::get($css_file_name));
+        #$processed_lines[] = STR::replace($modified_line, $css_file_name, CSS::get($css_file_name));
     }
 
     private function process_line_manifest(string $line, array & $processed_lines): void {

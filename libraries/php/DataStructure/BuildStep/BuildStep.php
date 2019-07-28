@@ -2,6 +2,7 @@
 
 namespace QuasarSource\DataStructure\BuildStep;
 
+use InvalidArgumentException;
 use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
@@ -96,9 +97,11 @@ final class BuildStep {
      * @throws Throwable
      */
     public function run_step(int $n): void {
-        $index = 0;
+        $index       = 0;
+        $index_found = false;
         foreach ($this->callbacks as $desc => $callback) {
             if ($index === $n) {
+                $index_found = true;
                 var_dump('Executing{' . $desc . '}');
                 $passed = $this->execute_callback($desc, $callback);
                 if (!$passed) {
@@ -108,6 +111,9 @@ final class BuildStep {
                 }
             }
             ++$index;
+        }
+        if (!$index_found) {
+            throw new InvalidArgumentException('BuildStep{' . $n . '} was not found!');
         }
     }
 

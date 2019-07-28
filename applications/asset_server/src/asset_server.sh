@@ -11,8 +11,9 @@ export PATH_NODE_MINIFY_CSS='/quasar_source/libraries/node/minifier_css.js'
 export PATH_NODE_MINIFY_JS='/quasar_source/libraries/node/minifier_css.js'
 export SYMFONY_ENV='dev'
 export PATH_RELATIVE_NODE_MINIFY_HTML='applications/asset_server/js/minify_html_file.js'
-export PATH_RELATIVE_NODE_MINIFY_CSS='applications/asset_server/js/minify_css_file.js'
-export PATH_RELATIVE_NODE_MINIFY_JS='applications/asset_server/js/minify_js_file.js'
+export PATH_NODE_MINIFY_CSS='/quasar_source/applications/asset_server/js/minify_css_file.js'
+# ---- Node Scripting ----
+export PATH_NODE_MINIFY_FILE='/quasar_source/applications/asset_server/js/script_minify_file.js'
 # ---- DB -----
 #export DATABASE_URL='pgsql://postgres:password@postgres_server:5432/postgres'
 export DATABASE_URL='pgsql://postgres:password@172.18.0.2:5432/postgres'
@@ -31,8 +32,11 @@ export EXTERNAL_VOLUME='/v/'
 export DB_CHECKS='true'
 export DB_CHECKS_FORCED='false'
 # ---- B U I L D S ----
-export BUILD_CSS='/quasar_source/assets/css/'
-export BUILD_CSS_OUTPUT='/v/'
+export PATH_DIR_BUILD_HTML_DATA='/quasar_source/assets/html/'
+export PATH_DIR_BUILD_CSS_DATA='/quasar_source/assets/css/'
+#'/v/'
+export PATH_BUILD_CSS_OUTPUT='/quasar_source/var/temp_test/'
+export PATH_BUILD_HTML_OUTPUT='/quasar_source/var/temp_test/'
 export LOG_FILE='/quasar_source/applications/asset_server/code_manager/var/log/dev.log'
 #-----------------------------------------------------------------------------------------------------------------------
 BASH_LIBS='/quasar_source/libraries/bash/'
@@ -63,13 +67,15 @@ FILE_CSS_NEXUS_LOCAL_OUTPUT_FINAL=/quasar_source/var/web_assets/nexus_local.min.
 
 #php -v
 
-#console_db_schema_update
 #composer_install
 #console_list
 #composer_health_check
 #composer -V
 #composer self-update
+
 #composer_optimize
+#console_db_schema_update
+#console_db_schema_validate
 console_code_manager
 
 #stdbuf -oL ${RUN_CONSOLE_CMD} code:health_check -vvv |

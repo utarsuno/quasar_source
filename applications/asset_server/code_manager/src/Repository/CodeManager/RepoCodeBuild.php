@@ -17,20 +17,6 @@ class RepoCodeBuild extends QueryableRepo {
 
     public const ENTITY_CLASS = EntityCodeBuild::class;
 
-    /**
-     * @return EntityCodeBuild
-     */
-    public function get_new_code_build(): EntityCodeBuild {
-        $entity = new EntityCodeBuild();
-
-        #$this->get_db_table()->set_sort_field_time('unix_timestamp0');
-        #$oldest_entity = $this->get_db_table()->execute_get_oldest();
-        #var_dump('The oldest entity is this!');
-        #var_dump($oldest_entity);
-
-        return $entity;
-    }
-
     public function sync_to_logs(): void {
         var_dump('Syncing logs');
 
@@ -54,7 +40,8 @@ class RepoCodeBuild extends QueryableRepo {
             for ($c = 0; $c < $num_sections; $c++) {
                 $entity = new EntityCodeBuild();
                 $entity->set_timestamp($section_times[$c]);
-                $entity->set_session_logging_records($sections[$c]);
+
+                $entity->set_logs_session($sections[$c]);
                 $this->save_entity($entity, true);
             }
             $this->flush();
@@ -67,6 +54,3 @@ class RepoCodeBuild extends QueryableRepo {
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
     public function set_needed_repos(): void {}
 }
-
-
-

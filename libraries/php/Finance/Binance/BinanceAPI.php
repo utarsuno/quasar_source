@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\Finance\Binance;
-use QuasarSource\Finance\Binance\Enum\BinanceEnumAPIKeys as KEYS;
+
 use CodeManager\Service\Feature\Config\TraitConfigYAML;
-use QuasarSource\Utils\File\Discrete\YAMLUtils   as YAML;
+use QuasarSource\Finance\Binance\Enum\BinanceEnumAPIKeys as KEYS;
+use QuasarSource\Utils\File\Discrete\UtilsYAML           as YAML;
 use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceOrderBook;
 use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceAveragePrice;
 use QuasarSource\Utils\RequestsHTTP\Binance\Endpoint\BinanceExchangeInfo;

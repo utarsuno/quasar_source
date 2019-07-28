@@ -2,7 +2,6 @@
 
 namespace QuasarSource\BuildProcess\Abstractions;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Entity\CodeManager\File\EntityFile;
 use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS;
 use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
@@ -46,16 +45,16 @@ abstract class AssetBuildSection extends BuildSection {
             $f = $this->repo_entity_files->create_new_entity($file);
         }
 
-        if ($this->has_flag_processed($flags)) {
-            $result = $this->handle_step_processed($f, $flags[1]);
-            $f      = $result ?? $f;
-        }
-        if ($this->has_flag_minified($flags)) {
-            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_minified(), EntityFile::FLAG_MINIFY);
-        }
-        if ($this->has_flag_gzipped($flags)) {
-            $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
-        }
+        #if ($this->has_flag_processed($flags)) {
+        #    $result = $this->handle_step_processed($f, $flags[1]);
+        #    $f      = $result ?? $f;
+        #}
+        #if ($this->has_flag_minified($flags)) {
+        #    $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_minified(), EntityFile::FLAG_MINIFY);
+        #}
+        #if ($this->has_flag_gzipped($flags)) {
+        #    $f = $this->repo_entity_files->ensure_file_has_child($f, $this->get_path_output() . $f->get_full_name_gzipped(), EntityFile::FLAG_GZIP);
+        #}
     }
 
     public function perform_work() : void {
@@ -64,33 +63,7 @@ abstract class AssetBuildSection extends BuildSection {
         }
     }
 
-    protected function on_entity_update(EntityInterface $entity) {
-        return $entity;
-    }
-
-    protected function has_flag_processed(array $flags) : bool {
-        return \in_array(EntityFile::FLAG_PRE_PROCESS, $flags, true);
-    }
-
-    protected function has_flag_minified(array $flags) : bool {
-        return \in_array(EntityFile::FLAG_MINIFY, $flags, true);
-    }
-
-    protected function has_flag_gzipped(array $flags) : bool {
-        return \in_array(EntityFile::FLAG_GZIP, $flags, true);
-    }
-
     protected function get_path_output(): string {
         return $this->config_yaml_get(PATHS::DIRECTORY_OUTPUT);
-    }
-
-    abstract protected function handle_step_processed(EntityFile $file, string $output_file_path) : ?EntityFile;
-
-    protected function pre_work(): void {
-
-    }
-
-    protected function post_work(): void {
-
     }
 }

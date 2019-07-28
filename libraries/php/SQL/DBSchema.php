@@ -31,7 +31,7 @@ final class DBSchema extends SQLQueryGroup {
         );
         $table_names = $this->get_names_of_created_tables();
         foreach ($table_names as $table_name) {
-            $this->db_tables[$table_name] = new DBTable($table_name, $this->connection);
+            $this->db_tables[$table_name] = new DBTable($table_name, $this->db_connection);
         }
     }
 
@@ -71,7 +71,7 @@ final class DBSchema extends SQLQueryGroup {
         $tables = [];
         /** @var DBTable $table */
         foreach ($this->db_tables as $name => $table) {
-            $tables[$name] = $table->get_size(false);
+            $tables[$name] = $table->get_size();
         }
         return $tables;
     }

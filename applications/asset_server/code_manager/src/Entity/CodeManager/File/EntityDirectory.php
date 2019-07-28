@@ -3,31 +3,51 @@
 namespace CodeManager\Entity\CodeManager\File;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldInt;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntTwo;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldTextTwo;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use Exception;
+use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Byte\TraitSizeInBytes;
+use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Small\TraitSmallInt0;
+use QuasarSource\SQL\Doctrine\Entity\Field\Text\TraitFullPath;
+use QuasarSource\SQL\Doctrine\Entity\Field\Text\TraitSHA512Sum;
+use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Utils\DataType\UtilsArray      as ARY;
+use QuasarSource\Utils\File\UtilsDirectory      as DIR;
+use QuasarSource\SQL\Doctrine\Fields\EnumFields as FIELD;
+
 
 /**
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\File\RepoDirectory")
  * @Table(name="directory")
+ *
+ * @method EntityDirectory set_cache_last_updated(int $timestamp)
+ * @method EntityDirectory set_type(int $directory_type)
+ * @method int|null get_cache_last_updated()
+ * @method int|null get_type()
  */
 class EntityDirectory extends AbstractEntity {
-    // The time instance that this directory was first and last cached at.
-    use FieldUnixTimeTwo;
-    // SHA512SUM, relative path.
-    use FieldTextTwo;
-    // Directory TypeID, total_size.
-    use FieldIntTwo;
+    use TraitFullPath;
+    use TraitSizeInBytes;
+    use TraitSHA512Sum;
+    // {last time instance of a cache update}
+    use TraitUnixTime0;
+    // {directory type}
+    use TraitSmallInt0;
+
+    public const TYPE_NO_MATCH = -1;
+    public const TYPE_IGNORE   = 1;
 
     /** @var string $db_table_name */
-    public static $db_table_name = 'directory';
+    public static $db_table_name   = 'directory';
+    protected static $func_aliases = [
+        'cache_last_updated' => FIELD::UNIX_TIME_0,
+        'type'               => FIELD::SMALL_INT_0
+    ];
 
     /**
      * Child files.
@@ -50,76 +70,27 @@ class EntityDirectory extends AbstractEntity {
      *
      * @var EntityDirectory $directory
      * @ManyToOne(targetEntity="CodeManager\Entity\CodeManager\File\EntityDirectory", inversedBy="directories")
-     * @JoinColumn(nullable=false)
+     * @JoinColumn(name="directory_id", referencedColumnName="id")
      */
     private $directory;
 
-    public const TYPE_NO_MATCH = -1;
-    public const TYPE_IGNORE   = 1;
-
-    #public function __construct() {
-    #    $this->files       = new ArrayCollection();
-    #    $this->directories = new ArrayCollection();
-    #}
-
-    /**
-     * @return int
-     */
-    public function get_total_size(): int {
-        return $this->getInt1();
+    public function __construct() {
+        $this->files       = new ArrayCollection();
+        $this->directories = new ArrayCollection();
     }
 
     /**
-     * @param  int $size
-     * @return EntityDirectory
+     * @return array
+     * @throws Exception
      */
-    public function set_total_size(int $size): self {
-        return $this->setInt1($size);
-    }
-
-    /**
-     * @param  int $timestamp
-     * @return EntityDirectory
-     */
-    public function set_last_checked(int $timestamp): self {
-        return $this->setUnixTimestamp1($timestamp);
-    }
-
-    /**
-     * @return int
-     */
-    public function get_last_checked(): int {
-        return $this->unix_timestamp1;
-    }
-
-    /**
-     * @param  int $timestamp
-     * @return EntityDirectory
-     */
-    public function set_last_modified(int $timestamp): self {
-        return $this->setUnixTime0($timestamp);
-    }
-
-    /**
-     * @return int
-     */
-    public function get_last_modified(): int {
-        return $this->unix_timestamp0;
-    }
-
-    /**
-     * @return string
-     */
-    public function get_full_path(): string {
-        return $this->getText0();
-    }
-
-    /**
-     * @param  string $path
-     * @return EntityDirectory
-     */
-    public function set_full_path(string $path): self {
-        return $this->setText0($path);
+    public function get_all_paths(): array {
+        // TODO: Don't re-calculate each call.
+        $files     = [];
+        $dirs      = [];
+        $all_paths = [];
+        DIR::get_all_contents($this->getFullPath(), false, $files, $dirs);
+        ARY::ref_append_both($all_paths, $files, $dirs);
+        return $all_paths;
     }
 
     /**

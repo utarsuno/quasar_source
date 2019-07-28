@@ -3,7 +3,7 @@
 namespace QuasarSource\Utils\Process;
 
 use CodeManager\Enum\ProjectParameterKeys\Path;
-use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions   as EXTENSION;
+use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions as EXTENSION;
 use QuasarSource\Utils\File\UtilsFile       as UFO;
 use QuasarSource\Utils\DataType\UtilsString as STR;
 use QuasarSource\Utils\SystemOS\UtilsSystem as SYS;
@@ -41,6 +41,11 @@ abstract class UtilsProcess {
         return [$output, $errors];
     }
 
+    /**
+     * @param  array $command
+     * @param  string|null $cwd
+     * @return string
+     */
     public static function run_cmd(array $command, string $cwd=null): string {
         $p = new ProcessRunner($command, true, 20, $cwd);
         $p->run();
@@ -79,20 +84,6 @@ abstract class UtilsProcess {
 
     public static function run_webpack_build(): string {
         return self::run_cmd(['npm', 'run-script', 'build'], SYS::get_env(Path::DIRECTORY_NODE));
-    }
-
-    // N O D E.
-
-    public static function minify_file_html_to(string $path_input, string $path_output): string {
-        return self::minify_file_to($path_input, $path_output, SYS::get_env(Path::RELATIVE_NODE_MINIFY_HTML));
-    }
-
-    public static function minify_file_css_to(string $path_input, string $path_output): string {
-        return self::minify_file_to($path_input, $path_output, SYS::get_env(Path::RELATIVE_NODE_MINIFY_CSS));
-    }
-
-    private static function minify_file_to(string $path_input, string $path_output, string $minify_js_lib_file): string {
-        return self::run_cmd(['node', $minify_js_lib_file, '-i', $path_input, '-o', $path_output]);
     }
 
     // N P M.

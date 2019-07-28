@@ -1,15 +1,8 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-29
- * Time: 21:56
- */
 
 namespace QuasarSource\QualityAssurance;
 #use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
 
 #abstract class FileTestSuite extends TestCase {
 abstract class FileTestSuite extends WebTestCase {

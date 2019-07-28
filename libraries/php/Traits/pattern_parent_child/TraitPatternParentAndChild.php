@@ -1,13 +1,6 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 15:21
- */
 
 namespace QuasarSource\Traits\PatternParentChild;
-
 
 trait TraitPatternParentAndChild {
     use TraitPatternChild;

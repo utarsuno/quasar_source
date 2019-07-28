@@ -2,29 +2,22 @@
 
 namespace CodeManager\Entity\CodeManager\File;
 
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
-use CodeManager\Entity\Abstractions\Traits\MetaData\FieldID;
-use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntTwo;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldBigText;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldTextTwo;
-use CodeManager\Entity\Abstractions\Traits\Time\FieldUnixTimeTwo;
-use Doctrine\ORM\Mapping\Column;
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
-use Exception;
-use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
-use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
-use QuasarSource\Utils\Exception\LogicException;
-use QuasarSource\Utils\File\UtilsFile      as UFO;
-use QuasarSource\Utils\File\UtilsPath      as UPO;
-use QuasarSource\Utils\File\UtilsPath      as PATH;
-use QuasarSource\Utils\Math\UtilsMath      as MATH;
-use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions  as EXTENSION;
-use QuasarSource\Utils\DataType\UtilsArray as ARY;
+use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Byte\TraitSizeInBytes;
+use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Small\TraitSmallInt0;
+use QuasarSource\SQL\Doctrine\Entity\Field\Text\Blob\TraitBigText0;
+use QuasarSource\SQL\Doctrine\Entity\Field\Text\TraitFullPath;
+use QuasarSource\SQL\Doctrine\Entity\Field\Text\TraitSHA512Sum;
+use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Utils\File\UtilsFile                   as UFO;
+use QuasarSource\Utils\Math\UtilsMath                   as MATH;
+use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions as EXTENSION;
+use QuasarSource\SQL\Doctrine\Fields\EnumFields         as FIELD;
 
 /**
  * Class EntityFile
@@ -32,22 +25,31 @@ use QuasarSource\Utils\DataType\UtilsArray as ARY;
  *
  * @Entity(repositoryClass="CodeManager\Repository\CodeManager\File\RepoFile")
  * @Table(name="file")
+ *
+ * @method EntityFile set_content($content)
+ * @method EntityFile set_rank(int $rank)
+ * @method EntityFile set_cache_last_updated(int $timestamp)
+ * @method string|null get_content()
+ * @method int|null get_rank()
+ * @method int|null get_cache_last_updated()
  */
-#class EntityFile extends EntityState implements EntityInterface, CacheTableInterface {
-class EntityFile extends EntityState implements EntityInterface, CacheTableInterface {
-    use TraitCacheTable;
-    use FieldID;
-    // The time instance that this file was first and last cached at.
-    use FieldUnixTimeTwo;
-    // Name, SHA512SUM.
-    use FieldTextTwo;
-    // Rank, SizeInBytes.
-    use FieldIntTwo;
+class EntityFile extends AbstractEntity {
+    use TraitFullPath;
+    use TraitSizeInBytes;
+    use TraitSHA512Sum;
+    // {last time instance of a cache update}
+    use TraitUnixTime0;
+    // {rank}
+    use TraitSmallInt0;
+    // {Optional: textual contents of the file}
+    use TraitBigText0;
 
-    // Optional: the textual contents of the file.
-    use FieldBigText;
-
-    public static $db_table_name = 'file';
+    public static $db_table_name   = 'file';
+    protected static $func_aliases = [
+        'rank'               => FIELD::SMALL_INT_0,
+        'content'            => FIELD::BIG_TEXT_0,
+        'cache_last_updated' => FIELD::UNIX_TIME_0
+    ];
 
     public const TYPE_NO_MATCH        = -1;
     public const TYPE_CSS             = 1;
@@ -72,17 +74,11 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
         EXTENSION::YAML            => self::TYPE_YAML
     ];
 
-    public const FLAG_MINIFY           = 'minify';
-    public const FLAG_PRE_PROCESS      = 'pre_process';
-    public const FLAG_GZIP             = 'gzipped';
-
-    private const CACHE_KEY_SHA512_SUM = 'cache_sha512_sum';
-
     /**
      * Parent directory.
      *
      * @ManyToOne(targetEntity="CodeManager\Entity\CodeManager\File\EntityDirectory", inversedBy="files")
-     * @JoinColumn(nullable=false)
+     * @JoinColumn(name="directory_id", referencedColumnName="id")
      */
     private $directory;
 
@@ -91,6 +87,7 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
      *
      * @var EntityFile
      * @OneToOne(targetEntity="CodeManager\Entity\CodeManager\File\EntityFile", mappedBy="child")
+     * @JoinColumn(name="child_id", referencedColumnName="id")
      */
     private $parent;
 
@@ -99,118 +96,50 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
      *
      * @var EntityFile
      * @OneToOne(targetEntity="CodeManager\Entity\CodeManager\File\EntityFile", inversedBy="parent")
+     * @JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $child;
 
-    # -------------
-
     /**
-     * @Column(name="extension", type="string", nullable=false, unique=false, length=16)
-     */
-    private $extension;
-
-    /**
-     * @Column(name="full_path", type="string", nullable=false, unique=false, length=1024)
-     */
-    private $full_path;
-
-    /**
-     * @inheritDoc
-     */
-    public function cache_calculate(string $key) {
-        if ($key === self::CACHE_KEY_SHA512_SUM) {
-            return UFO::get_sha512sum($this->getFullPath());
-        }
-        return null;
-    }
-
-    /**
-     * @param string $path
-     * @return int
-     * @throws LogicException
-     */
-    public static function get_file_type_from_path(string $path) : int {
-        $all_extensions = PATH::get_all_extensions($path);
-        foreach (self::EXTENSION_TO_TYPE as $extension => $type) {
-            if (ARY::contains($all_extensions, $extension)) {
-                return $type;
-            }
-        }
-        throw LogicException::invalid_function_call('get_file_type_from_path', 'No file type match for {' . $path . '}');
-    }
-
-    public function get_flags(): array {
-        $options = [
-            self::FLAG_GZIP        => $this->getIsGzipped(),
-            self::FLAG_MINIFY      => $this->getIsMinified(),
-            self::FLAG_PRE_PROCESS => $this->getIsPreProcessed()
-        ];
-        return $options;
-    }
-
-    public function set_flags(array $flags): void {
-        foreach ($flags as $flag => $value) {
-            $this->set_flag($flag, $value);
-        }
-    }
-
-    public function set_flag(string $key, bool $value): void {
-        switch ($key) {
-            case self::FLAG_PRE_PROCESS:
-                $this->setIsPreProcessed($value);
-                break;
-            case self::FLAG_GZIP:
-                $this->setIsGzipped($value);
-                break;
-            case self::FLAG_MINIFY:
-                $this->setIsMinified($value);
-                break;
-        }
-    }
-
-    /**
-     * @param $full_path
-     * @throws Exception
-     */
-    public function on_event_born($full_path): void {
-        $this->setUnixTime0(-1);
-        $this->setFullPath($full_path);
-        $this->setTypeID(self::get_file_type_from_path($full_path));
-        $this->setRank(0);
-        $this->setIsGzipped(false);
-        $this->setIsMinified(false);
-        $this->setIsPreProcessed(false);
-        $this->setText0(UPO::get_file_name($full_path));
-        $this->setExtension(UPO::get_ending_extension($full_path));
-        $this->cache_update(false);
-    }
-
-    public function cache_needs_update(bool $trigger_update): bool {
-        $needs_update = $this->sha512sum !== $this->cache_get(self::CACHE_KEY_SHA512_SUM);
-        if ($needs_update) {
-            if ($trigger_update) {
-                $this->cache_update(true);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Called when DB values are out of date compared to the file's current values (to then update them if needed).
+     * @var EntityFileType
      *
-     * @param bool $update_state [If the Entity state should be updated.]
-     *
-     * @return void
-     * @throws Exception
+     * @ManyToOne(targetEntity="CodeManager\Entity\CodeManager\File\EntityFileType", inversedBy="entity_files")
+     * @JoinColumn(name="file_type_id", referencedColumnName="id")
      */
-    public function cache_update(bool $update_state = true): void {
-        $this->setUnixTimestampEnd(-1);
-        $this->setSizeInBytes(UFO::get_size($this->full_path));
-        $this->setSha512sum($this->cache_get(self::CACHE_KEY_SHA512_SUM));
-        if ($update_state) {
-            $this->set_state(EntityState::STATE_UPDATED);
-        }
+    private $file_type;
+
+    public function __destruct() {
+        $this->trait_destruct_full_path();
+    }
+
+    /**
+     * @return bool
+     */
+    public function has_sha512sum_changed(): bool {
+        return $this->get_cached_latest_sha512sum() !== $this->getSHA512Sum();
+    }
+
+    /**
+     * @return EntityFileType
+     */
+    public function getFileType(): EntityFileType {
+        return $this->file_type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileTypeString(): string {
+        return $this->file_type->getAsString();
+    }
+
+    /**
+     * @param  EntityFileType $entity
+     * @return EntityFile
+     */
+    public function setFileType(EntityFileType $entity): self {
+        $this->file_type = $entity;
+        return $this;
     }
 
     /**
@@ -234,25 +163,9 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
     }
 
     /**
-     * @return mixed
+     * @return EntityFile|null
      */
-    public function getExtension(): string {
-        return $this->extension;
-    }
-
-    /**
-     * @param mixed $extension
-     * @return self
-     */
-    public function setExtension($extension): self {
-        $this->extension = $extension;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getParent() {
+    public function getParent(): ?EntityFile {
         return $this->parent;
     }
 
@@ -263,17 +176,13 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
         return $this->parent !== null;
     }
 
-    public function remove_parent(): void {
-        $this->parent = null;
-    }
-
     /**
-     * @param mixed $parent
+     * @param  EntityFile $parent
      * @return self
      */
-    public function setParent($parent): self {
+    public function setParent(EntityFile $parent): self {
         $this->parent = $parent;
-        $this->setRank($parent->getRank() + 1);
+        $this->set_rank($parent->get_rank() + 1);
         return $this;
     }
 
@@ -304,28 +213,12 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
      */
     public function setChild($child): self {
         $this->child = $child;
-        $this->child->setRank($this->getRank() + 1);
+        $this->child->set_rank($this->get_rank() + 1);
         return $this;
     }
 
     public function remove_child(): void {
         $this->child = null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullPath() : string {
-        return $this->full_path;
-    }
-
-    /**
-     * @param string $full_path
-     * @return self
-     */
-    public function setFullPath(string $full_path) : self {
-        $this->full_path = $full_path;
-        return $this;
     }
 
     public function to_full_string(?EntityFile $relative_to=null) : string {
@@ -369,18 +262,36 @@ class EntityFile extends EntityState implements EntityInterface, CacheTableInter
 
     // ----
 
+    public function sync(): void {
+        var_dump('Syncing entity file{' . $this->getFullPath() . '}');
+        $this->calculate_size();
+        $this->calculate_sha512sum();
+        $this->set_cache_last_updated(-1);
+    }
+
+    // ----------------------------------------------- C A L C U L A T E -----------------------------------------------
+
     /**
-     * @return string
+     * @return EntityFile
      */
-    public function getContent(): string {
-        return $this->getBlob0();
+    public function calculate_size(): self {
+        return $this->setSizeInBytes(UFO::get_size($this->getFullPath()));
     }
 
     /**
-     * @param  string $content
-     * @return self
+     * @return EntityFile
      */
-    public function setContent(string $content) : self {
-        return $this->setBlob0($content);
+    public function calculate_sha512sum(): self {
+        return $this->setSHA512Sum($this->get_cached_latest_sha512sum());
+    }
+
+    /**
+     * @return string
+     */
+    protected function get_cached_latest_sha512sum(): string {
+        if ($this->latest_sha512sum_to_update_to === null) {
+            $this->latest_sha512sum_to_update_to = UFO::get_sha512sum($this->getFullPath());
+        }
+        return $this->latest_sha512sum_to_update_to;
     }
 }

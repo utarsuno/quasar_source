@@ -8,7 +8,7 @@ use QuasarSource\Utils\DataType\UtilsString as STR;
  * Class SQLQuery
  * @package QuasarSource\SQL\Representation
  */
-final class SQLQuery extends SQLQueryRaw {
+class SQLQuery extends SQLQueryRaw {
     public const ATTRIBUTE_SELF_NAME = 'a0{SELF_NAME}';
     public const ATTRIBUTE_SELF_TYPE = 'a1{SELF_TYPE}';
 
@@ -36,7 +36,7 @@ final class SQLQuery extends SQLQueryRaw {
      * @return mixed
      */
     public function PRETTY_SIZE(string $of): self {
-        return $this->raw_add(' pg_size_pretty(' . $of . ')');
+        return $this->raw_func('pg_size_pretty', $of);
     }
 
     /**
@@ -44,11 +44,11 @@ final class SQLQuery extends SQLQueryRaw {
      * @return mixed
      */
     public function COUNT($fields_to_count='*'): self {
-        return $this->raw_add('COUNT(' . $fields_to_count . ')');
+        return $this->raw_func('COUNT', $fields_to_count);
     }
 
     /**
-     * @param  $limit
+     * @param  int|string $limit
      * @return mixed
      */
     public function LIMIT($limit=1): self {
@@ -60,11 +60,15 @@ final class SQLQuery extends SQLQueryRaw {
      |    |  \ \__/  |  | */
 
     /**
-     * @param string $from
+     * @param  string      $from
+     * @param  string|null $as
      * @return mixed
      */
-    public function FROM(string $from): self {
-        return $this->raw_add('FROM ' . $from);
+    public function FROM(string $from, string $as=null): self {
+        if ($as === null) {
+            return $this->raw_add('FROM ' . $from);
+        }
+        return $this->raw_add('FROM ' . $from . ' AS ' . $as);
     }
 
     /**
@@ -101,7 +105,7 @@ final class SQLQuery extends SQLQueryRaw {
     }
 
     /**
-     * @param $field
+     * @param  $field
      * @return mixed
      */
     public function ASCENDING_ON($field): self {
@@ -109,7 +113,7 @@ final class SQLQuery extends SQLQueryRaw {
     }
 
     /**
-     * @param $field
+     * @param  $field
      * @return mixed
      */
     public function DESCENDING_ON($field): self {
@@ -145,12 +149,31 @@ final class SQLQuery extends SQLQueryRaw {
     }
 
     /**
+     * @param  string      $field
+     * @param  string|bool $value
+     * @return mixed
+     */
+    public function WHERE_EQUAL_TO_BOOL(string $field, $value): self {
+        return $this->WHERE()->EQUAL_TO_BOOL($field, $value);
+    }
+
+    /**
      * @param  string $field
      * @param  string $value
      * @return mixed
      */
     public function WHERE_EQUAL_TO_STR(string $field, string $value): self {
         return $this->WHERE()->EQUAL_TO_STR($field, $value);
+    }
+
+    /**
+     * @param  string $field
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function AND_EQUAL_TO(string $field, $value): self {
+        $this->sql .= 'AND ';
+        return $this->EQUAL_TO($field, $value);
     }
 
     /**
@@ -161,6 +184,16 @@ final class SQLQuery extends SQLQueryRaw {
     public function AND_EQUAL_TO_STR($field, string $value): self {
         $this->sql .= 'AND ';
         return $this->EQUAL_TO_STR($field, $value);
+    }
+
+    /**
+     * @param  string      $field
+     * @param  string|bool $value
+     * @return mixed
+     */
+    public function AND_EQUAL_TO_BOOL(string $field, $value): self {
+        $this->sql .= 'AND ';
+        return $this->EQUAL_TO_BOOL($field, $value);
     }
 
     /*___  __                    ___  __
@@ -186,6 +219,41 @@ final class SQLQuery extends SQLQueryRaw {
      */
     public function EQUAL_TO_STR(string $field, string $value): self {
         $this->sql .= $field . ' = '. STR::in_quotes($value) . ' ';
+        return $this;
+    }
+
+    /**
+     * @param  string      $field
+     * @param  string|bool $value
+     * @return mixed
+     */
+    public function EQUAL_TO_BOOL(string $field, $value): self {
+        if (is_bool($value)) {
+            $this->sql .= $field . ' = ' . ($value ? 'true' : 'false');
+            return $this;
+        }
+        if (strtolower($value) === 'false') {
+            $this->sql .= $field . ' = false';
+        } else {
+            $this->sql .= $field . ' = true';
+        }
+        return $this;
+    }
+
+    /**
+     * @param  string|bool $value
+     * @return SQLQuery
+     */
+    public function BOOL($value): self {
+        if (is_bool($value)) {
+            $this->sql .= $value ? 'true' : 'false';
+            return $this;
+        }
+        if (strtolower($value) === 'false') {
+            $this->sql .= 'false';
+        } else {
+            $this->sql .= 'true';
+        }
         return $this;
     }
 
@@ -232,6 +300,7 @@ final class SQLQuery extends SQLQueryRaw {
         $this->sql .= 'SELECT ';
         if ($optional_fields !== null) {
             if (is_string($optional_fields)) {
+                # TODO: THIS SHOULD BE DETERMINED BY THE PRESENSE OF COMMAS
                 $this->is_multi_col = false;
                 $this->sql         .= $optional_fields . ' ';
             } else if (is_array($optional_fields)) {

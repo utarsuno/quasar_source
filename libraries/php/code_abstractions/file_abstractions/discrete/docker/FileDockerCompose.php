@@ -1,12 +1,7 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-24
- * Time: 13:47
- */
 
 namespace QuasarSource\CodeAbstractions\File\Discrete\Docker;
+
 use QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments\CodeSegments;
 use QuasarSource\CodeAbstractions\File\Discrete\ConfigAndText\FileYAML;
 use QuasarSource\Utils\DataType\UtilsString as STR;
@@ -16,7 +11,7 @@ class FileDockerCompose extends FileYAML {
 
     protected function load_contents() {
         return 'TODO!!!!!';
-        #return Yaml::parseFile($this->get_full_path());
+        #return Yaml::parseFile($this->getFullPath());
     }
 
     private function temp_get_parsed_lines(array $file_lines) : CodeSegments {
@@ -55,7 +50,7 @@ class FileDockerCompose extends FileYAML {
 
     public function clean(): void {
         var_dump('TODO: CLEAN DOCKER FILE!');
-        var_dump($this);
+        #var_dump($this);
 
         $lines = $this->get_lines();
 

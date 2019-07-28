@@ -20,9 +20,6 @@ final class Path {
     public const DIRECTORY_NODE         = 'PATH_DIRECTORY_NODE';
 
     public const RELATIVE_NODE_MINIFY_HTML = 'PATH_RELATIVE_NODE_MINIFY_HTML';
-    public const RELATIVE_NODE_MINIFY_CSS = 'PATH_RELATIVE_NODE_MINIFY_CSS';
-    public const RELATIVE_NODE_MINIFY_JS = 'PATH_RELATIVE_NODE_MINIFY_JS';
-
 
     public const PATH_API               = 'var/.ignore/.config.yml';
 }

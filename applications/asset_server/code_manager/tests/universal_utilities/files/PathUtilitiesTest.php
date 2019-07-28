@@ -3,9 +3,6 @@
 namespace CodeManager\Tests;
 
 use QuasarSource\QualityAssurance\FileTestSuite;
-use QuasarSource\Utils\File\UtilsPath       as PATH;
-use QuasarSource\Utils\DataType\UtilsString as STR;
-
 
 class PathUtilitiesTest extends FileTestSuite {
 

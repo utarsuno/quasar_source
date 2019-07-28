@@ -1,12 +1,7 @@
 <?php declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: utarsuno
- * Date: 2019-03-25
- * Time: 18:39
- */
 
 namespace QuasarSource\CodeAbstractions\CodeAbstractions\CodeSegments;
+
 use QuasarSource\CodeAbstractions\CodeAbstractions\Comment;
 use QuasarSource\CodeAbstractions\CodeAbstractions\EmptyLine;
 use QuasarSource\CodeAbstractions\CodeAbstractions\LineOfCode;

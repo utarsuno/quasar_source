@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess\Abstractions;
-use CodeManager\Entity\Abstractions\EntityInterface;
-use CodeManager\Entity\Abstractions\EntityState;
 use CodeManager\Repository\Abstractions\AbstractRepo;
 use CodeManager\Service\CodeBuilderService;
 use CodeManager\Service\Feature\Repository\InterfaceOwnsRepos;
@@ -40,17 +38,14 @@ abstract class BuildSection extends UnitOfWork implements InterfaceOwnsRepos, In
         return $this->code_builder->get_repo($repo_name);
     }
 
-    protected function process_entity(EntityInterface $entity): ?EntityInterface {
+    protected function process_entity($entity) {
         if ($entity->cache_needs_update(true)) {
-            $entity->set_state(EntityState::STATE_UPDATED);
-
+            #$entity->set_state(EntityState::STATE_UPDATED);
         } else {
-            $entity->set_state(EntityState::STATE_NO_CHANGE);
+            #$entity->set_state(EntityState::STATE_NO_CHANGE);
         }
         return $entity;
     }
-
-    abstract protected function on_entity_update(EntityInterface $entity);
 
     /**
      * @param  string $key

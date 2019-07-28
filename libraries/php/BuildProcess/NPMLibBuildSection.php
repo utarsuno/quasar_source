@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 namespace QuasarSource\BuildProcess;
-use CodeManager\Entity\Abstractions\EntityInterface;
 use CodeManager\Repository\CodeManager\RepoNPMLib;
 use CodeManager\Service\CodeBuilderService;
 use QuasarSource\BuildProcess\Abstractions\BuildSection;
@@ -34,10 +33,6 @@ class NPMLibBuildSection extends BuildSection {
                 $this->process_entity($this->repo->get_entity($file_value));
             }
         }
-    }
-
-    protected function on_entity_update(EntityInterface $entity) {
-        return $entity;
     }
 
 }
