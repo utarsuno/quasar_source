@@ -71,6 +71,14 @@ trait TraitFlagTable {
     }
 
     /**
+     * @param array $flags
+     */
+    public function flags_set_all_on(array $flags): void {
+        $this->flags_set_all($flags, true);
+    }
+
+
+    /**
      * @param string $flag
      * @return bool
      */

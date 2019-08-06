@@ -14,6 +14,18 @@ abstract class UtilsArray implements InterfaceDivisible {
      * @param  array $array
      * @return string
      */
+    public static function to_string(array $array): string {
+        $text = '';
+        foreach ($array as $line) {
+            $text .= $line;
+        }
+        return $text;
+    }
+
+    /**
+     * @param  array $array
+     * @return string
+     */
     public static function associative_to_single_continuous_string(array $array): string {
         $s = '';
         foreach ($array as $key => $value) {
@@ -104,6 +116,45 @@ abstract class UtilsArray implements InterfaceDivisible {
     public static function ref_append_values(array & $base, array $values): void {
         foreach ($values as $value) {
             $base[] = $value;
+        }
+    }
+
+    /**
+     * @param  array $array
+     * @param  array $a0
+     * @param  array $a1
+     * @param  array $a2
+     * @return array
+     */
+    public static function add_vals_from_3(array $array, array $a0, array $a1, array $a2): array {
+        foreach ($a0 as $k => $v) {
+            $array[] = $v;
+        }
+        foreach ($a1 as $k => $v) {
+            $array[] = $v;
+        }
+        foreach ($a2 as $k => $v) {
+            $array[] = $v;
+        }
+        return $array;
+    }
+
+    /**
+     * @param  array $array
+     * @param  array $a0
+     * @param  array $a1
+     * @param  array $a2
+     * @return void
+     */
+    public static function ref_add_vals_from_3(array & $array, array $a0, array $a1, array $a2): void {
+        foreach ($a0 as $k => $v) {
+            $array[] = $v;
+        }
+        foreach ($a1 as $k => $v) {
+            $array[] = $v;
+        }
+        foreach ($a2 as $k => $v) {
+            $array[] = $v;
         }
     }
 

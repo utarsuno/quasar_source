@@ -3,11 +3,12 @@
 namespace CodeManager\Repository\CodeManager;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
+use CodeManager\Entity\CodeManager\EntityCodeBuild;
 use CodeManager\Entity\CodeManager\EntitySnapshotDB;
 use CodeManager\Repository\Abstractions\SingleEntityRepo;
-use QuasarSource\CommonFeatures\TraitEnvironmentVariablesAsFields;
+use QuasarSource\CommonFeatures\TraitEnvVarsAsFields;
 use QuasarSource\SQL\DBSchema;
-use QuasarSource\Utils\Process\ProcessDoctrine;
+use QuasarSource\Utils\Process\ProcessRunner;
 use QuasarSource\Utils\Time\UtilsUnixTime as TIME;
 
 /**
@@ -15,9 +16,7 @@ use QuasarSource\Utils\Time\UtilsUnixTime as TIME;
  * @package CodeManager\Repository\CodeManager
  */
 class RepoSnapshotDB extends SingleEntityRepo {
-    use TraitEnvironmentVariablesAsFields;
-
-    public const ENTITY_CLASS = EntitySnapshotDB::class;
+    use TraitEnvVarsAsFields;
 
     /** @var string */
     private $env_db_name;
@@ -47,7 +46,7 @@ class RepoSnapshotDB extends SingleEntityRepo {
     public function set_needed_repos(): void {
         $this->envs_set_as_str(['DB_NAME' => 'env_db_name']);
         $this->queries_schema   = new DBSchema($this->env_db_name, $this->db_service->get_db_connection());
-        $this->repo_code_builds = $this->db_service->get_repo(RepoCodeBuild::class);
+        $this->repo_code_builds = $this->db_service->get_repo(EntityCodeBuild::class);
     }
 
     /**
@@ -98,10 +97,10 @@ class RepoSnapshotDB extends SingleEntityRepo {
     }
 
     /**
-     * @param  ProcessDoctrine|null $doctrine
+     * @param  ProcessRunner|null $doctrine
      * @return AbstractEntity
      */
-    private function create_new_db_snapshot(ProcessDoctrine $doctrine=null): AbstractEntity {
+    private function create_new_db_snapshot(ProcessRunner $doctrine=null): AbstractEntity {
         $this->mark_current_entity_as_created(new EntitySnapshotDB());
         /** @var EntitySnapshotDB $entity */
         $entity = $this->current_entity;
@@ -112,15 +111,15 @@ class RepoSnapshotDB extends SingleEntityRepo {
         if ($doctrine !== null) {
             $entity->set_schema_command_output('|||' . json_encode($doctrine->get_output()) . '|||' . json_encode($doctrine->get_error_output()) . '|||');
         }
-        $this->save_entity($entity, true);
+        $this->save($entity, true);
         $this->logger->log('A new SnapshotDB Entity was created with timestamp{' . $entity->get_timestamp() . '}');
         return $entity;
     }
 
     /**
-     * @param ProcessDoctrine|null $doctrine
+     * @param ProcessRunner|null $doctrine
      */
-    private function parse_doctrine_results(ProcessDoctrine $doctrine=null): void {
+    private function parse_doctrine_results(ProcessRunner $doctrine=null): void {
         if ($doctrine !== null) {
             $errors = json_encode($doctrine->get_error_output());
             $output = json_encode($doctrine->get_output());

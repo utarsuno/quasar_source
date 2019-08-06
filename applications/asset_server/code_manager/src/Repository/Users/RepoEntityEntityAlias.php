@@ -2,7 +2,6 @@
 
 namespace CodeManager\Repository\Users;
 
-use CodeManager\Entity\Users\EntityEntityEntityAlias;
 use CodeManager\Repository\Abstractions\QueryableRepo;
 use CodeManager\Service\DBService;
 
@@ -11,8 +10,6 @@ use CodeManager\Service\DBService;
  * @package CodeManager\Repository\Users
  */
 class RepoEntityEntityAlias extends QueryableRepo {
-
-    public const ENTITY_CLASS = EntityEntityEntityAlias::class;
 
     /**
      * @param  int $user_id

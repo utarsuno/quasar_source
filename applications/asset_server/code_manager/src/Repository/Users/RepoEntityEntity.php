@@ -3,7 +3,6 @@
 namespace CodeManager\Repository\Users;
 
 use CodeManager\Entity\Users\EntityEntity;
-use CodeManager\Entity\Users\EntityEntityEntityAlias;
 use CodeManager\Repository\Abstractions\AbstractRepo;
 use CodeManager\Service\DBService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,8 +15,7 @@ use QuasarSource\Utils\DataType\UtilsString as STR;
  */
 class RepoEntityEntity extends AbstractRepo {
 
-    public const ENTITY_CLASS = EntityEntity::class;
-    protected $entity_class   = EntityEntity::class;
+    protected $entity_class = EntityEntity::class;
 
     /** @var RepoEntityEntityAlias $repo_entity_entity_aliases */
     protected $repo_entity_entity_aliases;
@@ -30,7 +28,6 @@ class RepoEntityEntity extends AbstractRepo {
      */
     public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
         parent::__construct($em, $class);
-        $this->repo_entity_entity_aliases = $this->get_repo(EntityEntityEntityAlias::class);
     }
 
     /**
@@ -53,7 +50,7 @@ class RepoEntityEntity extends AbstractRepo {
         }
         foreach ($this->cache_aliases as $alias => $data) {
             if (STR::has($search_text, (string) $alias, $data[1])) {
-                return $this->get_entity_by_id($data[0]);
+                return $this->find_by_id($data[0]);
             }
         }
         throw new \RuntimeException('No user matched for search text{' . $search_text . '}');

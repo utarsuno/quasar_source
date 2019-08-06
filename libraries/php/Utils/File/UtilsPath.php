@@ -94,7 +94,7 @@ abstract class UtilsPath {
      */
     public static function get_extensions(string $path): array {
         $full_name  = self::get_file_full_name($path);
-        if (!STR::has($path, '.') || (STR::has_only_one($path, '.') && STR::ends_with($path, '.'))) {
+        if (!STR::has($path, '.') || (STR::has_only_one($path, '.') && STR::ends_in($path, '.'))) {
             return [];
         }
         $extensions = STR::remove($full_name, STR::keep_all_before($full_name, '.'));

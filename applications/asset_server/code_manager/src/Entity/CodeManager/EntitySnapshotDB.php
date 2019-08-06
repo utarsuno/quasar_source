@@ -5,12 +5,12 @@ namespace CodeManager\Entity\CodeManager;
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\SQL\Doctrine\Entity\Field\Boolean\TraitBool0;
-use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Byte\TraitSizeInBytes;
-use QuasarSource\SQL\Doctrine\Entity\Field\Number\Int\Small\TraitSmallInt1;
-use QuasarSource\SQL\Doctrine\Entity\Field\Text\Blob\TraitBigText2;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
-use QuasarSource\SQL\Doctrine\Fields\EnumFields as FIELD;
+use QuasarSource\Doctrine\Entity\Field\Boolean\TraitBool0;
+use QuasarSource\Doctrine\Entity\Field\Number\Int\Byte\TraitSizeInBytes;
+use QuasarSource\Doctrine\Entity\Field\Number\Int\Small\TraitSmallInt1;
+use QuasarSource\Doctrine\Entity\Field\Text\Blob\TraitBigText2;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Doctrine\Fields\EnumFields as FIELD;
 
 /**
  * Class EntityDBSnapshot

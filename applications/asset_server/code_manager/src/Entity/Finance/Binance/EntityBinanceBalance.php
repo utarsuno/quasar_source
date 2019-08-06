@@ -3,10 +3,10 @@
 namespace CodeManager\Entity\Finance\Binance;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText0;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime0;
 
 
 /**
@@ -18,7 +18,7 @@ use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
  */
 class EntityBinanceBalance extends AbstractEntity {
     // JSON data containing balances of all coins greater than zero.
-    use FieldText;
+    use TraitText0;
     // The time instance that the balance was checked at.
     use TraitUnixTime0;
 

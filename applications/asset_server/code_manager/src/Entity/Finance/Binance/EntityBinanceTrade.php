@@ -4,7 +4,7 @@ namespace CodeManager\Entity\Finance\Binance;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText0;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping\Table;
  */
 class EntityBinanceTrade extends AbstractEntity {
     // Represents the coin trade pair ex: {BATBTC} which is BAT to BTC.
-    use FieldText;
+    use TraitText0;
     // A pointer to the parent EntityBinanceOrder.
     use FieldEntityPointer;
 

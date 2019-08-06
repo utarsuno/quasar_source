@@ -4,10 +4,10 @@ namespace CodeManager\Entity\Users;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldTextThree;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime1;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText2;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime1;
 
 /**
  * Class EntityEntity
@@ -18,7 +18,7 @@ use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime1;
  */
 class EntityEntity extends AbstractEntity {
     // Username, Password, Email.
-    use FieldTextThree;
+    use TraitText2;
     // The time instance that this account was created at and last logged in at.
     use TraitUnixTime1;
     // A pointer to the EntityUserRole.

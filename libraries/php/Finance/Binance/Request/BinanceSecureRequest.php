@@ -29,7 +29,7 @@ abstract class BinanceSecureRequest extends BinanceHTTPRequest {
     public function __construct(string $endpoint, string $api_key, string $api_secret, string $request_type=UtilsHTTP::REQUEST_TYPE_GET) {
         parent::__construct(
             self::API_V3 . $endpoint,
-            [UtilsHTTP::HEADER_DEFAULT, 'X-MBX-APIKEY: ' . $api_key, 'Content-type: application/x-www-form-urlencoded'],
+            [UtilsHTTP::HEADER_DEFAULT, 'X-MBX-APIKEY: ' . $api_key, 'Content-type: ' . UtilsHTTP::ENCODING_DEFAULT],
             $request_type
         );
         $this->api_secret = $api_secret;

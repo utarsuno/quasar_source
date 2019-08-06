@@ -14,6 +14,10 @@ composer_health_check () {
     #composer validate --with-dependencies --strict
 }
 
+composer_test () {
+    composer dump-env dev -vvv
+}
+
 composer_update_full () {
     sudo -H composer self-update
 }

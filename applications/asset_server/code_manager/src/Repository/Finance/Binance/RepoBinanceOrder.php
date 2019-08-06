@@ -10,7 +10,5 @@ use CodeManager\Repository\Abstractions\AbstractRepo;
  */
 class RepoBinanceOrder extends AbstractRepo {
 
-    protected $entity_class   = EntityBinanceOrder::class;
-    public const ENTITY_CLASS = EntityBinanceOrder::class;
-
+    protected $entity_class = EntityBinanceOrder::class;
 }

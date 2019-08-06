@@ -53,7 +53,7 @@ abstract class SingleEntityRepo extends QueryableRepo {
         $this->current_entity_was_created = false;
         $this->current_entity_was_re_used = true;
         /** @var AbstractEntity $previous_entity */
-        $previous_entity                  = $this->get_entity_by_id($previous_entity_id);
+        $previous_entity                  = $this->find_by_id($previous_entity_id);
         #$this->current_entity             = $previous_entity;
         return $previous_entity;
     }

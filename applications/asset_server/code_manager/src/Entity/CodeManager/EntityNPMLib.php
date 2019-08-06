@@ -3,12 +3,12 @@
 namespace CodeManager\Entity\CodeManager;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldTextThree;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText2;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime0;
 use QuasarSource\Utils\File\UtilsPath       as PATH;
 use QuasarSource\Utils\Process\UtilsProcess as RUN;
 
@@ -22,7 +22,7 @@ use QuasarSource\Utils\Process\UtilsProcess as RUN;
 class EntityNPMLib extends AbstractEntity implements CacheTableInterface {
     use TraitCacheTable;
     // Name, VersionLatest, VersionLocal.
-    use FieldTextThree;
+    use TraitText2;
     // Represents the last time it was checked.
     use TraitUnixTime0;
 
@@ -41,8 +41,6 @@ class EntityNPMLib extends AbstractEntity implements CacheTableInterface {
     public function cache_needs_inspection() : bool {
         $last_checked = $this->getUnixTimestamp();
         var_dump('Last checked is {' . $last_checked . '}');
-
-
         #if (DATE::is_different_day($last_checked, DATE::now())) {
         #    $this->setLastChecked(TIME::now());
         #    return true;
@@ -68,14 +66,14 @@ class EntityNPMLib extends AbstractEntity implements CacheTableInterface {
     }
 
     public function on_event_born($data): void {
-        $latest_version  = RUN::get_npm_lib_latest_version($data);
-        PATH::cwd_push(\CodeManager\Enum\ProjectParameterKeys\Path::DIRECTORY_NODE);
-        $current_version = RUN::get_npm_lib_version_local($data);
-        PATH::cwd_pop();
-        $this->setName($data);
-        $this->setVersionLocal($current_version);
-        $this->setVersionLatest($latest_version);
-        $this->cache_update(false);
+        #$latest_version  = RUN::get_npm_lib_latest_version($data);
+        #PATH::cwd_push(\CodeManager\Enum\ProjectParameterKeys\Path::DIRECTORY_NODE);
+        #$current_version = RUN::get_npm_lib_version_local($data);
+        #PATH::cwd_pop();
+        #$this->setName($data);
+        #$this->setVersionLocal($current_version);
+        #$this->setVersionLatest($latest_version);
+        #$this->cache_update(false);
     }
 
 }

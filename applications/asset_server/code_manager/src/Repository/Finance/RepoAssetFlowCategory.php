@@ -10,8 +10,7 @@ use CodeManager\Repository\Abstractions\QueryableRepo;
  */
 class RepoAssetFlowCategory extends QueryableRepo {
 
-    public const ENTITY_CLASS = EntityAssetFlowCategory::class;
-    protected $entity_class   = EntityAssetFlowCategory::class;
+    protected $entity_class = EntityAssetFlowCategory::class;
 
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
     public function set_needed_repos(): void {}

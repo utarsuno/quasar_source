@@ -6,11 +6,13 @@ use InvalidArgumentException;
 use function is_array;
 use Exception;
 use QuasarSource\Utils\Exception\ExceptionSystem;
+use QuasarSource\Utils\File\Enum\EnumFileTypeExtensions;
+use QuasarSource\Utils\Process\ProcessRunner;
+use QuasarSource\Utils\DataType\UtilsArray     as ARY;
 use QuasarSource\Utils\DataType\UtilsTextLines as TEXT_LINES;
 use QuasarSource\Utils\Process\UtilsProcess    as RUN;
 use QuasarSource\Utils\Math\UtilsCryptography  as HASH;
 use QuasarSource\Utils\SystemOS\UtilsSystem    as SYS;
-use QuasarSource\Utils\Process\UtilsProcess;
 
 /**
  * Class UtilsFile
@@ -102,12 +104,15 @@ abstract class UtilsFile {
      * @throws ExceptionSystem
      */
     public static function gzip(string $path_base, string $path_output): void {
+        self::is_valid($path_base);
+        $p = new ProcessRunner(['gzip', '-f', '-k', '-9', $path_base], true);
         try {
-            self::is_valid($path_base);
-            RUN::gzip_file_to($path_base, $path_output);
+            $p->run();
+            self::rename($path_base . EnumFileTypeExtensions::GZIPPED, $path_output);
         } catch (Exception $e) {
             throw self::exception('gzip', $e->getMessage());
         }
+        unset($p);
     }
 
     /**
@@ -127,13 +132,20 @@ abstract class UtilsFile {
     /**
      * @param  string $path
      * @param  mixed  $contents
+     * @param  bool   $create_if_file_does_not_exist
      * @throws ExceptionSystem
      */
-    public static function set(string $path, $contents): void {
-        try {
+    public static function set(string $path, $contents, bool $create_if_file_does_not_exist=false): void {
+        if (!$create_if_file_does_not_exist) {
             self::is_valid($path);
+        }
+        try {
             #file_put_contents($path, $contents, LOCK_EX);
-            $f = fopen($path, 'wb');
+            if ($create_if_file_does_not_exist) {
+                $f = fopen($path, 'wb+');
+            } else {
+                $f = fopen($path, 'wb');
+            }
             if (is_array($contents)) {
                 $contents = implode($contents);
             }
@@ -146,16 +158,20 @@ abstract class UtilsFile {
 
     /**
      * @param  string $path
-     * @return array
+     * @param  bool   $as_string
+     * @return array|string
      * @throws ExceptionSystem
      */
-    public static function get(string $path): array {
+    public static function get(string $path, bool $as_string=false) {
+        self::is_valid($path);
         try {
-            self::is_valid($path);
             $file_lines = [];
             $lines      = file($path);
             foreach ($lines as $line) {
                 $file_lines[] = $line;
+            }
+            if ($as_string) {
+                return ARY::to_string($file_lines);
             }
             return $file_lines;
         } catch (Exception $e) {
@@ -178,7 +194,7 @@ abstract class UtilsFile {
      */
     public static function get_last_n_lines(string $path, int $num_lines): array {
         self::is_valid($path);
-        return TEXT_LINES::parse_string(UtilsProcess::run_cmd(['tail', '-' . $num_lines, $path]));
+        return TEXT_LINES::parse_string(RUN::run_cmd(['tail', '-' . $num_lines, $path]));
     }
 
     /**

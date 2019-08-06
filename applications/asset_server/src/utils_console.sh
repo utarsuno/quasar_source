@@ -6,6 +6,10 @@ console_code_manager () {
     ${RUN_CONSOLE_CMD} code:health_check -vvv
 }
 
+console_debug() {
+    ${RUN_CONSOLE_CMD} debug:config
+}
+
 console_list () {
     ${RUN_CONSOLE_CMD} list
 }

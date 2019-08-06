@@ -3,8 +3,8 @@
 module.exports = {
     entry: '/quasar_source/libraries/front_end/hello_world.js',
     output: {
-        filename: 'hello_world_output.js',
-        path: '/quasar_source/applications/asset_server/code_manager/public'
+        filename: 'nl.js',
+        path: '/quasar_source/var/nexus_local/'
     },
     mode: 'production',
     resolve: {

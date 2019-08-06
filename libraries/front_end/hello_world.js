@@ -1,6 +1,7 @@
 import * as THREE           from '../../applications/asset_server/js/node_modules/three';
 import DataStructureFlags31 from './data_structures/bitwise_flags_max_31';
 import InputMouse           from './engine/input/mouse';
+import HUD                  from './engine/hud';
 
 
 /* -- F L A G S -- I N T --
@@ -29,81 +30,90 @@ THREE.Cache.enabled                    = true;
 THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
 
+
+
+function loadJSON(callback) {
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState === 4 && xobj.status === "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+
+
 let Engine = function() {
     let self = this;
+    this.json_data = null;
 
-
+    //loadJSON(function (response) {
+    //    self.json_data = response;
+    //    console.log('THE RESPONSE WAS');
+    //    console.log(response);
+    //});
 
 
     let main_canvas = document.getElementById('a');
 
-    this.hud = document.getElementById('b');
-    this.hud_context = this.hud.getContext('2d');
-    this.hud_context.beginPath();
-    this.hud_context.arc(150,150,50,0,2*Math.PI);
-    this.hud_context.stroke();
-
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-
+    this.hud        = HUD.singleton_hud;
+    this.hud.__init__();
+    this.hud.render();
 
     this.renderer = new THREE.WebGLRenderer({canvas: main_canvas, context: main_canvas.getContext('webgl2')});
     //renderer.setClearColor(0xffffff, 1);
-
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
     //document.body.appendChild( renderer.domElement );
 
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    var cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    var scene    = new THREE.Scene();
+    var camera   = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    let geometry = new THREE.BoxGeometry(1, 1, 1);
+    let material = new THREE.MeshBasicMaterial({}); //color: 0x00ff00
+    let cube     = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
     camera.position.z = 5;
 
-    this.animate = function () {
-        requestAnimationFrame( self.animate );
+    this.event_action_resize = function() {
+        // TODO: Eventually throttle this event (only execute once no event is no longer sent for longer than 200 ms?).
+        this.cached_ints[1]   = window.innerWidth;
+        this.cached_ints[2]   = window.innerHeight;
+        this.cached_floats[3] = window.innerWidth / window.innerHeight;
+        this.renderer.setSize(self.cached_ints[1], self.cached_ints[2]);
+        this.hud.set_dimensions(self.cached_ints[1], self.cached_ints[2]);
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-
-        self.renderer.render( scene, camera );
+        self.hud.render();
+        self.renderer.render(scene, camera);
     };
 
+    this.animate = function () {
+        requestAnimationFrame( self.animate );
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        //self.hud.render();
+        //self.renderer.render(scene, camera);
+    };
+
+    // Make sure proper resolution gets set as soon as possible.
+    this.event_action_resize();
     this.animate();
-
-
-
-
-
-
-
-
-
 
     // E V E N T {window resize}
     window.addEventListener('resize', function(event) {
         event.preventDefault();
         //event.stopPropagation();
-        // TODO: Eventually throttle this event (only execute once no event is no longer sent for longer than 200 ms?).
-        self.cached_ints[1]   = window.innerWidth;
-        self.cached_ints[2]   = window.innerHeight;
-        self.cached_floats[3] = window.innerWidth / window.innerHeight;
-        //self._update_renderer_dimensions();
 
-        console.log('On resize!');
-        self.renderer.setSize(self.cached_ints[1], self.cached_ints[2]);
-
-        self.hud.width  = self.cached_ints[1];
-        self.hud.height = self.cached_ints[2];
-
-        self.hud_context.beginPath();
-        self.hud_context.arc(150,150,50,0,2*Math.PI);
-        self.hud_context.stroke();
+        self.event_action_resize();
 
         return false;
     }, true);
 };
+
 Engine.prototype = {
     // C A C H E D - I N T E G E R S.
     cached_ints      : new Uint32Array(4),
@@ -111,6 +121,10 @@ Engine.prototype = {
     // C A C H E D - F L O A T S.
     cached_floats    : new Float64Array(13),
 };
+
+
+
+
 
 
 let engine = new Engine();

@@ -3,12 +3,10 @@
 namespace CodeManager\Repository\Abstractions;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
-use Doctrine\Common\Persistence\ObjectRepository;
+use CodeManager\Service\DBService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\ORMException;
-use QuasarSource\Utils\Exception\ExceptionDB;
 
 /**
  * Class AbstractRepo
@@ -16,20 +14,73 @@ use QuasarSource\Utils\Exception\ExceptionDB;
  */
 abstract class AbstractRepo extends EntityRepository {
 
-    public const ENTITY_CLASS = '';
+    /** @var string $entity_class */
+    protected $entity_class;
 
     /** @var EntityManagerInterface $em */
     protected $em;
 
+    # --------------------------------------------------- M A G I C ----------------------------------------------------
     /**
-     * Initializes a new <tt>EntityRepository</tt>.
-     *
-     * @param EntityManagerInterface $em    The EntityManager to use.
-     * @param ClassMetadata          $class The class descriptor.
+     * @param EntityManagerInterface $em
+     * @param ClassMetadata          $class
      */
     public function __construct(EntityManagerInterface $em, ClassMetadata $class) {
         parent::__construct($em, $class);
         $this->em = $em;
+    }
+    # -------------------------------------------------- P U B L I C ---------------------------------------------------
+
+    /**
+     * @return string
+     */
+    public function get_entity_class(): string {
+        return $this->_entityName;
+    }
+
+    /**
+     * @param  mixed $entity
+     * @param  bool  $save_db_state
+     */
+    public function save($entity, bool $save_db_state=false): void {
+        if (is_array($entity)) {
+            foreach ($entity as $e) {
+                $this->em->persist($e);
+            }
+        } else {
+            $this->em->persist($entity);
+        }
+        if ($save_db_state) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @param  string $find_key
+     * @param  mixed  $find_value
+     * @param  string $sort_key
+     * @return array
+     */
+    public function findByAscendingBy(string $find_key, $find_value, string $sort_key): array {
+        return $this->findBy([$find_key => $find_value], [$sort_key => 'ASC']);
+    }
+
+    /**
+     * @param  string $find_key
+     * @param  mixed  $find_value
+     * @param  string $sort_key
+     * @return array
+     */
+    public function findByDescendingBy(string $find_key, $find_value, string $sort_key): array {
+        return $this->findBy([$find_key => $find_value], [$sort_key => 'DESC']);
+    }
+
+    /**
+     * @param  int $id
+     * @return object|null
+     */
+    public function find_by_id(int $id) {
+        return $this->findOneBy(['id' => $id]);
     }
 
     /**
@@ -39,46 +90,23 @@ abstract class AbstractRepo extends EntityRepository {
         return $this->findAll();
     }
 
+    protected function flush(): void {
+        $this->em->flush();
+    }
+
+    # ------------
+
     /**
      * @param  bool $auto_save
      * @return AbstractEntity
      */
     public function get_new_entity(bool $auto_save=false): AbstractEntity {
-        $entity_class = static::ENTITY_CLASS;
+        $entity_class = $this->get_entity_class();
         $entity       = new $entity_class();
         if ($auto_save) {
-            $this->save_entity($entity, true);
+            $this->save($entity, true);
         }
         return $entity;
-    }
-
-    /**
-     * @param  string $repo_class
-     * @return ObjectRepository
-     */
-    protected function get_repo(string $repo_class): ObjectRepository {
-        return $this->em->getRepository($repo_class);
-    }
-
-    /**
-     * @param  int $id
-     * @return object|null
-     */
-    protected function get_entity_by_id(int $id) {
-        return $this->findOneBy(['id' => $id]);
-    }
-
-    protected $default_search_attribute;
-
-    /** @var string $entity_class */
-    protected $entity_class;
-
-    public function get_entity($search_value) {
-        return $this->findOneBy([$this->default_search_attribute => $search_value]);
-    }
-
-    public function has_entity($search_value): bool {
-        return $this->get_entity($search_value) !== null;
     }
 
     /**
@@ -89,7 +117,7 @@ abstract class AbstractRepo extends EntityRepository {
         $entity = new $this->entity_class();
         //$entity->on_event_born($value);
         if ($save) {
-            $this->save_entity($entity, true);
+            $this->save($entity, true);
         }
         return $entity;
     }
@@ -106,18 +134,8 @@ abstract class AbstractRepo extends EntityRepository {
     }
 
     /**
-     * @param  mixed $entity
-     * @param  bool  $save_db_state
+     * @param DBService $db_service
      */
-    public function save_entity($entity, bool $save_db_state=false): void {
-        $this->em->persist($entity);
-        if ($save_db_state) {
-            $this->em->flush();
-        }
-    }
-
-    protected function flush(): void {
-        $this->em->flush();
-    }
+    public function set_db_service(DBService $db_service): void {}
 
 }

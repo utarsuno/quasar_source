@@ -1,0 +1,14 @@
+# time to wait to get body (or reply with a 408)
+client_body_timeout       10;
+
+# time to wait to get headers (or reply with a 408)
+client_header_timeout     10;
+
+# close connections after x seconds
+keepalive_timeout         30;
+
+# wait time for single response within a full round trip/ack
+send_timeout              10;
+
+# allow the server to close connection on non responding client, this will free up memory
+reset_timedout_connection on;

@@ -1,0 +1,5 @@
+# Cache information about FDs, frequently accessed files can boost performance (values need to be fine tuned).
+open_file_cache          max=200000 inactive=90s;
+open_file_cache_valid    180s;
+open_file_cache_min_uses 2;
+open_file_cache_errors   on;

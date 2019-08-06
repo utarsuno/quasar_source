@@ -1,0 +1,7 @@
+# don't delay sending small data bursts by buffering data sent
+tcp_nodelay        on;
+# sends headers in single data piece
+tcp_nopush         on;
+# avoid slower read() + write() by using FD(file_descriptor) to copy data
+sendfile           on;
+sendfile_max_chunk 1m;

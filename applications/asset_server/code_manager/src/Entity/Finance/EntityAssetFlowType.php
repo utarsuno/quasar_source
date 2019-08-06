@@ -4,7 +4,7 @@ namespace CodeManager\Entity\Finance;
 
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText0;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping\Table;
  */
 class EntityAssetFlowType extends AbstractEntity {
     // Description
-    use FieldText;
+    use TraitText0;
     // Optional: Category
     use FieldEntityPointer;
 

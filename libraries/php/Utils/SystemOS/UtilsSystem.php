@@ -10,6 +10,9 @@ use QuasarSource\Utils\DataType\UtilsString as STR;
  */
 abstract class UtilsSystem {
 
+    #var_dump(opcache_get_status());
+    #var_dump(opcache_get_configuration());
+
     public static function ask_for_garbage_collection(): void {
         gc_collect_cycles();
     }

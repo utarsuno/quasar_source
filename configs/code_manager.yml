@@ -3,12 +3,6 @@ global_information:
   theme_color: '#6fff9a'
 
 assets:
-  .html:
-    PATH_DIRECTORY_DATA  : '/quasar_source/assets/html/'
-    PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'
-    files                :
-      nexus_local.html: ['pre_process', '/quasar_source/var/web_assets/nexus_local.min.css', 'minify', 'gzipped']
-      dev.html        : ['pre_process', '/quasar_source/var/web_assets/dev.min.css'        , 'minify', 'gzipped']
   .vert:
     PATH_DIRECTORY_DATA  : '/quasar_source/assets/shaders/'
     PATH_DIRECTORY_OUTPUT: '/quasar_source/var/web_assets/'

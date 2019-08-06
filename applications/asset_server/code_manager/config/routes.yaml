@@ -1,8 +1,0 @@
-qa_test:
-  path: /qa_test
-  controller: CodeManager\Controller\QAController::test_response
-
-run_unit_tests:
-  path: /run_unit_tests
-  controller: CodeManager\Controller\QAController::run_unit_tests
-

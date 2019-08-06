@@ -11,8 +11,7 @@ use CodeManager\Repository\Abstractions\QueryableRepo;
  */
 class RepoEntityEntityRole extends QueryableRepo {
 
-    public const ENTITY_CLASS = EntityEntityEntityRole::class;
-    protected $entity_class   = EntityEntityEntityRole::class;
+    protected $entity_class = EntityEntityEntityRole::class;
 
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
     public function set_needed_repos(): void {}

@@ -5,12 +5,12 @@ namespace CodeManager\Entity\Finance;
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntTwo;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointerTwo;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText0;
 use CodeManager\Entity\Users\EntityEntity;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\Finance\UtilsFinance;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime0;
 use QuasarSource\Utils\Time\UtilsUnixTime as TIME;
 
 /**
@@ -22,7 +22,7 @@ use QuasarSource\Utils\Time\UtilsUnixTime as TIME;
  */
 class EntityAssetFlow extends AbstractEntity {
     // Description
-    use FieldText;
+    use TraitText0;
     // Type, Amount.
     use FieldIntTwo;
     // A pointer from Entity and pointer to Entity.

@@ -21,13 +21,17 @@
         "symfony/orm-pack"        : "^1.0",
         "symfony/phpunit-bridge"  : "4.*",
         "symfony/process"         : "4.*",
-        "symfony/yaml"            : "4.*"
+        "symfony/yaml"            : "4.*",
+        "symfony/web-server-bundle": "4.2.*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": false
+        "sort-packages": false,
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "apcu-autoloader": false
     },
     "autoload": {
         "psr-4": {
@@ -37,9 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeManager\\": "src/",
-            "CodeManager\\Tests\\": "tests/",
-            "QuasarSource\\": "./../../../libraries/php/"
+            "CodeManager\\Tests\\": "tests/"
         }
     },
     "replace": {

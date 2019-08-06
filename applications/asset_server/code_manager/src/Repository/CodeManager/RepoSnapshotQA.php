@@ -11,7 +11,6 @@ use CodeManager\Repository\Abstractions\AbstractRepo;
  */
 class RepoSnapshotQA extends AbstractRepo {
 
-    public const ENTITY_CLASS = EntitySnapshotQA::class;
-    protected $entity_class   = EntitySnapshotQA::class;
+    protected $entity_class = EntitySnapshotQA::class;
 
 }

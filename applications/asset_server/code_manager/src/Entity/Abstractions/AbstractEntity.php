@@ -2,7 +2,7 @@
 
 namespace CodeManager\Entity\Abstractions;
 
-use QuasarSource\SQL\Doctrine\Fields\EnumFields;
+use QuasarSource\Doctrine\Fields\EnumFields;
 use QuasarSource\Utils\DataType\UtilsString as STR;
 use RuntimeException;
 use Doctrine\ORM\Mapping\Column;
@@ -45,20 +45,30 @@ abstract class AbstractEntity {
      * @return mixed
      */
     public function __call($name, $arguments) {
-        switch (STR::get_starts_with_match($name, EnumFields::MAGIC_METHODS)) {
-            case '':
-                throw new RuntimeException('Invalid function{' . $name . '} called to Entity!');
-            case EnumFields::MAGIC_GET;
-                $func_name = 'get' . static::$func_aliases[STR::remove($name, EnumFields::MAGIC_GET)];
+        $match = STR::get_starts_with_match($name, EnumFields::MAGIC_METHODS);
+        switch ($match) {
+            case EnumFields::MAGIC_GET:
+            case EnumFields::MAGIC_GET_ALT:
+                $func_name = 'get' . static::$func_aliases[STR::remove($name, $match)];
                 break;
             case EnumFields::MAGIC_SET:
-                $func_name = 'set' . static::$func_aliases[STR::remove($name, EnumFields::MAGIC_SET)];
+            case EnumFields::MAGIC_SET_ALT:
+                $func_name = 'set' . static::$func_aliases[STR::remove($name, $match)];
                 break;
+            case '':
             default:
-                throw new RuntimeException('Invalid function{' . $name . '} called to Entity!');
+                throw new RuntimeException('Invalid function{' . $name . '} called to Entity, default branch!');
+                break;
         }
-        if ($arguments !== null && is_array($arguments) && count($arguments) !== 0) {
-            return $this->$func_name($arguments[0]);
+        if ($arguments !== null && is_array($arguments)) {
+            $num_args = count($arguments);
+            if ($num_args === 1) {
+                return $this->$func_name($arguments[0]);
+            }
+            if ($num_args === 0) {
+                return $this->$func_name();
+            }
+            throw new RuntimeException('Invalid number of arguments (or not supported)');
         }
         return $this->$func_name();
     }

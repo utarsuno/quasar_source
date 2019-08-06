@@ -1,0 +1,5 @@
+# this is the internal Docker DNS, cache only for 30s
+#resolver 127.0.0.11 valid=30s;
+
+# this works as well but also fixed an additional edge case.
+resolver 127.0.0.11 ipv6=off;

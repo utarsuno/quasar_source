@@ -16,11 +16,12 @@ final class UtilsXML extends UtilsFile {
     /**
      * @reference: https://www.php.net/manual/en/function.xml-parse-into-struct.php
      *
-     * @param  string $path [The path of the xml file to get contents of.]
-     * @return mixed
+     * @param  string $path      {path of the xml file to get contents of}
+     * @param  bool   $as_string {}
+     * @return array|string
      * @throws ExceptionSystem
      */
-    public static function get(string $path): array {
+    public static function get(string $path, bool $as_string=false) {
         self::is_valid($path);
         try {
             $elements = []; // the currently filling [child] XmlElement array

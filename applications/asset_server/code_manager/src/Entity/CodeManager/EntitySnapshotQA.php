@@ -5,14 +5,14 @@ namespace CodeManager\Entity\CodeManager;
 use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Entity\Abstractions\Traits\Number\Whole\FieldIntFour;
 use CodeManager\Entity\Abstractions\Traits\Relations\FieldEntityPointer;
-use CodeManager\Entity\Abstractions\Traits\Text\FieldText;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use QuasarSource\DataStructure\CacheTable\CacheTableInterface;
 use QuasarSource\DataStructure\CacheTable\TraitCacheTable;
+use QuasarSource\Doctrine\Entity\Field\Text\TraitText0;
 use QuasarSource\QualityAssurance\ProjectTestSuiteResult;
-use QuasarSource\SQL\Doctrine\Entity\Field\Number\Float\TraitFloat0;
-use QuasarSource\SQL\Doctrine\Entity\Field\Time\TraitUnixTime0;
+use QuasarSource\Doctrine\Entity\Field\Number\Float\TraitFloat0;
+use QuasarSource\Doctrine\Entity\Field\Time\TraitUnixTime0;
 
 /**
  * Class EntityDirectory
@@ -31,7 +31,7 @@ class EntitySnapshotQA extends AbstractEntity implements CacheTableInterface {
     // Num unit-tests failed, errored, skipped, overall.
     use FieldIntFour;
     // Raw output of QA run.
-    use FieldText;
+    use TraitText0;
     // A pointer to the EntityFile (the reference to the physical file containing the QA report).
     use FieldEntityPointer;
 
@@ -55,7 +55,7 @@ class EntitySnapshotQA extends AbstractEntity implements CacheTableInterface {
      */
     public function cache_calculate(string $key) {
         if ($key === self::CACHE_KEY_QA_TEST_SUITE) {
-            return new ProjectTestSuiteResult($this->entity_file->getFullPath());
+            return new ProjectTestSuiteResult($this->entity_file->getPath());
         }
         return null;
     }

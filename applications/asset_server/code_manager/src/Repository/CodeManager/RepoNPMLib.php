@@ -11,8 +11,6 @@ use CodeManager\Repository\Abstractions\AbstractRepo;
  */
 class RepoNPMLib extends AbstractRepo {
 
-    protected $default_search_attribute = 'name';
-    public const ENTITY_CLASS           = EntityNPMLib::class;
-    protected $entity_class             = EntityNPMLib::class;
+    protected $entity_class = EntityNPMLib::class;
 
 }

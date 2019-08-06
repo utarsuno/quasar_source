@@ -2,6 +2,7 @@
 
 namespace CodeManager\Repository\Abstractions;
 
+use CodeManager\Entity\Abstractions\AbstractEntity;
 use CodeManager\Service\DBService;
 use CodeManager\Service\LoggerService;
 use QuasarSource\SQL\DBTable;
@@ -23,6 +24,12 @@ abstract class QueryableRepo extends AbstractRepo implements InterfaceSQLQueryOw
 
     /** @var LoggerService $logger */
     protected $logger;
+
+    # --------------------------------------------------- M A G I C ----------------------------------------------------
+    public function __destruct() {
+        unset($this->db_table, $this->db_service, $this->logger);
+    }
+    # -------------------------------------------------- P U B L I C ---------------------------------------------------
 
     /**
      * @return mixed
@@ -69,10 +76,9 @@ abstract class QueryableRepo extends AbstractRepo implements InterfaceSQLQueryOw
      * @return DBTable
      */
     protected function get_db_table(): DBTable {
-        $entity_class = static::ENTITY_CLASS;
-        if (!isset($entity_class::$db_table_name)) {
-            throw new RuntimeException('{' . $entity_class . '} does not have a table name public const set.');
-        }
+        /** @var AbstractEntity $entity_class */
+        $entity_class = $this->get_entity_class();
+        var_dump('ENTITY CLASS IS {' . $entity_class . '}');
         $db_table = $this->db_service->get_db_table_by_name($entity_class::$db_table_name);
         if (isset($entity_class::$sort_field_time) && !$db_table->is_sort_field_set()) {
             $db_table->set_sort_field_time($entity_class::$sort_field_time);

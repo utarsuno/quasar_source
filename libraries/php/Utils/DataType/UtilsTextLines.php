@@ -4,6 +4,7 @@ namespace QuasarSource\Utils\DataType;
 
 use QuasarSource\Utils\DataType\UtilsString as STR;
 use QuasarSource\Utils\DataType\UtilsArray  as ARY;
+use RuntimeException;
 
 /**
  * Class UtilsArray
@@ -12,7 +13,61 @@ use QuasarSource\Utils\DataType\UtilsArray  as ARY;
 abstract class UtilsTextLines {
 
     /**
-     * @param  array $text_lines
+     * @param  array  $lines
+     * @param  string $start
+     * @param  string $end
+     * @param  array  $insert
+     * @return array
+     */
+    public static function insert_lines_inbetween(array $lines, string $start, string $end, array $insert): array {
+        $processed = [];
+        $started   = false;
+        foreach ($lines as $line) {
+            if (STR::has($line, $start)) {
+                if ($started) {
+                    throw new RuntimeException('Start pattern found twice{' . $start . '}');
+                }
+                $started     = true;
+                $processed[] = $line;
+            } else if (STR::has($line, $end)) {
+                if (!$started) {
+                    throw new RuntimeException('End pattern found before start{' . $end . '}');
+                }
+                UtilsArray::ref_append_values($processed, $insert);
+                $processed[] = $line;
+            } else {
+                $processed[] = $line;
+            }
+        }
+        if (count($processed) === count($lines)) {
+            throw new RuntimeException('Did not find start-end patterns in lines provided! Start{' . $start . '} End{' . $end . '}');
+        }
+        return $processed;
+    }
+
+    /**
+     * @param  string|array $lines
+     * @param  string       $align_on
+     * @return array
+     */
+    public static function column_aligned($lines, string $align_on): array {
+        $depths = [];
+        if (is_string($lines)) {
+            $lines = STR::split_clean($lines);
+        }
+        foreach ($lines as $line) {
+            $depths[] = STR::position_of($line, $align_on, false);
+        }
+        $num_lines = count($lines);
+        $max_depth = ARY::max($depths);
+        for ($i = 0; $i < $num_lines; $i++) {
+            $lines[$i] = STR::insert_before($lines[$i], str_repeat(' ', $max_depth - $depths[$i]), $align_on);
+        }
+        return $lines;
+    }
+
+    /**
+     * @param  array  $text_lines
      * @param  string $pattern
      * @return array
      */
@@ -45,6 +100,7 @@ abstract class UtilsTextLines {
         $sections   = [];
         $section    = [];
         $in_section = false;
+        #(is_array($pattern) && STR::has_any($line, $pattern)) || (is_string($pattern) && STR::has($line, $pattern))
         foreach ($text_lines as $line) {
             if (STR::has($line, $pattern)) {
                 if ($in_section) {

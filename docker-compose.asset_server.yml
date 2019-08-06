@@ -3,44 +3,95 @@ version: '3.7'
 
 # Services collectively make up a distributed application. (0x1)
 services:
-
+  # ---------------------------------------------------------------------------------------------------------------{0x0}
+  rabbit_manager:
+    tty: true
+    build:
+      context: '.'
+      dockerfile: './applications/rabbitmq_manager/Dockerfile'
+    environment:
+      _SERVICE_NAME: 'rabbit_manager'
+      RABBITMQ_ERLANG_COOKIE: 'secret string'
+      RABBITMQ_NODENAME: rabbit_manager
+    volumes:
+      - './applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabbitmq.config'
+      - './applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+  # ---------------------------------------------------------------------------------------------------------------{0x1}
+  nginx:
+    tty: true
+    build:
+      context: '.'
+      dockerfile: './applications/nginx/Dockerfile'
+    environment:
+      _SERVICE_NAME: "nginx"
+    ports:
+      - "80:80"
+    volumes:
+      - 'nexus_volume:/v'
+      - './applications/nginx/nl.nginx:/etc/nginx/nginx.conf'
+    depends_on:
+      - asset_server
+      - pgadmin4
+      - rabbit_manager
+  # ---------------------------------------------------------------------------------------------------------------{0x2}
   asset_server:
-    tty           : true
+    tty: true
     container_name: asset_server
-    #network_mode  : host
-    build         :
-      context   : '.'
+    build:
+      context: '.'
       dockerfile: './applications/asset_server/Dockerfile'
-    ports         :
-      - '80:80'
-      - '21:21'
-      - '20:20'
-      - '40000-50000:40000-50000'
-    volumes       :
+    ports:
+      - "80:80"
+    volumes:
       - 'nexus_volume:/v'
       - './:/quasar_source'
-    environment   :
+      - './applications/asset_server/src/www.conf:/etc/php7/php-fpm.d/www.conf'
+    environment:
       _SERVICE_NAME: 'asset_server'
-      DATABASE_URL : 'pgsql://postgres:password@postgres_server:5432/postgres'
-
+      DATABASE_URL: 'pgsql://postgres:password@postgres_server:5432/postgres'
+  # ---------------------------------------------------------------------------------------------------------------{0x3}
   postgres_server:
-    tty           : true
+    tty: true
     container_name: postgres_server
-    hostname      : postgres
-    image         : postgres
-    ports         :
-      - '5432:5432'
-    volumes       :
+    hostname: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
       - '/Users/utarsuno/code/quasar_source/var/db/postgres:/var/lib/postgresql/data'
-    environment   :
-      POSTGRES_USER    : 'postgres'
-      POSTGRES_DB      : 'postgres'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_DB: 'postgres'
       POSTGRES_PASSWORD: 'password'
+  # ---------------------------------------------------------------------------------------------------------------{0x4}
+  # https://hub.docker.com/r/dpage/pgadmin4/
+  # https://info.crunchydata.com/blog/easy-postgresql-10-and-pgadmin-4-setup-with-docker
+  # TODO: env_var like how {https://github.com/khezen/compose-postgres/blob/master/docker-compose.yml} does it
+  pgadmin4:
+    container_name: pgadmin4
+    hostname: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'pgadmin4@pgadmin.org'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+      PGADMIN_ADMIN_PORT: '80'
+      PGADMIN_LISTEN_ADDRESS: '0.0.0.0'
+      SCRIPT_NAME: '/pgadmin4'
+      DEBUG: 'True'
+    volumes:
+      - '/Users/utarsuno/code/quasar_source/var/pgadmin/pgadmin:/root/.pgadmin'
+      - '/Users/utarsuno/code/quasar_source/var/pgadmin/lib:/var/lib/pgadmin'
+      - '/Users/utarsuno/code/quasar_source/applications/pgadmin/config.py:/pgadmin4/config.py'
+  # --------------------------------------------------------------------------------------------------------------------
 
-#networks:
-#  default:
-#    external:
-#      name: nexus_network
+networks:
+  default:
+    external:
+      name: nexus_network
 
 volumes:
   nexus_volume:
@@ -51,23 +102,6 @@ volumes:
 #    external: true
 #  jenkins-data:
 #    external: true
-
-  # Serves static content and forwards requests to servers.
-#  dapp_nginx:
-    #hostname: nginx
-#    build:
-#      context: .
-#      dockerfile: ./applications/nginx/Dockerfile
-#    environment:
-#      _SERVICE_NAME: "dapp_nginx"
-    #container_name: nginx
-#    ports:
-#      - "80:80"
-#      - "3000:3000"
-#    tty: true
-#    volumes:
-#      - nexus_volume:/v
-#      - ./applications/nginx/nginx.nginx:/etc/nginx/nginx.conf
 
   # Manages automated jobs, builds, etc.
 #  jenkins:

@@ -1,0 +1,137 @@
+# Main Context {configurations that apply on a broad application level}
+
+# ideally (at max) 1 worker per 1 CPU
+worker_processes     auto;
+
+# number of file descriptors that can be used by NGINX (default is 2000)
+worker_rlimit_nofile 1048575;
+
+# TODO:
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+# this context is used for setting global options that affect general behavior of handling connections
+events {
+    # max clients = worker_connections * worker_processes
+    worker_connections 1024;
+
+    # NON-PROD-SAFE:{an optimization for serving many clients in each thread (esp. for Linux)}
+    use                epoll;
+
+    # NON-PROD-SAFE:{accept as many connections as possible, ideally requires more worker_processes}
+    multi_accept       on;
+
+    # since 'reuseport' is being used, 'accept_mutex' should be set off
+    accept_mutex       off;
+}
+
+# sibling of the events context
+http {
+    default_type application/octet-stream;
+
+    include /etc/nginx/mime.types;
+    include /etc/nginx/qs/buffers.nginx;
+    include /etc/nginx/qs/http_performance.nginx;
+    include /etc/nginx/qs/file_cache.nginx;
+    include /etc/nginx/qs/timeouts.nginx;
+    include /etc/nginx/qs/docker_dns_fix.nginx;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    add_header X-Frame-Options "";
+
+    upstream docker_rabbit_manager {
+        server rabbit_manager; #server rabbit_manager:15672;
+    }
+
+    upstream docker_pgadmin {
+        server pgadmin4; #server pgadmin4:5050;
+    }
+
+    upstream docker_asset_server {
+        server asset_server;
+    }
+
+    server {
+        listen      80 reuseport;
+        server_name localhost;
+
+        #       __
+        # |\ | / _` | |\ | \_/
+        # | \| \__> | | \| / \
+        location /nginx {
+            stub_status on;
+        }
+
+        #       __   __   ___ ___  __
+        #  /\  /__` /__` |__   |  /__`
+        # /~~\ .__/ .__/ |___  |  .__/
+        location /v/ {
+            include /etc/nginx/qs/cors.nginx;
+            #include /etc/nginx/qs/header_cache_disable.nginx;
+            root    /;
+        }
+
+        #  __   __        __
+        # |__) / _`  /\  |  \  |\/| | |\ |
+        # |    \__> /~~\ |__/  |  | | | \|
+        location /pgadmin4/ {
+            proxy_pass       http://docker_pgadmin;
+            include          /etc/nginx/qs/proxy_pass.nginx;
+            include          /etc/nginx/qs/cors.nginx;
+            add_header       X-Frame-Options "";
+            proxy_set_header X-Frame-Options "";
+        }
+
+        #  __        __
+        # |__) |__| |__)
+        # |    |  | |
+        location /php/ {
+            #set                  $upstream asset_server:8000;
+            # Mitigate https://httpoxy.org/ vulnerabilities
+
+            #fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            #if (!-f $document_root$fastcgi_script_name) {
+            #    return 404;
+            #}
+
+            fastcgi_param        HTTP_PROXY "";
+            fastcgi_param        HTTPS off;
+            #fastcgi_pass         $upstream;
+            fastcgi_pass         docker_asset_server;
+            #fastcgi_pass         docker_asset_server;
+            #fastcgi_index        index.php;
+            include              fastcgi_params;
+
+            keepalive_timeout    300;
+            client_max_body_size 32m;
+
+            #fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            #fastcgi_param DOCUMENT_ROOT   $realpath_root;
+
+            #root                 /quasar_source/applications/asset_server/code_manager/public;
+        }
+    }
+
+    #  __        __   __    ___          __
+    # |__)  /\  |__) |__) |  |     |\/| /  \
+    # |  \ /~~\ |__) |__) |  |     |  | \__X
+    server {
+        listen 5672  reuseport;
+        listen 15672 reuseport;
+        listen 25672 reuseport;
+
+        server_name  rabbit_manager.*;
+
+        location /rabbit_manager/ {
+            proxy_pass http://docker_rabbit_manager;
+            include    /etc/nginx/qs/proxy_pass.nginx;
+            include    /etc/nginx/qs/cors.nginx;
+        }
+    }
+
+}

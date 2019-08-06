@@ -1,0 +1,2 @@
+proxy_ignore_headers Set-Cookie;
+proxy_hide_header    Set-Cookie;

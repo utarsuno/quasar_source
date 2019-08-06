@@ -1,0 +1,11 @@
+# Client buffer size that gets sent to NGINX.
+client_body_buffer_size     10K;
+
+# Client buffer size for header size.
+client_header_buffer_size   1k;
+
+# Client request maximum size.
+client_max_body_size        8m;
+
+# Client maximum number + size for large header buffers.
+large_client_header_buffers 2 2k;

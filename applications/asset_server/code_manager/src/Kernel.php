@@ -2,17 +2,18 @@
 
 namespace CodeManager;
 
-use function dirname;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Routing\RouteCollectionBuilder;
-use Symfony\Component\HttpKernel\Kernel          as BaseKernel;
-use CodeManager\Enum\ProjectParameterKeys\Path   as PATHS;
-use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 /**
  * Class Kernel
@@ -21,27 +22,21 @@ use CodeManager\Enum\ProjectParameterKeys\Schema as SCHEMAS;
 class Kernel extends BaseKernel {
     use MicroKernelTrait;
 
-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
-    private $project_directory;
-
     /**
      * @return iterable
      */
     public function registerBundles(): iterable {
-        yield new \Symfony\Bundle\FrameworkBundle\FrameworkBundle();
-        yield new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle();
-        yield new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle();
-        yield new \Symfony\Bundle\MonologBundle\MonologBundle();
+        yield new FrameworkBundle();
+        yield new MonologBundle();
+        yield new DoctrineCacheBundle();
+        yield new DoctrineBundle();
     }
 
     /**
      * @return string
      */
     public function getProjectDir(): string {
-        if ($this->project_directory === null) {
-            $this->project_directory = dirname(__DIR__);
-        }
-        return $this->project_directory;
+        return '/quasar_source/applications/asset_server/code_manager';
     }
 
     /**
@@ -50,26 +45,13 @@ class Kernel extends BaseKernel {
      * @throws Exception
      */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void {
-        #var_dump('CONFIGURE CONTAINER!');
-        $container->setParameter(SCHEMAS::YAML_CODE_MANAGER, [
-            'global_information' => null,
-            'assets'             => ['.vert' => null, '.frag' => null],
-            'npm'                => null,
-            'qa_report'          => null,
-            'docker'             => null,
-            'projects'           => null
-        ]);
-        $container->setParameter(SCHEMAS::YAML_ASSETS, [
-            [PATHS::DIRECTORY_OUTPUT => null, PATHS::DIRECTORY_DATA => null, 'files' => null]
-        ]);
-
-        $container->addResource(new FileResource(getenv(PATHS::PROJECT_BUNDLES)));
+        $container->addResource(new FileResource('/quasar_source/applications/asset_server/code_manager/config/bundles.php'));
         $container->setParameter('container.dumper.inline_class_loader', true);
-        $confDir = $this->getProjectDir() . '/config';
+        $confDir = '/quasar_source/applications/asset_server/code_manager/config';
         $loader->load($confDir.'/{packages}/*.yaml', 'glob');
         $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*.yaml', 'glob');
-        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir.'/{services}.{php,xml,yaml,yml}', 'glob');
+        $loader->load($confDir.'/{services}_'.$this->environment.'.{php,xml,yaml,yml}', 'glob');
     }
 
     /**
@@ -77,9 +59,9 @@ class Kernel extends BaseKernel {
      * @throws LoaderLoadException
      */
     protected function configureRoutes(RouteCollectionBuilder $routes): void {
-        $conf_dir = dirname(__DIR__).'/config/{routes}';
+        $conf_dir = '/quasar_source/applications/asset_server/code_manager/config/{routes}';
         $routes->import($conf_dir.'/'.$this->environment.'/**/*.yaml', '/', 'glob');
-        $routes->import($conf_dir.'/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($conf_dir.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($conf_dir.'/*.{php,xml,yaml,yml}', '/', 'glob');
+        $routes->import($conf_dir.'.{php,xml,yaml,yml}', '/', 'glob');
     }
 }

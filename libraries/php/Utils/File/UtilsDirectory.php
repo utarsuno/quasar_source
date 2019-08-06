@@ -23,10 +23,74 @@ abstract class UtilsDirectory {
      * @return bool
      */
     public static function is_valid(string $path, bool $raise_exception_if_not = true): bool {
-        if ($raise_exception_if_not && !is_dir($path)) {
+        $valid = is_dir($path);
+        if ($raise_exception_if_not && !$valid) {
             throw DNE::exception('is_valid', 'path provided{' . $path . '} does not exist!');
         }
-        return true;
+        return $valid;
+    }
+
+    /**
+     * @param  string $path
+     * @return bool
+     */
+    public static function is_base_of_valid(string $path): bool {
+        if (self::is_valid($path, false)) {
+            return true;
+        }
+        return self::is_valid(self::get_base_path($path), false);
+    }
+
+    /**
+     * @param  string $path
+     * @return bool
+     */
+    public static function create_if_dne_but_base_exists(string $path): bool {
+        if (self::is_base_of_valid($path)) {
+            return self::create_recursively($path);
+        }
+        return false;
+    }
+
+    /**
+     * @param  string $path
+     * @return string
+     */
+    public static function get_base_path(string $path): string {
+        $base_path          = '';
+        $num_chars          = strlen($path);
+        $num_matches_needed = 1;
+        if (STR::starts_with($path, '/')) {
+            ++$num_matches_needed;
+        }
+        for ($c = 0; $c < $num_chars; $c++) {
+            $char       = $path[$c];
+            $base_path .= $char;
+            if ($char === '/') {
+                --$num_matches_needed;
+                if ($num_matches_needed === 0) {
+                    return $base_path;
+                }
+            }
+        }
+        return $base_path;
+    }
+
+    /**
+     * @see https://stackoverflow.com/questions/2303372/create-a-folder-if-it-doesnt-already-exist
+     * @author phazei
+     * Original code has been modified!
+     *
+     * @param  string $path
+     * @return bool
+     */
+    public static function create_recursively(string $path): bool {
+        if (is_dir($path)) {
+            return true;
+        }
+        $prev_path = substr($path, 0, strrpos($path, '/', -2) + 1 );
+        $return    = self::create_recursively($prev_path);
+        return ($return && is_writable($prev_path)) ? mkdir($path) : false;
     }
 
     /**
@@ -66,7 +130,7 @@ abstract class UtilsDirectory {
 
         self::is_valid($path_directory);
         $files = scandir($path_directory, SCANDIR_SORT_NONE);
-        if (!STR::ends_with($path_directory, DIRECTORY_SEPARATOR)) {
+        if (!STR::ends_in($path_directory, DIRECTORY_SEPARATOR)) {
             $path_directory .= DIRECTORY_SEPARATOR;
         }
         foreach ($files as $key => $value) {

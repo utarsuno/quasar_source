@@ -5,6 +5,11 @@ namespace QuasarSource\Utils\HTTP;
 /**
  * Class UtilsHTTP
  * @package QuasarSource\Utils\HTTP
+ *
+ * @see https://www.freeformatter.com/mime-types-list.html
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#Important_MIME_types_for_Web_developers
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
  */
 abstract class UtilsHTTP {
 
@@ -13,6 +18,12 @@ abstract class UtilsHTTP {
     public const REQUEST_TYPE_GET    = 'GET';
     public const REQUEST_TYPE_POST   = 'POST';
     public const REQUEST_TYPE_DELETE = 'DELETE';
+
+    public const MIME_WEB_MANIFEST   = 'data:application/manifest+json';
+
+    public const ENCODING_DEFAULT    = 'application/x-www-form-urlencoded';
+    public const ENCODING_BINARY     = 'multipart/form-data';
+    public const ENCODING_PLAIN      = 'text/plain';
 
     /**
      * Executes a HTTP request.

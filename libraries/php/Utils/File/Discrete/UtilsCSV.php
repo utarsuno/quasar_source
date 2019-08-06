@@ -13,9 +13,10 @@ final class UtilsCSV extends UtilsFile {
 
     /**
      * @param  string $path
-     * @return array
+     * @param  bool   $as_string
+     * @return array|string
      */
-    public static function get(string $path): array {
+    public static function get(string $path, bool $as_string=false): array {
         self::is_valid($path);
         $content   = [];
         $lines     = parent::get($path);
@@ -37,7 +38,7 @@ final class UtilsCSV extends UtilsFile {
     private static function split_csv(string $line): array {
         $contents     = STR::split($line, ',');
         $len_contents = count($contents);
-        if (STR::ends_with($contents[$len_contents - 1], PHP_EOL)) {
+        if (STR::ends_in($contents[$len_contents - 1], PHP_EOL)) {
             $contents[$len_contents - 1] = trim($contents[$len_contents - 1]);
         }
         return $contents;

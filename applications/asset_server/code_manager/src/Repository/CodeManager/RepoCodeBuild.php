@@ -15,8 +15,6 @@ use QuasarSource\Utils\Time\UtilsUnixTime      as TIME;
  */
 class RepoCodeBuild extends QueryableRepo {
 
-    public const ENTITY_CLASS = EntityCodeBuild::class;
-
     public function sync_to_logs(): void {
         var_dump('Syncing logs');
 
@@ -42,7 +40,7 @@ class RepoCodeBuild extends QueryableRepo {
                 $entity->set_timestamp($section_times[$c]);
 
                 $entity->set_logs_session($sections[$c]);
-                $this->save_entity($entity, true);
+                $this->save($entity, true);
             }
             $this->flush();
         } else {

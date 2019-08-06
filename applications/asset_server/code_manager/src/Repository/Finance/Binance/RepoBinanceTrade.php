@@ -11,6 +11,5 @@ use CodeManager\Repository\Abstractions\AbstractRepo;
 class RepoBinanceTrade extends AbstractRepo {
 
     protected $entity_class   = EntityBinanceTrade::class;
-    public const ENTITY_CLASS = EntityBinanceTrade::class;
 
 }

@@ -7,7 +7,6 @@ use CodeManager\Entity\Users\EntityEntity;
 use CodeManager\Repository\Abstractions\QueryableRepo;
 use CodeManager\Repository\Users\RepoEntityEntity;
 use QuasarSource\Utils\DataType\UtilsString   as STR;
-use QuasarSource\Utils\File\Discrete\UtilsCSV as CSV;
 
 /**
  * Class RepoAssetFlow
@@ -15,8 +14,7 @@ use QuasarSource\Utils\File\Discrete\UtilsCSV as CSV;
  */
 class RepoAssetFlow extends QueryableRepo {
 
-    public const ENTITY_CLASS = EntityAssetFlow::class;
-    protected $entity_class   = EntityAssetFlow::class;
+    protected $entity_class = EntityAssetFlow::class;
 
     public const TYPE_QUICK_PAY = 2;
 
@@ -75,7 +73,7 @@ class RepoAssetFlow extends QueryableRepo {
             ->set_transaction_type(3)
             ->set_from_to_dynamically($user, $to, $data[3]);
 
-        $this->save_entity($entity, true);
+        $this->save($entity, true);
     }
 
     /**
@@ -91,7 +89,7 @@ class RepoAssetFlow extends QueryableRepo {
             ->set_transaction_type(2)
             ->set_from_to_dynamically($user, $match, $data[3]);
 
-        $this->save_entity($entity, true);
+        $this->save($entity, true);
     }
 
     /**
@@ -107,6 +105,6 @@ class RepoAssetFlow extends QueryableRepo {
     # ------------------------------------ A B S T R A C T I O N   C O N T R A C T  ------------------------------------
 
     public function set_needed_repos(): void {
-        $this->repo_users = $this->db_service->get_repo(RepoEntityEntity::class);
+        $this->repo_users = $this->db_service->get_repo(EntityEntity::class);
     }
 }

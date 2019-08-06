@@ -1,0 +1,6 @@
+add_header X-Cache-Status $upstream_cache_status;
+expires    30d;
+add_header Cache-Control  "public";
+
+# @see https://stackoverflow.com/questions/1920781/what-does-the-http-header-pragma-public-mean
+add_header Pragma         public;

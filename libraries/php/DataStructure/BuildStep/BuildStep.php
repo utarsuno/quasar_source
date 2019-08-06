@@ -7,7 +7,6 @@ use QuasarSource\CommonFeatures\TraitName;
 use QuasarSource\CommonFeatures\TraitTimer;
 use QuasarSource\DataStructure\FlagTable\TraitFlagTable;
 use QuasarSource\Utils\DataType\UtilsArray  as ARY;
-use QuasarSource\Utils\DataType\UtilsString as STR;
 use Throwable;
 
 /**
@@ -45,6 +44,10 @@ final class BuildStep {
         $this->set_name_and_label($name, 'BuildStep');
         $this->init_trait_timer(false, true);
         $this->flags_set_all([self::FLAG_STARTED, self::FLAG_FAILED, self::FLAG_INTERRUPTED, self::FLAG_COMPLETED, self::FLAG_RECOVERED]);
+    }
+
+    public function __destruct() {
+        unset($this->callbacks, $this->callbacks_on_failed, $this->callbacks_on_passed, $this->callback_executions, $this->last_exception_thrown);
     }
 
     /**
@@ -97,6 +100,8 @@ final class BuildStep {
      * @throws Throwable
      */
     public function run_step(int $n): void {
+        # TODO: TIMER!
+
         $index       = 0;
         $index_found = false;
         foreach ($this->callbacks as $desc => $callback) {
@@ -148,7 +153,7 @@ final class BuildStep {
      * @throws Throwable
      */
     private function run_on_failed_if_exists(string $description): void {
-        if (!$this->has_on_failed($description)) {
+        if (!array_key_exists($description, $this->callbacks_on_failed)) {
             throw $this->last_exception_thrown;
         }
         $on_failed = $this->execute_callback($description, $this->callbacks_on_failed[$description]);
@@ -172,7 +177,7 @@ final class BuildStep {
      * @throws Throwable
      */
     private function run_on_passed_if_exists(string $description): void {
-        if ($this->has_on_passed($description)) {
+        if (array_key_exists($description, $this->callbacks_on_passed)) {
             $on_passed = $this->execute_callback($description, $this->callbacks_on_passed[$description]);
             if (!$on_passed) {
                 throw $this->last_exception_thrown;
@@ -208,22 +213,6 @@ final class BuildStep {
      */
     protected function passed(): bool {
         return $this->flag_is_off(self::FLAG_FAILED) && $this->flag_is_on(self::FLAG_COMPLETED);
-    }
-
-    /**
-     * @param  string $desc
-     * @return bool
-     */
-    private function has_on_failed(string $desc): bool {
-        return array_key_exists($desc, $this->callbacks_on_failed);
-    }
-
-    /**
-     * @param  string $desc
-     * @return bool
-     */
-    private function has_on_passed(string $desc): bool {
-        return array_key_exists($desc, $this->callbacks_on_passed);
     }
 
 }

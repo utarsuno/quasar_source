@@ -3,7 +3,6 @@
 namespace QuasarSource\Utils\File\Discrete;
 
 use Exception;
-use QuasarSource\Utils\Exception\ExceptionSystem;
 use QuasarSource\Utils\File\UtilsFile;
 use Symfony\Component\Yaml\Yaml;
 
@@ -16,13 +15,13 @@ final class UtilsYAML extends UtilsFile {
     /**
      * Returns the contents of a YAML file as an association array.
      *
-     * @param string $path [The path to the (yml/yaml) file to get contents of.]
-     * @return array       [An association array of the file's contents.       ]
-     * @throws ExceptionSystem
+     * @param  string $path      {path to the (yml/yaml) file to get contents of}
+     * @param  bool   $as_string {}
+     * @return array             {association array of the file's contents      }
      */
-    public static function get(string $path): array {
+    public static function get(string $path, bool $as_string=false) {
+        self::is_valid($path);
         try {
-            self::is_valid($path);
             return Yaml::parseFile($path);
         } catch (Exception $e) {
             throw self::exception('get', $e->getMessage());
