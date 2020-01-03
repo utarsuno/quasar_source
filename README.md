@@ -1,6 +1,7 @@
-## Development Screenshots
+# 100% deprecated, no TDD 👁️👄👁️
 
-Note: back-end going through full refactor, front-end work paused atm
+## Ruby is live, Ruby is laugh, Ruby is Love
+
 
 November 2018
 ![alt_text](https://i.imgur.com/r0Hsbc3.jpg)
