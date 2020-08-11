@@ -1,7 +1,4 @@
-# 100% deprecated, no TDD 👁️👄👁️
-
-## Ruby is live, Ruby is laugh, Ruby is Love
-
+# 100% deprecated, no TDD
 
 November 2018
 ![alt_text](https://i.imgur.com/r0Hsbc3.jpg)
