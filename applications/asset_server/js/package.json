@@ -15,7 +15,7 @@
     "csso": "^3.5.1",
     "html-minifier": "^4.0.0",
     "npm": "^6.9.0",
-    "three": "^0.104.0",
+    "three": "^0.137.0",
     "webpack": "^4.30.0"
   },
   "devDependencies": {
